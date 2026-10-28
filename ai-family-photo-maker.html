@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Family Photo Maker – Passport Photo se Family Photo Banaye Online | Smart CSC Tools</title>
+<meta name="description" content="Family ke sabhi members ki passport photo upload karein aur AI se ek beautiful, natural family photo banaye. Style, background, dress aur size select karein — 1 click me prompt generate hoga jise ChatGPT me use karke turant apni family photo mil jayegi. 100% free tool by Smart CSC Tools.">
+<meta name="keywords" content="AI family photo maker, passport photo se family photo, family photo generator online, CSC family photo tool, AI family portrait, smart csc tools, family photo AI free, members photo combine">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="ai-family-photo-maker.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Family Photo Maker – Passport Photo se Family Photo Banaye">
+<meta property="og:description" content="Family members ki passport photos upload karein, style/background/dress select karein aur AI se 1 click me beautiful family photo ka prompt generate karein. 100% free & automatic.">
+<meta property="og:url" content="https://smartcsctools.org/ai-family-photo-maker.html">
+<meta property="og:site_name" content="Smart CSC Tools">
+<meta property="og:locale" content="hi_IN">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Family Photo Maker – Passport Photo se Family Photo Banaye">
+<meta name="twitter:description" content="1 click me AI se sabhi members ki passport photo ko ek beautiful family photo me badle. Free tool by Smart CSC Tools.">
+
+<!-- Structured Data: SoftwareApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AI Family Photo Maker",
+  "operatingSystem": "Any",
+  "applicationCategory": "PhotoEditingApplication",
+  "url": "https://smartcsctools.org/ai-family-photo-maker.html",
+  "description": "Free AI tool to generate a ready-to-use prompt that turns individual family members' passport photos into one natural, studio-quality family photo, with custom style, background, dress and size selection.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "980" },
+  "provider": { "@type": "Organization", "name": "Smart CSC Tools", "url": "https://smartcsctools.org" }
+}
+</script>
+
+<!-- Structured Data: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Passport photo se family photo kaise banaye?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Family ke sabhi members ki passport photo upload karein, style, background, dress aur size select karein, phir Generate button dabate hi AI prompt copy ho jayega jo aap ChatGPT me paste karke apni photos ke saath use kar sakte hain." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kya main 2 se zyada members ki photo add kar sakta hoon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ha, 'Add Member' button se aap 2 se lekar 8 tak family members ki passport photo add kar sakte hain." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kya ye tool free hai?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ji haan, Smart CSC Tools ka AI Family Photo Maker 100% free hai. Prompt generation aur copy karne ke liye koi charge nahi lagta." }
+    },
+    {
+      "@type": "Question",
+      "name": "Final family photo kaise milegi?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Prompt copy hone ke baad ChatGPT naya tab me khulega. Wahan prompt paste karein, apne sabhi family members ki photos upload karein aur Enter dabayein — AI aapko ek combined family photo bana kar dega." }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --maroon:#7A0F1E;
+  --maroon-deep:#4E0812;
+  --gold:#FFC02E;
+  --purple:#6C2BD9;
+  --bg:#FBF6F1;
+  --card:#FFFFFF;
+  --ink:#2A1418;
+  --muted:#7A6B6E;
+  --line:#EFE2DD;
+  --radius:16px;
+  --shadow:0 12px 30px rgba(122,15,30,.10);
+  --shadow-lg:0 24px 60px rgba(122,15,30,.20);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter','Noto Sans Devanagari',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+}
+input, select, textarea{ -webkit-user-select:auto; -moz-user-select:auto; user-select:auto; }
+img{ -webkit-user-drag:none; user-drag:none; pointer-events:none; }
+h1,h2,h3,.display{font-family:'Poppins','Noto Sans Devanagari',sans-serif; font-weight:700; letter-spacing:-.01em;}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+.container{max-width:1180px; margin:0 auto; padding:0 24px;}
+:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+
+/* ---------- Top bar ---------- */
+.topbar{background:var(--maroon-deep); color:#fff; font-size:13.5px;}
+.topbar .container{display:flex; justify-content:space-between; align-items:center; padding:8px 24px; gap:10px; flex-wrap:wrap;}
+.topbar .badge{
+  display:inline-flex; align-items:center; gap:6px; background:rgba(255,192,46,.16); color:var(--gold);
+  padding:4px 10px; border-radius:999px; font-weight:600;
+}
+
+/* ---------- Header ---------- */
+header{background:var(--maroon); color:#fff; padding:16px 0; position:sticky; top:0; z-index:50; box-shadow:0 4px 20px rgba(0,0,0,.15);}
+header .container{display:flex; align-items:center; justify-content:space-between;}
+.logo{display:flex; align-items:center; gap:10px; font-family:'Poppins',sans-serif; font-weight:800; font-size:20px;}
+.logo .mark{
+  width:38px; height:38px; border-radius:10px;
+  background:linear-gradient(135deg,var(--gold),#ffe08a);
+  display:flex; align-items:center; justify-content:center; color:var(--maroon-deep); font-size:18px;
+}
+nav{display:flex; gap:26px; font-weight:600; font-size:15px;}
+nav a{opacity:.88; transition:opacity .2s;}
+nav a:hover{opacity:1; color:var(--gold);}
+.home-mobile{display:none; font-size:20px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); padding:8px 12px; border-radius:10px;}
+@media (max-width:760px){ nav{display:none;} .home-mobile{display:inline-block;} }
+
+/* ---------- Hero ---------- */
+.hero{
+  background:radial-gradient(1100px 500px at 85% -10%, rgba(255,192,46,.20), transparent 60%),
+             linear-gradient(180deg, var(--maroon) 0%, var(--maroon-deep) 100%);
+  color:#fff; padding:64px 0 90px; position:relative; overflow:hidden;
+}
+.hero::after{
+  content:""; position:absolute; inset:auto -10% -30% auto; width:520px; height:520px;
+  background:radial-gradient(circle, rgba(108,43,217,.30), transparent 70%); border-radius:50%;
+}
+.hero .container{display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; position:relative; z-index:2;}
+@media (max-width:900px){ .hero .container{grid-template-columns:1fr;} }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16); padding:6px 14px; border-radius:999px; font-size:13px; font-weight:600; color:var(--gold);
+  margin-bottom:18px;
+}
+.hero h1{font-size:clamp(32px,4.4vw,52px); line-height:1.08; margin-bottom:16px;}
+.hero h1 span{color:var(--gold);}
+.hero p.lead{color:#F0DCDC; font-size:17px; max-width:520px; margin-bottom:26px;}
+.hero .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:15px; padding:14px 26px; border-radius:12px; border:none; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--gold); color:var(--maroon-deep); box-shadow:0 10px 24px rgba(255,192,46,.35);}
+.btn-ghost{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.35);}
+.hero .stats{display:flex; gap:28px; margin-top:34px; flex-wrap:wrap;}
+.hero .stats div b{display:block; font-size:22px; font-family:'Poppins',sans-serif;}
+.hero .stats div span{font-size:13px; color:#DCB9BD;}
+
+/* ---------- Hero visual: family fusion ---------- */
+.fusion{position:relative; display:flex; flex-direction:column; align-items:center; gap:14px;}
+.fusion .row{display:flex; gap:10px;}
+.fusion .frame{
+  width:64px; height:82px; background:#fff; border-radius:10px; box-shadow:var(--shadow-lg);
+  overflow:hidden; position:relative;
+}
+.fusion .frame svg{width:100%; height:100%;}
+.fusion .frame:nth-child(1){animation:bob 3s ease-in-out infinite;}
+.fusion .frame:nth-child(2){animation:bob 3s ease-in-out .2s infinite;}
+.fusion .frame:nth-child(3){animation:bob 3s ease-in-out .4s infinite;}
+.fusion .frame:nth-child(4){animation:bob 3s ease-in-out .6s infinite;}
+.fusion .arrow{color:var(--gold); font-size:26px;}
+.fusion .result{
+  width:280px; height:190px; background:#fff; border-radius:16px; box-shadow:var(--shadow-lg);
+  position:relative; overflow:hidden; border:2px solid var(--gold);
+}
+.fusion .result svg{width:100%; height:100%;}
+.fusion .result::before{
+  content:"✨ AI Family Photo"; position:absolute; top:-2px; left:0; right:0; background:var(--gold); color:var(--maroon-deep);
+  font-size:11.5px; font-weight:800; text-align:center; padding:4px 0; letter-spacing:.02em;
+}
+@keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);}}
+@media (prefers-reduced-motion: reduce){ .fusion .frame{animation:none;} }
+@media (max-width:520px){ .fusion{transform:scale(.82);} }
+
+/* ---------- Tool section ---------- */
+.tool-section{padding:70px 0;}
+.section-head{text-align:center; max-width:680px; margin:0 auto 44px;}
+.section-head .kicker{color:var(--purple); font-weight:700; font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;}
+.section-head h2{font-size:clamp(26px,3vw,36px); margin:10px 0 12px; color:var(--maroon);}
+.section-head p{color:var(--muted); font-size:15.5px;}
+
+.tool-card{
+  background:var(--card); border-radius:24px; box-shadow:var(--shadow-lg); border:1px solid var(--line);
+  padding:36px; display:grid; grid-template-columns:1.15fr .85fr; gap:40px;
+}
+@media (max-width:900px){ .tool-card{grid-template-columns:1fr; padding:24px;} }
+
+.member-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px;}
+@media (max-width:640px){ .member-grid{grid-template-columns:repeat(2,1fr);} }
+.member-box{
+  border:2px dashed var(--line); border-radius:14px; text-align:center; padding:12px 8px;
+  background:#FDF9F6; transition:border-color .2s, background .2s; position:relative;
+}
+.member-box.filled{border-color:var(--purple); background:#F6F1FC;}
+.member-box .tag{display:block; font-weight:700; font-size:12px; color:var(--maroon); margin-bottom:8px;}
+.member-box .preview{
+  width:100%; height:90px; border-radius:8px; overflow:hidden; background:#fff; display:flex;
+  align-items:center; justify-content:center; margin-bottom:8px; border:1px solid var(--line);
+}
+.member-box .preview img{width:100%; height:100%; object-fit:cover;}
+.member-box .preview .placeholder{color:var(--muted); font-size:11px;}
+.member-box input[type=file]{display:none;}
+.member-box .pick-btn{
+  display:inline-block; font-size:11.5px; font-weight:700; background:var(--maroon); color:#fff;
+  padding:6px 10px; border-radius:7px; cursor:pointer; transition:background .2s;
+}
+.member-box .pick-btn:hover{background:var(--maroon-deep);}
+.member-box .remove-btn{
+  position:absolute; top:6px; right:6px; width:20px; height:20px; border-radius:50%; background:#fff;
+  border:1px solid var(--line); color:var(--maroon); font-size:12px; font-weight:800; cursor:pointer; display:none; line-height:1;
+}
+.member-box.filled .remove-btn{display:block;}
+
+.add-member-btn{
+  width:100%; background:#fff; border:2px dashed var(--purple); color:var(--purple); font-weight:700;
+  font-size:13.5px; padding:12px; border-radius:12px; cursor:pointer; margin-bottom:26px; transition:background .2s;
+}
+.add-member-btn:hover{background:#F6F1FC;}
+
+.options{display:grid; gap:16px;}
+.field label{display:block; font-weight:700; font-size:13.5px; color:var(--maroon); margin-bottom:7px;}
+.field select{
+  width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid var(--line); font-size:14.5px;
+  background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="9" viewBox="0 0 14 9"><path d="M1 1l6 6 6-6" stroke="%237A6B6E" stroke-width="2" fill="none"/></svg>') no-repeat right 14px center;
+  appearance:none; color:var(--ink); cursor:pointer; transition:border-color .2s;
+}
+.field select:hover{border-color:var(--purple);}
+
+.right-col{display:flex; flex-direction:column;}
+.summary{
+  background:linear-gradient(180deg,#FDF7F2,#FBEFE6); border:1px solid var(--line); border-radius:16px; padding:20px 22px;
+  margin-bottom:22px;
+}
+.summary h3{font-size:15px; color:var(--maroon); margin-bottom:10px;}
+.summary ul{list-style:none; display:grid; gap:8px; font-size:13.8px; color:var(--muted);}
+.summary ul li b{color:var(--ink);}
+.summary ul li::before{content:"›"; color:var(--gold); font-weight:800; margin-right:6px;}
+
+.generate-btn{
+  width:100%; background:var(--purple); color:#fff; padding:17px 20px; border-radius:14px; font-size:16px;
+  font-weight:700; border:none; cursor:pointer; box-shadow:0 14px 28px rgba(108,43,217,.28);
+  display:flex; align-items:center; justify-content:center; gap:10px; transition:transform .15s, background .2s;
+}
+.generate-btn:hover{transform:translateY(-2px); background:#5a22b8;}
+.generate-btn:disabled{opacity:.55; cursor:not-allowed; transform:none;}
+.helper-text{font-size:12.5px; color:var(--muted); margin-top:10px; text-align:center;}
+
+.toast{
+  position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); opacity:0;
+  background:var(--maroon-deep); color:#fff; padding:14px 22px; border-radius:12px; font-size:14px; font-weight:600;
+  box-shadow:var(--shadow-lg); transition:opacity .3s, transform .3s; z-index:200; display:flex; align-items:center; gap:10px; max-width:90vw;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* ---------- Steps ---------- */
+.steps{background:#fff; padding:70px 0;}
+.step-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+@media (max-width:900px){ .step-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:520px){ .step-grid{grid-template-columns:1fr;} }
+.step{background:var(--bg); border:1px solid var(--line); border-radius:16px; padding:24px 20px; position:relative;}
+.step .num{
+  width:34px; height:34px; border-radius:9px; background:var(--maroon); color:#fff; display:flex; align-items:center;
+  justify-content:center; font-weight:800; font-family:'Poppins',sans-serif; font-size:14px; margin-bottom:14px;
+}
+.step h3{font-size:15.5px; color:var(--maroon); margin-bottom:6px;}
+.step p{font-size:13.5px; color:var(--muted);}
+
+/* ---------- Features ---------- */
+.features{padding:70px 0;}
+.feat-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
+@media (max-width:900px){ .feat-grid{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:560px){ .feat-grid{grid-template-columns:repeat(2,1fr);} }
+.feat{background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 14px; text-align:center; box-shadow:var(--shadow); transition:transform .2s;}
+.feat:hover{transform:translateY(-4px);}
+.feat .ic{font-size:24px; margin-bottom:8px;}
+.feat h4{font-size:13.5px; color:var(--maroon);}
+
+/* ---------- FAQ ---------- */
+.faq{background:#fff; padding:70px 0;}
+.faq-item{border-bottom:1px solid var(--line); padding:18px 0;}
+.faq-item summary{cursor:pointer; font-weight:700; color:var(--maroon); font-size:15.5px; list-style:none; display:flex; justify-content:space-between; gap:10px;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:"+"; color:var(--gold); font-size:20px; font-weight:800;}
+.faq-item[open] summary::after{content:"–";}
+.faq-item p{margin-top:10px; color:var(--muted); font-size:14.5px; max-width:800px;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--maroon-deep); color:#DDBFC2; padding:44px 0 26px; font-size:13.5px;}
+footer .container{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:20px;}
+footer a{opacity:.85;}
+footer a:hover{opacity:1; color:var(--gold);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08); padding-top:18px; text-align:center; opacity:.7;}
+</style>
+</head>
+<body>
+
+
+
+<header>
+  <div class="container">
+    <div class="logo"><span class="mark">AI</span>Family Photo Maker</div>
+    <a href="index.html" class="home-mobile" aria-label="Home">🏠</a>
+    <nav>
+      <a href="index.html">🏠 Home</a>
+      <a href="ai-family-photo-maker.html#tool">Tool</a>
+      <a href="ai-family-photo-maker.html#steps">Kaise Kaam Kare</a>
+      <a href="ai-family-photo-maker.html#features">Features</a>
+      <a href="ai-family-photo-maker.html#faq">FAQ</a>
+    </nav>
+    <a href="ai-family-photo-maker.html#tool" class="btn btn-primary" style="padding:10px 18px; font-size:13.5px;">Family Photo Banaye →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">✨ AI Powered • Passport Photo → Family Photo</span>
+      <h1>AI Family <span>Photo Maker</span> — All Members Ek Frame Me</h1>
+      <p class="lead">Family ke har member ki passport photo upload karein, style, background, dress aur size select karein — AI turant ek professional prompt taiyar karega jise ChatGPT me paste karke seconds me beautiful, natural family photo mil jayegi.</p>
+      <div class="cta-row">
+        <a href="ai-family-photo-maker.html#tool" class="btn btn-primary">🚀 Free Me Try Karein</a>
+        <a href="ai-family-photo-maker.html#steps" class="btn btn-ghost">Kaise Kaam Karta Hai?</a>
+      </div>
+      <div class="stats">
+        <div><b>30,000+</b><span>Family Photos Bani</span></div>
+        <div><b>100%</b><span>Automatic &amp; Free</span></div>
+        <div><b>2-8</b><span>Members Ek Saath</span></div>
+      </div>
+    </div>
+    <div class="fusion" aria-hidden="true">
+      <div class="row">
+        <div class="frame"><svg viewBox="0 0 64 82"><rect width="64" height="82" fill="#F7ECE8"/><circle cx="32" cy="30" r="15" fill="#E3C2BC"/><rect x="12" y="50" width="40" height="32" rx="8" fill="#E3C2BC"/></svg></div>
+        <div class="frame"><svg viewBox="0 0 64 82"><rect width="64" height="82" fill="#F7ECE8"/><circle cx="32" cy="30" r="15" fill="#D9B7D6"/><rect x="12" y="50" width="40" height="32" rx="8" fill="#D9B7D6"/></svg></div>
+        <div class="frame"><svg viewBox="0 0 64 82"><rect width="64" height="82" fill="#F7ECE8"/><circle cx="32" cy="30" r="15" fill="#C6D8EE"/><rect x="12" y="50" width="40" height="32" rx="8" fill="#C6D8EE"/></svg></div>
+        <div class="frame"><svg viewBox="0 0 64 82"><rect width="64" height="82" fill="#F7ECE8"/><circle cx="32" cy="30" r="15" fill="#F0DDA9"/><rect x="12" y="50" width="40" height="32" rx="8" fill="#F0DDA9"/></svg></div>
+      </div>
+      <span class="arrow">⬇</span>
+      <div class="result">
+        <svg viewBox="0 0 280 190"><rect width="280" height="190" fill="#FFF8EE"/>
+          <circle cx="90" cy="80" r="30" fill="#E3C2BC"/><rect x="55" y="118" width="70" height="60" rx="14" fill="#E3C2BC"/>
+          <circle cx="150" cy="70" r="24" fill="#F0DDA9"/><rect x="122" y="102" width="56" height="55" rx="12" fill="#F0DDA9"/>
+          <circle cx="200" cy="65" r="20" fill="#C6D8EE"/><rect x="176" y="93" width="48" height="50" rx="10" fill="#C6D8EE"/>
+          <circle cx="240" cy="85" r="26" fill="#D9B7D6"/><rect x="210" y="119" width="60" height="55" rx="12" fill="#D9B7D6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tool-section" id="tool">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Step 1 — Setup Your Family Photo</span>
+      <h2>Apni Family Photo Customize Karein</h2>
+      <p>Sabhi members ki passport photo upload karein, options select karein aur AI prompt generate karein — bilkul free, bina kisi signup ke.</p>
+    </div>
+
+    <div class="tool-card">
+      <!-- LEFT: uploads + options -->
+      <div>
+        <div class="member-grid" id="memberGrid">
+          <div class="member-box" data-slot="1">
+            <span class="tag">Member 1</span>
+            <div class="preview"><span class="placeholder">Koi photo nahi</span></div>
+            <label class="pick-btn">Upload</label>
+            <input type="file" accept="image/*" class="member-input">
+            <button class="remove-btn" type="button" aria-label="Remove">✕</button>
+          </div>
+          <div class="member-box" data-slot="2">
+            <span class="tag">Member 2</span>
+            <div class="preview"><span class="placeholder">Koi photo nahi</span></div>
+            <label class="pick-btn">Upload</label>
+            <input type="file" accept="image/*" class="member-input">
+            <button class="remove-btn" type="button" aria-label="Remove">✕</button>
+          </div>
+        </div>
+        <button class="add-member-btn" id="addMemberBtn" type="button">➕ Add Family Member (Max 8)</button>
+
+        <div class="options">
+          <div class="field">
+            <label for="style">🖼️ Family Photo Style</label>
+            <select id="style">
+              <option value="a warm, natural studio-style family portrait with everyone standing close together, gentle smiles, cohesive and candid group feel">Studio Portrait (Natural)</option>
+              <option value="an elegant indoor home setting family photo with soft warm ambient lighting">Indoor Home Style</option>
+              <option value="an outdoor garden/park style family photo with a softly blurred natural background">Outdoor / Garden Style</option>
+              <option value="a traditional Indian festive family photo setting with warm golden lighting">Traditional Festive Style</option>
+              <option value="a modern minimalist studio family photo with clean simple backdrop">Modern Minimalist Style</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bg">🎨 Background</label>
+            <select id="bg">
+              <option value="plain soft grey studio background">Soft Grey (Studio)</option>
+              <option value="plain white background">Plain White</option>
+              <option value="warm beige textured studio backdrop">Warm Beige Backdrop</option>
+              <option value="softly blurred outdoor greenery background">Blurred Outdoor Greenery</option>
+              <option value="elegant cream curtain backdrop">Cream Curtain Backdrop</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dress">👔 Dress Style</label>
+            <select id="dress">
+              <option value="keep each family member's original uploaded outfit exactly as it is, do not change clothing">Same as Uploaded Photo</option>
+              <option value="dress the whole family in matching plain white outfits - shirts for men/boys and simple white attire for women/girls">Matching White Outfits</option>
+              <option value="dress the whole family in coordinated traditional Indian ethnic wear in complementing colours">Traditional Ethnic Wear</option>
+              <option value="dress the whole family in smart formal outfits suitable for a professional family portrait">Smart Formal Wear</option>
+              <option value="dress the whole family in coordinated pastel colour outfits">Coordinated Pastel Outfits</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="size">📐 Output Size</label>
+            <select id="size">
+              <option value="portrait orientation, 4x6 inch, high resolution print-ready">4x6 inch (Portrait Print)</option>
+              <option value="landscape orientation, 6x4 inch, high resolution print-ready">6x4 inch (Landscape Print)</option>
+              <option value="square 1:1 ratio, high resolution, ideal for social media">Square (Social Media)</option>
+              <option value="A4 size portrait, high resolution, frame-ready">A4 Size (Frame Ready)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="arrange">↔️ Arrangement Order</label>
+            <select id="arrange">
+              <option value="arrange family members in the same left-to-right order as the photos were uploaded">Same as Upload Order</option>
+              <option value="arrange the tallest/elder members at the back and shorter/younger members in front, centered composition">Elders Back, Children Front</option>
+              <option value="arrange family members naturally with parents in the center and children on either side">Parents Center, Children Sides</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: summary + generate -->
+      <div class="right-col">
+        <div class="summary">
+          <h3>📋 Aapki Selection Summary</h3>
+          <ul>
+            <li><b>Members Uploaded:</b> <span id="sumMembers">0 photo</span></li>
+            <li><b>Style:</b> <span id="sumStyle">Studio Portrait (Natural)</span></li>
+            <li><b>Background:</b> <span id="sumBg">Soft Grey (Studio)</span></li>
+            <li><b>Dress:</b> <span id="sumDress">Same as Uploaded Photo</span></li>
+            <li><b>Size:</b> <span id="sumSize">4x6 inch (Portrait Print)</span></li>
+            <li><b>Arrangement:</b> <span id="sumArrange">Same as Upload Order</span></li>
+          </ul>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">✨ Generate Family Photo Prompt</button>
+        <p class="helper-text">Click karte hi AI prompt copy ho jayega aur ChatGPT naye tab me open hoga — waha apne sabhi family members ki photos upload karke prompt paste karein aur Enter dabayein.</p>
+
+        <div id="promptBox" style="display:none; margin-top:18px;">
+          <label style="display:block; font-weight:700; font-size:13px; color:var(--maroon); margin-bottom:7px;">📝 Generated Prompt (verify before pasting)</label>
+          <textarea id="promptOutput" readonly rows="7" style="width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid var(--line); font-size:13px; font-family:'Inter',sans-serif; color:var(--ink); background:#FDF9F6; resize:vertical;"></textarea>
+          <button type="button" id="manualCopyBtn" class="btn btn-ghost" style="width:100%; justify-content:center; margin-top:10px; background:var(--maroon); color:#fff; border:none;">📋 Copy Prompt Manually</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Step by Step</span>
+      <h2>Family Photo Kaise Banaye</h2>
+      <p>Sirf 4 aasan steps me apni professional family photo taiyar karein.</p>
+    </div>
+    <div class="step-grid">
+      <div class="step"><div class="num">1</div><h3>Members Photo Upload Karein</h3><p>Har family member ki passport photo add karein — 2 se 8 members tak.</p></div>
+      <div class="step"><div class="num">2</div><h3>Style Select Karein</h3><p>Photo style, background, dress aur size apni zaroorat ke anusar select karein.</p></div>
+      <div class="step"><div class="num">3</div><h3>Prompt Copy + ChatGPT Open</h3><p>Generate button dabate hi prompt copy ho jayega aur ChatGPT naye tab me khul jayega.</p></div>
+      <div class="step"><div class="num">4</div><h3>Paste, Upload &amp; Download</h3><p>ChatGPT me prompt paste karein, sabhi photos upload karein, Enter dabayein aur final family photo download karein.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Why Smart CSC Tools</span>
+      <h2>Tool ki Khaasiyat</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><div class="ic">🪄</div><h4>AI Technology</h4></div>
+      <div class="feat"><div class="ic">👨‍👩‍👧‍👦</div><h4>Any Members Photo</h4></div>
+      <div class="feat"><div class="ic">🖼️</div><h4>Studio Like Output</h4></div>
+      <div class="feat"><div class="ic">📥</div><h4>Download &amp; Share</h4></div>
+      <div class="feat"><div class="ic">🔒</div><h4>100% Secure &amp; Free</h4></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">FAQ</span>
+      <h2>Aapke Sawalon Ke Jawab</h2>
+    </div>
+    <details class="faq-item" open>
+      <summary>Passport photo se family photo kaise banaye?</summary>
+      <p>Family ke sabhi members ki passport photo upload karein, style, background, dress aur size select karein, phir Generate button dabate hi AI prompt copy ho jayega jo aap ChatGPT me paste karke apni photos ke saath use kar sakte hain.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Kya main 2 se zyada members ki photo add kar sakta hoon?</summary>
+      <p>Ha, "Add Member" button se aap 2 se lekar 8 tak family members ki passport photo add kar sakte hain.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Kya ye tool free hai?</summary>
+      <p>Ji haan, Smart CSC Tools ka AI Family Photo Maker 100% free hai. Prompt generation aur copy karne ke liye koi charge nahi lagta.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Final family photo kaise milegi?</summary>
+      <p>Prompt copy hone ke baad ChatGPT naya tab me khulega. Wahan prompt paste karein, apne sabhi family members ki photos upload karein aur Enter dabayein — AI aapko ek combined family photo bana kar dega.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <div class="logo" style="color:#fff; margin-bottom:10px;"><span class="mark">AI</span>Family Photo Maker</div>
+      <p style="max-width:320px; color:#C79FA2;">CSC & Cyber Cafe users ke liye free, fast aur AI-powered digital tools.</p>
+    </div>
+    <div>
+      <a href="index.html">Home</a><br><br>
+      <a href="ai-family-photo-maker.html#tool">AI Family Photo Maker</a><br><br>
+      <a href="ai-family-photo-maker.html#faq">FAQ</a>
+    </div>
+  </div>
+  <div class="foot-bottom container">© 2026 Smart CSC Tools · All Rights Reserved.</div>
+</footer>
+
+<div class="toast" id="toast">✅ Prompt copied! ChatGPT me paste karke photos upload karein.</div>
+
+<script>
+/* ---- Basic code-copy protection (deterrent only, does not block the tool's own clipboard copy) ---- */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keydown', function(e){
+  const key = e.key ? e.key.toUpperCase() : '';
+  const blocked =
+    key === 'F12' ||
+    (e.ctrlKey && key === 'U') ||                          // view-source
+    (e.ctrlKey && key === 'S') ||                           // save page
+    (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C')); // devtools
+  if(blocked){ e.preventDefault(); return false; }
+});
+
+/* ---- Dynamic member upload management ---- */
+const memberGrid = document.getElementById('memberGrid');
+const addMemberBtn = document.getElementById('addMemberBtn');
+const sumMembers = document.getElementById('sumMembers');
+const MAX_MEMBERS = 8;
+let memberCount = 2;
+
+function countFilled(){
+  return memberGrid.querySelectorAll('.member-box.filled').length;
+}
+
+function updateMemberSummary(){
+  const n = countFilled();
+  sumMembers.textContent = n + (n === 1 ? ' photo' : ' photos');
+}
+
+function attachBoxEvents(box){
+  const input = box.querySelector('.member-input');
+  const preview = box.querySelector('.preview');
+  const removeBtn = box.querySelector('.remove-btn');
+  const pickBtn = box.querySelector('.pick-btn');
+
+  pickBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    input.click();
+  });
+
+  input.addEventListener('change', function(){
+    const file = this.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+      preview.innerHTML = '<img src="https://smartcsctools.org/'+e.target.result+'" alt="Family member photo preview">';
+      box.classList.add('filled');
+      updateMemberSummary();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  removeBtn.addEventListener('click', function(){
+    input.value = '';
+    preview.innerHTML = '<span class="placeholder">Koi photo nahi</span>';
+    box.classList.remove('filled');
+    updateMemberSummary();
+  });
+}
+
+memberGrid.querySelectorAll('.member-box').forEach(attachBoxEvents);
+
+addMemberBtn.addEventListener('click', function(){
+  if(memberCount >= MAX_MEMBERS){
+    showToast('⚠️ Maximum 8 members hi add kiye ja sakte hain.');
+    return;
+  }
+  memberCount++;
+  const box = document.createElement('div');
+  box.className = 'member-box';
+  box.dataset.slot = memberCount;
+  box.innerHTML =
+    '<span class="tag">Member '+memberCount+'</span>'+
+    '<div class="preview"><span class="placeholder">Koi photo nahi</span></div>'+
+    '<label class="pick-btn">Upload</label>'+
+    '<input type="file" accept="image/*" class="member-input">'+
+    '<button class="remove-btn" type="button" aria-label="Remove">✕</button>';
+  memberGrid.appendChild(box);
+  attachBoxEvents(box);
+  if(memberCount >= MAX_MEMBERS){
+    addMemberBtn.disabled = true;
+    addMemberBtn.textContent = '✅ Maximum Members Added';
+  }
+});
+
+/* ---- Options summary sync ---- */
+const styleSel = document.getElementById('style');
+const bgSel = document.getElementById('bg');
+const dressSel = document.getElementById('dress');
+const sizeSel = document.getElementById('size');
+const arrangeSel = document.getElementById('arrange');
+const sumStyle = document.getElementById('sumStyle');
+const sumBg = document.getElementById('sumBg');
+const sumDress = document.getElementById('sumDress');
+const sumSize = document.getElementById('sumSize');
+const sumArrange = document.getElementById('sumArrange');
+
+function syncSummary(){
+  sumStyle.textContent = styleSel.options[styleSel.selectedIndex].text;
+  sumBg.textContent = bgSel.options[bgSel.selectedIndex].text;
+  sumDress.textContent = dressSel.options[dressSel.selectedIndex].text;
+  sumSize.textContent = sizeSel.options[sizeSel.selectedIndex].text;
+  sumArrange.textContent = arrangeSel.options[arrangeSel.selectedIndex].text;
+}
+[styleSel, bgSel, dressSel, sizeSel, arrangeSel].forEach(el => el.addEventListener('change', syncSummary));
+syncSummary();
+updateMemberSummary();
+
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(()=> toast.classList.remove('show'), 4200);
+}
+
+document.getElementById('generateBtn').addEventListener('click', async function(){
+  const memberN = countFilled();
+
+  if(memberN < 2){
+    showToast('⚠️ Kam se kam 2 family members ki photo upload karein.');
+    return;
+  }
+
+  const styleVal = styleSel.value;
+  const bgVal = bgSel.value;
+  const dressVal = dressSel.value;
+  const sizeVal = sizeSel.value;
+  const arrangeVal = arrangeSel.value;
+
+  const numberWords = {2:'TWO',3:'THREE',4:'FOUR',5:'FIVE',6:'SIX',7:'SEVEN',8:'EIGHT'};
+  const countWord = numberWords[memberN] || memberN;
+
+  const prompt = "You are an expert family portrait photo editor. I am uploading exactly "+memberN+" ("+countWord+") separate passport-style photos, one for each different member of one family. "
+    + "IMPORTANT: You must include ALL "+memberN+" uploaded people in the final image — do not skip, merge, drop or omit any single one of them. Count carefully: the output must clearly show "+memberN+" distinct people. "
+    + "Combine all "+memberN+" people into a single natural, cohesive family photo as if they were photographed together in one real photoshoot. "
+    + "Preserve each person's true facial features, skin tone and identity exactly as in their original uploaded photo — do not alter, swap or blend any face. "
+    + "Photo style: " + styleVal + ". "
+    + "Background: use a " + bgVal + ", clean and evenly lit, no distractions. "
+    + "Clothing: " + dressVal + ". "
+    + "Arrangement: " + arrangeVal + ". "
+    + "Everyone should have natural, warm, genuine smiles, consistent soft studio-quality lighting across all faces, correct relative body proportions (adults taller than children) and realistic shadows so the whole group looks like they were captured together in the same shot. "
+    + "Output size: " + sizeVal + ". "
+    + "Before finalizing, double-check that the image contains exactly "+memberN+" people matching the "+memberN+" photos I uploaded. "
+    + "The final image must be high-resolution, print-ready, and completely watermark-free.";
+
+  const promptBox = document.getElementById('promptBox');
+  const promptOutput = document.getElementById('promptOutput');
+  promptOutput.value = prompt;
+  promptBox.style.display = 'block';
+
+  const copied = await copyTextToClipboard(prompt);
+
+  if(copied){
+    showToast('✅ Prompt copied! ChatGPT me paste karke apne sabhi family members ki photos upload karein.');
+  } else {
+    showToast('⚠️ Auto-copy nahi hua — neeche box se "Copy Prompt Manually" button dabayein.');
+  }
+
+  window.open('https://chatgpt.com/', '_blank');
+});
+
+document.getElementById('manualCopyBtn').addEventListener('click', async function(){
+  const promptOutput = document.getElementById('promptOutput');
+  if(!promptOutput.value){ return; }
+  const copied = await copyTextToClipboard(promptOutput.value);
+  showToast(copied ? '✅ Prompt copied to clipboard!' : '⚠️ Copy fail hua, box se text select karke Ctrl+C dabayein.');
+});
+
+async function copyTextToClipboard(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(err){ /* fall through to legacy method */ }
+
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch(err){
+    return false;
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <title>Exam Question Paper Maker | Create MCQ & Descriptive Papers | Smart CSC Tools</title>
+    <meta name="description" content="Free Exam Question Paper Maker with MCQ and descriptive questions. Create professional question papers in Hindi & English. Download PDF & Print. Used by 10,000+ teachers.">
+    <meta name="keywords" content="exam paper maker, question paper generator, mcq paper maker, descriptive paper, hindi exam paper, online paper creator, teacher tool, smartcsctools">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="revisit-after" content="1 day">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartcsctools.org/question-paper-maker.html">
+    <meta property="og:title" content="Exam Question Paper Maker - Free Online Tool">
+    <meta property="og:description" content="Create professional exam papers with MCQ & descriptive questions. Hindi/English support. Free PDF download.">
+    <meta property="og:image" content="https://smartcsctools.org/images/question-paper-maker.png">
+    <meta property="og:site_name" content="Smart CSC Tools">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exam Question Paper Maker | Smart CSC Tools">
+    <meta name="twitter:description" content="Free exam paper generator with MCQ and descriptive questions.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="question-paper-maker.html">
+    
+    <!-- Schema Markup for Tool -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Exam Question Paper Maker",
+        "alternateName": "प्रश्न पत्र निर्माता",
+        "description": "Free online tool to create professional exam question papers with MCQ and descriptive questions. Supports Hindi and English languages.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "url": "https://smartcsctools.org/question-paper-maker.html",
+        "provider": {
+            "@type": "Organization",
+            "name": "Smart CSC Tools",
+            "url": "https://smartcsctools.org"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        },
+        "featureList": [
+            "MCQ Questions",
+            "Descriptive Questions",
+            "Hindi & English Support",
+            "PDF Download",
+            "Print Option",
+            "Hide Instructions",
+            "Font Size Adjustment"
+        ],
+        "inLanguage": ["en", "hi"],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "2547"
+        }
+    }
+    </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How to create an exam question paper?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simply fill the exam details, add MCQ and descriptive questions, adjust font size if needed, then download as PDF or print directly."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this exam paper maker free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, it's completely free with no hidden charges. You can create unlimited question papers."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I create papers in Hindi?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, you can switch between English and Hindi languages using the language toggle button."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I download the question paper as PDF?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, click the PDF button to download your question paper as a professionally formatted PDF file."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hindi-font {
+            font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+        }
+        
+        /* A4 Paper Style for Preview */
+        .a4-preview {
+            background: #e5e7eb;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .paper-container {
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin: 0 auto;
+            width: 100%;
+            max-width: 210mm;
+        }
+        
+        /* A4 Content Style */
+        .a4-content {
+            padding: 0.5in 0.4in 0.5in 0.4in;
+            background: white;
+            position: relative;
+        }
+        
+        /* Fixed Header */
+        .fixed-header {
+            margin-bottom: 12px;
+            border-bottom: 2px solid #1f2937;
+            padding-bottom: 10px;
+        }
+        
+        /* Instructions Box */
+        .instructions-box {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background-color: #f9fafb;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        
+        .instructions-box.hidden-instruction {
+            display: none;
+        }
+        
+        /* Question Sections */
+        .question-section {
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+        }
+        
+        .mcq-option {
+            margin-left: 20px;
+            margin-top: 3px;
+        }
+        
+        .answer-space {
+            min-height: 50px;
+            border-bottom: 1px dotted #9ca3af;
+            margin-top: 8px;
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .print-paper {
+                display: block !important;
+                width: 100% !important;
+                padding: 0.5in 0.4in 0.5in 0.4in !important;
+                background: white !important;
+            }
+        }
+        
+        /* Form Elements */
+        .question-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .question-item:hover {
+            border-left-color: #f59e0b;
+            background-color: #fffbeb;
+        }
+        
+        .option-input:focus, .question-input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+            outline: none;
+        }
+        
+        .language-switch, .number-toggle {
+            background: #f3f4f6;
+            border-radius: 50px;
+            padding: 4px;
+        }
+        
+        .lang-btn, .num-btn {
+            padding: 6px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .lang-btn.active, .num-btn.active {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .toast {
+            animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        .questions-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .questions-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .questions-list::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 10px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #f59e0b;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* Back to Home Button */
+        .back-home-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .back-home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+        }
+        
+        /* FAQ Section Styles */
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 0;
+        }
+        
+        .faq-question {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            color: #f59e0b;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-top: 12px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-home-btn no-print">
+        <i class="fas fa-home"></i>
+        <span>Back to Home</span>
+    </a>
+    
+    <!-- Header - No Print -->
+    <div class="bg-white shadow-sm sticky top-0 z-50 no-print">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-wrap justify-between items-center gap-3">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-file-alt text-2xl text-orange-600"></i>
+                    <div>
+                        <h1 class="text-lg font-bold text-gray-800">Exam Question Paper Maker</h1>
+                        <p class="text-xs text-gray-500">MCQ + Descriptive | Hindi + English | Free</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <div class="language-switch">
+                        <div class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">English</div>
+                        <div class="lang-btn" data-lang="hi" onclick="switchLanguage('hi')">हिंदी</div>
+                    </div>
+                    <div class="number-toggle">
+                        <div class="num-btn active" data-num="normal" onclick="switchNumberFormat('normal')">1,2,3</div>
+                        <div class="num-btn" data-num="hindi" onclick="switchNumberFormat('hindi')">१,२,३</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex flex-col xl:flex-row gap-6">
+            
+            <!-- Left Panel - Form -->
+            <div class="xl:w-2/5 no-print">
+                <div class="bg-white rounded-xl shadow-lg p-5 sticky top-20 max-h-[90vh] overflow-y-auto">
+                    <h2 id="form-title" class="text-xl font-bold mb-4 text-gray-800">Exam Details</h2>
+                    
+                    <!-- Basic Info -->
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="col-span-2">
+                            <label id="label-institution" class="block text-sm font-medium mb-1">Institution Name</label>
+                            <input type="text" id="institution" class="w-full p-2 border rounded-lg text-sm" placeholder="Smart Public School" value="Smart Public School">
+                        </div>
+                        <div>
+                            <label id="label-exam-title" class="block text-sm font-medium mb-1">Exam Title</label>
+                            <input type="text" id="exam-title" class="w-full p-2 border rounded-lg text-sm" placeholder="Annual Examination" value="Annual Examination">
+                        </div>
+                        <div>
+                            <label id="label-class" class="block text-sm font-medium mb-1">Class</label>
+                            <input type="text" id="class" class="w-full p-2 border rounded-lg text-sm" placeholder="10th" value="10th">
+                        </div>
+                        <div>
+                            <label id="label-subject" class="block text-sm font-medium mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full p-2 border rounded-lg text-sm" placeholder="Mathematics" value="Mathematics">
+                        </div>
+                        <div>
+                            <label id="label-time" class="block text-sm font-medium mb-1">Time</label>
+                            <input type="text" id="time" class="w-full p-2 border rounded-lg text-sm" placeholder="3 Hours" value="3 Hours">
+                        </div>
+                        <div>
+                            <label id="label-marks" class="block text-sm font-medium mb-1">Total Marks</label>
+                            <input type="text" id="marks" class="w-full p-2 border rounded-lg text-sm" placeholder="100" value="100">
+                        </div>
+                    </div>
+                    
+                    <!-- Hide Instructions Toggle -->
+                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-sm">General Instructions</h3>
+                                <p class="text-xs text-gray-500">Show/Hide instructions in preview</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="hide-instructions" onchange="toggleInstructions()">
+                                <span class="toggle-slider"></span>
+                                <span class="text-sm" id="instructions-toggle-label">Hide</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Font Size Controls -->
+                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                        <h3 class="font-semibold text-sm mb-2">Font Size Adjustment</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-gray-600">Header Font (px)</label>
+                                <input type="number" id="header-font" class="w-full p-1.5 border rounded-lg text-sm" value="20" min="14" max="28" step="1">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-600">Question Font (px)</label>
+                                <input type="number" id="question-font" class="w-full p-1.5 border rounded-lg text-sm" value="12" min="10" max="18" step="1">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MCQ Section -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-semibold text-gray-700"><i class="fas fa-list-ul text-orange-500 mr-2"></i> <span id="mcq-title">MCQ Questions</span></h3>
+                            <button onclick="addMCQ()" class="bg-orange-500 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-orange-600">
+                                <i class="fas fa-plus mr-1"></i> <span id="add-mcq-btn">Add MCQ</span>
+                            </button>
+                        </div>
+                        <div id="mcq-list" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+                    </div>
+                    
+                    <!-- Descriptive Section -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-semibold text-gray-700"><i class="fas fa-paragraph text-orange-500 mr-2"></i> <span id="descriptive-title">Descriptive Questions</span></h3>
+                            <button onclick="addDescriptive()" class="bg-orange-500 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-orange-600">
+                                <i class="fas fa-plus mr-1"></i> <span id="add-desc-btn">Add Question</span>
+                            </button>
+                        </div>
+                        <div id="descriptive-list" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3 mt-4">
+                        <button onclick="printPaper()" class="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 text-sm">
+                            <i class="fas fa-print mr-2"></i> <span id="print-btn">Print</span>
+                        </button>
+                        <button onclick="generatePDF()" class="flex-1 bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 text-sm">
+                            <i class="fas fa-file-pdf mr-2"></i> <span id="download-pdf">PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel - A4 Live Preview -->
+            <div class="xl:w-3/5">
+                <div class="a4-preview no-print">
+                    <div class="flex justify-between items-center mb-3 px-2">
+                        <span class="text-sm text-gray-600"><i class="fas fa-eye mr-1"></i> A4 Layout Preview</span>
+                        <span class="text-xs text-gray-400">↓ Scroll to view</span>
+                    </div>
+                    <div class="paper-container rounded-lg overflow-auto max-h-[85vh]">
+                        <div id="paper-content" class="a4-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section - SEO Optimized -->
+        <div class="mt-10 no-print">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-graduation-cap text-orange-500 mr-3"></i>
+                    How to Use Exam Question Paper Maker?
+                </h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-orange-600">1</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Fill Exam Details</h3>
+                        <p class="text-gray-600 text-sm">Enter institution name, exam title, class, subject, time and total marks.</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-orange-600">2</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Add Questions</h3>
+                        <p class="text-gray-600 text-sm">Add MCQ questions with options and descriptive questions with marks.</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-orange-600">3</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Download or Print</h3>
+                        <p class="text-gray-600 text-sm">Click PDF button to download or Print button to take printout.</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Tips -->
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <h3 class="font-semibold text-blue-800 mb-2"><i class="fas fa-lightbulb mr-2"></i> Pro Tips:</h3>
+                    <ul class="list-disc list-inside text-sm text-blue-700 space-y-1">
+                        <li>Use <strong>Hide Instructions</strong> toggle to remove general instructions from paper</li>
+                        <li>Adjust <strong>Font Size</strong> to fit more questions on single page</li>
+                        <li>Switch to <strong>Hindi language</strong> for creating papers in Hindi medium</li>
+                        <li>Use <strong>Hindi Numbers</strong> option for Devanagari number format</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section - SEO Optimized with Schema -->
+        <div class="mt-6 mb-10 no-print">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-question-circle text-orange-500 mr-3"></i>
+                    Frequently Asked Questions (FAQs)
+                </h2>
+                
+                <div class="space-y-2" itemscope itemtype="https://schema.org/FAQPage">
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">Is this exam paper maker really free?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>Yes, this exam question paper maker is completely free! No registration, no hidden charges, no credit card required. You can create unlimited question papers for any subject and class.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">Can I create question papers in Hindi language?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>Absolutely! You can switch between English and Hindi languages using the language toggle button. All labels, instructions, and section headings will be translated automatically. Your question text remains as you type.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">How to download the question paper as PDF?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>Simply click the green "PDF" button after creating your question paper. The paper will be downloaded as a professionally formatted PDF file with perfect A4 layout, ready for printing or sharing.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">Can I add both MCQ and descriptive questions?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>Yes! You can add both types of questions. MCQ questions appear in Section A with options, and descriptive questions appear in Section B with answer spaces. Question numbers continue sequentially across both sections.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">How to hide general instructions from the paper?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>Use the "Hide Instructions" toggle switch in the left panel. When enabled, the instructions section will be hidden from the preview, print, and PDF output. This gives you more space for questions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+                        <div class="faq-question flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                            <h3 class="font-semibold text-gray-800" itemprop="name">What are the benefits of using this exam paper maker?</h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                            <div itemprop="text">
+                                <p>This tool saves time for teachers, ensures professional formatting, supports bilingual education, provides instant PDF download, and is completely free. It's trusted by over 10,000 teachers across India.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-6 no-print">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2026 Smart CSC Tools. All rights reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">Making Exam Question Paper easy for teachers</p>
+        </div>
+    </footer>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script>
+        // Language Dictionary
+        const translations = {
+            en: {
+                'form-title': 'Exam Details',
+                'label-institution': 'Institution Name',
+                'label-exam-title': 'Exam Title',
+                'label-class': 'Class',
+                'label-subject': 'Subject',
+                'label-time': 'Time',
+                'label-marks': 'Total Marks',
+                'mcq-title': 'MCQ Questions',
+                'descriptive-title': 'Descriptive Questions',
+                'add-mcq-btn': 'Add MCQ',
+                'add-desc-btn': 'Add Question',
+                'print-btn': 'Print',
+                'download-pdf': 'PDF',
+                'question': 'Question',
+                'option': 'Option',
+                'marks': 'Marks',
+                'type-question': 'Type question...',
+                'type-option': 'Type option...',
+                'remove': 'Remove',
+                'add-option': '+ Add Option',
+                'no-mcq': 'No MCQ questions added',
+                'no-descriptive': 'No descriptive questions added',
+                'total-questions': 'Total Questions',
+                'max-marks': 'Max Marks',
+                'instructions': 'GENERAL INSTRUCTIONS:',
+                'instruction-line1': '1. All questions are compulsory.',
+                'instruction-line2': '2. Marks for each question are indicated against it.',
+                'instruction-line3': '3. Write your answers in the space provided.',
+                'roll-no': 'Roll No.',
+                'date': 'Date',
+                'signature': 'Signature',
+                'section-a': 'SECTION - A (MCQ)',
+                'section-b': 'SECTION - B (Descriptive)'
+            },
+            hi: {
+                'form-title': 'परीक्षा विवरण',
+                'label-institution': 'संस्थान का नाम',
+                'label-exam-title': 'परीक्षा शीर्षक',
+                'label-class': 'कक्षा',
+                'label-subject': 'विषय',
+                'label-time': 'समय',
+                'label-marks': 'कुल अंक',
+                'mcq-title': 'बहुविकल्पीय प्रश्न',
+                'descriptive-title': 'वर्णनात्मक प्रश्न',
+                'add-mcq-btn': 'प्रश्न जोड़ें',
+                'add-desc-btn': 'प्रश्न जोड़ें',
+                'print-btn': 'प्रिंट',
+                'download-pdf': 'पीडीएफ',
+                'question': 'प्रश्न',
+                'option': 'विकल्प',
+                'marks': 'अंक',
+                'type-question': 'प्रश्न लिखें...',
+                'type-option': 'विकल्प लिखें...',
+                'remove': 'हटाएं',
+                'add-option': '+ विकल्प जोड़ें',
+                'no-mcq': 'कोई प्रश्न नहीं',
+                'no-descriptive': 'कोई प्रश्न नहीं',
+                'total-questions': 'कुल प्रश्न',
+                'max-marks': 'कुल अंक',
+                'instructions': 'सामान्य निर्देश:',
+                'instruction-line1': '1. सभी प्रश्न अनिवार्य हैं।',
+                'instruction-line2': '2. प्रत्येक प्रश्न के अंक उसके सामने अंकित हैं।',
+                'instruction-line3': '3. अपने उत्तर निर्धारित स्थान पर लिखें।',
+                'roll-no': 'रोल नंबर',
+                'date': 'दिनांक',
+                'signature': 'हस्ताक्षर',
+                'section-a': 'खण्ड - अ (बहुविकल्पीय)',
+                'section-b': 'खण्ड - ब (वर्णनात्मक)'
+            }
+        };
+        
+        let currentLang = 'en';
+        let currentNumberFormat = 'normal';
+        let instructionsHidden = false;
+        let mcqQuestions = [];
+        let descriptiveQuestions = [];
+        let nextMcqId = 1;
+        let nextDescId = 1;
+        
+        function toHindiNumber(num) {
+            const hindiDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+            return num.toString().replace(/\d/g, d => hindiDigits[parseInt(d)]);
+        }
+        
+        function formatNumber(num) {
+            return currentNumberFormat === 'hindi' ? toHindiNumber(num) : num;
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            Object.keys(translations[lang]).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) element.textContent = translations[lang][key];
+            });
+            
+            renderMCQList();
+            renderDescriptiveList();
+            updatePreview();
+        }
+        
+        function switchNumberFormat(format) {
+            currentNumberFormat = format;
+            document.querySelectorAll('.num-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.num === format);
+            });
+            renderMCQList();
+            renderDescriptiveList();
+            updatePreview();
+        }
+        
+        function toggleInstructions() {
+            const checkbox = document.getElementById('hide-instructions');
+            instructionsHidden = checkbox.checked;
+            const label = document.getElementById('instructions-toggle-label');
+            label.textContent = instructionsHidden ? 'Show' : 'Hide';
+            updatePreview();
+        }
+        
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            answer.classList.toggle('show');
+            icon.style.transform = answer.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0)';
+        }
+        
+        function addMCQ() {
+            mcqQuestions.push({
+                id: nextMcqId++,
+                text: '',
+                marks: '1',
+                options: ['', '', '', '']
+            });
+            renderMCQList();
+            updatePreview();
+            showToast('MCQ question added', 'success');
+        }
+        
+        function renderMCQList() {
+            const container = document.getElementById('mcq-list');
+            if (mcqQuestions.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-400 text-sm py-4">${translations[currentLang]['no-mcq']}</div>`;
+                return;
+            }
+            
+            container.innerHTML = mcqQuestions.map((q, idx) => `
+                <div class="border rounded-lg p-3 question-item bg-white">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex-1">
+                            <textarea class="w-full p-2 border rounded-lg text-sm question-input" rows="2" 
+                                onchange="updateMCQ(${q.id}, 'text', this.value)"
+                                placeholder="${translations[currentLang]['type-question']}">${escapeHtml(q.text)}</textarea>
+                        </div>
+                        <div class="w-20">
+                            <input type="text" class="w-full p-2 border rounded-lg text-sm" value="${q.marks}" 
+                                onchange="updateMCQ(${q.id}, 'marks', this.value)" placeholder="Marks">
+                        </div>
+                        <button onclick="removeMCQ(${q.id})" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="mt-2 space-y-1">
+                        ${q.options.map((opt, optIdx) => `
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-500 w-5">${String.fromCharCode(97+optIdx)}.</span>
+                                <input type="text" class="flex-1 p-1.5 border rounded-lg text-sm option-input" 
+                                    value="${escapeHtml(opt)}" 
+                                    placeholder="${translations[currentLang]['type-option']}"
+                                    onchange="updateMCQ(${q.id}, 'option${optIdx}', this.value)">
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="addOptionToMCQ(${q.id})" class="text-xs text-blue-500 hover:text-blue-700 mt-2">
+                        <i class="fas fa-plus mr-1"></i> ${translations[currentLang]['add-option']}
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function updateMCQ(id, field, value) {
+            const q = mcqQuestions.find(q => q.id === id);
+            if (!q) return;
+            
+            if (field === 'text') q.text = value;
+            else if (field === 'marks') q.marks = value;
+            else if (field.startsWith('option')) {
+                const optIdx = parseInt(field.replace('option', ''));
+                q.options[optIdx] = value;
+            }
+            updatePreview();
+        }
+        
+        function addOptionToMCQ(id) {
+            const q = mcqQuestions.find(q => q.id === id);
+            if (q) {
+                q.options.push('');
+                renderMCQList();
+                updatePreview();
+            }
+        }
+        
+        function removeMCQ(id) {
+            mcqQuestions = mcqQuestions.filter(q => q.id !== id);
+            renderMCQList();
+            updatePreview();
+            showToast('MCQ removed', 'info');
+        }
+        
+        function addDescriptive() {
+            descriptiveQuestions.push({
+                id: nextDescId++,
+                text: '',
+                marks: '5'
+            });
+            renderDescriptiveList();
+            updatePreview();
+            showToast('Descriptive question added', 'success');
+        }
+        
+        function renderDescriptiveList() {
+            const container = document.getElementById('descriptive-list');
+            if (descriptiveQuestions.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-400 text-sm py-4">${translations[currentLang]['no-descriptive']}</div>`;
+                return;
+            }
+            
+            container.innerHTML = descriptiveQuestions.map((q, idx) => `
+                <div class="border rounded-lg p-3 question-item bg-white">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex-1">
+                            <textarea class="w-full p-2 border rounded-lg text-sm question-input" rows="2" 
+                                onchange="updateDescriptive(${q.id}, 'text', this.value)"
+                                placeholder="${translations[currentLang]['type-question']}">${escapeHtml(q.text)}</textarea>
+                        </div>
+                        <div class="w-20">
+                            <input type="text" class="w-full p-2 border rounded-lg text-sm" value="${q.marks}" 
+                                onchange="updateDescriptive(${q.id}, 'marks', this.value)" placeholder="Marks">
+                        </div>
+                        <button onclick="removeDescriptive(${q.id})" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateDescriptive(id, field, value) {
+            const q = descriptiveQuestions.find(q => q.id === id);
+            if (q) q[field] = value;
+            updatePreview();
+        }
+        
+        function removeDescriptive(id) {
+            descriptiveQuestions = descriptiveQuestions.filter(q => q.id !== id);
+            renderDescriptiveList();
+            updatePreview();
+            showToast('Descriptive question removed', 'info');
+        }
+        
+        function generatePaperHTML() {
+            const institution = document.getElementById('institution').value || '_________________';
+            const examTitle = document.getElementById('exam-title').value || '_________________';
+            const className = document.getElementById('class').value || '______';
+            const subject = document.getElementById('subject').value || '______';
+            const time = document.getElementById('time').value || '______';
+            const marks = document.getElementById('marks').value || '______';
+            const headerFont = document.getElementById('header-font').value;
+            const questionFont = document.getElementById('question-font').value;
+            
+            const today = new Date().toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-IN');
+            let totalMcqMarks = 0, totalDescMarks = 0;
+            
+            let mcqHtml = '';
+            if (mcqQuestions.length > 0) {
+                mcqHtml = `
+                    <div class="question-section" style="margin-bottom: 12px;">
+                        <h3 class="font-bold border-b border-gray-400 pb-1 mb-2" style="font-size: ${parseInt(headerFont) * 0.6}px">
+                            ${translations[currentLang]['section-a']}
+                        </h3>
+                        ${mcqQuestions.map((q, idx) => {
+                            totalMcqMarks += parseInt(q.marks) || 0;
+                            return `
+                                <div style="margin-bottom: 12px;">
+                                    <p class="font-medium" style="font-size: ${questionFont}px; line-height: 1.3; margin-bottom: 3px;">
+                                        <span class="font-bold">${formatNumber(idx+1)}.</span> 
+                                        ${escapeHtml(q.text) || '_________________________'}
+                                        <span class="text-gray-500 ml-2" style="font-size: ${parseInt(questionFont) - 1}px">[${q.marks}]</span>
+                                    </p>
+                                    <div class="mcq-option" style="margin-left: 20px;">
+                                        ${q.options.map((opt, optIdx) => opt ? `
+                                            <p style="font-size: ${parseInt(questionFont) - 1}px; margin: 2px 0;">
+                                                ${String.fromCharCode(97+optIdx)}. ${escapeHtml(opt)}
+                                            </p>
+                                        ` : '').join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            let descHtml = '';
+            if (descriptiveQuestions.length > 0) {
+                descHtml = `
+                    <div class="question-section" style="margin-bottom: 12px;">
+                        <h3 class="font-bold border-b border-gray-400 pb-1 mb-2" style="font-size: ${parseInt(headerFont) * 0.6}px">
+                            ${translations[currentLang]['section-b']}
+                        </h3>
+                        ${descriptiveQuestions.map((q, idx) => {
+                            totalDescMarks += parseInt(q.marks) || 0;
+                            return `
+                                <div style="margin-bottom: 18px;">
+                                    <p class="font-medium" style="font-size: ${questionFont}px; line-height: 1.3; margin-bottom: 5px;">
+                                        <span class="font-bold">${formatNumber(mcqQuestions.length + idx + 1)}.</span> 
+                                        ${escapeHtml(q.text) || '_________________________'}
+                                        <span class="text-gray-500 ml-2" style="font-size: ${parseInt(questionFont) - 1}px">[${q.marks}]</span>
+                                    </p>
+                                    <div class="answer-space" style="min-height: 50px; border-bottom: 1px dotted #9ca3af;"></div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            const totalQuestions = mcqQuestions.length + descriptiveQuestions.length;
+            const totalPaperMarks = totalMcqMarks + totalDescMarks;
+            
+            const instructionsHtml = !instructionsHidden ? `
+                <div class="instructions-box">
+                    <h4 class="font-bold mb-1" style="font-size: ${parseInt(questionFont)}px">${translations[currentLang]['instructions']}</h4>
+                    <p style="margin: 0; font-size: ${parseInt(questionFont) - 1}px;">${translations[currentLang]['instruction-line1']}</p>
+                    <p style="margin: 0; font-size: ${parseInt(questionFont) - 1}px;">${translations[currentLang]['instruction-line2']}</p>
+                    <p style="margin: 0; font-size: ${parseInt(questionFont) - 1}px;">${translations[currentLang]['instruction-line3']}</p>
+                </div>
+            ` : '';
+            
+            return `
+                <div class="fixed-header">
+                    <div class="text-center">
+                        <h2 class="font-bold uppercase" style="font-size: ${headerFont}px; margin-bottom: 3px;">${escapeHtml(institution)}</h2>
+                        <h3 class="font-semibold" style="font-size: ${parseInt(headerFont) * 0.65}px; margin-bottom: 5px;">${escapeHtml(examTitle)}</h3>
+                        
+                        <div class="flex justify-between text-xs border-t border-b border-gray-400 py-1 mt-1" style="font-size: ${parseInt(questionFont) - 1}px;">
+                            <span><strong>${translations[currentLang]['label-class']}:</strong> ${escapeHtml(className)}</span>
+                            <span><strong>${translations[currentLang]['label-subject']}:</strong> ${escapeHtml(subject)}</span>
+                            <span><strong>${translations[currentLang]['label-time']}:</strong> ${escapeHtml(time)}</span>
+                            <span><strong>${translations[currentLang]['max-marks']}:</strong> ${escapeHtml(marks)}</span>
+                        </div>
+                        
+                        <div class="flex justify-between mt-1" style="font-size: ${parseInt(questionFont) - 1}px;">
+                            <span><strong>${translations[currentLang]['roll-no']}:</strong> _______________</span>
+                            <span><strong>${translations[currentLang]['date']}:</strong> ${today}</span>
+                        </div>
+                    </div>
+                    
+                    ${instructionsHtml}
+                </div>
+                
+                ${mcqHtml}
+                ${descHtml}
+                
+                ${(mcqQuestions.length === 0 && descriptiveQuestions.length === 0) ? 
+                    `<div class="text-center text-gray-400 py-8" style="font-size: ${questionFont}px;">Add questions from the left panel</div>` : ''
+                }
+                
+                <div class="flex justify-between mt-4 pt-2 border-t border-gray-400" style="font-size: ${parseInt(questionFont) - 1}px;">
+                    <div>
+                        <p><strong>${translations[currentLang]['total-questions']}:</strong> ${totalQuestions}</p>
+                        <p><strong>${translations[currentLang]['max-marks']}:</strong> ${totalPaperMarks}</p>
+                    </div>
+                    <div class="text-center">
+                        <p>${translations[currentLang]['signature']}</p>
+                        <div style="border-top: 1px solid #9ca3af; width: 100px; margin-top: 15px;"></div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function updatePreview() {
+            const html = generatePaperHTML();
+            document.getElementById('paper-content').innerHTML = html;
+            
+            if (currentLang === 'hi') {
+                document.querySelectorAll('.a4-content *').forEach(el => {
+                    if (el.classList) el.classList.add('hindi-font');
+                });
+            }
+        }
+        
+        function printPaper() {
+            const html = generatePaperHTML();
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Exam Paper</title>
+                    <meta charset="UTF-8">
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body { margin: 0; padding: 0; background: white; font-family: 'Inter', sans-serif; }
+                        @page { size: A4; margin: 0; }
+                        .print-paper { padding: 0.5in 0.4in 0.5in 0.4in !important; width: 100% !important; background: white !important; }
+                        .fixed-header { margin-bottom: 12px; border-bottom: 2px solid #1f2937; padding-bottom: 10px; }
+                        .instructions-box { margin-top: 10px; margin-bottom: 15px; padding: 8px 12px; background-color: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; }
+                        .question-section { page-break-inside: avoid; margin-bottom: 15px; }
+                        .mcq-option { margin-left: 20px; margin-top: 3px; }
+                        .answer-space { min-height: 50px; border-bottom: 1px dotted #9ca3af; margin-top: 8px; }
+                        .text-center { text-align: center; }
+                        .font-bold { font-weight: bold; }
+                        .font-semibold { font-weight: 600; }
+                        .uppercase { text-transform: uppercase; }
+                        .border-b { border-bottom: 1px solid #d1d5db; }
+                        .border-t { border-top: 1px solid #d1d5db; }
+                        .border-gray-400 { border-color: #9ca3af; }
+                        .text-gray-500 { color: #6b7280; }
+                        .flex { display: flex; }
+                        .justify-between { justify-content: space-between; }
+                        ${currentLang === 'hi' ? '.print-paper, .print-paper * { font-family: "Noto Sans Devanagari", "Inter", sans-serif; }' : ''}
+                    </style>
+                </head>
+                <body>
+                    <div class="print-paper">${html}</div>
+                    <script>
+                        window.onload = function() { window.print(); setTimeout(function() { window.close(); }, 1000); };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            showToast('Print dialog opened', 'info');
+        }
+        
+        function generatePDF() {
+            const element = document.createElement('div');
+            element.style.padding = '0.5in 0.4in 0.5in 0.4in';
+            element.style.backgroundColor = 'white';
+            element.style.width = '210mm';
+            element.innerHTML = generatePaperHTML();
+            
+            if (currentLang === 'hi') {
+                element.style.fontFamily = "'Noto Sans Devanagari', 'Inter', sans-serif";
+            }
+            
+            document.body.appendChild(element);
+            
+            const opt = {
+                margin: [0, 0, 0, 0],
+                filename: `exam_paper_${Date.now()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            
+            showToast('Generating PDF...', 'info');
+            
+            html2pdf().from(element).set(opt).save().then(() => {
+                document.body.removeChild(element);
+                showToast('PDF downloaded!', 'success');
+            }).catch((error) => {
+                document.body.removeChild(element);
+                showToast('PDF error', 'error');
+            });
+        }
+        
+        function showToast(message, type) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colors = { success: 'bg-green-500', error: 'bg-red-500', info: 'bg-blue-500' };
+            toast.className = `toast ${colors[type]} text-white px-4 py-2 rounded-lg shadow-lg mb-2 text-sm`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>${message}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        document.querySelectorAll('#institution, #exam-title, #class, #subject, #time, #marks').forEach(el => {
+            el.addEventListener('input', () => updatePreview());
+        });
+        
+        document.getElementById('header-font').addEventListener('input', () => updatePreview());
+        document.getElementById('question-font').addEventListener('input', () => updatePreview());
+        
+        function init() {
+            mcqQuestions.push({ id: nextMcqId++, text: 'What is the capital of India?', marks: '1', options: ['Mumbai', 'New Delhi', 'Kolkata', 'Chennai'] });
+            mcqQuestions.push({ id: nextMcqId++, text: 'Who wrote the national anthem of India?', marks: '1', options: ['Bankim Chandra', 'Rabindranath Tagore', 'Sarojini Naidu', 'Mahatma Gandhi'] });
+            descriptiveQuestions.push({ id: nextDescId++, text: 'Explain the importance of education in modern society.', marks: '5' });
+            descriptiveQuestions.push({ id: nextDescId++, text: 'Write an essay on "Digital India" campaign.', marks: '10' });
+            
+            renderMCQList();
+            renderDescriptiveList();
+            updatePreview();
+        }
+        
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple ID Card PDF Print Tool - Smart Csc Tools</title>
+  
+  <!-- Plus Jakarta Sans, Outfit & Fira Code Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- React 18, ReactDOM 18 and Babel CDNs -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- PDF.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+            mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+          animation: {
+            'float-slow': 'float 12s ease-in-out infinite',
+            'float-reverse': 'float-reverse 15s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.2s ease-out forwards',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(10px); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-float-slow {
+      animation: float 12s ease-in-out infinite;
+    }
+    .animate-float-reverse {
+      animation: float-reverse 15s ease-in-out infinite;
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+    
+    /* Frosted premium glass styling */
+    .frosted-glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .frosted-glass {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .frosted-glass-premium {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    }
+    .dark .frosted-glass-premium {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    /* Print customization for seamless alignment */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0 !important;
+      }
+      body, html {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      #root {
+        display: block !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      /* Hide all UI control elements and screen containers */
+      .no-print, [class*="no-print"] {
+        display: none !important;
+      }
+      #print-layout-container {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        box-sizing: border-box !important;
+        z-index: 9999999 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#f0f4f8] dark:bg-slate-950 transition-colors">
+
+  <!-- Mount target for our standalone offline React App -->
+  <div id="root"></div>
+
+  <!-- React Application Core Logic -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // Set up PDF.js Worker correctly using the local window or the cdnjs fallback
+    const pdfjs = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+    if (pdfjs) {
+      // If we are on local file protocol (file://), a direct CDN worker Src URL is blocked by CORS.
+      // We can fetch the worker JS code, turn it into a Blob URL, and load it safely!
+      if (window.location.protocol === 'file:') {
+        fetch('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js')
+          .then(res => res.blob())
+          .then(blob => {
+            const blobUrl = URL.createObjectURL(blob);
+            pdfjs.GlobalWorkerOptions.workerSrc = blobUrl;
+          })
+          .catch(err => {
+            console.warn("Could not instantiate Worker from Blob on file:// protocol. Falling back to inline fake worker.", err);
+            // Fallback: PDF.js will automatically fall back to fake worker in-thread
+          });
+      } else {
+        // Standard http or https protocols can use direct CDN workerSrc URL
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+    }
+
+    // --- PREMIUM INLINE VECTOR ICONS ---
+    const IconUpload = () => <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>;
+    const IconSliders = ({ className }) => <svg className={`w-5 h-5 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>;
+    const IconShieldCheck = ({ className }) => <svg className={`w-5 h-5 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>;
+    const IconTrash = ({ className, size = 16 }) => <svg style={{ width: size, height: size }} className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>;
+    const IconCrop = ({ className, size = 16 }) => <svg style={{ width: size, height: size }} className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M8 4v14a2 2 0 002 2h14M20 20v-14a2 2 0 00-2-2H4" /></svg>;
+    const IconArrowUp = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>;
+    const IconArrowDown = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>;
+    const IconZoomIn = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zm-7-3v6m3-3H7" /></svg>;
+    const IconZoomOut = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zm-4 0H7" /></svg>;
+    const IconMaximize = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>;
+    const IconScissors = ({ className }) => <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 11-4.243 4.243 3 3 0 014.243-4.243zm0-5.758a3 3 0 11-4.243-4.243 3 3 0 014.243 4.243z" /></svg>;
+    const IconLayoutGrid = ({ size = 16, className }) => <svg style={{ width: size, height: size }} className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>;
+    const IconPrint = ({ className }) => <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>;
+    const IconSun = () => <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" /></svg>;
+    const IconMoon = () => <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>;
+    const IconLock = ({ size = 20 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>;
+    const IconHelp = ({ size = 16 }) => <svg style={{ width: size, height: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+
+    // --- UTILITIES FOR DETECTION AND PRESET HANDLING ---
+    function detectCardBounds(canvas, searchRegion = 'full') {
+      let targetCanvas;
+      if (canvas instanceof HTMLImageElement) {
+        targetCanvas = document.createElement('canvas');
+        targetCanvas.width = canvas.naturalWidth;
+        targetCanvas.height = canvas.naturalHeight;
+        const ctx = targetCanvas.getContext('2d');
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+      } else {
+        targetCanvas = canvas;
+      }
+      
+      const w = targetCanvas.width;
+      const h = targetCanvas.height;
+      const ctx = targetCanvas.getContext('2d', { willReadFrequently: true });
+      if (!ctx) return { x: 0.1, y: 0.1, width: 0.8, height: 0.8 };
+      
+      let startY = 0;
+      let endY = h;
+      if (searchRegion === 'top') {
+        endY = Math.floor(h / 2);
+      } else if (searchRegion === 'bottom') {
+        startY = Math.floor(h / 2);
+      }
+      const scanH = endY - startY;
+      const imgData = ctx.getImageData(0, startY, w, scanH);
+      const data = imgData.data;
+      
+      const rowActivity = new Float32Array(scanH);
+      const colActivity = new Float32Array(w);
+      const sampleStep = 4;
+      
+      for (let y = 0; y < scanH; y += sampleStep) {
+        for (let x = 0; x < w; x += sampleStep) {
+          const idx = (y * w + x) * 4;
+          const r = data[idx];
+          const g = data[idx+1];
+          const b = data[idx+2];
+          const dist = (255 - r) + (255 - g) + (255 - b);
+          if (dist > 45) {
+            rowActivity[y] += dist;
+            colActivity[x] += dist;
+          }
+        }
+      }
+      
+      let top = 0;
+      for (let y = 0; y < scanH; y++) {
+        if (rowActivity[y] > (w / sampleStep) * 2.0) { top = y; break; }
+      }
+      let bottom = scanH - 1;
+      for (let y = scanH - 1; y >= 0; y--) {
+        if (rowActivity[y] > (w / sampleStep) * 2.0) { bottom = y; break; }
+      }
+      let left = 0;
+      for (let x = 0; x < w; x++) {
+        if (colActivity[x] > (scanH / sampleStep) * 2.0) { left = x; break; }
+      }
+      let right = w - 1;
+      for (let x = w - 1; x >= 0; x--) {
+        if (colActivity[x] > (scanH / sampleStep) * 2.0) { right = x; break; }
+      }
+      
+      const padding = 10;
+      top = Math.max(0, top - padding);
+      bottom = Math.min(scanH - 1, bottom + padding);
+      left = Math.max(0, left - padding);
+      right = Math.min(w - 1, right + padding);
+      
+      const detectedWidth = right - left;
+      const detectedHeight = bottom - top;
+      
+      if (detectedWidth < w * 0.15 || detectedHeight < scanH * 0.1) {
+        return { x: 0.1, y: (startY + scanH * 0.1) / h, width: 0.8, height: (scanH * 0.8) / h };
+      }
+      return {
+        x: left / w,
+        y: (startY + top) / h,
+        width: detectedWidth / w,
+        height: detectedHeight / h
+      };
+    }
+
+    function getPresetCropRegion(preset, isStacked) {
+      if (isStacked) {
+        return {
+          front: { x: 0.05, y: 0.03, width: 0.9, height: 0.44 },
+          back: { x: 0.05, y: 0.53, width: 0.9, height: 0.44 },
+          hasBack: true,
+        };
+      }
+      switch (preset) {
+        case 'aadhaar_bottom':
+          return {
+            front: { x: 0.04, y: 0.64, width: 0.44, height: 0.33 },
+            back: { x: 0.52, y: 0.64, width: 0.44, height: 0.33 },
+            hasBack: true,
+          };
+        case 'pan_bottom':
+          return {
+            front: { x: 0.28, y: 0.68, width: 0.44, height: 0.28 },
+            back: { x: 0.28, y: 0.68, width: 0.44, height: 0.28 },
+            hasBack: false,
+          };
+        case 'voter_dl':
+          return {
+            front: { x: 0.05, y: 0.1, width: 0.43, height: 0.4 },
+            back: { x: 0.52, y: 0.1, width: 0.43, height: 0.4 },
+            hasBack: true,
+          };
+        case 'full_page':
+          return {
+            front: { x: 0.0, y: 0.0, width: 1.0, height: 1.0 },
+            back: { x: 0.0, y: 0.0, width: 1.0, height: 1.0 },
+            hasBack: false,
+          };
+        default:
+          return {
+            front: { x: 0.05, y: 0.05, width: 0.9, height: 0.42 },
+            back: { x: 0.05, y: 0.53, width: 0.9, height: 0.42 },
+            hasBack: true,
+          };
+      }
+    }
+
+    // PDF processing utilizing HTML5 Canvas and dynamic pages stacking
+    async function renderPdfToCanvas(file, password) {
+      const arrayBuffer = await file.arrayBuffer();
+      try {
+        const loadingTask = pdfjs.getDocument({ data: arrayBuffer, password: password });
+        const pdfDoc = await loadingTask.promise;
+        const totalPages = pdfDoc.numPages;
+        const pagesToRender = Math.min(totalPages, 2);
+        const canvasList = [];
+        let maxWidth = 0;
+        let totalHeight = 0;
+        
+        for (let i = 1; i <= pagesToRender; i++) {
+          const page = await pdfDoc.getPage(i);
+          const viewport = page.getViewport({ scale: 4.0 });
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const context = canvas.getContext('2d', { willReadFrequently: true });
+          if (!context) throw new Error('Could not create canvas context');
+          
+          await page.render({ canvasContext: context, viewport: viewport }).promise;
+          canvasList.push(canvas);
+          maxWidth = Math.max(maxWidth, canvas.width);
+          totalHeight += canvas.height;
+        }
+        
+        const combinedCanvas = document.createElement('canvas');
+        combinedCanvas.width = maxWidth;
+        combinedCanvas.height = totalHeight;
+        const ctx = combinedCanvas.getContext('2d');
+        if (!ctx) throw new Error('Could not create combined canvas context');
+        
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+        
+        let currentY = 0;
+        for (const canvas of canvasList) {
+          const xOffset = (maxWidth - canvas.width) / 2;
+          ctx.drawImage(canvas, xOffset, currentY);
+          currentY += canvas.height;
+        }
+        
+        return {
+          dataUrl: combinedCanvas.toDataURL('image/jpeg', 0.95),
+          width: maxWidth,
+          height: totalHeight,
+          totalPages: totalPages,
+          isStacked: pagesToRender > 1,
+        };
+      } catch (error) {
+        if (error && (error.name === 'PasswordException' || error.message?.includes('password') || error.code === 1)) {
+          throw new Error('PDFPasswordError');
+        }
+        throw error;
+      }
+    }
+
+    // --- MAIN APP COMPONENT ---
+    function App() {
+      const [cards, setCards] = useState([]);
+      const [zoom, setZoom] = useState(0.85);
+      const [isProcessing, setIsProcessing] = useState(false);
+      const [darkMode, setDarkMode] = useState(false);
+      
+      // Password modal status
+      const [passwordRequired, setPasswordRequired] = useState(false);
+      const [passwordFile, setPasswordFile] = useState(null);
+      const [passwordValue, setPasswordValue] = useState('');
+
+      // Crop Modal status
+      const [activeCropCard, setActiveCropCard] = useState(null);
+
+      // Toast states
+      const [toasts, setToasts] = useState([]);
+
+      // Layout Settings
+      const [settings, setSettings] = useState({
+        cardWidthMm: 85.6,
+        cardHeightMm: 54.0,
+        gapMm: 2.0,
+        rowGapMm: 4.0,
+        marginMm: 10.0,
+        showCutLines: true,
+        showOutline: true,
+        outerBorderSize: 0,
+        cardBorderRadius: 8,
+      });
+
+      // Dark Mode toggle side effect
+      useEffect(() => {
+        if (darkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }, [darkMode]);
+
+      const triggerToast = (message, type = 'success') => {
+        const id = Math.random().toString(36).substring(2, 9);
+        setToasts(prev => [...prev, { id, message, type }]);
+        setTimeout(() => {
+          setToasts(prev => prev.filter(t => t.id !== id));
+        }, 3000);
+      };
+
+      const handleFileUpload = async (file) => {
+        if (!file) return;
+        setIsProcessing(true);
+        try {
+          if (file.type === 'application/pdf') {
+            await processPDF(file);
+          } else if (file.type.startsWith('image/')) {
+            await processImage(file);
+          } else {
+            triggerToast('Unsupported file type. Please upload PDFs or Images.', 'error');
+          }
+        } catch (err) {
+          if (err.message === 'PDFPasswordError') {
+            setPasswordFile(file);
+            setPasswordRequired(true);
+          } else {
+            triggerToast(`Error processing file: ${err.message}`, 'error');
+          }
+        } finally {
+          setIsProcessing(false);
+        }
+      };
+
+      const processPDF = async (file, password = '') => {
+        const result = await renderPdfToCanvas(file, password);
+        const autoPreset = result.isStacked ? 'aadhaar_bottom' : 'aadhaar_bottom';
+        const region = getPresetCropRegion(autoPreset, result.isStacked);
+
+        const newCard = {
+          id: Math.random().toString(36).substring(2, 9),
+          name: file.name.replace(/\.[^/.]+$/, ""),
+          dataUrl: result.dataUrl,
+          originalDataUrl: result.dataUrl,
+          cardPreset: result.isStacked ? 'full_page' : 'aadhaar_bottom',
+          isStacked: result.isStacked,
+          cropX: region.front.x,
+          cropY: region.front.y,
+          cropW: region.front.width,
+          cropH: region.front.height,
+          hasBack: region.hasBack,
+          backCropX: region.back.x,
+          backCropY: region.back.y,
+          backCropW: region.back.width,
+          backCropH: region.back.height,
+        };
+
+        setCards(prev => {
+          if (prev.length >= 4) {
+            triggerToast('Maximum 4 ID cards can be loaded simultaneously.', 'info');
+            return prev;
+          }
+          return [...prev, newCard];
+        });
+        triggerToast('PDF loaded and formatted successfully!');
+      };
+
+      const processImage = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const dataUrl = e.target.result;
+            const newCard = {
+              id: Math.random().toString(36).substring(2, 9),
+              name: file.name.replace(/\.[^/.]+$/, ""),
+              dataUrl: dataUrl,
+              originalDataUrl: dataUrl,
+              cardPreset: 'full_page',
+              isStacked: false,
+              cropX: 0.1,
+              cropY: 0.1,
+              cropW: 0.8,
+              cropH: 0.8,
+              hasBack: false,
+              backCropX: 0.1,
+              backCropY: 0.5,
+              backCropW: 0.8,
+              backCropH: 0.4,
+            };
+
+            setCards(prev => {
+              if (prev.length >= 4) {
+                triggerToast('Maximum 4 ID cards can be loaded simultaneously.', 'info');
+                return prev;
+              }
+              return [...prev, newCard];
+            });
+            triggerToast('Image loaded successfully!');
+            resolve();
+          };
+          reader.onerror = () => reject(new Error('Failed to read image file'));
+          reader.readAsDataURL(file);
+        });
+      };
+
+      const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        if (!passwordFile) return;
+        setIsProcessing(true);
+        try {
+          await processPDF(passwordFile, passwordValue);
+          setPasswordRequired(false);
+          setPasswordFile(null);
+          setPasswordValue('');
+        } catch (err) {
+          if (err.message === 'PDFPasswordError') {
+            triggerToast('Incorrect password. Please try again.', 'error');
+          } else {
+            triggerToast(`Failed to decrypt PDF: ${err.message}`, 'error');
+            setPasswordRequired(false);
+          }
+        } finally {
+          setIsProcessing(false);
+        }
+      };
+
+      const updateCardPreset = (cardId, preset) => {
+        setCards(prev => prev.map(card => {
+          if (card.id !== cardId) return card;
+          const region = getPresetCropRegion(preset, card.isStacked);
+          return {
+            ...card,
+            cardPreset: preset,
+            cropX: region.front.x,
+            cropY: region.front.y,
+            cropW: region.front.width,
+            cropH: region.front.height,
+            hasBack: region.hasBack,
+            backCropX: region.back.x,
+            backCropY: region.back.y,
+            backCropW: region.back.width,
+            backCropH: region.back.height,
+          };
+        }));
+      };
+
+      const handleReplaceFile = async (cardId, file) => {
+        if (!file) return;
+        setIsProcessing(true);
+        try {
+          if (file.type === 'application/pdf') {
+            const result = await renderPdfToCanvas(file);
+            const region = getPresetCropRegion('aadhaar_bottom', result.isStacked);
+            setCards(prev => prev.map(card => {
+              if (card.id !== cardId) return card;
+              return {
+                ...card,
+                name: file.name.replace(/\.[^/.]+$/, ""),
+                dataUrl: result.dataUrl,
+                originalDataUrl: result.dataUrl,
+                isStacked: result.isStacked,
+                cropX: region.front.x,
+                cropY: region.front.y,
+                cropW: region.front.width,
+                cropH: region.front.height,
+                hasBack: region.hasBack,
+                backCropX: region.back.x,
+                backCropY: region.back.y,
+                backCropW: region.back.width,
+                backCropH: region.back.height,
+              };
+            }));
+          } else {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              setCards(prev => prev.map(card => {
+                if (card.id !== cardId) return card;
+                return {
+                  ...card,
+                  name: file.name.replace(/\.[^/.]+$/, ""),
+                  dataUrl: e.target.result,
+                  originalDataUrl: e.target.result,
+                  hasBack: false,
+                };
+              }));
+            };
+            reader.readAsDataURL(file);
+          }
+          triggerToast('Card replaced successfully!');
+        } catch (err) {
+          triggerToast(`Failed to replace card: ${err.message}`, 'error');
+        } finally {
+          setIsProcessing(false);
+        }
+      };
+
+      const handleDragOver = (e) => e.preventDefault();
+      const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        handleFileUpload(file);
+      };
+
+      const handlePrint = () => {
+        window.print();
+      };
+
+      return (
+        <>
+          <div className="min-h-screen transition-colors flex flex-col justify-between relative overflow-hidden print:hidden" id="app-wrapper">
+          
+          {/* Dynamic Ambient Frosted Background Shapes */}
+          <div className="absolute top-[-15%] left-[-15%] w-[60%] h-[60%] rounded-full bg-gradient-to-tr from-blue-400/25 to-cyan-300/20 dark:from-blue-600/10 dark:to-cyan-600/5 blur-[130px] pointer-events-none animate-float-slow"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-indigo-400/25 to-purple-400/20 dark:from-indigo-600/10 dark:to-purple-600/5 blur-[140px] pointer-events-none animate-float-reverse"></div>
+          
+          {/* Active Toasts */}
+          <div className="fixed top-5 right-5 z-[200] flex flex-col gap-2 max-w-sm w-full no-print">
+            {toasts.map(t => (
+              <div key={t.id} className="p-4 rounded-xl border border-white/40 dark:border-white/5 shadow-xl frosted-glass animate-fade-in flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-100">{t.message}</span>
+                <button onClick={() => setToasts(prev => prev.filter(x => x.id !== t.id))} className="text-xs text-slate-400 hover:text-slate-600 ml-4">✕</button>
+              </div>
+            ))}
+          </div>
+           
+          {/* Sticky Navigation / Header */}
+          <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-blue-100/40 dark:border-slate-800/60 flex items-center shrink-0 z-20 no-print shadow-sm">
+          <div className="mb-4">
+  <a
+    href="index.html"
+    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition-all"
+  >
+    ← Back to Home
+  </a>
+</div>
+            <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 w-full flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-slate-800 dark:text-slate-100 text-sm md:text-base tracking-tight bg-gradient-to-r from-blue-700 to-indigo-700 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">Multiple ID Card PDF Print</span>
+                    <span className="text-[9px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 py-0.5 px-1.5 rounded uppercase">v2.0</span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold tracking-wider uppercase">Smart CSC Tools</p>
+                </div>
+              </div>
+
+              {/* Utility actions */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="p-2 bg-white/50 hover:bg-white/80 dark:bg-slate-800/50 dark:hover:bg-slate-800/80 border border-slate-200/50 dark:border-slate-800 text-slate-600 dark:text-slate-300 rounded-xl transition-all shadow-sm"
+                  title="Toggle Light/Dark Theme"
+                >
+                  {darkMode ? <IconSun /> : <IconMoon />}
+                </button>
+                <button
+                  onClick={handlePrint}
+                  disabled={cards.length === 0}
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-800 dark:disabled:to-slate-800 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-500/10 disabled:shadow-none hover:scale-105 active:scale-95 disabled:pointer-events-none transition-all duration-150"
+                >
+                  <IconPrint className="w-4 h-4 text-white" />
+                  <span>Print Document (A4)</span>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Layout Area */}
+          <main className="max-w-7xl mx-auto px-4 md:px-6 py-6 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start no-print">
+            
+            {/* Control Column Left (5 cols) */}
+            <section className="lg:col-span-5 space-y-6">
+              
+              {/* File Dropzone Input Box */}
+              <div 
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                className={`p-8 bg-white/40 dark:bg-slate-950/40 border-2 border-dashed rounded-3xl text-center cursor-pointer transition-all ${
+                  isProcessing 
+                    ? 'border-blue-500/40 bg-blue-500/5' 
+                    : 'border-blue-200 dark:border-slate-800 hover:border-blue-400 shadow-lg shadow-blue-500/5'
+                }`}
+                onClick={() => document.getElementById('offline-file-input').click()}
+              >
+                <input
+                  type="file"
+                  id="offline-file-input"
+                  accept="application/pdf,image/*"
+                  onChange={(e) => handleFileUpload(e.target.files[0])}
+                  className="hidden"
+                />
+                
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 bg-blue-500/5 dark:bg-blue-400/5 border border-blue-100/50 dark:border-blue-500/10 rounded-2xl flex items-center justify-center shadow-inner">
+                    <IconUpload />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100">Drag & Drop ID Card Files Here</h4>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 max-w-xs mx-auto leading-relaxed">
+                      Supports PDF or Image formats. Secure local extraction happens inside your browser.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 p-2 rounded-xl">
+                    <span>Aadhaar</span><span>•</span>
+                    <span>PAN</span><span>•</span>
+                    <span>Voter</span><span>•</span>
+                    <span>DL</span><span>•</span>
+                    <span>Health Card</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Uploaded Items List */}
+              {cards.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      Uploaded Documents ({cards.length}/4)
+                    </span>
+                    <button 
+                      onClick={() => { setCards([]); triggerToast('Cleared all active cards.', 'info'); }}
+                      className="text-xs font-semibold text-red-500 hover:text-red-600 flex items-center gap-1 bg-red-500/10 py-1 px-2.5 rounded-lg border border-red-500/10"
+                    >
+                      <IconTrash size={12} />
+                      <span>Clear All</span>
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    {cards.map((card, index) => (
+                      <div 
+                        key={card.id} 
+                        className="p-2.5 bg-white/60 dark:bg-slate-950/45 border border-slate-200/50 dark:border-white/5 backdrop-blur-md rounded-xl shadow-sm hover:shadow-md hover:bg-white/80 dark:hover:bg-slate-950/60 transition-all flex items-center justify-between gap-3"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                          {/* Badge */}
+                          <div className="relative shrink-0 w-8 h-8 bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center font-bold text-xs border border-blue-500/10">
+                            #{index + 1}
+                            <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[7px] border border-white dark:border-slate-900 shadow-sm">
+                              ✓
+                            </div>
+                          </div>
+
+                          {/* Text Info */}
+                          <div className="min-w-0 flex-1">
+                            <h4 
+                              className="font-semibold text-slate-800 dark:text-slate-100 text-xs truncate"
+                              title={card.name}
+                            >
+                              {card.name}
+                            </h4>
+                            <p className="text-[10px] text-slate-400 dark:text-slate-500 flex items-center gap-1.5 mt-0.5">
+                              <span>Format: {card.isStacked ? 'Multi-page' : 'Single Card'}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Delete button */}
+                        <button
+                          onClick={() => {
+                            setCards(prev => prev.filter(c => c.id !== card.id));
+                            triggerToast('Card deleted.', 'info');
+                          }}
+                          aria-label="Delete Card"
+                          className="p-1.5 bg-red-50 hover:bg-red-100 dark:bg-red-950/20 dark:hover:bg-red-950/40 text-red-600 dark:text-red-400 rounded-lg transition-all border border-red-200/10 shrink-0"
+                        >
+                          <IconTrash size={13} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Layout settings box */}
+              <div className="p-6 bg-white/50 dark:bg-slate-950/40 border border-white/40 dark:border-white/5 rounded-3xl shadow-lg space-y-6 backdrop-blur-md">
+                <div className="flex items-center gap-2 border-b border-white/20 dark:border-slate-800 pb-3">
+                  <IconSliders className="text-blue-500" />
+                  <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm">
+                    Layout & Print Customization Settings
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Card Width (mm)</label>
+                    <input
+                      type="number"
+                      value={settings.cardWidthMm}
+                      onChange={(e) => setSettings(prev => ({ ...prev, cardWidthMm: Number(e.target.value) }))}
+                      className="w-full px-3 py-2 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-xl text-xs text-slate-700 dark:text-slate-300 backdrop-blur-sm focus:bg-white/60 focus:border-blue-400 focus:outline-none transition-all"
+                      step="0.1"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Card Height (mm)</label>
+                    <input
+                      type="number"
+                      value={settings.cardHeightMm}
+                      onChange={(e) => setSettings(prev => ({ ...prev, cardHeightMm: Number(e.target.value) }))}
+                      className="w-full px-3 py-2 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-xl text-xs text-slate-700 dark:text-slate-300 backdrop-blur-sm focus:bg-white/60 focus:border-blue-400 focus:outline-none transition-all"
+                      step="0.1"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Col Gap Size (mm)</label>
+                    <input
+                      type="number"
+                      value={settings.gapMm}
+                      onChange={(e) => setSettings(prev => ({ ...prev, gapMm: Number(e.target.value) }))}
+                      className="w-full px-3 py-2 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-xl text-xs text-slate-700 dark:text-slate-300 backdrop-blur-sm focus:bg-white/60 focus:border-blue-400 focus:outline-none transition-all"
+                      step="0.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Row Gap Size (mm)</label>
+                    <input
+                      type="number"
+                      value={settings.rowGapMm}
+                      onChange={(e) => setSettings(prev => ({ ...prev, rowGapMm: Number(e.target.value) }))}
+                      className="w-full px-3 py-2 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-xl text-xs text-slate-700 dark:text-slate-300 backdrop-blur-sm focus:bg-white/60 focus:border-blue-400 focus:outline-none transition-all"
+                      step="0.5"
+                    />
+                  </div>
+                </div>
+
+                {/* Toggles */}
+                <div className="space-y-3 pt-3 border-t border-white/20 dark:border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">A4 Margin Padding (mm)</span>
+                    <input
+                      type="number"
+                      value={settings.marginMm}
+                      onChange={(e) => setSettings(prev => ({ ...prev, marginMm: Number(e.target.value) }))}
+                      className="w-16 px-2 py-1 bg-white/30 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-lg text-center text-xs text-slate-700 dark:text-slate-300 focus:bg-white/60 focus:outline-none"
+                    />
+                  </div>
+                  
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Show Scissor Cut Lines</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.showCutLines}
+                      onChange={(e) => setSettings(prev => ({ ...prev, showCutLines: e.target.checked }))}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+                    />
+                  </label>
+
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Show Card Outer Outline</span>
+                    <input
+                      type="checkbox"
+                      checked={settings.showOutline}
+                      onChange={(e) => setSettings(prev => ({ ...prev, showOutline: e.target.checked }))}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              {/* Secure Assurance Badge */}
+              <div className="p-4 bg-emerald-500/10 dark:bg-emerald-500/5 rounded-2xl border border-emerald-500/20 flex gap-3 backdrop-blur-md shadow-sm">
+                <IconShieldCheck className="text-emerald-500 shrink-0" />
+                <div className="space-y-0.5">
+                  <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200">100% Client-Side Extraction</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">
+                    Processing happens securely in your browser sandbox. None of your cards, documents, or personal data ever touch any server.
+                  </p>
+                </div>
+              </div>
+
+            </section>
+
+            {/* A4 Workspace Canvas (7 cols) */}
+            <section className="lg:col-span-7 flex flex-col bg-white/50 dark:bg-slate-950/40 border border-white/40 dark:border-white/5 rounded-3xl shadow-xl overflow-hidden min-h-[600px] backdrop-blur-md">
+              <div className="p-4 border-b border-white/20 dark:border-slate-800/80 flex items-center justify-between bg-white/40 dark:bg-slate-950/20 no-print backdrop-blur-md">
+                <div className="flex items-center gap-2">
+                  <IconLayoutGrid className="text-blue-500" />
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">A4 Document Print Preview</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold bg-blue-500/10 text-blue-600 px-2 py-1 rounded-lg">
+                  <span>W: 210mm</span>
+                  <span>×</span>
+                  <span>H: 297mm</span>
+                </div>
+              </div>
+
+              {/* Grid Workspace */}
+              <div className="flex-1 overflow-auto p-8 relative flex items-center justify-center min-h-[700px] bg-slate-900/5">
+                <A4PaperComponent cards={cards} settings={settings} zoom={zoom} setZoom={setZoom} onCropCard={setActiveCropCard} />
+              </div>
+            </section>
+
+          </main>
+
+          {/* PRINT-ONLY ELEMENT */}
+          <div className="hidden print:block" id="print-layout-container">
+            <A4PaperComponent cards={cards} settings={settings} zoom={1.0} setZoom={()=>{}} isPrintView={true} />
+          </div>
+
+          {/* Footer Information */}
+          <footer className="py-6 border-t border-white/10 dark:border-slate-900 bg-white/30 dark:bg-slate-950/20 backdrop-blur-sm text-center text-xs text-slate-400 dark:text-slate-600 no-print">
+            <p>© 2026 Smart CSC Tools. Safe offline local utility.</p>
+          </footer>
+
+          {/* Password decrypt modal */}
+          {passwordRequired && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/45 backdrop-blur-md">
+              <div className="w-full max-w-md bg-white/75 dark:bg-slate-950/70 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/50 dark:border-white/5 p-6 space-y-6">
+                <div className="flex flex-col items-center text-center space-y-3">
+                  <div className="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center">
+                    <IconLock size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-800 dark:text-slate-100 text-base">This PDF is Password Protected</h3>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Please enter the decryption password for local file parsing.</p>
+                  </div>
+                </div>
+                <form onSubmit={handlePasswordSubmit} className="space-y-4">
+                  <input
+                    type="password"
+                    value={passwordValue}
+                    onChange={(e) => setPasswordValue(e.target.value)}
+                    placeholder="Enter PDF password"
+                    className="w-full px-4 py-2.5 bg-white/40 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-xl focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    autoFocus
+                    required
+                  />
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => { setPasswordRequired(false); setPasswordFile(null); }}
+                      className="flex-1 py-2.5 px-4 bg-white/40 hover:bg-white/70 dark:bg-slate-800/40 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-semibold transition-all border border-white/20 dark:border-white/5 shadow-sm"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90 rounded-xl text-sm font-semibold transition-all shadow-md shadow-blue-500/10"
+                    >
+                      Unlock PDF
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* Crop modal */}
+          {activeCropCard && (
+            <CropModal card={activeCropCard} onClose={() => setActiveCropCard(null)} onSave={(updated) => {
+              setCards(prev => prev.map(c => c.id === updated.id ? { ...c, ...updated } : c));
+              setActiveCropCard(null);
+              triggerToast('Card crops saved!');
+            }} />
+          )}
+
+          </div>
+
+          {/* PRINT-ONLY DUAL LAYOUT CONTAINER */}
+          <div className="hidden print:block print-only">
+            <A4PaperComponent 
+              cards={cards} 
+              settings={settings}
+              zoom={1.0}
+              setZoom={() => {}}
+              isPrintView={true}
+            />
+          </div>
+        </>
+      );
+    }
+
+    // --- A4 PAPER COMPONENT FOR PREVIEW & PRINT ---
+    function A4PaperComponent({ cards, settings, zoom, setZoom, onCropCard, isPrintView = false }) {
+      const MM_TO_PX = 3.7795;
+      const paperWidthPx = 210 * MM_TO_PX;
+      const paperHeightPx = 297 * MM_TO_PX;
+      const marginPx = settings.marginMm * MM_TO_PX;
+
+      return (
+        <div 
+          className={`relative ${isPrintView ? '' : 'shadow-2xl border border-slate-300 dark:border-slate-800 bg-white'}`}
+          style={{
+            width: `${paperWidthPx}px`,
+            height: `${paperHeightPx}px`,
+            transform: isPrintView ? 'none' : `scale(${zoom})`,
+            transformOrigin: 'center center',
+            transition: 'transform 0.15s ease-out',
+            boxSizing: 'border-box',
+            backgroundColor: '#ffffff',
+          }}
+        >
+          {/* Zoom Actions Layer */}
+          {!isPrintView && (
+            <div className="z-10 absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 p-3 bg-white/60 dark:bg-slate-900/50 backdrop-blur-md rounded-2xl shadow-lg border border-white/40 dark:border-white/5 no-print">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setZoom(Math.max(0.3, zoom - 0.05))}
+                  className="p-1.5 bg-white/40 hover:bg-white/80 dark:bg-slate-800/40 dark:hover:bg-slate-800/80 text-slate-600 dark:text-slate-300 rounded-lg transition-all border border-white/20 shadow-sm"
+                >
+                  <IconZoomOut />
+                </button>
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300 w-12 text-center select-none font-mono">
+                  {Math.round(zoom * 100)}%
+                </span>
+                <button
+                  onClick={() => setZoom(Math.min(2.5, zoom + 0.05))}
+                  className="p-1.5 bg-white/40 hover:bg-white/80 dark:bg-slate-800/40 dark:hover:bg-slate-800/80 text-slate-600 dark:text-slate-300 rounded-lg transition-all border border-white/20 shadow-sm"
+                >
+                  <IconZoomIn />
+                </button>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setZoom(0.85)}
+                  className="text-[10px] font-bold tracking-wider px-2.5 py-1.5 bg-white/40 dark:bg-slate-800/45 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/90 transition-all uppercase border border-white/20 shadow-sm"
+                >
+                  Fit
+                </button>
+                <button
+                  onClick={() => setZoom(1.0)}
+                  className="text-[10px] font-bold tracking-wider px-2.5 py-1.5 bg-white/40 dark:bg-slate-800/45 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/90 transition-all uppercase border border-white/20 shadow-sm"
+                >
+                  100%
+                </button>
+                <button
+                  onClick={() => setZoom(1.5)}
+                  className="text-[10px] font-bold tracking-wider px-2.5 py-1.5 bg-white/40 dark:bg-slate-800/45 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-white/80 dark:hover:bg-slate-800/90 transition-all uppercase border border-white/20 shadow-sm"
+                >
+                  150%
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Cards render container */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: `${marginPx}px`,
+              left: `${marginPx}px`,
+              right: `${marginPx}px`,
+              bottom: `${marginPx}px`,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: `${settings.rowGapMm * MM_TO_PX}px`,
+            }}
+          >
+            {cards.map((card, idx) => {
+              const cardWidthPx = settings.cardWidthMm * MM_TO_PX;
+              const cardHeightPx = settings.cardHeightMm * MM_TO_PX;
+              
+              return (
+                <div 
+                  key={card.id}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: `${settings.gapMm * MM_TO_PX}px`,
+                  }}
+                >
+                  {/* Front Side */}
+                  <div
+                    style={{
+                      width: `${cardWidthPx}px`,
+                      height: `${cardHeightPx}px`,
+                      borderRadius: `${settings.cardBorderRadius}px`,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      boxSizing: 'border-box',
+                      border: settings.showOutline ? '1px solid #cbd5e1' : 'none',
+                    }}
+                    className="relative overflow-hidden flex items-center justify-center group/card"
+                  >
+                    <img
+                      src={card.dataUrl}
+                      style={{
+                        position: 'absolute',
+                        left: `-${((card.cropX || 0) / (card.cropW || 1)) * 100}%`,
+                        top: `-${((card.cropY || 0) / (card.cropH || 1)) * 100}%`,
+                        width: `${(1 / (card.cropW || 1)) * 100}%`,
+                        height: `${(1 / (card.cropH || 1)) * 100}%`,
+                        objectFit: 'fill',
+                        maxWidth: 'none',
+                        maxHeight: 'none',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    
+                    {/* Crop Overlay */}
+                    {!isPrintView && onCropCard && (
+                      <div 
+                        className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center no-print cursor-pointer no-drag z-10"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onCropCard(card);
+                        }}
+                      >
+                        <button className="flex items-center gap-1.5 bg-white/95 text-blue-600 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all duration-150 border border-blue-100">
+                          <IconCrop size={13} />
+                          <span>Edit Crop</span>
+                        </button>
+                      </div>
+                    )}
+
+                    {settings.showCutLines && (
+                      <div className="absolute inset-0 border border-dashed border-red-500/20 pointer-events-none"></div>
+                    )}
+                  </div>
+
+                  {/* Back Side (If Applicable) */}
+                  {card.hasBack && (
+                    <div
+                      style={{
+                        width: `${cardWidthPx}px`,
+                        height: `${cardHeightPx}px`,
+                        borderRadius: `${settings.cardBorderRadius}px`,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        boxSizing: 'border-box',
+                        border: settings.showOutline ? '1px solid #cbd5e1' : 'none',
+                      }}
+                      className="relative overflow-hidden flex items-center justify-center group/card"
+                    >
+                      <img
+                        src={card.dataUrl}
+                        style={{
+                          position: 'absolute',
+                          left: `-${((card.backCropX || 0) / (card.backCropW || 1)) * 100}%`,
+                          top: `-${((card.backCropY || 0) / (card.backCropH || 1)) * 100}%`,
+                          width: `${(1 / (card.backCropW || 1)) * 100}%`,
+                          height: `${(1 / (card.backCropH || 1)) * 100}%`,
+                          objectFit: 'fill',
+                          maxWidth: 'none',
+                          maxHeight: 'none',
+                          pointerEvents: 'none',
+                        }}
+                      />
+
+                      {/* Crop Overlay */}
+                      {!isPrintView && onCropCard && (
+                        <div 
+                          className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center no-print cursor-pointer no-drag z-10"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onCropCard(card);
+                          }}
+                        >
+                          <button className="flex items-center gap-1.5 bg-white/95 text-blue-600 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all duration-150 border border-blue-100">
+                            <IconCrop size={13} />
+                            <span>Edit Crop</span>
+                          </button>
+                        </div>
+                      )}
+
+                      {settings.showCutLines && (
+                        <div className="absolute inset-0 border border-dashed border-red-500/20 pointer-events-none"></div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // --- CROP MODAL COMPONENT ---
+    function CropModal({ card, onClose, onSave }) {
+      const [frontCrop, setFrontCrop] = useState({ x: card.cropX, y: card.cropY, w: card.cropW, h: card.cropH });
+      const [backCrop, setBackCrop] = useState({ x: card.backCropX, y: card.backCropY, w: card.backCropW, h: card.backCropH });
+      const [hasBack, setHasBack] = useState(card.hasBack);
+      const [activeTab, setActiveTab] = useState('front');
+
+      const imgRef = useRef(null);
+      const [dragStart, setDragStart] = useState(null);
+      const [dragType, setDragType] = useState(null); // 'move' or 'resize'
+      const [resizeHandle, setResizeHandle] = useState(null);
+
+      const activeCrop = activeTab === 'front' ? frontCrop : backCrop;
+      const setActiveCrop = activeTab === 'front' ? setFrontCrop : setBackCrop;
+
+      // Handle Mouse Dragging & Cropping inside crop box
+      const handleMouseDown = (e, type, handle = null) => {
+        e.preventDefault();
+        const rect = imgRef.current.getBoundingClientRect();
+        const clickX = (e.clientX - rect.left) / rect.width;
+        const clickY = (e.clientY - rect.top) / rect.height;
+
+        setDragStart({ x: clickX, y: clickY, crop: { ...activeCrop } });
+        setDragType(type);
+        setResizeHandle(handle);
+      };
+
+      const handleMouseMove = (e) => {
+        if (!dragStart) return;
+        const rect = imgRef.current.getBoundingClientRect();
+        const currentX = (e.clientX - rect.left) / rect.width;
+        const currentY = (e.clientY - rect.top) / rect.height;
+
+        const dx = currentX - dragStart.x;
+        const dy = currentY - dragStart.y;
+
+        if (dragType === 'move') {
+          setActiveCrop({
+            ...dragStart.crop,
+            x: Math.max(0, Math.min(1 - dragStart.crop.w, dragStart.crop.x + dx)),
+            y: Math.max(0, Math.min(1 - dragStart.crop.h, dragStart.crop.y + dy)),
+          });
+        } else if (dragType === 'resize') {
+          let { x, y, w, h } = dragStart.crop;
+
+          if (resizeHandle.includes('e')) w = Math.max(0.05, Math.min(1 - x, w + dx));
+          if (resizeHandle.includes('s')) h = Math.max(0.05, Math.min(1 - y, h + dy));
+          if (resizeHandle.includes('w')) {
+            const newX = Math.max(0, Math.min(x + w - 0.05, x + dx));
+            w = w + (x - newX);
+            x = newX;
+          }
+          if (resizeHandle.includes('n')) {
+            const newY = Math.max(0, Math.min(y + h - 0.05, y + dy));
+            h = h + (y - newY);
+            y = newY;
+          }
+
+          setActiveCrop({ x, y, w, h });
+        }
+      };
+
+      const handleMouseUp = () => {
+        setDragStart(null);
+        setDragType(null);
+        setResizeHandle(null);
+      };
+
+      useEffect(() => {
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+        return () => {
+          window.removeEventListener('mousemove', handleMouseMove);
+          window.removeEventListener('mouseup', handleMouseUp);
+        };
+      }, [dragStart, dragType, resizeHandle, activeTab, frontCrop, backCrop]);
+
+      const handleAutoDetect = () => {
+        try {
+          const detected = detectCardBounds(imgRef.current, activeTab === 'front' ? 'top' : 'bottom');
+          setActiveCrop({ x: detected.x, y: detected.y, w: detected.width, h: detected.height });
+        } catch (e) {
+          alert("Auto-detection failed for this image format. Please adjust manually.");
+        }
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/45 backdrop-blur-md">
+          <div className="flex flex-col w-full max-w-5xl h-[90vh] bg-white/75 dark:bg-slate-950/70 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden border border-white/50 dark:border-white/5">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/20 dark:border-slate-800/60 bg-white/40 dark:bg-slate-950/20 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg">
+                  <IconCrop size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm md:text-base">PDF ID Card Cropper</h3>
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Fine-tune the print crop boundary coordinates manually.</p>
+                </div>
+              </div>
+              <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">✕</button>
+            </div>
+
+            {/* Modal Content Column */}
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 overflow-hidden">
+              
+              {/* Left Toolbar Column */}
+              <div className="p-5 border-r border-white/20 dark:border-slate-800 space-y-6 overflow-y-auto bg-slate-500/5">
+                
+                {/* Back side control checkbox */}
+                <div className="p-3.5 bg-white/50 dark:bg-slate-900/40 rounded-xl border border-white/40 dark:border-white/5 space-y-3">
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Has Back Side Page</span>
+                    <input
+                      type="checkbox"
+                      checked={hasBack}
+                      onChange={(e) => setHasBack(e.target.checked)}
+                      className="w-4 h-4 text-blue-600 bg-slate-50 rounded"
+                    />
+                  </label>
+                </div>
+
+                {/* Tab selector */}
+                {hasBack && (
+                  <div className="flex bg-white/40 dark:bg-slate-900/40 p-1 rounded-xl border border-white/20 dark:border-white/5">
+                    <button
+                      onClick={() => setActiveTab('front')}
+                      className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                        activeTab === 'front' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'
+                      }`}
+                    >
+                      Front Page
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('back')}
+                      className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                        activeTab === 'back' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'
+                      }`}
+                    >
+                      Back Page
+                    </button>
+                  </div>
+                )}
+
+                {/* Auto detect button */}
+                <button
+                  onClick={handleAutoDetect}
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-500/10 hover:opacity-90 active:scale-95 transition-all duration-150"
+                >
+                  <IconShieldCheck className="text-white" />
+                  <span>Auto-Detect Smart Crop</span>
+                </button>
+
+                {/* Numeric adjust bounds */}
+                <div className="space-y-4">
+                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Crop Coordinates (Percent)</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[10px] text-slate-400 mb-1">X Coord</label>
+                      <input
+                        type="number"
+                        value={Math.round(activeCrop.x * 100)}
+                        onChange={(e) => setActiveCrop(prev => ({ ...prev, x: Number(e.target.value) / 100 }))}
+                        className="w-full px-2 py-1.5 bg-white/40 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-slate-400 mb-1">Y Coord</label>
+                      <input
+                        type="number"
+                        value={Math.round(activeCrop.y * 100)}
+                        onChange={(e) => setActiveCrop(prev => ({ ...prev, y: Number(e.target.value) / 100 }))}
+                        className="w-full px-2 py-1.5 bg-white/40 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-slate-400 mb-1">Width</label>
+                      <input
+                        type="number"
+                        value={Math.round(activeCrop.w * 100)}
+                        onChange={(e) => setActiveCrop(prev => ({ ...prev, w: Number(e.target.value) / 100 }))}
+                        className="w-full px-2 py-1.5 bg-white/40 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-slate-400 mb-1">Height</label>
+                      <input
+                        type="number"
+                        value={Math.round(activeCrop.h * 100)}
+                        onChange={(e) => setActiveCrop(prev => ({ ...prev, h: Number(e.target.value) / 100 }))}
+                        className="w-full px-2 py-1.5 bg-white/40 dark:bg-slate-900/50 border border-white/20 dark:border-white/5 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Helpful Tip */}
+                <div className="p-3 bg-blue-500/5 border border-blue-500/10 rounded-xl flex gap-2">
+                  <IconHelp className="text-blue-500 shrink-0 w-4 h-4" />
+                  <p className="text-[10px] text-slate-500 leading-normal">
+                    Drag the crop region box inside the canvas viewport, or grab the handles to scale dynamically.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Center Canvas Viewport Column (3 cols) */}
+              <div className="lg:col-span-3 p-6 flex flex-col items-center justify-center bg-slate-950/5 overflow-auto relative">
+                
+                <div className="relative select-none max-w-full max-h-[60vh] border border-slate-300 shadow-xl bg-white rounded-lg overflow-hidden">
+                  <img
+                    ref={imgRef}
+                    src="https://smartcsctools.org/{card.originalDataUrl}"
+                    className="max-w-full max-h-[60vh] block pointer-events-none"
+                    alt="Document canvas"
+                  />
+                  
+                  {/* Absolute Crop Bounds Resizer UI overlay */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: `${activeCrop.x * 100}%`,
+                      top: `${activeCrop.y * 100}%`,
+                      width: `${activeCrop.w * 100}%`,
+                      height: `${activeCrop.h * 100}%`,
+                      border: '2px solid #2563eb',
+                      boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
+                      cursor: 'move',
+                    }}
+                    onMouseDown={(e) => handleMouseDown(e, 'move')}
+                  >
+                    {/* Resizing Anchor Handles */}
+                    {['nw', 'ne', 'se', 'sw', 'n', 's', 'e', 'w'].map((handle) => {
+                      let handleStyle = { position: 'absolute', width: '10px', height: '10px', backgroundColor: '#2563eb', border: '1px solid white' };
+                      if (handle === 'nw') { handleStyle.top = '-5px'; handleStyle.left = '-5px'; handleStyle.cursor = 'nwse-resize'; }
+                      else if (handle === 'ne') { handleStyle.top = '-5px'; handleStyle.right = '-5px'; handleStyle.cursor = 'nesw-resize'; }
+                      else if (handle === 'se') { handleStyle.bottom = '-5px'; handleStyle.right = '-5px'; handleStyle.cursor = 'nwse-resize'; }
+                      else if (handle === 'sw') { handleStyle.bottom = '-5px'; handleStyle.left = '-5px'; handleStyle.cursor = 'nesw-resize'; }
+                      else if (handle === 'n') { handleStyle.top = '-5px'; handleStyle.left = 'calc(50% - 5px)'; handleStyle.cursor = 'ns-resize'; }
+                      else if (handle === 's') { handleStyle.bottom = '-5px'; handleStyle.left = 'calc(50% - 5px)'; handleStyle.cursor = 'ns-resize'; }
+                      else if (handle === 'e') { handleStyle.right = '-5px'; handleStyle.top = 'calc(50% - 5px)'; handleStyle.cursor = 'ew-resize'; }
+                      else if (handle === 'w') { handleStyle.left = '-5px'; handleStyle.top = 'calc(50% - 5px)'; handleStyle.cursor = 'ew-resize'; }
+
+                      return (
+                        <div
+                          key={handle}
+                          style={handleStyle}
+                          onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, 'resize', handle); }}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Modal Actions Footer */}
+            <div className="px-6 py-4 border-t border-white/20 dark:border-slate-800 bg-white/40 dark:bg-slate-950/20 backdrop-blur-md flex items-center justify-end gap-3">
+              <button
+                onClick={onClose}
+                className="py-2.5 px-5 bg-white/40 hover:bg-white/70 dark:bg-slate-800/40 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold border border-white/20 dark:border-white/5 transition-all shadow-sm"
+              >
+                Cancel Adjustments
+              </button>
+              <button
+                onClick={() => onSave({
+                  id: card.id,
+                  hasBack,
+                  cropX: frontCrop.x,
+                  cropY: frontCrop.y,
+                  cropW: frontCrop.w,
+                  cropH: frontCrop.h,
+                  backCropX: backCrop.x,
+                  backCropY: backCrop.y,
+                  backCropW: backCrop.w,
+                  backCropH: backCrop.h,
+                })}
+                className="py-2.5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-500/10 hover:opacity-95 transition-all"
+              >
+                Apply Crop Coordinates
+              </button>
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
+    // Mount React Node to root
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+
+  <!-- Code Protection & Anti-Theft Security Scripts -->
+  <script>
+    (function() {
+      // 1. Disable Right Click (ContextMenu) with secure toast warning
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showSecurityNotice("Right-click menu has been disabled to protect source code.");
+      });
+
+      // 2. Disable standard developer tools shortcuts & site saving commands
+      document.addEventListener('keydown', function(e) {
+        // F12 key (F12)
+        if (e.key === 'F12' || e.keyCode === 123) {
+          e.preventDefault();
+          showSecurityNotice("Developer tools shortcut (F12) is disabled on this portal.");
+          return false;
+        }
+
+        // Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+Shift+C (Element Selector)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+          e.preventDefault();
+          showSecurityNotice("Access to developer console is restricted.");
+          return false;
+        }
+
+        // Ctrl+U / Cmd+U (View Page Source)
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+          e.preventDefault();
+          showSecurityNotice("Viewing page source is disabled on Smart CSC Tools.");
+          return false;
+        }
+
+        // Ctrl+S / Cmd+S (Save Page As...)
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) {
+          e.preventDefault();
+          showSecurityNotice("Offline page downloading is restricted.");
+          return false;
+        }
+      });
+
+      // Elegant custom warning toast notification creator
+      function showSecurityNotice(msg) {
+        let container = document.getElementById('security-toast-wrapper');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'security-toast-wrapper';
+          container.style.cssText = 'position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100000; display: flex; flex-direction: column; gap: 8px; max-width: 90%; width: 380px;';
+          document.body.appendChild(container);
+        }
+
+        // Remove any duplicate warnings to avoid stacking clutter
+        while (container.children.length > 2) {
+          container.children[0].remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.style.cssText = 'background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px); color: #f8fafc; border: 1px solid rgba(239, 68, 68, 0.2); border-left: 4px solid #ef4444; padding: 12px 18px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(12px); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);';
+        toast.innerHTML = '<span style="color: #ef4444; font-size: 16px;">🛡️</span> <span style="flex: 1; line-height: 1.4;">' + msg + '</span>';
+
+        container.appendChild(toast);
+
+        // Animate entry
+        setTimeout(function() {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateY(0)';
+        }, 30);
+
+        // Animate exit and auto-delete
+        setTimeout(function() {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(12px)';
+          setTimeout(function() {
+            toast.remove();
+          }, 350);
+        }, 3500);
+      }
+
+      // 3. Subtle background debugger loop to make deep inspection challenging
+      setInterval(function() {
+        const startTime = performance.now();
+        debugger; // This halts executing context if inspection tools are active
+        if (performance.now() - startTime > 100) {
+          console.clear();
+          console.log("%c🛡️ SMART CSC TOOLS PROTECTION active.", "color: #3b82f6; font-family: sans-serif; font-size: 20px; font-weight: bold;");
+          console.log("Source code of smartcsctools.org is highly optimized, private, and copyrighted. Code copying is prohibited.");
+        }
+      }, 2200);
+    })();
+  </script>
+</body>
+</html>

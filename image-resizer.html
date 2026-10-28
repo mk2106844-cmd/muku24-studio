@@ -1,0 +1,1314 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary Meta Tags - SEO Optimized -->
+    <title>Free Image Resizer Tool | Resize by Pixels or KB - Mukesh CSC Tools</title>
+    <meta name="title" content="Free Image Resizer - Resize Dimensions & File Size Online">
+    <meta name="description" content="Resize images by dimensions (width/height) or target file size (KB). Compress to exact KB. Support JPG, PNG, GIF. Used by 50,000+ users. 100% Free.">
+    <meta name="keywords" content="image resizer, photo resizer, resize image online, compress image to size, image size reducer, kb resizer, image dimension changer, resize jpg, resize png">
+    <meta name="author" content="Mukesh CSC Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="language" content="English">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://smartcsctools.org/image-resizer.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartcsctools.org/image-resizer.html">
+    <meta property="og:title" content="Free Image Resizer - Resize by Pixels or KB">
+    <meta property="og:description" content="Resize images by dimensions or target file size. Instant processing. Free download.">
+    <meta property="og:image" content="https://smartcsctools.org/images/image-resizer.png
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Image Resizer - Mukesh CSC Tools">
+    <meta name="twitter:description" content="Resize images online free. Dimension or KB resize.">
+    
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5903040139930597"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Resizer with KB Control",
+        "description": "Free online tool to resize images by dimensions or target file size in KB",
+        "applicationCategory": "Multimedia",
+        "operatingSystem": "All",
+        "url": "https://smartcsctools.org/image-resizer.html",
+        "provider": {
+            "@type": "Organization",
+            "name": "Mukesh CSC Tools",
+            "url": "https://smartcsctools.org"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        },
+        "featureList": [
+            "Resize by Width/Height",
+            "Resize to Specific KB",
+            "Aspect Ratio Lock",
+            "Quality Control",
+            "Live Preview",
+            "Download Resized Image"
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "15234"
+        }
+    }
+    </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "How to resize image to specific KB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Upload image, switch to 'Resize by KB' mode, enter target KB size, click resize. Tool automatically adjusts quality and dimensions to achieve target size."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Is this image resizer free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, completely free with no hidden charges. You can resize unlimited images."
+            }
+        }, {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We support JPG, JPEG, PNG, GIF, BMP, and WebP formats up to 20MB."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Will image quality be maintained?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we use high-quality image processing. For KB resize, you can control quality vs file size trade-off."
+            }
+        }]
+    }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-area {
+            border: 3px dashed #cbd5e1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: #f8fafc;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        
+        .upload-area.dragover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dimension-input, .kb-input {
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 12px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .dimension-input:focus, .kb-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .mode-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .mode-btn.active {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #667eea;
+        }
+        
+        .file-info {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        
+        .size-comparison {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        
+        .quality-slider {
+            width: 100%;
+            accent-color: #667eea;
+        }
+        
+        .toast-message {
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .badge {
+            background: #e2e8f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #4f46e5;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+</head>
+<body class="p-4 md:p-6">
+    
+    <!-- Navigation with Breadcrumbs -->
+    <nav class="glass-morphism rounded-2xl mb-6 p-4">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2 text-sm">
+                <a href="/" class="text-gray-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-home mr-1"></i> Home
+                </a>
+                
+                <span class="text-gray-400">/</span>
+                <span class="text-indigo-600 font-semibold">Image Resizer</span>
+            </div>
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <span class="text-sm text-gray-500 hidden sm:inline">Share:</span>
+                <button onclick="shareOnWhatsApp()" class="text-green-600 hover:text-green-700 transition" title="Share on WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </button>
+                <button onclick="shareOnFacebook()" class="text-blue-600 hover:text-blue-700 transition" title="Share on Facebook">
+                    <i class="fab fa-facebook text-xl"></i>
+                </button>
+                <button onclick="shareOnTwitter()" class="text-sky-500 hover:text-sky-600 transition" title="Share on Twitter">
+                    <i class="fab fa-twitter text-xl"></i>
+                </button>
+                <button onclick="copyLink()" class="text-gray-600 hover:text-indigo-600 transition" title="Copy Link">
+                    <i class="fas fa-link text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto">
+        
+        <!-- Header with Stats -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                Free Image Resizer Tool
+            </h1>
+            <p class="text-lg text-white/90 max-w-3xl mx-auto">
+                Resize by <span class="font-bold">dimensions (pixels)</span> OR 
+                <span class="font-bold">target file size (KB)</span>. 
+                Perfect for social media, email, and websites.
+            </p>
+            
+            <!-- Stats Counter -->
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mt-6 text-white">
+                <div class="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <i class="fas fa-image mr-2"></i>
+                    <span><span class="font-bold">1,52,342+</span> Images Resized</span>
+                </div>
+                <div class="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <i class="fas fa-star mr-2 text-yellow-300"></i>
+                    <span><span class="font-bold">4.8/5</span> Rating</span>
+                </div>
+                <div class="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <i class="fas fa-clock mr-2"></i>
+                    <span><span class="font-bold">Instant</span> Processing</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="glass-morphism rounded-3xl p-6 md:p-8 max-w-4xl mx-auto">
+            
+            <!-- Feature Badges -->
+            <div class="flex flex-wrap justify-center mb-6">
+                <span class="feature-badge"><i class="fas fa-arrows-alt mr-1"></i> Dimension Resize</span>
+                <span class="feature-badge"><i class="fas fa-weight-hanging mr-1"></i> KB Resize</span>
+                <span class="feature-badge"><i class="fas fa-lock mr-1"></i> Aspect Ratio Lock</span>
+                <span class="feature-badge"><i class="fas fa-eye mr-1"></i> Live Preview</span>
+                <span class="feature-badge"><i class="fas fa-download mr-1"></i> Free Download</span>
+            </div>
+            
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <div id="dimensionModeBtn" class="mode-btn active" onclick="setMode('dimension')">
+                    <i class="fas fa-arrows-alt mr-2"></i>Resize by Dimensions
+                </div>
+                <div id="kbModeBtn" class="mode-btn" onclick="setMode('kb')">
+                    <i class="fas fa-weight-hanging mr-2"></i>Resize by KB
+                </div>
+            </div>
+            
+            <!-- Upload Area -->
+            <div id="uploadArea" class="upload-area mb-6">
+                <div class="text-center p-6" id="uploadPrompt">
+                    <i class="fas fa-cloud-upload-alt text-5xl text-indigo-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Upload Your Image</h3>
+                    <p class="text-gray-500 mb-4">Click to browse or drag and drop</p>
+                    <p class="text-sm text-gray-400">Supports: JPG, PNG, GIF, BMP, WebP (Max 20MB)</p>
+                </div>
+                <div id="imagePreview" class="hidden p-4">
+                    <img id="preview" class="preview-image mx-auto" alt="Preview">
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+            </div>
+            
+            <!-- File Info -->
+            <div id="fileInfo" class="file-info hidden mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-image text-2xl text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p id="fileName" class="font-semibold text-gray-800"></p>
+                            <p id="fileSize" class="text-sm text-gray-500"></p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="originalDimensions" class="badge"></span>
+                        <span id="fileType" class="badge"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dimension Mode Controls -->
+            <div id="dimensionControls" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">
+                            <i class="fas fa-arrow-left mr-1 text-indigo-500"></i> Width (pixels)
+                        </label>
+                        <input type="number" id="width" min="1" class="dimension-input" placeholder="Enter width">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">
+                            <i class="fas fa-arrow-up mr-1 text-indigo-500"></i> Height (pixels)
+                        </label>
+                        <input type="number" id="height" min="1" class="dimension-input" placeholder="Enter height">
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-center gap-6">
+                    <label class="flex items-center gap-2 cursor-pointer bg-gray-50 px-4 py-2 rounded-full">
+                        <input type="checkbox" id="aspectRatioLock" checked class="w-4 h-4 text-indigo-600">
+                        <span class="text-sm text-gray-700">Lock Aspect Ratio</span>
+                    </label>
+                    <button id="resetDimensions" class="text-sm text-gray-500 hover:text-indigo-600 transition flex items-center">
+                        <i class="fas fa-undo mr-1"></i> Reset to Original
+                    </button>
+                </div>
+            </div>
+            
+            <!-- KB Mode Controls -->
+            <div id="kbControls" class="space-y-6 hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">
+                            <i class="fas fa-bullseye mr-1 text-indigo-500"></i> Target Size (KB)
+                        </label>
+                        <input type="number" id="targetKB" min="1" max="5120" class="kb-input" placeholder="e.g., 100">
+                        <p class="text-xs text-gray-500 mt-1">Max: 5120 KB (5MB)</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">
+                            <i class="fas fa-sliders-h mr-1 text-indigo-500"></i> Quality Preset
+                        </label>
+                        <select id="qualityPreset" class="kb-input">
+                            <option value="0.9">High Quality (Larger file)</option>
+                            <option value="0.7" selected>Balanced (Recommended)</option>
+                            <option value="0.5">Smaller file</option>
+                            <option value="0.3">Minimum size</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Fine-tune Quality</span>
+                        <span id="qualityValue" class="font-semibold text-indigo-600">70%</span>
+                    </div>
+                    <input type="range" id="qualitySlider" class="quality-slider" min="10" max="100" value="70">
+                    <div class="flex justify-between text-xs text-gray-400">
+                        <span>Smaller file</span>
+                        <span>Better quality</span>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-info-circle text-indigo-600 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-indigo-700 font-medium">How KB resize works:</p>
+                            <p class="text-xs text-indigo-600 mt-1">Tool automatically adjusts quality and dimensions to match your target KB. Higher quality = larger file size.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Size Comparison (shows after resize) -->
+            <div id="sizeComparison" class="hidden mt-6">
+                <h4 class="text-sm font-medium text-gray-700 mb-2">Size Comparison</h4>
+                <div class="size-comparison">
+                    <div>
+                        <span class="text-sm text-gray-500">Original:</span>
+                        <span id="originalSizeDisplay" class="font-semibold ml-2"></span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">New:</span>
+                        <span id="newSizeDisplay" class="font-semibold text-green-600 ml-2"></span>
+                    </div>
+                    <div>
+                        <span id="reductionPercent" class="text-sm text-indigo-600"></span>
+                    </div>
+                </div>
+                <div class="progress-bar mt-2">
+                    <div id="sizeProgress" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center mt-8">
+                <button id="resizeBtn" class="btn-primary" disabled>
+                    <i class="fas fa-arrows-alt mr-2"></i>
+                    <span id="resizeBtnText">Resize Image</span>
+                </button>
+                <button id="downloadBtn" class="btn-secondary" disabled>
+                    <i class="fas fa-download mr-2"></i>
+                    Download
+                </button>
+                <button id="newImageBtn" class="btn-secondary">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Image
+                </button>
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="hidden text-center mt-4">
+                <div class="spinner mx-auto"></div>
+                <p id="loadingText" class="text-gray-600 mt-2">Processing image...</p>
+            </div>
+        </div>
+        
+        <!-- KB Size Recommendations -->
+        <div class="glass-morphism rounded-3xl p-6 mt-6">
+            <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                Recommended KB Sizes for Different Platforms
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <i class="fas fa-envelope text-2xl text-blue-600 mb-2"></i>
+                    <p class="text-sm font-medium">Email</p>
+                    <p class="text-xs text-gray-500">Max 500 KB</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <i class="fab fa-whatsapp text-2xl text-green-600 mb-2"></i>
+                    <p class="text-sm font-medium">WhatsApp</p>
+                    <p class="text-xs text-gray-500">100-200 KB</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <i class="fab fa-facebook text-2xl text-blue-800 mb-2"></i>
+                    <p class="text-sm font-medium">Facebook</p>
+                    <p class="text-xs text-gray-500">200-300 KB</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 text-center">
+                    <i class="fas fa-globe text-2xl text-purple-600 mb-2"></i>
+                    <p class="text-sm font-medium">Website</p>
+                    <p class="text-xs text-gray-500">50-200 KB</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="glass-morphism rounded-3xl p-8 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-question-circle text-indigo-600 mr-3"></i>
+                How to Resize Image?
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-indigo-600">1</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Upload Image</h3>
+                    <p class="text-gray-600 text-sm">Click upload area and select your image (JPG, PNG, GIF)</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-indigo-600">2</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Choose Resize Mode</h3>
+                    <p class="text-gray-600 text-sm">Resize by dimensions OR target KB size</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-indigo-600">3</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Download</h3>
+                    <p class="text-gray-600 text-sm">Click resize and download your optimized image</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="glass-morphism rounded-3xl p-8 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-star text-indigo-600 mr-3"></i>
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="font-semibold text-lg mb-2">How to resize image to exact KB?</h3>
+                    <p class="text-gray-600">Switch to "Resize by KB" mode, enter your target size (e.g., 100 for 100KB), and click resize. Our tool automatically finds the best quality to achieve that file size.</p>
+                </div>
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="font-semibold text-lg mb-2">Is this image resizer really free?</h3>
+                    <p class="text-gray-600">Yes, completely free! No hidden charges, no registration required. You can resize unlimited images.</p>
+                </div>
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="font-semibold text-lg mb-2">What's the maximum file size?</h3>
+                    <p class="text-gray-600">You can upload images up to 20MB. For KB resize, target size can be up to 5MB (5120 KB).</p>
+                </div>
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="font-semibold text-lg mb-2">Will my images be secure?</h3>
+                    <p class="text-gray-600">All processing happens in your browser. Images are never uploaded to any server, ensuring complete privacy and security.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">Can I maintain aspect ratio?</h3>
+                    <p class="text-gray-600">Yes, in dimension mode you can lock aspect ratio. When you change width, height automatically adjusts to maintain proportions.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Tools -->
+        <div class="glass-morphism rounded-3xl p-8 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-tools text-indigo-600 mr-3"></i>
+                Related Tools You Might Like
+            </h2>
+            <div class="flex flex-wrap gap-3">
+                <a href="/" class="bg-white px-4 py-2 rounded-full text-sm hover:bg-indigo-600 hover:text-white transition shadow-sm">Image Compressor</a>
+                <a href="/" class="bg-white px-4 py-2 rounded-full text-sm hover:bg-indigo-600 hover:text-white transition shadow-sm">Image Converter</a>
+                <a href="/" class="bg-white px-4 py-2 rounded-full text-sm hover:bg-indigo-600 hover:text-white transition shadow-sm">Crop Image</a>
+               
+               
+                <a href="/" class="bg-white px-4 py-2 rounded-full text-sm hover:bg-indigo-600 hover:text-white transition shadow-sm">JPG to PDF</a>
+                <a href="/" class="bg-white px-4 py-2 rounded-full text-sm hover:bg-indigo-600 hover:text-white transition shadow-sm">PDF to JPG</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
+    
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+        const imagePreview = document.getElementById('imagePreview');
+        const preview = document.getElementById('preview');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const originalDimensions = document.getElementById('originalDimensions');
+        const fileType = document.getElementById('fileType');
+        
+        // Mode elements
+        const dimensionModeBtn = document.getElementById('dimensionModeBtn');
+        const kbModeBtn = document.getElementById('kbModeBtn');
+        const dimensionControls = document.getElementById('dimensionControls');
+        const kbControls = document.getElementById('kbControls');
+        const resizeBtnText = document.getElementById('resizeBtnText');
+        
+        // Dimension mode inputs
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const aspectRatioLock = document.getElementById('aspectRatioLock');
+        const resetDimensionsBtn = document.getElementById('resetDimensions');
+        
+        // KB mode inputs
+        const targetKB = document.getElementById('targetKB');
+        const qualityPreset = document.getElementById('qualityPreset');
+        const qualitySlider = document.getElementById('qualitySlider');
+        const qualityValue = document.getElementById('qualityValue');
+        
+        // Size comparison
+        const sizeComparison = document.getElementById('sizeComparison');
+        const originalSizeDisplay = document.getElementById('originalSizeDisplay');
+        const newSizeDisplay = document.getElementById('newSizeDisplay');
+        const reductionPercent = document.getElementById('reductionPercent');
+        const sizeProgress = document.getElementById('sizeProgress');
+        
+        // Buttons
+        const resizeBtn = document.getElementById('resizeBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const loadingText = document.getElementById('loadingText');
+        
+        // State
+        let currentMode = 'dimension';
+        let originalImage = null;
+        let originalWidth = 0;
+        let originalHeight = 0;
+        let aspectRatio = 1;
+        let originalFileSize = 0;
+        let resizedImageData = null;
+        let resizedFileSize = 0;
+        let originalFileName = '';
+        
+        // Quality slider
+        qualitySlider.addEventListener('input', () => {
+            qualityValue.textContent = qualitySlider.value + '%';
+        });
+        
+        qualityPreset.addEventListener('change', () => {
+            const values = { '0.9': 90, '0.7': 70, '0.5': 50, '0.3': 30 };
+            qualitySlider.value = values[qualityPreset.value];
+            qualityValue.textContent = qualitySlider.value + '%';
+        });
+        
+        // Mode switching
+        window.setMode = (mode) => {
+            currentMode = mode;
+            
+            // Update buttons
+            dimensionModeBtn.classList.toggle('active', mode === 'dimension');
+            kbModeBtn.classList.toggle('active', mode === 'kb');
+            
+            // Show/hide controls
+            dimensionControls.classList.toggle('hidden', mode !== 'dimension');
+            kbControls.classList.toggle('hidden', mode !== 'kb');
+            
+            // Update button text
+            resizeBtnText.textContent = mode === 'dimension' ? 'Resize Image' : 'Resize to Target KB';
+            
+            // Hide size comparison when switching modes
+            sizeComparison.classList.add('hidden');
+        };
+        
+        // Upload handlers
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        // Handle file upload
+        function handleFile(file) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('Please upload an image file', 'error');
+                return;
+            }
+            
+            // Validate file size (20MB max)
+            if (file.size > 20 * 1024 * 1024) {
+                showToast('File size should be less than 20MB', 'error');
+                return;
+            }
+            
+            originalFileSize = file.size;
+            originalFileName = file.name;
+            
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    // Store original image
+                    originalImage = img;
+                    originalWidth = img.width;
+                    originalHeight = img.height;
+                    aspectRatio = originalWidth / originalHeight;
+                    
+                    // Update UI
+                    preview.src = e.target.result;
+                    uploadPrompt.classList.add('hidden');
+                    imagePreview.classList.remove('hidden');
+                    
+                    // Update file info
+                    fileName.textContent = file.name;
+                    fileSize.textContent = formatFileSize(file.size);
+                    originalDimensions.textContent = `${originalWidth} x ${originalHeight} px`;
+                    fileType.textContent = file.type.split('/')[1].toUpperCase();
+                    fileInfo.classList.remove('hidden');
+                    
+                    // Set input values
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+                    
+                    // Enable resize button
+                    resizeBtn.disabled = false;
+                    
+                    showToast('Image uploaded successfully', 'success');
+                };
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // KB to Bytes
+        function kbToBytes(kb) {
+            return kb * 1024;
+        }
+        
+        // Bytes to KB
+        function bytesToKB(bytes) {
+            return (bytes / 1024).toFixed(2);
+        }
+        
+        // Aspect ratio handling
+        widthInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && originalHeight > 0) {
+                const newWidth = parseInt(widthInput.value) || 0;
+                if (newWidth > 0) {
+                    heightInput.value = Math.round(newWidth / aspectRatio);
+                }
+            }
+        });
+        
+        heightInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && originalWidth > 0) {
+                const newHeight = parseInt(heightInput.value) || 0;
+                if (newHeight > 0) {
+                    widthInput.value = Math.round(newHeight * aspectRatio);
+                }
+            }
+        });
+        
+        resetDimensionsBtn.addEventListener('click', () => {
+            widthInput.value = originalWidth;
+            heightInput.value = originalHeight;
+            showToast('Dimensions reset to original', 'info');
+        });
+        
+        // Resize button click
+        resizeBtn.addEventListener('click', async () => {
+            if (!originalImage) {
+                showToast('Please upload an image first', 'error');
+                return;
+            }
+            
+            if (currentMode === 'dimension') {
+                await resizeByDimensions();
+            } else {
+                await resizeByKB();
+            }
+        });
+        
+        // Resize by dimensions
+        async function resizeByDimensions() {
+            const width = parseInt(widthInput.value);
+            const height = parseInt(heightInput.value);
+            
+            if (!width || !height || width < 1 || height < 1) {
+                showToast('Please enter valid dimensions', 'error');
+                return;
+            }
+            
+            if (width > 5000 || height > 5000) {
+                showToast('Maximum dimensions allowed: 5000px', 'error');
+                return;
+            }
+            
+            loadingIndicator.classList.remove('hidden');
+            resizeBtn.disabled = true;
+            
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                
+                // Use better image rendering
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                
+                ctx.drawImage(originalImage, 0, 0, width, height);
+                
+                // Use quality 0.92 for good balance
+                resizedImageData = canvas.toDataURL('image/jpeg', 0.92);
+                
+                // Calculate new file size
+                const base64Data = resizedImageData.split(',')[1];
+                const binaryData = atob(base64Data);
+                resizedFileSize = binaryData.length;
+                
+                // Update preview
+                preview.src = resizedImageData;
+                
+                // Show size comparison
+                showSizeComparison();
+                
+                // Enable download
+                downloadBtn.disabled = false;
+                
+                showToast('Image resized successfully!', 'success');
+            } catch (error) {
+                showToast('Error resizing image', 'error');
+                console.error(error);
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                resizeBtn.disabled = false;
+            }
+        }
+        
+        // Resize by KB
+        async function resizeByKB() {
+            const targetKb = parseInt(targetKB.value);
+            
+            if (!targetKb || targetKb < 1) {
+                showToast('Please enter target KB size', 'error');
+                return;
+            }
+            
+            if (targetKb > 5120) { // 5MB max
+                showToast('Target size should be less than 5MB (5120 KB)', 'error');
+                return;
+            }
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = 'Finding optimal size...';
+            resizeBtn.disabled = true;
+            
+            try {
+                const targetBytes = kbToBytes(targetKb);
+                
+                // Binary search for optimal quality
+                let low = 0.1;
+                let high = 1.0;
+                let bestQuality = 0.7;
+                let bestData = null;
+                let bestSize = 0;
+                let attempts = 0;
+                const maxAttempts = 8;
+                
+                while (attempts < maxAttempts) {
+                    const mid = (low + high) / 2;
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = originalWidth;
+                    canvas.height = originalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(originalImage, 0, 0);
+                    
+                    const dataUrl = canvas.toDataURL('image/jpeg', mid);
+                    const base64Data = dataUrl.split(',')[1];
+                    const size = atob(base64Data).length;
+                    
+                    if (Math.abs(size - targetBytes) < Math.abs(bestSize - targetBytes)) {
+                        bestQuality = mid;
+                        bestData = dataUrl;
+                        bestSize = size;
+                    }
+                    
+                    if (size > targetBytes) {
+                        high = mid;
+                    } else {
+                        low = mid;
+                    }
+                    
+                    attempts++;
+                }
+                
+                // If still too large, reduce dimensions
+                if (bestSize > targetBytes * 1.1) {
+                    // Calculate scale factor
+                    const scale = Math.sqrt(targetBytes / bestSize) * 0.95;
+                    const newWidth = Math.round(originalWidth * scale);
+                    const newHeight = Math.round(originalHeight * scale);
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+                    
+                    bestData = canvas.toDataURL('image/jpeg', bestQuality);
+                    const base64Data = bestData.split(',')[1];
+                    bestSize = atob(base64Data).length;
+                }
+                
+                if (bestData) {
+                    resizedImageData = bestData;
+                    resizedFileSize = bestSize;
+                    
+                    // Update preview
+                    preview.src = resizedImageData;
+                    
+                    // Show size comparison
+                    showSizeComparison();
+                    
+                    // Update dimensions display
+                    const tempImg = new Image();
+                    tempImg.onload = () => {
+                        originalDimensions.textContent = `${tempImg.width} x ${tempImg.height} px`;
+                    };
+                    tempImg.src = bestData;
+                    
+                    // Enable download
+                    downloadBtn.disabled = false;
+                    
+                    const percentReduction = ((originalFileSize - resizedFileSize) / originalFileSize * 100).toFixed(1);
+                    showToast(`Reduced by ${percentReduction}% | Achieved: ${bytesToKB(resizedFileSize)} KB`, 'success');
+                } else {
+                    showToast('Could not achieve target size. Try larger target KB.', 'error');
+                }
+            } catch (error) {
+                showToast('Error resizing image', 'error');
+                console.error(error);
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                loadingText.textContent = 'Processing image...';
+                resizeBtn.disabled = false;
+            }
+        }
+        
+        // Show size comparison
+        function showSizeComparison() {
+            originalSizeDisplay.textContent = formatFileSize(originalFileSize);
+            newSizeDisplay.textContent = formatFileSize(resizedFileSize);
+            
+            const percentReduction = ((originalFileSize - resizedFileSize) / originalFileSize * 100).toFixed(1);
+            reductionPercent.textContent = `-${percentReduction}%`;
+            
+            const percentage = (resizedFileSize / originalFileSize) * 100;
+            sizeProgress.style.width = Math.min(percentage, 100) + '%';
+            
+            sizeComparison.classList.remove('hidden');
+        }
+        
+        // Download image
+        downloadBtn.addEventListener('click', () => {
+            if (!resizedImageData) {
+                showToast('Please resize image first', 'error');
+                return;
+            }
+            
+            // Generate filename
+            const baseName = originalFileName.split('.')[0];
+            const dimensions = currentMode === 'kb' ? targetKB.value + 'kb' : widthInput.value + 'x' + heightInput.value;
+            const filename = `${baseName}_resized_${dimensions}.jpg`;
+            
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = resizedImageData;
+            link.click();
+            
+            showToast('Download started', 'success');
+        });
+        
+        // New image
+        newImageBtn.addEventListener('click', () => {
+            // Reset all
+            fileInput.value = '';
+            uploadPrompt.classList.remove('hidden');
+            imagePreview.classList.add('hidden');
+            fileInfo.classList.add('hidden');
+            sizeComparison.classList.add('hidden');
+            widthInput.value = '';
+            heightInput.value = '';
+            targetKB.value = '';
+            resizeBtn.disabled = true;
+            downloadBtn.disabled = true;
+            originalImage = null;
+            resizedImageData = null;
+            
+            showToast('Ready for new image', 'info');
+        });
+        
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                info: 'bg-blue-500',
+                warning: 'bg-yellow-500'
+            };
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                info: 'fa-info-circle',
+                warning: 'fa-exclamation-triangle'
+            };
+            
+            toast.className = `toast-message ${colors[type]} text-white px-6 py-4 rounded-lg shadow-lg flex items-center`;
+            toast.innerHTML = `
+                <i class="fas ${icons[type]} mr-3"></i>
+                <span class="flex-1">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+        
+        // Share functions
+        window.shareOnWhatsApp = () => {
+            const text = 'Check out this free Image Resizer tool - Resize images by dimensions or exact KB size';
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        };
+        
+        window.shareOnFacebook = () => {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        window.shareOnTwitter = () => {
+            const text = 'Free Online Image Resizer - Resize by Pixels or KB';
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        window.copyLink = () => {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('Link copied to clipboard!', 'success');
+        };
+        
+        // Enter key support for inputs
+        widthInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') resizeBtn.click();
+        });
+        
+        heightInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') resizeBtn.click();
+        });
+        
+        targetKB.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') resizeBtn.click();
+        });
+    </script>
+    
+    <!-- Footer -->
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-200 pt-16 pb-8 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          
+          <!-- Column 1: About & Social -->
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Mukesh CSC Tools</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              India's No.1 Free Platform for CSC VLEs. Quick and secure document crop, resizing, converters and utility tools.
+            </p>
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="/" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="WhatsApp Chat">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.004 2c-5.518 0-9.996 4.477-9.996 9.996 0 1.83.493 3.543 1.348 5.03l-1.356 4.974 5.097-1.335c1.455.8 3.116 1.26 4.907 1.26 5.518 0 9.996-4.477 9.996-9.996 0-5.519-4.478-9.996-9.996-9.996zm4.618 13.064c-.207.584-1.008 1.077-1.583 1.158-.396.056-.913.088-2.529-.575-2.067-.847-3.4-2.956-3.504-3.094-.103-.138-.843-1.121-.843-2.148 0-1.026.536-1.53.727-1.737.19-.207.414-.259.552-.259.138 0 .276.002.396.007.126.006.293-.047.458.353.17.414.58 1.414.63 1.517.05.103.084.224.015.358-.068.138-.103.224-.207.345-.103.12-.22.271-.314.364-.103.103-.211.216-.09.423.12.207.534.878 1.146 1.423.788.702 1.452.92 1.658 1.023.207.103.327.086.448-.052.12-.138.517-.603.655-.81.138-.207.276-.172.466-.103.19.069 1.207.569 1.414.672.207.103.345.155.396.242.052.086.052.5-.155 1.084z" />
+                </svg>
+              </a>
+              <a href="/" target="_blank" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="Facebook Page">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="/" target="_blank" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="YouTube Channel">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Quick Links</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Home</a></li>
+              <li><a href="index.html#tools" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Our Tools</a></li>
+              <li><a href="about.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> About Us</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Legal & Support (AdSense Required) -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Legal & Support</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="privacy.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Terms of Service</a></li>
+              <li><a href="disclaimer.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Disclaimer</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter & Contact Info -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-white mb-2 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Newsletter</h4>
+            <p class="text-xs text-slate-400 leading-normal">
+              Subscribe to get the latest updates on new CSC tools, updates, and templates directly in your inbox.
+            </p>
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col gap-2 mt-2">
+              <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide transition duration-300">
+                Subscribe
+              </button>
+            </form>
+            
+          </div>
+
+        </div>
+
+        <!-- Divider & Bottom Bar -->
+        <div class="border-t border-slate-800 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>&copy; 2026 Mukesh CSC Tools. All rights reserved.</p>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Subscribe Handler Script -->
+    <script>
+      function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert("Thank you for subscribing! We'll keep you updated.");
+          emailInput.value = "";
+        }
+      }
+    </script>
+
+<script src="cookie-consent.js?v=2"></script></body>
+</html>

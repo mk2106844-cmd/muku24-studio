@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVC ID Card Tool – All ID Card Crop & Print on A4/4x6 Paper | Smart CSC Tools</title>
+    <meta name="description" content="Professional PVC ID Card Print Tool for CSC VLEs and Cyber Cafes. Print Aadhar, PAN, Voter ID, and Ayushman cards easily with auto-crop and layout options. 100% Secure & Client-Side.">
+    <meta name="keywords" content="PVC ID Card Print, Aadhar Card Print, PAN Card Print, Voter ID Print, CSC VLE Tool, ID Card Cropper, PVC Card Print, Smart CSC Tools, ID Print Pro, Online ID Card Printing">
+    <meta name="author" content="Smart CSC Tools">
+    <meta property="og:title" content="PVC ID Card Print Tool – Aadhar, PAN, Voter Card Print Online">
+    <meta property="og:description" content="Fast, secure, and professional ID card printing tool for CSC VLEs.">
+    <meta property="og:url" content="https://smartcsctools.org">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Cropper.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .print-area {
+            background-color: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            margin: 0;
+            transform-origin: top center;
+            flex-shrink: 0;
+        }
+        /* A4 Dimensions in pixels at 96 DPI: 794x1123 */
+        .a4-page {
+            width: 794px;
+            height: 1123px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 4x6 Dimensions in pixels at 96 DPI: 384x576 */
+        .photo-page {
+            width: 384px;
+            height: 576px;
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* PVC Dimensions: 324x204 */
+        .pvc-page {
+            width: 324px;
+            height: 204px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-container {
+            border: 1px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            background: #f1f5f9;
+        }
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+        .loading-overlay {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+        }
+        @media print {
+            @page {
+                margin: 0;
+                size: auto;
+            }
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #fff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Hide everything by default */
+            body * {
+                visibility: hidden;
+            }
+            
+            /* Show only the print area and its contents */
+            .print-area, .print-area * {
+                visibility: visible !important;
+            }
+            
+            /* Position the print area. For A4 we use top-left, for others we center it */
+            .print-area {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                transform: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                display: block !important;
+                page-break-after: avoid !important;
+                page-break-before: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Specific centering for smaller layouts if needed */
+            .photo-page, .pvc-page {
+                left: 50% !important;
+                top: 20px !important;
+                transform: translateX(-50%) !important;
+            }
+
+            /* Hide all layout-breaking elements */
+            header, aside, footer, .bg-white.border-b.border-slate-200.p-3, 
+            .absolute.bottom-6.right-6, #loading-overlay, #crop-modal, #password-modal, #empty-state {
+                display: none !important;
+            }
+
+            /* Ensure parents don't collapse or hide content */
+            html, body, .flex-col.min-h-screen, main, .max-w-\[1400px\], section.flex-1, .flex-1.overflow-auto {
+                display: block !important;
+                overflow: visible !important;
+                height: auto !important;
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 h-16">
+        <div class="max-w-[1600px] mx-auto px-4 h-full flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors mr-4 group">
+                    <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider">Back to Home</span>
+                </a>
+                <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                    <i class="fas fa-id-card text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800 leading-tight">PVC ID Card Print Tool</h1>
+                    <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">CSC VLE & Cyber Cafe Edition</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 md:gap-4">
+                <span class="hidden sm:flex text-xs font-semibold px-2.5 py-1 bg-green-100 text-green-700 rounded-full items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                    100% Client-Side
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col min-h-screen">
+        <!-- Dashboard Section (Full Viewport Height) -->
+        <main class="h-[calc(100vh-64px)] overflow-hidden bg-slate-200 flex justify-center">
+            <!-- Centered Dashboard Container -->
+            <div class="w-full max-w-[1400px] flex flex-col md:flex-row bg-white shadow-2xl relative">
+                <!-- Left Sidebar: Upload & Layout -->
+                <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col overflow-y-auto custom-scrollbar">
+                <div class="p-5 space-y-6">
+                    <!-- Upload Section -->
+                    <section>
+                        <label class="block text-xs font-bold text-slate-700 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                            <i class="fas fa-file-upload text-indigo-500"></i> Upload Document
+                        </label>
+                        <div id="drop-zone" class="border-2 border-dashed border-slate-200 rounded-xl p-5 text-center hover:border-indigo-400 hover:bg-indigo-50 transition-all cursor-pointer group">
+                            <input type="file" id="file-input" class="hidden" accept=".pdf,image/*" multiple>
+                            <i class="fas fa-cloud-upload-alt text-2xl text-slate-300 group-hover:text-indigo-400 mb-2 transition-colors"></i>
+                            <p class="text-xs font-bold text-slate-600">Click or Drag Files</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Aadhar, PAN, Voter, etc.</p>
+                        </div>
+                    </section>
+
+                    <!-- Cropped Items List (Sidebar) -->
+                    <section id="cropped-list-section" class="hidden space-y-3 pt-4 border-t border-slate-100">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
+                                <i class="fas fa-images text-indigo-500"></i> Sheet Items (<span id="cropped-count">0</span>)
+                            </label>
+                            <button onclick="clearAllCards()" class="text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-wider cursor-pointer">Clear All</button>
+                        </div>
+                        <div id="cropped-thumbnails" class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto p-2 bg-slate-50 rounded-xl border border-slate-150 custom-scrollbar">
+                            <!-- Thumbnails injected here -->
+                        </div>
+                    </section>
+
+                    <!-- Layout Settings -->
+                    <section class="space-y-4">
+                        <label class="block text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
+                            <i class="fas fa-th-large text-indigo-500"></i> Layout & Size
+                        </label>
+                        
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setLayout('a4')" id="btn-a4" class="layout-btn active p-2 border-2 border-indigo-600 bg-indigo-50 rounded-xl text-center transition-all">
+                                <i class="fas fa-file-alt text-base text-indigo-600 mb-1"></i>
+                                <p class="text-[9px] font-bold text-indigo-700">A4 Paper</p>
+                            </button>
+                            <button onclick="setLayout('4x6')" id="btn-4x6" class="layout-btn p-2 border-2 border-slate-100 hover:border-slate-200 rounded-xl text-center transition-all">
+                                <i class="fas fa-image text-base text-slate-400 mb-1"></i>
+                                <p class="text-[9px] font-bold text-slate-600">4x6 Photo</p>
+                            </button>
+                            <button onclick="setLayout('pvc')" id="btn-pvc" class="layout-btn p-2 border-2 border-slate-100 hover:border-slate-200 rounded-xl text-center transition-all">
+                                <i class="fas fa-id-card text-base text-slate-400 mb-1"></i>
+                                <p class="text-[9px] font-bold text-slate-600">PVC Card</p>
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Print Mode</label>
+                                <select id="print-mode" onchange="handlePrintModeChange()" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    <option value="all" selected>Print All Uploaded (Grid)</option>
+                                    <option value="repeat">Repeat Single Card</option>
+                                </select>
+                            </div>
+
+                            <div id="cards-count-container" class="hidden">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Repeat Copies</label>
+                                <select id="cards-count" onchange="updateLayout()" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    <option value="1">1 Copy (Front Only)</option>
+                                    <option value="1-back">1 Copy (Back Only)</option>
+                                    <option value="2" selected>2 Copies (Front & Back)</option>
+                                    <option value="4">4 Copies</option>
+                                    <option value="6">6 Copies</option>
+                                    <option value="8">8 Copies</option>
+                                </select>
+                            </div>
+
+                            <div id="crop-count-container">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Crops Per Upload</label>
+                                <select id="crop-count" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    <option value="2" selected>Front & Back (2 Crops)</option>
+                                    <option value="1">Front Only (1 Crop)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </aside>
+
+            <!-- Center Column: Preview & Main Actions -->
+            <section class="flex-1 flex flex-col min-w-0 bg-slate-100 overflow-hidden">
+                <!-- Top Action Bar -->
+                <div class="bg-white border-b border-slate-200 p-3 flex items-center justify-center gap-3 z-20">
+                    <button onclick="downloadPDF()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-900 transition-all flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-file-pdf"></i> PDF Download
+                    </button>
+                    <button onclick="downloadImage()" class="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-image"></i> Save as Image
+                    </button>
+                    <button id="print-now-btn" onclick="triggerPrint()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-md">
+                        <i class="fas fa-print"></i> Print Now
+                    </button>
+                    <button id="manual-crop-btn" onclick="startManualCropping()" class="hidden px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-crop-alt"></i> Manual Crop
+                    </button>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="flex-1 overflow-auto p-4 md:p-12 flex justify-center items-start relative custom-scrollbar bg-slate-200">
+                    <!-- Zoom Controls -->
+                    <div class="absolute bottom-6 right-6 flex flex-col gap-2 z-30">
+                        <button onclick="zoomPreview(0.1)" class="w-9 h-9 bg-white border border-slate-200 rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-colors">
+                            <i class="fas fa-plus text-xs"></i>
+                        </button>
+                        <button onclick="zoomPreview(-0.1)" class="w-9 h-9 bg-white border border-slate-200 rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-colors">
+                            <i class="fas fa-minus text-xs"></i>
+                        </button>
+                        <button onclick="resetZoom()" class="w-9 h-9 bg-white border border-slate-200 rounded-full shadow-md flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-colors">
+                            <i class="fas fa-expand text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Print Canvas -->
+                    <div id="print-area" class="print-area a4-page transition-transform duration-300">
+                        <div id="cards-grid" class="flex flex-wrap justify-center content-start gap-[10px] pt-[20px]">
+                            <!-- Cards will be injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center">
+                        <div class="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-file-invoice text-2xl"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-600">No Document Loaded</h3>
+                        <p class="text-xs max-w-xs mt-2">Upload a PDF or Image to start generating your ID card print layout.</p>
+                        <button onclick="document.getElementById('file-input').click()" class="mt-4 px-5 py-2 bg-indigo-600 text-white rounded-full text-xs font-bold shadow-lg shadow-indigo-100">
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Sidebar: Enhancements & Spacing -->
+            <aside class="w-full md:w-64 bg-white border-l border-slate-200 flex flex-col overflow-y-auto custom-scrollbar">
+                <div class="p-5 space-y-6">
+                    <!-- Image Adjustments -->
+                    <section class="space-y-4">
+                        <label class="block text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
+                            <i class="fas fa-sliders-h text-indigo-500"></i> Enhancements
+                        </label>
+                        
+                        <div class="space-y-4">
+                            <button onclick="enhanceQuality()" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white py-2 rounded-lg text-xs font-bold shadow-md hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
+                                <i class="fas fa-magic"></i> Auto Enhance
+                            </button>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold text-slate-600 uppercase">Show Border</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="border-toggle" onchange="updateLayout()" class="sr-only peer" checked>
+                                    <div class="w-8 h-4 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <label class="text-[10px] font-bold text-slate-500 uppercase">Corner Curve</label>
+                                        <span id="val-radius" class="text-[10px] font-bold text-indigo-600">8px</span>
+                                    </div>
+                                    <input type="range" id="corner-radius" min="0" max="30" value="8" oninput="updateLayout()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <label class="text-[10px] font-bold text-slate-500 uppercase">Brightness</label>
+                                        <span id="val-brightness" class="text-[10px] font-bold text-indigo-600">100%</span>
+                                    </div>
+                                    <input type="range" id="brightness" min="50" max="150" value="100" oninput="applyFilters()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <label class="text-[10px] font-bold text-slate-500 uppercase">Contrast</label>
+                                        <span id="val-contrast" class="text-[10px] font-bold text-indigo-600">100%</span>
+                                    </div>
+                                    <input type="range" id="contrast" min="50" max="150" value="100" oninput="applyFilters()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <label class="text-[10px] font-bold text-slate-500 uppercase">Sharpness</label>
+                                        <span id="val-sharpness" class="text-[10px] font-bold text-indigo-600">0px</span>
+                                    </div>
+                                    <input type="range" id="sharpness" min="0" max="2" step="0.1" value="0" oninput="applyFilters()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <label class="text-[10px] font-bold text-slate-500 uppercase">Text Clarity</label>
+                                        <span id="val-clarity" class="text-[10px] font-bold text-indigo-600">0</span>
+                                    </div>
+                                    <input type="range" id="text-clarity" min="0" max="100" value="0" oninput="applyFilters()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Spacing Controls -->
+                    <section class="space-y-4 pt-4 border-t border-slate-100">
+                        <label class="block text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
+                            <i class="fas fa-arrows-alt text-indigo-500"></i> Spacing & Margins
+                        </label>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Gap Between</label>
+                                    <span id="val-gap" class="text-[10px] font-bold text-indigo-600">10px</span>
+                                </div>
+                                <input type="range" id="gap-slider" min="0" max="50" value="10" oninput="updateSpacing()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase">Top Margin</label>
+                                    <span id="val-margin" class="text-[10px] font-bold text-indigo-600">20px</span>
+                                </div>
+                                <input type="range" id="margin-slider" min="0" max="200" value="20" oninput="updateSpacing()" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Footer Info -->
+                <div class="mt-auto p-5 bg-slate-50 border-t border-slate-200">
+                    <p class="text-[9px] text-slate-400 font-bold leading-relaxed uppercase tracking-tighter">
+                        Smart CSC Tools © 2026. 100% Secure & Private.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+        <!-- Scrollable Content Section -->
+        <div class="bg-white border-t border-slate-200">
+            <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+                
+                <!-- How to Use Section -->
+                <section id="how-to-use">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-4">How to Use ID Print Pro</h2>
+                        <p class="text-slate-500">Follow these simple steps to print your ID cards perfectly every time.</p>
+                    </div>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg shadow-lg shadow-indigo-100">1</div>
+                            <h3 class="font-bold text-slate-800 mb-2">Upload File</h3>
+                            <p class="text-xs text-slate-500">Upload your Aadhar, PAN, or Voter ID in PDF or Image format.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg shadow-lg shadow-indigo-100">2</div>
+                            <h3 class="font-bold text-slate-800 mb-2">Crop Sides</h3>
+                            <p class="text-xs text-slate-500">Use our smart cropper to select the front and back sides of the card.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg shadow-lg shadow-indigo-100">3</div>
+                            <h3 class="font-bold text-slate-800 mb-2">Adjust Layout</h3>
+                            <p class="text-xs text-slate-500">Choose A4, 4x6, or PVC size and enhance quality with sliders.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                            <div class="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg shadow-lg shadow-indigo-100">4</div>
+                            <h3 class="font-bold text-slate-800 mb-2">Print/Save</h3>
+                            <p class="text-xs text-slate-500">Click Print Now or Download PDF to get your final high-quality output.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQs Section -->
+                <section id="faqs" class="bg-indigo-50 rounded-3xl p-8 md:p-12">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
+                        <p class="text-slate-500">Everything you need to know about our ID printing tool.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-slate-800">Is this tool free for CSC VLEs?</h4>
+                            <p class="text-sm text-slate-600">Yes, ID Print Pro is 100% free for all CSC VLEs and Cyber Cafe owners to help them serve customers better.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-slate-800">Does it support password protected Aadhar?</h4>
+                            <p class="text-sm text-slate-600">Yes, you can upload your Aadhar PDF and enter the password when prompted to start cropping.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-slate-800">Are my documents stored on your server?</h4>
+                            <p class="text-sm text-slate-600">No. All processing is done locally in your browser. Your data never leaves your device.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-slate-800">Which browsers are recommended?</h4>
+                            <p class="text-sm text-slate-600">For the best experience and perfect print alignment, we recommend using Google Chrome or Microsoft Edge.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="text-center pt-8 border-t border-slate-100">
+                    <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Powered by SmartCSCTools.ORG</p>
+                    <div class="mt-4 flex justify-center gap-6 text-xs font-bold text-slate-400">
+                        <a href="privacy.html" class="hover:text-indigo-600">Privacy Policy</a>
+                        <a href="terms.html" class="hover:text-indigo-600">Terms of Service</a>
+                        <a href="contact.html" class="hover:text-indigo-600">Contact Us</a>
+                    </div>
+                    <p class="mt-8 text-[10px] text-slate-300 max-w-2xl mx-auto">
+                        Keywords: Aadhar Card Printing Tool, PAN Card Crop Tool, Voter ID Print Layout, CSC VLE Software, Online ID Card Maker, PVC Card Printing Software, Ayushman Card Print, Smart CSC Tools.
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-in fade-in zoom-in duration-300">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-lock text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 text-center mb-2">Password Protected</h3>
+            <p class="text-sm text-slate-500 text-center mb-6">This PDF is encrypted. Please enter the password to unlock it.</p>
+            <div class="space-y-4">
+                <input type="password" id="pdf-password" placeholder="Enter PDF Password" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+                <p id="password-error-msg" class="text-xs text-red-500 hidden font-semibold text-center">Incorrect password. Please try again.</p>
+                <div class="flex gap-3">
+                    <button onclick="closePasswordModal()" class="flex-1 py-3 border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+                    <button id="submit-password" class="flex-1 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-colors">Unlock PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crop Modal -->
+    <div id="crop-modal" class="fixed inset-0 z-50 hidden flex flex-col p-4 bg-slate-900/90 backdrop-blur-md">
+        <div class="flex items-center justify-between mb-4 text-white">
+            <div>
+                <h3 class="text-xl font-bold">Crop ID Card</h3>
+                <p id="crop-step-text" class="text-sm text-slate-400">Step 1: Crop Front Side</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="rotateCrop()" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700"><i class="fas fa-redo"></i></button>
+                <button onclick="closeCropModal()" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="flex-1 relative bg-black rounded-2xl overflow-hidden flex items-center justify-center">
+            <img id="crop-image" class="max-w-full max-h-full">
+        </div>
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+            <button id="btn-auto-crop" onclick="startAutoCropping()" class="hidden px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-xl hover:bg-indigo-700 transition-all flex items-center gap-2">
+                <i class="fas fa-magic"></i> Auto Crop (AI)
+            </button>
+            <button id="btn-skip-crop" class="hidden px-6 py-3 bg-amber-600 text-white font-bold rounded-xl shadow-xl hover:bg-amber-700 transition-all flex items-center gap-2">
+                Save & Finish Card <i class="fas fa-check"></i>
+            </button>
+            <button id="btn-next-crop" class="px-8 py-3 bg-slate-700 text-white font-bold rounded-xl shadow-xl hover:bg-slate-800 transition-all flex items-center gap-2">
+                Save & Continue <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 z-[60] hidden flex flex-col items-center justify-center loading-overlay">
+        <div class="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+        <p id="loading-text" class="text-sm font-bold text-slate-700">Processing Document...</p>
+    </div>
+
+    <script>
+        // Configuration & State
+        const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+        if (pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        let currentFile = null;
+        let pdfDoc = null;
+        let cardImages = [];
+        let currentLayout = 'a4';
+        let previewZoom = 1;
+        let cropper = null;
+        let cropStep = 1; // 1: Front, 2: Back
+        let pageImages = []; // Array of dataURLs for each PDF page
+
+        // DOM Elements
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const printArea = document.getElementById('print-area');
+        const cardsGrid = document.getElementById('cards-grid');
+        const emptyState = document.getElementById('empty-state');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const passwordModal = document.getElementById('password-modal');
+        const cropModal = document.getElementById('crop-modal');
+        const cropImage = document.getElementById('crop-image');
+
+        let fileQueue = [];
+
+        // Initialize
+        fileInput.addEventListener('change', handleFileSelect);
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-indigo-400', 'bg-indigo-50'); });
+        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('border-indigo-400', 'bg-indigo-50'); });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-indigo-400', 'bg-indigo-50');
+            if (e.dataTransfer.files.length) handleMultipleFiles(Array.from(e.dataTransfer.files));
+        });
+
+        function handleFileSelect(e) {
+            if (e.target.files.length) handleMultipleFiles(Array.from(e.target.files));
+        }
+
+        async function handleMultipleFiles(files) {
+            fileQueue = files;
+            processNextInQueue();
+        }
+
+        async function processNextInQueue() {
+            if (fileQueue.length === 0) {
+                showLoading(false);
+                return;
+            }
+
+            const nextFile = fileQueue.shift();
+            currentFile = nextFile;
+            pageImages = [];
+            showLoading(true, `Reading ${nextFile.name}...`);
+
+            if (nextFile.type === 'application/pdf') {
+                await processPDF(nextFile);
+            } else if (nextFile.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    pageImages = [e.target.result];
+                    startManualCropping();
+                };
+                reader.readAsDataURL(nextFile);
+            } else {
+                alert(`Unsupported file format: ${nextFile.name}`);
+                processNextInQueue();
+            }
+        }
+
+        async function handleFile(file) {
+            handleMultipleFiles([file]);
+        }
+
+        async function processPDF(file, password = null) {
+            if (!pdfjsLib) {
+                alert("PDF library is still loading. Please wait a moment and try again.");
+                showLoading(false);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const typedarray = new Uint8Array(this.result);
+                try {
+                    const loadingTask = pdfjsLib.getDocument({ data: typedarray, password: password });
+                    pdfDoc = await loadingTask.promise;
+                    
+                    showLoading(true, `Rendering ${pdfDoc.numPages} pages...`);
+                    
+                    for (let i = 1; i <= pdfDoc.numPages; i++) {
+                        const page = await pdfDoc.getPage(i);
+                        const viewport = page.getViewport({ scale: 2.0 });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        
+                        await page.render({ canvasContext: context, viewport: viewport }).promise;
+                        pageImages.push(canvas.toDataURL('image/png'));
+                    }
+                    
+                    startCropping();
+                } catch (error) {
+                    // If it's a password error, don't log to console as it's expected for protected files
+                    if (error.name === 'PasswordException' || (error.message && error.message.toLowerCase().includes('password'))) {
+                        const isIncorrect = error.code === 2; // 2 is typically INCORRECT_PASSWORD in pdf.js
+                        showPasswordModal(isIncorrect);
+                    } else {
+                        console.error("PDF Load Error:", error);
+                        alert("Error loading PDF: " + error.message);
+                    }
+                    showLoading(false);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function showPasswordModal(isRetry = false) {
+            passwordModal.classList.remove('hidden');
+            const errorMsg = document.getElementById('password-error-msg');
+            const passwordInput = document.getElementById('pdf-password');
+            
+            if (isRetry) {
+                errorMsg.classList.remove('hidden');
+                passwordInput.classList.add('border-red-300', 'bg-red-50');
+            } else {
+                errorMsg.classList.add('hidden');
+                passwordInput.classList.remove('border-red-300', 'bg-red-50');
+                passwordInput.value = '';
+            }
+
+            passwordInput.focus();
+            
+            // Handle Enter key
+            const handleEnter = (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('submit-password').click();
+                }
+            };
+            passwordInput.addEventListener('keydown', handleEnter);
+
+            document.getElementById('submit-password').onclick = () => {
+                const pass = passwordInput.value;
+                passwordInput.removeEventListener('keydown', handleEnter);
+                if (pass) {
+                    passwordModal.classList.add('hidden');
+                    processPDF(currentFile, pass);
+                } else {
+                    errorMsg.innerText = "Please enter a password.";
+                    errorMsg.classList.remove('hidden');
+                    passwordInput.addEventListener('keydown', handleEnter);
+                }
+            };
+        }
+
+        function closePasswordModal() {
+            passwordModal.classList.add('hidden');
+            showLoading(false);
+            // Clear input
+            document.getElementById('pdf-password').value = '';
+        }
+
+        // Secure Image Downscaling Utility for Auto-Crop
+        async function downscaleImage(base64Image, maxWidth = 1024) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const scale = Math.min(1, maxWidth / img.width);
+                    canvas.width = img.width * scale;
+                    canvas.height = img.height * scale;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                };
+                img.onerror = () => resolve(base64Image);
+                img.src = base64Image;
+            });
+        }
+
+        async function detectIDCard(base64Image) {
+            try {
+                // Downscale for detection to improve speed and reliability
+                const smallImage = await downscaleImage(base64Image, 1024);
+                
+                // Call secure backend endpoint to avoid API key theft
+                const response = await fetch("/api/detect", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ image: smallImage })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.error || `HTTP error ${response.status}`);
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (err) {
+                console.error("Secure auto-crop detection error:", err);
+                return null;
+            }
+        }
+
+        function cropImageWithBox(imgSrc, box) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const [ymin, xmin, ymax, xmax] = box;
+                    
+                    // Convert normalized to pixel coordinates
+                    const x = (xmin / 1000) * img.width;
+                    const y = (ymin / 1000) * img.height;
+                    const width = ((xmax - xmin) / 1000) * img.width;
+                    const height = ((ymax - ymin) / 1000) * img.height;
+                    
+                    canvas.width = 1011; // High res target
+                    canvas.height = 638;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Fill white background in case of transparent areas
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.drawImage(img, x, y, width, height, 0, 0, 1011, 638);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                img.src = imgSrc;
+            });
+        }
+
+        async function startAutoCropping() {
+            showLoading(true, "Auto-detecting ID cards...");
+            
+            try {
+                const printMode = document.getElementById('print-mode') ? document.getElementById('print-mode').value : 'all';
+                let maxCrops = 2;
+                if (printMode === 'all') {
+                    maxCrops = parseInt(document.getElementById('crop-count').value);
+                } else {
+                    const cardsCountVal = document.getElementById('cards-count').value;
+                    maxCrops = (cardsCountVal === '1' || cardsCountVal === '1-back') ? 1 : 2;
+                }
+                
+                const initialLength = cardImages.length;
+                
+                // Try to detect cards on all available pages of the current file
+                for (let i = 0; i < pageImages.length; i++) {
+                    if (cardImages.length - initialLength >= maxCrops) break;
+                    
+                    const detection = await detectIDCard(pageImages[i]);
+                    if (detection && detection.cards && detection.cards.length > 0) {
+                        for (let card of detection.cards) {
+                            if (cardImages.length - initialLength < maxCrops) {
+                                const cropped = await cropImageWithBox(pageImages[i], card.box_2d);
+                                cardImages.push(cropped);
+                            }
+                        }
+                    }
+                }
+
+                if (cardImages.length > initialLength) {
+                    finishCroppingCurrent();
+                    showLoading(false);
+                } else {
+                    alert("AI could not detect the ID card on this document. Please crop manually.");
+                    showLoading(false);
+                }
+            } catch (err) {
+                console.error("Auto-crop process error:", err);
+                alert("Auto-crop failed. Please crop manually.");
+                showLoading(false);
+            }
+        }
+
+        function startManualCropping() {
+            cropStep = 1;
+            showCropModal(pageImages[0]);
+            showLoading(false);
+        }
+
+        function startCropping() {
+            startManualCropping();
+        }
+
+        function showCropModal(imageSrc) {
+            cropModal.classList.remove('hidden');
+            cropImage.src = imageSrc;
+            document.getElementById('crop-step-text').innerText = `Step ${cropStep}: Crop ${cropStep === 1 ? 'Front' : 'Back'} Side`;
+            
+            if (cropper) cropper.destroy();
+            
+            cropper = new Cropper(cropImage, {
+                aspectRatio: NaN, // Free ratio cropping (kuchh bhi custom shape crop kiya ja sake)
+                viewMode: 1,
+                autoCropArea: 0.8,
+                responsive: true,
+                restore: false,
+                guides: true,
+                center: true,
+                highlight: false,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: false,
+            });
+
+            const printMode = document.getElementById('print-mode') ? document.getElementById('print-mode').value : 'all';
+            let maxCrops = 2;
+            if (printMode === 'all') {
+                maxCrops = parseInt(document.getElementById('crop-count').value);
+            } else {
+                const cardsCountVal = document.getElementById('cards-count').value;
+                maxCrops = (cardsCountVal === '1' || cardsCountVal === '1-back') ? 1 : 2;
+            }
+
+            const skipBtn = document.getElementById('btn-skip-crop');
+            if (cropStep === 1 && maxCrops === 2) {
+                skipBtn.classList.remove('hidden');
+                skipBtn.onclick = () => {
+                    const rawCanvas = cropper.getCroppedCanvas({
+                        imageSmoothingEnabled: true,
+                        imageSmoothingQuality: 'high',
+                    });
+                    
+                    // Create exact standard ID card size canvas in ultra-HD resolution and stretch raw selection to fill it
+                    const stretchCanvas = document.createElement('canvas');
+                    stretchCanvas.width = 2040;
+                    stretchCanvas.height = 1286;
+                    const ctx = stretchCanvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(rawCanvas, 0, 0, 2040, 1286);
+                    
+                    cardImages.push(stretchCanvas.toDataURL('image/png'));
+                    finishCroppingCurrent();
+                };
+            } else {
+                skipBtn.classList.add('hidden');
+            }
+
+            document.getElementById('btn-next-crop').onclick = () => {
+                const rawCanvas = cropper.getCroppedCanvas({
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+                
+                // Create exact standard ID card size canvas in ultra-HD resolution and stretch raw selection to fill it
+                const stretchCanvas = document.createElement('canvas');
+                stretchCanvas.width = 2040;
+                stretchCanvas.height = 1286;
+                const ctx = stretchCanvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(rawCanvas, 0, 0, 2040, 1286);
+                
+                cardImages.push(stretchCanvas.toDataURL('image/png'));
+                
+                if (cropStep < maxCrops) {
+                    cropStep++;
+                    // If PDF has more pages, use next page, else use same page (for 1-page 2-card PDFs)
+                    const nextImg = pageImages[cropStep - 1] || pageImages[0];
+                    showCropModal(nextImg);
+                } else {
+                    finishCroppingCurrent();
+                }
+            };
+        }
+
+        function rotateCrop() {
+            if (cropper) cropper.rotate(90);
+        }
+
+        function closeCropModal() {
+            cropModal.classList.add('hidden');
+            if (cropper) cropper.destroy();
+        }
+
+        function finishCroppingCurrent() {
+            closeCropModal();
+            updateLayout();
+            
+            if (fileQueue && fileQueue.length > 0) {
+                setTimeout(() => {
+                    processNextInQueue();
+                }, 300);
+            } else {
+                emptyState.classList.add('hidden');
+                printArea.classList.remove('hidden');
+                document.getElementById('manual-crop-btn').classList.remove('hidden');
+            }
+        }
+
+        function finishCropping() {
+            finishCroppingCurrent();
+        }
+
+        function setLayout(type) {
+            currentLayout = type;
+            document.querySelectorAll('.layout-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-indigo-600', 'bg-indigo-50');
+                const icon = btn.querySelector('i');
+                const text = btn.querySelector('p');
+                if (icon) icon.classList.replace('text-indigo-600', 'text-slate-400');
+                if (text) text.classList.replace('text-indigo-700', 'text-slate-600');
+            });
+            
+            const activeBtn = document.getElementById(`btn-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'border-indigo-600', 'bg-indigo-50');
+                const icon = activeBtn.querySelector('i');
+                const text = activeBtn.querySelector('p');
+                if (icon) icon.classList.replace('text-slate-400', 'text-indigo-600');
+                if (text) text.classList.replace('text-slate-600', 'text-indigo-700');
+            }
+            
+            const cardsSelect = document.getElementById('cards-count');
+            if (type === 'pvc') {
+                printArea.className = 'print-area pvc-page transition-transform duration-300';
+                // PVC usually only fits 1 card
+                if (cardsSelect.value !== '1' && cardsSelect.value !== '1-back') {
+                    cardsSelect.value = '1';
+                }
+            } else if (type === '4x6') {
+                printArea.className = 'print-area photo-page transition-transform duration-300';
+                if (parseInt(cardsSelect.value) > 2) cardsSelect.value = '2';
+            } else {
+                printArea.className = 'print-area a4-page transition-transform duration-300';
+            }
+            updateLayout();
+        }
+
+        window.handlePrintModeChange = function() {
+            const printMode = document.getElementById('print-mode').value;
+            const repeatContainer = document.getElementById('cards-count-container');
+            const cropContainer = document.getElementById('crop-count-container');
+            
+            if (printMode === 'all') {
+                repeatContainer.classList.add('hidden');
+                cropContainer.classList.remove('hidden');
+            } else {
+                repeatContainer.classList.remove('hidden');
+                cropContainer.classList.add('hidden');
+            }
+            updateLayout();
+        }
+
+        window.deleteCardImage = function(idx) {
+            cardImages.splice(idx, 1);
+            updateLayout();
+        }
+
+        window.clearAllCards = function() {
+            if (confirm("Are you sure you want to clear all cropped cards?")) {
+                cardImages = [];
+                updateLayout();
+            }
+        }
+
+        function renderCroppedThumbnails() {
+            const listSection = document.getElementById('cropped-list-section');
+            const thumbsGrid = document.getElementById('cropped-thumbnails');
+            const countSpan = document.getElementById('cropped-count');
+
+            if (!listSection || !thumbsGrid || !countSpan) return;
+
+            if (cardImages.length === 0) {
+                listSection.classList.add('hidden');
+                return;
+            }
+
+            listSection.classList.remove('hidden');
+            countSpan.innerText = cardImages.length;
+            thumbsGrid.innerHTML = '';
+
+            cardImages.forEach((imgData, idx) => {
+                const item = document.createElement('div');
+                item.className = 'relative group aspect-[85.6/53.98] bg-slate-200 rounded-lg overflow-hidden border border-slate-300';
+                
+                item.innerHTML = `
+                    <img src="https://smartcsctools.org/${imgData}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <button onclick="deleteCardImage(${idx})" class="w-7 h-7 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-md cursor-pointer">
+                            <i class="fas fa-trash-alt text-xs"></i>
+                        </button>
+                    </div>
+                    <span class="absolute bottom-1 left-1 bg-black/60 text-[9px] text-white px-1.5 py-0.5 rounded font-bold font-mono">#${idx + 1}</span>
+                `;
+                thumbsGrid.appendChild(item);
+            });
+        }
+
+        function updateLayout() {
+            const printMode = document.getElementById('print-mode') ? document.getElementById('print-mode').value : 'all';
+            const countVal = document.getElementById('cards-count').value;
+            const showBorder = document.getElementById('border-toggle').checked;
+            const gap = document.getElementById('gap-slider').value;
+            const margin = document.getElementById('margin-slider').value;
+            const radius = document.getElementById('corner-radius').value;
+            
+            document.getElementById('val-radius').innerText = `${radius}px`;
+            
+            cardsGrid.innerHTML = '';
+            cardsGrid.style.gap = `${gap}px`;
+            cardsGrid.style.paddingTop = `${margin}px`;
+
+            let cardWidth, cardHeight;
+            if (currentLayout === 'a4') {
+                cardWidth = 324;
+                cardHeight = 204;
+            } else if (currentLayout === '4x6') {
+                cardWidth = 340;
+                cardHeight = 214;
+            } else { // pvc
+                cardWidth = 324;
+                cardHeight = 204;
+                cardsGrid.style.paddingTop = '0px';
+                cardsGrid.style.gap = '0px';
+            }
+
+            // Determine what images to render
+            let imagesToRender = [];
+
+            if (printMode === 'all') {
+                // Render exactly what is uploaded (all items in cardImages)
+                imagesToRender = [...cardImages];
+            } else {
+                // Repeat Single Card mode
+                const count = countVal === '1-back' ? 1 : parseInt(countVal);
+                for (let i = 0; i < count; i++) {
+                    let imgData;
+                    if (countVal === '1-back') {
+                        imgData = cardImages[1] || cardImages[0];
+                    } else {
+                        // Alternate front and back of the first card if available
+                        const firstCardSides = cardImages.slice(0, 2);
+                        imgData = firstCardSides[i % firstCardSides.length] || cardImages[0] || null;
+                    }
+                    if (imgData) imagesToRender.push(imgData);
+                }
+            }
+
+            // Update Cropped Items list in sidebar
+            renderCroppedThumbnails();
+
+            if (imagesToRender.length === 0) {
+                emptyState.classList.remove('hidden');
+                printArea.classList.add('hidden');
+                document.getElementById('manual-crop-btn').classList.add('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                printArea.classList.remove('hidden');
+                document.getElementById('manual-crop-btn').classList.remove('hidden');
+            }
+
+            imagesToRender.forEach((imgData, i) => {
+                const container = document.createElement('div');
+                container.className = 'card-container';
+                container.style.width = `${cardWidth}px`;
+                container.style.height = `${cardHeight}px`;
+                container.style.borderRadius = `${radius}px`;
+                if (showBorder) container.style.border = '1px solid #000';
+                else container.style.border = 'none';
+
+                const img = document.createElement('img');
+                img.src = imgData;
+                img.className = 'card-img';
+                img.style.borderRadius = `${radius}px`;
+                img.style.filter = getFilterString();
+                
+                container.appendChild(img);
+                cardsGrid.appendChild(container);
+            });
+        }
+
+        function updateSpacing() {
+            const gap = document.getElementById('gap-slider').value;
+            const margin = document.getElementById('margin-slider').value;
+            document.getElementById('val-gap').innerText = `${gap}px`;
+            document.getElementById('val-margin').innerText = `${margin}px`;
+            updateLayout();
+        }
+
+        function applyFilters() {
+            const b = document.getElementById('brightness').value;
+            const c = document.getElementById('contrast').value;
+            const s = document.getElementById('sharpness').value;
+            const cl = document.getElementById('text-clarity').value;
+            
+            document.getElementById('val-brightness').innerText = `${b}%`;
+            document.getElementById('val-contrast').innerText = `${c}%`;
+            document.getElementById('val-sharpness').innerText = `${s}px`;
+            document.getElementById('val-clarity').innerText = cl;
+            
+            document.querySelectorAll('.card-img').forEach(img => {
+                img.style.filter = getFilterString();
+            });
+        }
+
+        function getFilterString() {
+            const b = document.getElementById('brightness').value;
+            const c = document.getElementById('contrast').value;
+            const s = document.getElementById('sharpness').value;
+            const cl = document.getElementById('text-clarity').value;
+            
+            // Text Clarity boosts contrast and slightly reduces brightness to make text pop
+            const clarityContrast = parseFloat(cl) * 1.5;
+            const clarityBrightness = parseFloat(cl) * 0.2;
+            
+            const effectiveContrast = parseFloat(c) + (parseFloat(s) * 15) + clarityContrast;
+            const effectiveBrightness = parseFloat(b) - clarityBrightness;
+            
+            return `brightness(${effectiveBrightness}%) contrast(${effectiveContrast}%) saturate(${100 + parseFloat(cl) * 0.5}%)`;
+        }
+
+        function enhanceQuality() {
+            // Simple enhancement preset
+            document.getElementById('brightness').value = 105;
+            document.getElementById('contrast').value = 120;
+            applyFilters();
+            
+            showLoading(true, "Enhancing images...");
+            setTimeout(() => showLoading(false), 800);
+        }
+
+        function zoomPreview(delta) {
+            previewZoom = Math.max(0.2, Math.min(2, previewZoom + delta));
+            printArea.style.transform = `scale(${previewZoom})`;
+        }
+
+        function resetZoom() {
+            previewZoom = 1;
+            printArea.style.transform = `scale(1)`;
+        }
+
+        function showLoading(show, text = "Processing...") {
+            loadingOverlay.classList.toggle('hidden', !show);
+            document.getElementById('loading-text').innerText = text;
+        }
+
+        function bakeFiltersOnImage(imgData) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = function() {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = img.naturalWidth || img.width;
+                    tempCanvas.height = img.naturalHeight || img.height;
+                    const ctx = tempCanvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    
+                    // Apply current filters to the canvas
+                    ctx.filter = getFilterString();
+                    ctx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+                    
+                    resolve(tempCanvas.toDataURL('image/png'));
+                };
+                img.onerror = function() {
+                    resolve(imgData); // Fallback to original on error
+                };
+                img.src = imgData;
+            });
+        }
+
+        async function downloadPDF() {
+            if (cardImages.length === 0) {
+                alert("Please upload and crop an ID card first.");
+                return;
+            }
+
+            showLoading(true, "Generating Optimized HD PDF...");
+            
+            const originalZoom = previewZoom;
+            resetZoom();
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                
+                let pdfFormat;
+                let pdfOrientation = 'p';
+                if (currentLayout === 'a4') {
+                    pdfFormat = 'a4';
+                } else if (currentLayout === '4x6') {
+                    pdfFormat = [384, 576];
+                } else { // pvc
+                    pdfFormat = [324, 204];
+                    pdfOrientation = 'l';
+                }
+
+                // Temporary replace all preview image sources with baked-filter image sources
+                const cardImagesElements = document.querySelectorAll('.card-img');
+                const originalSrcs = [];
+                
+                for (let i = 0; i < cardImagesElements.length; i++) {
+                    const img = cardImagesElements[i];
+                    originalSrcs.push(img.src);
+                    const bakedDataURL = await bakeFiltersOnImage(img.src);
+                    img.src = bakedDataURL;
+                    img.style.filter = 'none';
+                }
+
+                const canvas = await html2canvas(printArea, {
+                    scale: 4, // Higher scale for extreme HD quality
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    imageTimeout: 20000,
+                    onclone: (clonedDoc) => {
+                        const area = clonedDoc.getElementById('print-area');
+                        area.style.transform = 'none';
+                        const images = area.getElementsByTagName('img');
+                        for (let img of images) {
+                            img.style.imageRendering = 'auto';
+                            img.style.filter = 'none';
+                        }
+                    }
+                });
+                
+                // Restore original srcs and filters
+                for (let i = 0; i < cardImagesElements.length; i++) {
+                    cardImagesElements[i].src = originalSrcs[i];
+                    cardImagesElements[i].style.filter = getFilterString();
+                }
+
+                // Use lossless PNG for extreme sharpness and text clarity
+                const imgData = canvas.toDataURL('image/png');
+                
+                const pdf = new jsPDF({
+                    orientation: pdfOrientation,
+                    unit: 'px',
+                    format: pdfFormat,
+                    compress: true 
+                });
+                
+                const width = pdf.internal.pageSize.getWidth();
+                const height = pdf.internal.pageSize.getHeight();
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, width, height, undefined, 'FAST');
+                pdf.save(`ID_Card_Print_${Date.now()}.pdf`);
+            } catch (err) {
+                console.error("PDF Generation Error:", err);
+                alert("Failed to generate PDF. Try reducing 'Cards Per Page' or use 'Print Now'.");
+            } finally {
+                previewZoom = originalZoom;
+                printArea.style.transform = `scale(${previewZoom})`;
+                showLoading(false);
+            }
+        }
+
+        async function downloadImage() {
+            if (cardImages.length === 0) {
+                alert("Please upload and crop an ID card first.");
+                return;
+            }
+
+            showLoading(true, "Generating Optimized HD Image...");
+            
+            const originalZoom = previewZoom;
+            resetZoom();
+
+            try {
+                // Temporary replace all preview image sources with baked-filter image sources
+                const cardImagesElements = document.querySelectorAll('.card-img');
+                const originalSrcs = [];
+                
+                for (let i = 0; i < cardImagesElements.length; i++) {
+                    const img = cardImagesElements[i];
+                    originalSrcs.push(img.src);
+                    const bakedDataURL = await bakeFiltersOnImage(img.src);
+                    img.src = bakedDataURL;
+                    img.style.filter = 'none';
+                }
+
+                const canvas = await html2canvas(printArea, {
+                    scale: 4, // Higher scale for extreme HD quality
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    imageTimeout: 20000,
+                    onclone: (clonedDoc) => {
+                        const area = clonedDoc.getElementById('print-area');
+                        area.style.transform = 'none';
+                        const images = area.getElementsByTagName('img');
+                        for (let img of images) {
+                            img.style.filter = 'none';
+                        }
+                    }
+                });
+                
+                // Restore original srcs and filters
+                for (let i = 0; i < cardImagesElements.length; i++) {
+                    cardImagesElements[i].src = originalSrcs[i];
+                    cardImagesElements[i].style.filter = getFilterString();
+                }
+
+                const link = document.createElement('a');
+                link.download = `ID_Card_HD_Photo_${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (err) {
+                console.error("Image Generation Error:", err);
+                alert("Failed to generate Image. Try using a different browser or 'Print Now'.");
+            } finally {
+                previewZoom = originalZoom;
+                printArea.style.transform = `scale(${previewZoom})`;
+                showLoading(false);
+            }
+        }
+
+        async function triggerPrint() {
+            console.log("Print triggered");
+            if (cardImages.length === 0) {
+                alert("Please upload and crop an ID card first.");
+                return;
+            }
+            
+            showLoading(true, "Preparing high quality print layout...");
+            const originalZoom = previewZoom;
+            
+            // Reset zoom immediately for print
+            previewZoom = 1;
+            printArea.style.transform = 'scale(1)';
+
+            try {
+                // Temporary replace all preview image sources with baked-filter image sources
+                const cardImagesElements = document.querySelectorAll('.card-img');
+                const originalSrcs = [];
+                
+                for (let i = 0; i < cardImagesElements.length; i++) {
+                    const img = cardImagesElements[i];
+                    originalSrcs.push(img.src);
+                    const bakedDataURL = await bakeFiltersOnImage(img.src);
+                    img.src = bakedDataURL;
+                    img.style.filter = 'none';
+                }
+
+                showLoading(false);
+
+                // Small delay to ensure the browser updates the DOM before printing
+                setTimeout(() => {
+                    try {
+                        window.print();
+                    } catch (e) {
+                        console.error("Print error:", e);
+                        alert("Print failed: " + e.message);
+                    }
+                    
+                    // Restore original srcs and filters after a delay
+                    setTimeout(() => {
+                        for (let i = 0; i < cardImagesElements.length; i++) {
+                            cardImagesElements[i].src = originalSrcs[i];
+                            cardImagesElements[i].style.filter = getFilterString();
+                        }
+                        previewZoom = originalZoom;
+                        printArea.style.transform = `scale(${previewZoom})`;
+                    }, 1500);
+                }, 500);
+
+            } catch (err) {
+                console.error("Print preparation error:", err);
+                showLoading(false);
+                previewZoom = originalZoom;
+                printArea.style.transform = `scale(${previewZoom})`;
+            }
+        }
+
+        // Handle window resize for zoom
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 1024) resetZoom();
+        });
+    </script>
+</body>
+</html>

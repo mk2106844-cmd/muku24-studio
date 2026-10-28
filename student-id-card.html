@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro School ID Card Generator & Maker Online | Smart CSC Tools</title>
+    <meta name="description" content="Create and print professional school ID cards online. Free ID card generator tool with 14+ vertical and horizontal templates. Generate A4 print-ready PDFs easily at Smart CSC Tools.">
+    <meta name="keywords" content="School ID Card Maker, ID Card Generator, Student ID Card Template, Print ID Cards A4, Smart CSC Tools, Free Online ID Maker, CSC VLE Tools">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #f0f2f5;
+            --panel-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --primary-ui: #3b82f6;
+            --text-main: #1f2937;
+            
+            /* Dynamic Card Variables */
+            --card-primary: #1a4f9c;
+            --card-secondary: #dc2626;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        /* Top Navigation Header */
+        .top-header { width: 100%; max-width: 1400px; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .back-btn { text-decoration: none; background: #ffffff; color: var(--primary-ui); padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid var(--border-color); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+        .back-btn:hover { background: var(--primary-ui); color: #ffffff; border-color: var(--primary-ui); }
+        .header-title { font-size: 1.2rem; font-weight: 700; color: #111827; }
+
+        /* App Main Wrapper */
+        .page-wrapper { width: 100%; padding: 0 20px 30px 20px; display: flex; justify-content: center; }
+        .app-container { display: flex; height: 85vh; width: 100%; max-width: 1400px; background: var(--panel-bg); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid var(--border-color); overflow: hidden; }
+        
+        .panel { padding: 20px; overflow-y: auto; }
+        .left-panel { width: 320px; min-width: 320px; display: flex; flex-direction: column; gap: 15px; border-right: 1px solid var(--border-color); }
+        .center-panel { flex: 1; background: #e2e8f0; display: flex; flex-direction: column; align-items: center; padding: 30px 20px; position: relative; border-right: 1px solid var(--border-color); }
+        /* Reduced gap slightly to make room for bottom list */
+        .right-panel { width: 350px; min-width: 350px; background: #fafafa; display: flex; flex-direction: column; gap: 15px; }
+
+        h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; color: #111827; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; }
+
+        /* Form Controls */
+        .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+        .form-group label { font-size: 0.8rem; font-weight: 500; color: #4b5563; }
+        .form-group input[type="text"], .form-group select { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem; outline: none; transition: 0.2s; }
+        .form-group input[type="text"]:focus, .form-group select:focus { border-color: var(--primary-ui); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
+        
+        .file-upload { border: 2px dashed #cbd5e1; padding: 8px; text-align: center; border-radius: 6px; cursor: pointer; position: relative; font-size: 0.75rem; color: #64748b; background: #f8fafc; margin-bottom: 5px;}
+        .file-upload input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+
+        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-top: 5px; background: #eff6ff; padding: 10px; border-radius: 6px; border: 1px solid #bfdbfe;}
+        .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary-ui); }
+        .checkbox-group label { font-size: 0.85rem; font-weight: 600; color: var(--primary-ui); cursor: pointer; margin: 0; }
+
+        .btn { padding: 12px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.95rem; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary-ui); color: white; width: 100%; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-success { background: #10b981; color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); font-size: 1.05rem; letter-spacing: 0.5px;}
+        .btn-success:hover { background: #059669; transform: translateY(-1px);}
+
+        .print-actions { width: 100%; max-width: 450px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; display: flex; flex-direction: column; gap: 10px;}
+
+        /* Template Selector - UPDATED FOR SCROLLING */
+        /* Changed max-height from 250px to 180px so student list remains visible */
+        .template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 180px; overflow-y: auto; padding-right: 5px; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; background: #f8fafc;}
+        
+        /* Custom Scrollbar for Template Grid */
+        .template-grid::-webkit-scrollbar { width: 6px; }
+        .template-grid::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 4px; }
+        .template-grid::-webkit-scrollbar-thumb { background: var(--primary-ui); border-radius: 4px; }
+        .template-grid::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+        .template-option { border: 2px solid #e2e8f0; border-radius: 6px; padding: 8px 5px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; background: #fff; text-align: center; transition: 0.2s; line-height: 1.2;}
+        .template-option:hover { border-color: #cbd5e1; }
+        .template-option.active { border-color: var(--primary-ui); background: #eff6ff; color: var(--primary-ui); }
+        .template-badge { font-size: 0.6rem; background: #e2e8f0; padding: 2px 5px; border-radius: 4px; margin-bottom: 3px; color: #475569;}
+        .template-option.active .template-badge { background: var(--primary-ui); color: white; }
+
+        .color-picker-row { display: flex; gap: 10px; margin-bottom: 5px; }
+        .color-picker-row input[type="color"] { border: none; width: 35px; height: 35px; border-radius: 6px; cursor: pointer; padding: 0; }
+
+        /* Custom Scrollbar for Student List */
+        .student-list { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto; padding-right: 5px; }
+        .student-list::-webkit-scrollbar { width: 6px; }
+        .student-list::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 4px; }
+        .student-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+        .student-item { padding: 10px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
+        .remove-btn { color: #ef4444; cursor: pointer; font-weight: bold; background: #fee2e2; border: none; width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center;}
+        .remove-btn:hover { background: #fca5a5; }
+
+        /* INFO SECTIONS */
+        .info-section { width: 100%; max-width: 1400px; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .info-section h3 { font-size: 1.5rem; color: #1e293b; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .step-card { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .step-num { display: inline-block; width: 30px; height: 30px; background: var(--primary-ui); color: white; text-align: center; line-height: 30px; border-radius: 50%; font-weight: bold; margin-bottom: 10px; }
+        .faq-item { margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+        .faq-q { font-weight: 700; color: #334155; margin-bottom: 5px; }
+        .faq-a { color: #64748b; font-size: 0.95rem; line-height: 1.5; }
+        .site-footer { text-align: center; padding: 20px; color: #64748b; font-size: 0.9rem; margin-top: auto; width: 100%; border-top: 1px solid var(--border-color); background: #fff;}
+
+        /* ========================================================
+           ID CARD STYLES & TEMPLATES 
+           ======================================================== */
+        .preview-wrapper { box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-radius: 10px; background: transparent; overflow: hidden; margin: auto; transition: 0.3s; }
+        .id-card { position: relative; background: #fff; overflow: hidden; box-sizing: border-box; font-family: 'Poppins', sans-serif; color: #000; }
+        .id-card * { box-sizing: border-box; margin: 0; padding: 0; }
+        .photo-frame { object-fit: cover; object-position: top center; background: #e2e8f0; transition: 0.2s all;}
+        .logo-frame { object-fit: contain; }
+        .sign-frame { object-fit: contain; max-height: 25px; max-width: 70px; background: transparent; }
+        .custom-border { border: 3px solid var(--card-primary) !important; padding: 2px; background: #fff !important; border-radius: 6px !important; }
+
+        /* BASE SIZES */
+        .vert-card { width: 230px; height: 350px; border: 1px solid #ccc; display: flex; flex-direction: column; position: relative;}
+        .horiz-card { width: 400px; height: 240px; border: 1px solid #ccc; display: flex; flex-direction: column; position: relative;}
+
+        /* --- VERTICAL TEMPLATES --- */
+        /* T1: Classic */
+        .t1-vert .header { background: var(--card-primary); color: white; text-align: center; padding: 12px 5px; min-height: 60px; display: flex; flex-direction: column; justify-content: center; }
+        .t1-vert .school-name { font-size: 14px; font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+        .t1-vert .body { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px; }
+        .t1-vert .photo { width: 75px; height: 95px; border-radius: 4px; margin-bottom: 5px; }
+        .t1-vert .student-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .t1-vert .details-table { width: 100%; font-size: 9px; line-height: 1.4; }
+        .t1-vert .details-table tr td:first-child { font-weight: 600; color: var(--card-secondary); width: 40%; }
+        .t1-vert .sign-area { position: absolute; bottom: 25px; right: 10px; text-align: center; }
+        .t1-vert .footer { background: var(--card-secondary); color: white; text-align: center; padding: 6px; font-size: 11px; font-weight: 600; display: flex; justify-content: center; align-items: center; position: absolute; bottom: 0; width: 100%;}
+
+        /* T2: Wave */
+        .t2-vert .header-bg { position: absolute; top: 0; left: 0; width: 100%; height: 110px; background: var(--card-primary); border-bottom-left-radius: 50% 20px; border-bottom-right-radius: 50% 20px; z-index: 0; }
+        .t2-vert .content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 10px; }
+        .t2-vert .header-text { display: flex; align-items: center; gap: 5px; width: 100%; justify-content: center; margin-bottom: 15px; }
+        .t2-vert .logo { width: 25px; height: 25px; background: white; border-radius: 50%; padding: 2px; }
+        .t2-vert .school-name { color: white; font-size: 12px; font-weight: 700; text-align: center; line-height: 1.1; text-transform: uppercase; }
+        .t2-vert .photo { width: 70px; height: 85px; border-radius: 6px; margin-bottom: 8px; }
+        .t2-vert .student-name { font-size: 15px; font-weight: 800; color: var(--card-secondary); text-transform: uppercase; margin-bottom: 5px; }
+        .t2-vert .details { width: 100%; font-size: 8.5px; padding: 0 5px; }
+        .t2-vert .details div { display: flex; margin-bottom: 3px; }
+        .t2-vert .details div span:first-child { font-weight: 700; color: var(--card-primary); width: 35%; }
+        .t2-vert .footer { margin-top: auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; font-size: 8px; padding-top: 5px; border-top: 1px solid #eee; }
+
+        /* T5: Split Modern */
+        .t5-vert .top-half { background: var(--card-primary); height: 140px; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10px; color: white;}
+        .t5-vert .school-name { font-size: 12px; font-weight: 700; text-align: center; margin-top: 5px;}
+        .t5-vert .photo { width: 80px; height: 100px; border-radius: 50%; border: 4px solid white; position: absolute; top: 90px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+        .t5-vert .bottom-half { margin-top: 60px; padding: 10px; display: flex; flex-direction: column; align-items: center;}
+        .t5-vert .student-name { font-size: 16px; font-weight: 800; color: var(--card-secondary);}
+        .t5-vert .details { font-size: 9px; width: 100%; margin-top: 10px; text-align: center;}
+        .t5-vert .footer { position: absolute; bottom: 0; width: 100%; height: 30px; background: var(--card-secondary); display: flex; justify-content: space-between; padding: 0 10px; align-items: center; color: white; font-size: 8px;}
+
+        /* T6: Minimalist Left Border */
+        .t6-vert { border-left: 8px solid var(--card-primary); padding: 15px; }
+        .t6-vert .header { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;}
+        .t6-vert .logo { width: 30px; height: 30px; }
+        .t6-vert .school-name { font-size: 11px; font-weight: 800; color: var(--card-primary);}
+        .t6-vert .main-content { display: flex; gap: 10px; }
+        .t6-vert .photo { width: 70px; height: 90px; border-radius: 4px; }
+        .t6-vert .info { flex: 1; }
+        .t6-vert .student-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; color: var(--card-secondary);}
+        .t6-vert .details-table { font-size: 8.5px; line-height: 1.5; }
+        .t6-vert .details-table td:first-child { font-weight: 600; }
+        .t6-vert .bottom { position: absolute; bottom: 15px; right: 15px; text-align: right; font-size: 8px;}
+
+        /* T7: Dark Solid */
+        .t7-vert { background: var(--card-primary); color: white; padding: 10px; }
+        .t7-vert .inner { border: 1px solid rgba(255,255,255,0.3); height: 100%; padding: 10px; display: flex; flex-direction: column; align-items: center; text-align: center;}
+        .t7-vert .school-name { font-size: 13px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px;}
+        .t7-vert .photo { width: 80px; height: 100px; border: 2px solid white; margin-bottom: 10px; }
+        .t7-vert .student-name { font-size: 15px; font-weight: 800; background: var(--card-secondary); padding: 2px 10px; border-radius: 10px; margin-bottom: 10px;}
+        .t7-vert .details { font-size: 9px; line-height: 1.6; }
+        .t7-vert .sign-area { margin-top: auto; border-top: 1px dashed rgba(255,255,255,0.4); padding-top: 5px; width: 100%;}
+
+        /* T8: Gradient Premium */
+        .t8-vert { background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); }
+        .t8-vert .header { background: transparent; padding: 10px; display: flex; justify-content: center; align-items: center; flex-direction: column; border-bottom: 2px solid var(--card-primary);}
+        .t8-vert .school-name { font-size: 12px; font-weight: 800; color: var(--card-primary); text-align: center;}
+        .t8-vert .body { padding: 15px 10px; display: flex; flex-direction: column; align-items: center;}
+        .t8-vert .photo { width: 75px; height: 95px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 10px;}
+        .t8-vert .details-card { background: white; border-radius: 8px; padding: 10px; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 9px; line-height: 1.5; border-left: 3px solid var(--card-secondary);}
+        .t8-vert .student-name { font-size: 13px; font-weight: 700; color: #000; border-bottom: 1px solid #eee; padding-bottom: 3px; margin-bottom: 3px;}
+
+        /* T9: ID Badge Clean */
+        .t9-vert .top-bar { height: 8px; background: var(--card-secondary); width: 100%; }
+        .t9-vert .header { padding: 10px; display: flex; align-items: center; gap: 10px; }
+        .t9-vert .logo { width: 35px; height: 35px; }
+        .t9-vert .school-name { font-size: 11px; font-weight: 700; line-height: 1.2; color: var(--card-primary);}
+        .t9-vert .id-title { text-align: center; font-size: 10px; font-weight: bold; background: #eee; padding: 3px; margin: 5px 15px; border-radius: 4px; letter-spacing: 1px;}
+        .t9-vert .photo-sec { display: flex; justify-content: center; margin: 10px 0; }
+        .t9-vert .photo { width: 85px; height: 105px; border-radius: 6px; }
+        .t9-vert .details { font-size: 9px; padding: 0 15px; }
+        .t9-vert .details span { display: block; margin-bottom: 3px;}
+        .t9-vert .footer { position: absolute; bottom: 0; width: 100%; background: var(--card-primary); color: white; text-align: center; font-size: 8px; padding: 5px;}
+
+        /* --- HORIZONTAL TEMPLATES --- */
+        /* T3: Bordered */
+        .t3-horiz { border: 5px solid var(--card-secondary); border-radius: 12px; background: white;}
+        .t3-horiz .header { background: var(--card-secondary); color: white; padding: 8px 15px; display: flex; align-items: center; gap: 10px; }
+        .t3-horiz .logo { width: 35px; height: 35px; background: white; border-radius: 50%; padding: 2px; }
+        .t3-horiz .school-name { font-size: 18px; font-weight: 800; letter-spacing: 1px; }
+        .t3-horiz .body { flex: 1; display: flex; padding: 15px; gap: 15px; }
+        .t3-horiz .left-col { width: 90px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .t3-horiz .photo { width: 85px; height: 105px; border-radius: 4px; }
+        .t3-horiz .roll { font-size: 9px; font-weight: bold; background: #eee; padding: 2px 5px; border-radius: 4px; }
+        .t3-horiz .right-col { flex: 1; display: flex; flex-direction: column; justify-content: center;}
+        .t3-horiz .details-table { width: 100%; font-size: 10px; line-height: 1.5; }
+        .t3-horiz .details-table td:first-child { font-weight: 700; color: var(--card-secondary); width: 35%; }
+        .t3-horiz .footer { background: var(--card-secondary); color: white; text-align: center; font-size: 9px; padding: 4px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+        .t3-horiz .sign-area { position: absolute; bottom: 20px; right: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        /* T4: Ribbon */
+        .t4-horiz { border-radius: 10px; background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%); }
+        .t4-horiz .header { display: flex; align-items: center; padding: 10px 15px; gap: 10px; }
+        .t4-horiz .logo { width: 30px; height: 30px; }
+        .t4-horiz .school-name { font-size: 18px; font-weight: 800; color: var(--card-secondary); text-transform: uppercase; }
+        .t4-horiz .name-ribbon { background: var(--card-primary); color: white; text-align: right; padding: 5px 20px; font-size: 16px; font-weight: 700; width: 80%; align-self: flex-end; border-top-left-radius: 20px; border-bottom-left-radius: 20px; margin-bottom: 10px; }
+        .t4-horiz .body { display: flex; padding: 0 15px 10px 15px; gap: 20px; flex: 1; }
+        .t4-horiz .photo { width: 90px; height: 110px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .t4-horiz .details { flex: 1; font-size: 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px; align-content: start; }
+        .t4-horiz .details span:nth-child(odd) { font-weight: 600; }
+        .t4-horiz .footer-graphic { position: absolute; bottom: 0; right: 0; background: var(--card-secondary); color: white; padding: 5px 15px; border-top-left-radius: 20px; font-size: 10px; font-style: italic; display: flex; align-items: center; justify-content: center; min-width: 100px; height: 30px;}
+
+        /* T10: Sidebar Left */
+        .t10-horiz { flex-direction: row; }
+        .t10-horiz .sidebar { width: 30%; background: var(--card-primary); padding: 15px 10px; display: flex; flex-direction: column; align-items: center; color: white;}
+        .t10-horiz .photo { width: 80px; height: 100px; border: 3px solid white; border-radius: 6px; margin-bottom: 10px;}
+        .t10-horiz .roll-bg { background: var(--card-secondary); padding: 2px 8px; border-radius: 12px; font-size: 9px; font-weight: bold;}
+        .t10-horiz .main-area { width: 70%; padding: 15px; display: flex; flex-direction: column;}
+        .t10-horiz .school-name { font-size: 15px; font-weight: 800; color: var(--card-primary); border-bottom: 2px solid var(--card-secondary); padding-bottom: 5px; margin-bottom: 10px;}
+        .t10-horiz .student-name { font-size: 16px; font-weight: 700; margin-bottom: 5px;}
+        .t10-horiz .details { font-size: 9.5px; line-height: 1.6;}
+        .t10-horiz .details span { font-weight: 600; color: #555;}
+        .t10-horiz .sign-area { align-self: flex-end; margin-top: auto; text-align: center;}
+
+        /* T11: Right Photo Clean */
+        .t11-horiz .top-accent { height: 6px; width: 100%; background: var(--card-primary); }
+        .t11-horiz .header { padding: 10px 15px; display: flex; align-items: center; gap: 10px;}
+        .t11-horiz .school-name { font-size: 16px; font-weight: 800; color: var(--text-main);}
+        .t11-horiz .content-wrap { display: flex; padding: 0 15px; gap: 15px;}
+        .t11-horiz .info-sec { flex: 1; }
+        .t11-horiz .student-name { font-size: 18px; font-weight: 700; color: var(--card-secondary); margin-bottom: 8px;}
+        .t11-horiz .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 9px;}
+        .t11-horiz .photo-sec { width: 90px; }
+        .t11-horiz .photo { width: 100%; height: 110px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        .t11-horiz .footer { position: absolute; bottom: 0; width: 100%; padding: 6px 15px; background: #f8fafc; border-top: 1px solid #eee; font-size: 9px; display: flex; justify-content: space-between; align-items: center;}
+
+        /* T12: Corporate Wireframe */
+        .t12-horiz { padding: 10px; background: white;}
+        .t12-horiz .inner-border { border: 1px solid var(--card-primary); height: 100%; display: flex; flex-direction: column; padding: 10px;}
+        .t12-horiz .header { display: flex; justify-content: center; align-items: center; gap: 10px; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 10px;}
+        .t12-horiz .school-name { font-size: 16px; font-weight: 700; letter-spacing: 0.5px;}
+        .t12-horiz .body-area { display: flex; gap: 15px;}
+        .t12-horiz .photo { width: 80px; height: 100px; border: 1px solid #ccc; padding: 2px;}
+        .t12-horiz .details table { font-size: 9px; line-height: 1.5; }
+        .t12-horiz .details td:first-child { font-weight: 600; padding-right: 10px; }
+
+        /* T13: Modern Wave Bottom */
+        .t13-horiz .header { background: var(--card-primary); padding: 15px; color: white; display: flex; align-items: center; gap: 10px; clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); height: 80px;}
+        .t13-horiz .school-name { font-size: 16px; font-weight: bold;}
+        .t13-horiz .body { padding: 0 15px; display: flex; gap: 15px; margin-top: -10px;}
+        .t13-horiz .photo { width: 85px; height: 105px; border-radius: 8px; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); background: white;}
+        .t13-horiz .info-list { font-size: 9.5px; padding-top: 15px;}
+        .t13-horiz .student-name { font-size: 15px; font-weight: 800; color: var(--card-secondary); margin-bottom: 5px;}
+        .t13-horiz .bottom-bar { position: absolute; bottom: 0; right: 0; background: var(--card-secondary); color: white; padding: 4px 15px; border-top-left-radius: 10px; font-size: 9px;}
+
+        /* T14: Center Profile Focus */
+        .t14-horiz { background: #f8fafc; border-top: 5px solid var(--card-secondary);}
+        .t14-horiz .top-row { display: flex; justify-content: space-between; padding: 10px 15px;}
+        .t14-horiz .logo { width: 40px; height: 40px;}
+        .t14-horiz .school-name { font-size: 14px; font-weight: 800; text-align: right; width: 60%; color: var(--card-primary);}
+        .t14-horiz .mid-row { display: flex; padding: 0 15px; align-items: center; gap: 15px;}
+        .t14-horiz .photo { width: 75px; height: 95px; border-radius: 50%; object-fit: cover; border: 3px solid var(--card-primary);}
+        .t14-horiz .details-wrap { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex: 1; font-size: 9px;}
+        .t14-horiz .student-name { font-size: 14px; font-weight: bold; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 4px;}
+        
+        /* ========================================================
+           PRINT SYSTEM CSS
+           ======================================================== */
+        #print-container { display: none; }
+        
+        @media print {
+            @page { size: A4; margin: 10mm; }
+            body { background: white; height: auto; overflow: visible; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .top-header, .page-wrapper, .info-section, .site-footer { display: none !important; }
+            
+            #print-container { display: grid; gap: 15px; width: 100%; justify-content: center; align-content: start; }
+            .print-grid-2x4 { grid-template-columns: repeat(2, auto); }
+            .print-grid-3x3 { grid-template-columns: repeat(3, auto); }
+            
+            .vert-card, .horiz-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; margin: 0; zoom: 0.88; }
+            
+            .vert-card { width: 230px; height: 350px; }
+            .horiz-card { width: 400px; height: 240px; }
+            .t3-horiz { border: 5px solid var(--card-secondary); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <a href="index.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Home
+        </a>
+        <div class="header-title"> Student ID Maker - Smart CSC Tools</div>
+        <div style="width: 100px;"></div>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="app-container">
+            
+            <div class="panel left-panel">
+                <h2>Student Details</h2>
+                <div style="overflow-y: auto; padding-right: 5px;">
+                    <div class="form-group">
+                        <label>School Name</label>
+                        <input type="text" id="inp-school" value="BTKR MEMORIAL PUBLIC SCHOOL" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Student Name</label>
+                        <input type="text" id="inp-name" value="Mitya Nandan" oninput="updatePreview()">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Class/Sec</label>
+                            <input type="text" id="inp-class" value="First C" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Roll/Reg No</label>
+                            <input type="text" id="inp-roll" value="2019" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Name</label>
+                        <input type="text" id="inp-father" value="Mayank Singh" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Name</label>
+                        <input type="text" id="inp-mother" value="Binita Sen" oninput="updatePreview()">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>D.O.B</label>
+                            <input type="text" id="inp-dob" value="10-06-2006" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Blood Grp</label>
+                            <input type="text" id="inp-bg" value="O+" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" id="inp-phone" value="821457545" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="inp-address" value="Gonda, UP" oninput="updatePreview()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Photo</label>
+                        <div class="file-upload">📸 Upload Photo<input type="file" id="inp-photo" accept="image/*" onchange="handleImage(event, 'preview-photo')"></div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>School Logo</label>
+                            <div class="file-upload">🏫 Upload Logo<input type="file" id="inp-logo" accept="image/*" onchange="handleImage(event, 'preview-logo')"></div>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Principal Sign</label>
+                            <div class="file-upload">✍️ Upload Sign<input type="file" id="inp-sign" accept="image/*" onchange="handleImage(event, 'preview-sign')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel center-panel">
+                <div class="print-actions">
+                    <h2 style="border:none; margin:0; padding:0; text-align:center; color:#475569; font-size: 0.9rem;">Ready to Print?</h2>
+                    <button class="btn btn-success" onclick="printCards()">🖨️ Print / Save PDF</button>
+                </div>
+
+                <div style="margin-bottom: 15px; font-size: 0.85rem; font-weight: 600; color: #64748b; display: flex; align-items: center; gap: 5px;">
+                    <span style="display:inline-block; width:8px; height:8px; background:#3b82f6; border-radius:50%;"></span> Live Card Preview
+                </div>
+                
+                <div class="preview-wrapper" id="live-preview-container">
+                    <div class="id-card vert-card t1-vert" id="render-card">
+                        <div class="header"><div class="school-name dyn-school">BTKR MEMORIAL PUBLIC SCHOOL</div></div>
+                        <div class="body">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%2394a3b8'/%3E%3Cpath d='M20 100 Q50 60 80 100' fill='%2394a3b8'/%3E%3C/svg%3E" class="photo photo-frame dyn-photo custom-border" id="preview-photo">
+                            <div class="student-name dyn-name">Mitya Nandan</div>
+                            <table class="details-table">
+                                <tr><td>Father's</td><td>: <span class="dyn-father">Mayank Singh</span></td></tr>
+                                <tr><td>D.O.B</td><td>: <span class="dyn-dob">10-06-2006</span></td></tr>
+                                <tr><td>Class</td><td>: <span class="dyn-class">First C</span></td></tr>
+                                <tr><td>Phone</td><td>: <span class="dyn-phone">821457545</span></td></tr>
+                            </table>
+                        </div>
+                        <div class="sign-area">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10,20 Q30,5 50,20 T90,10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E" class="sign-frame dyn-sign">
+                            <div style="font-size: 6px; font-weight: bold;">Principal</div>
+                        </div>
+                        <div class="footer dyn-address">Gonda, UP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel right-panel">
+                <h2>Card Templates (14)</h2>
+                
+                <div class="template-grid">
+                    <div class="template-option active" onclick="selectTemplate('t1', this)"><span class="template-badge">Vertical</span> Classic</div>
+                    <div class="template-option" onclick="selectTemplate('t2', this)"><span class="template-badge">Vertical</span> Wave Header</div>
+                    <div class="template-option" onclick="selectTemplate('t5', this)"><span class="template-badge">Vertical</span> Split Modern</div>
+                    <div class="template-option" onclick="selectTemplate('t6', this)"><span class="template-badge">Vertical</span> Left Accent</div>
+                    <div class="template-option" onclick="selectTemplate('t7', this)"><span class="template-badge">Vertical</span> Dark Solid</div>
+                    <div class="template-option" onclick="selectTemplate('t8', this)"><span class="template-badge">Vertical</span> Gradient VIP</div>
+                    <div class="template-option" onclick="selectTemplate('t9', this)"><span class="template-badge">Vertical</span> ID Badge Clean</div>
+                    <div class="template-option" onclick="selectTemplate('t3', this)"><span class="template-badge">Horizontal</span> Bordered Pro</div>
+                    <div class="template-option" onclick="selectTemplate('t4', this)"><span class="template-badge">Horizontal</span> Ribbon Card</div>
+                    <div class="template-option" onclick="selectTemplate('t10', this)"><span class="template-badge">Horizontal</span> Sidebar Left</div>
+                    <div class="template-option" onclick="selectTemplate('t11', this)"><span class="template-badge">Horizontal</span> Right Photo</div>
+                    <div class="template-option" onclick="selectTemplate('t12', this)"><span class="template-badge">Horizontal</span> Corporate Wire</div>
+                    <div class="template-option" onclick="selectTemplate('t13', this)"><span class="template-badge">Horizontal</span> Modern Wave</div>
+                    <div class="template-option" onclick="selectTemplate('t14', this)"><span class="template-badge">Horizontal</span> Profile Focus</div>
+                </div>
+
+                <h2>Colors & Settings</h2>
+                <div class="color-picker-row">
+                    <div class="form-group" style="margin:0;">
+                        <label>Primary</label>
+                        <input type="color" id="color-primary" value="#1a4f9c" onchange="updateColors()">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Secondary</label>
+                        <input type="color" id="color-secondary" value="#dc2626" onchange="updateColors()">
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="inp-photo-border" onchange="updatePreview()" checked>
+                    <label for="inp-photo-border">Enable Photo Border</label>
+                </div>
+                
+                <div class="form-group" style="margin-top: 10px; margin-bottom: 0;">
+                    <label>A4 Print Layout</label>
+                    <select id="grid-layout">
+                        <option value="print-grid-2x4">2 x 4 (8 Cards/Page)</option>
+                        <option value="print-grid-3x3">3 x 3 (9 Cards/Page)</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="addStudent()" style="margin-top: 10px;">+ Add to Print List</button>
+
+                <h2 style="margin-top: 10px; display:flex; justify-content:space-between;">
+                    Students List <span style="background:var(--primary-ui); color:white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;" id="count">0</span>
+                </h2>
+                
+                <ul class="student-list" id="student-list-ui">
+                    <div style="text-align: center; color: #94a3b8; font-size: 0.85rem; margin-top: 20px;">No students added yet.<br>Fill details and click "+ Add to Print List"</div>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <section class="info-section">
+        <h3>🚀 How to Use Smart CSC Tools ID Maker</h3>
+        <div class="steps-grid">
+            <div class="step-card">
+                <span class="step-num">1</span>
+                <strong>Fill Student Details</strong>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">Left panel me school ka naam, student ki details aur photos/logo upload karein. Preview center me live update hoga.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-num">2</span>
+                <strong>Select Template & Color</strong>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">Right panel se apne manpasand 14+ templates me se koi ek chunein. School ki branding ke hisaab se Primary aur Secondary color set karein.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-num">3</span>
+                <strong>Add to List & Print</strong>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">"Add to Print List" par click karein. Jab saare students add ho jayein, toh "Print / Save PDF" dabayein. A4 paper par smart layout auto-adjust ho jayega.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <h3>💡 Frequently Asked Questions (FAQs)</h3>
+        <div class="faq-item">
+            <div class="faq-q">1. Is this School ID Card Generator free to use?</div>
+            <div class="faq-a">Yes, Smart CSC Tools ID Maker is completely free for VLEs and School operators to generate and print ID cards.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">2. Is my student data safe? Are photos uploaded to a server?</div>
+            <div class="faq-a">100% Safe. Yeh tool puri tarah aapke browser (offline mode in browser) me kaam karta hai. Koi bhi photo ya data hamare server par upload ya save nahi hota hai.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">3. Can I print directly on an A4 sheet?</div>
+            <div class="faq-a">Yes! Our advanced print layout automatically scales the ID cards to fit perfectly on standard A4 paper. You can choose between 8 cards/page or 9 cards/page layout.</div>
+        </div>
+        <div class="faq-item" style="border:none; padding-bottom:0;">
+            <div class="faq-q">4. ID card ka bottom cut ho raha hai print me, kya karu?</div>
+            <div class="faq-a">Pehle yeh issue tha, par ab ise solve kar diya gaya hai. Tool automatically scale-down (zoom out) kar leta hai taki bina kisi hisse ko kate A4 me perfect print aaye. Apne browser print settings me "Background Graphics" jarur ON rakhein.</div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>Copyright &copy; 2026 <strong>Smart CSC Tools</strong>. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Designed for CSC VLEs, Jan Seva Kendras and Schools.</p>
+    </footer>
+
+<div id="print-container"></div>
+
+<script>
+    let currentTemplate = 't1';
+    let students = [];
+    
+    // Default Images
+    let photoDataUrl = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23e2e8f0'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%2394a3b8'/%3E%3Cpath d='M20 100 Q50 60 80 100' fill='%2394a3b8'/%3E%3C/svg%3E";
+    let logoDataUrl = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8' width='24' height='24'%3E%3Cpath d='M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z'/%3E%3C/svg%3E";
+    let signDataUrl = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10,20 Q30,5 50,20 T90,10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E";
+
+    // 14 Templates Definitions
+    const templates = {
+        // --- 7 VERTICAL TEMPLATES ---
+        't1': `
+            <div class="id-card vert-card t1-vert">
+                <div class="header"><div class="school-name dyn-school"></div></div>
+                <div class="body">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="student-name dyn-name"></div>
+                    <table class="details-table">
+                        <tr><td>Father</td><td>: <span class="dyn-father"></span></td></tr>
+                        <tr><td>D.O.B</td><td>: <span class="dyn-dob"></span></td></tr>
+                        <tr><td>Class</td><td>: <span class="dyn-class"></span></td></tr>
+                        <tr><td>Roll No</td><td>: <span class="dyn-roll"></span></td></tr>
+                        <tr><td>Phone</td><td>: <span class="dyn-phone"></span></td></tr>
+                    </table>
+                </div>
+                <div class="sign-area"><img src="student-id-card.html" class="sign-frame dyn-sign"><div style="font-size: 6px; font-weight: bold;">Principal</div></div>
+                <div class="footer dyn-address"></div>
+            </div>`,
+        't2': `
+            <div class="id-card vert-card t2-vert">
+                <div class="header-bg"></div>
+                <div class="content">
+                    <div class="header-text"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="student-name dyn-name"></div>
+                    <div class="details">
+                        <div><span>ROLL NO.</span><span>: <span class="dyn-roll"></span></span></div>
+                        <div><span>FATHER</span><span>: <span class="dyn-father"></span></span></div>
+                        <div><span>D.O.B</span><span>: <span class="dyn-dob"></span></span></div>
+                        <div><span>CLASS</span><span>: <span class="dyn-class"></span></span></div>
+                        <div><span>PHONE</span><span>: <span class="dyn-phone"></span></span></div>
+                    </div>
+                    <div class="footer"><div><span class="dyn-bg" style="color:red; font-weight:bold;"></span></div><div style="text-align: right;"><img src="student-id-card.html" class="sign-frame dyn-sign"><br><span style="font-weight:bold;">Principal Sign</span></div></div>
+                </div>
+            </div>`,
+        't5': `
+            <div class="id-card vert-card t5-vert">
+                <div class="top-half">
+                    <img src="student-id-card.html" class="logo logo-frame dyn-logo" style="width:25px; height:25px; background:white; border-radius:50%; padding:2px;">
+                    <div class="school-name dyn-school"></div>
+                </div>
+                <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                <div class="bottom-half">
+                    <div class="student-name dyn-name"></div>
+                    <div style="font-size:10px; color:#555; font-weight:bold; margin-bottom:5px;">Class: <span class="dyn-class"></span> | Roll: <span class="dyn-roll"></span></div>
+                    <div class="details">
+                        <p><strong>F. Name:</strong> <span class="dyn-father"></span></p>
+                        <p><strong>D.O.B:</strong> <span class="dyn-dob"></span> | <strong>B.G:</strong> <span class="dyn-bg"></span></p>
+                        <p><strong>Mob:</strong> <span class="dyn-phone"></span></p>
+                    </div>
+                </div>
+                <div class="footer"><span>Add: <span class="dyn-address"></span></span> <img src="student-id-card.html" class="sign-frame dyn-sign" style="filter: brightness(0) invert(1); max-height:15px;"></div>
+            </div>`,
+        't6': `
+            <div class="id-card vert-card t6-vert">
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                <div class="main-content">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="info">
+                        <div class="student-name dyn-name"></div>
+                        <table class="details-table">
+                            <tr><td>Cls</td><td>: <span class="dyn-class"></span></td></tr>
+                            <tr><td>Roll</td><td>: <span class="dyn-roll"></span></td></tr>
+                            <tr><td>DOB</td><td>: <span class="dyn-dob"></span></td></tr>
+                            <tr><td>Fath</td><td>: <span class="dyn-father"></span></td></tr>
+                            <tr><td>Ph</td><td>: <span class="dyn-phone"></span></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div style="font-size:8px; margin-top:10px;"><strong>Add:</strong> <span class="dyn-address"></span></div>
+                <div class="bottom"><img src="student-id-card.html" class="sign-frame dyn-sign"><br>Principal</div>
+            </div>`,
+        't7': `
+            <div class="id-card vert-card t7-vert">
+                <div class="inner">
+                    <div class="school-name dyn-school"></div>
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="student-name dyn-name"></div>
+                    <div class="details">
+                        Class: <span class="dyn-class"></span> | Roll: <span class="dyn-roll"></span><br>
+                        F: <span class="dyn-father"></span><br>
+                        DOB: <span class="dyn-dob"></span> | BG: <span class="dyn-bg"></span><br>
+                        Ph: <span class="dyn-phone"></span><br>
+                        <span class="dyn-address" style="font-size:7px;"></span>
+                    </div>
+                    <div class="sign-area"><img src="student-id-card.html" class="sign-frame dyn-sign" style="filter: brightness(0) invert(1);"><br>Auth Signatory</div>
+                </div>
+            </div>`,
+        't8': `
+            <div class="id-card vert-card t8-vert">
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo" style="width:25px; height:25px;"><div class="school-name dyn-school"></div></div>
+                <div class="body">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="details-card">
+                        <div class="student-name dyn-name"></div>
+                        <div><strong>C:</strong> <span class="dyn-class"></span> | <strong>R:</strong> <span class="dyn-roll"></span></div>
+                        <div><strong>F:</strong> <span class="dyn-father"></span></div>
+                        <div><strong>D:</strong> <span class="dyn-dob"></span> | <strong>BG:</strong> <span class="dyn-bg"></span></div>
+                        <div><strong>P:</strong> <span class="dyn-phone"></span></div>
+                    </div>
+                </div>
+                <div style="position:absolute; bottom:10px; right:15px; text-align:center;"><img src="student-id-card.html" class="sign-frame dyn-sign"><br><span style="font-size:7px;">Principal</span></div>
+            </div>`,
+        't9': `
+            <div class="id-card vert-card t9-vert">
+                <div class="top-bar"></div>
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                <div class="id-title">STUDENT IDENTITY CARD</div>
+                <div class="photo-sec"><img src="student-id-card.html" class="photo photo-frame dyn-photo"></div>
+                <div class="details" style="text-align:center;">
+                    <div style="font-size:14px; font-weight:800; color:var(--card-secondary);" class="dyn-name"></div>
+                    <div style="margin-bottom:5px; font-weight:bold;">Class: <span class="dyn-class"></span></div>
+                    <span>Father: <span class="dyn-father"></span></span>
+                    <span>DOB: <span class="dyn-dob"></span> | Roll: <span class="dyn-roll"></span></span>
+                    <span>Ph: <span class="dyn-phone"></span></span>
+                </div>
+                <div class="footer">Add: <span class="dyn-address"></span></div>
+            </div>`,
+
+        // --- 7 HORIZONTAL TEMPLATES ---
+        't3': `
+            <div class="id-card horiz-card t3-horiz">
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                <div class="body">
+                    <div class="left-col"><img src="student-id-card.html" class="photo photo-frame dyn-photo"><div class="roll">No. <span class="dyn-roll"></span></div></div>
+                    <div class="right-col">
+                        <div style="font-size: 14px; font-weight:bold; margin-bottom: 5px; color: var(--card-secondary);">Name: <span class="dyn-name" style="color:#000;"></span></div>
+                        <table class="details-table">
+                            <tr><td>Class/Sec</td><td>: <span class="dyn-class"></span></td></tr>
+                            <tr><td>Father's</td><td>: <span class="dyn-father"></span></td></tr>
+                            <tr><td>D.O.B</td><td>: <span class="dyn-dob"></span></td></tr>
+                            <tr><td>Blood Grp</td><td>: <span class="dyn-bg"></span></td></tr>
+                            <tr><td>Mobile</td><td>: <span class="dyn-phone"></span></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="sign-area"><img src="student-id-card.html" class="sign-frame dyn-sign"><div style="font-size: 7px; font-weight: bold; color:var(--card-secondary);">Principal</div></div>
+                <div class="footer dyn-address"></div>
+            </div>`,
+        't4': `
+            <div class="id-card horiz-card t4-horiz">
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                <div class="name-ribbon dyn-name"></div>
+                <div class="body">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="details">
+                        <span>Father</span> <span>: <span class="dyn-father"></span></span>
+                        <span>Mother</span> <span>: <span class="dyn-mother"></span></span>
+                        <span>Class</span> <span>: <span class="dyn-class"></span></span>
+                        <span>D.O.B.</span> <span>: <span class="dyn-dob"></span></span>
+                        <span>Roll No.</span> <span>: <span class="dyn-roll"></span></span>
+                        <span>Mob</span> <span>: <span class="dyn-phone"></span></span>
+                    </div>
+                </div>
+                <div class="footer-graphic"><img src="student-id-card.html" class="sign-frame dyn-sign" style="filter: brightness(0) invert(1);"> </div>
+            </div>`,
+        't10': `
+            <div class="id-card horiz-card t10-horiz">
+                <div class="sidebar">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="roll-bg">ID: <span class="dyn-roll"></span></div>
+                    <div style="font-size:8px; margin-top:10px; text-align:center;">BG: <span class="dyn-bg" style="font-weight:bold; font-size:10px;"></span></div>
+                </div>
+                <div class="main-area">
+                    <div class="school-name dyn-school"></div>
+                    <div class="student-name dyn-name"></div>
+                    <div class="details">
+                        <p><span>Class:</span> <span class="dyn-class" style="color:#000;"></span></p>
+                        <p><span>Father:</span> <span class="dyn-father" style="color:#000;"></span></p>
+                        <p><span>DOB:</span> <span class="dyn-dob" style="color:#000;"></span></p>
+                        <p><span>Phone:</span> <span class="dyn-phone" style="color:#000;"></span></p>
+                        <p style="margin-top:4px;"><span>Add:</span> <span class="dyn-address" style="color:#000;"></span></p>
+                    </div>
+                    <div class="sign-area"><img src="student-id-card.html" class="sign-frame dyn-sign"><br><span style="font-size:7px; font-weight:bold;">Principal</span></div>
+                </div>
+            </div>`,
+        't11': `
+            <div class="id-card horiz-card t11-horiz">
+                <div class="top-accent"></div>
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo" style="width:30px;"><div class="school-name dyn-school"></div></div>
+                <div class="content-wrap">
+                    <div class="info-sec">
+                        <div class="student-name dyn-name"></div>
+                        <div class="details-grid">
+                            <div><strong>Class:</strong> <span class="dyn-class"></span></div>
+                            <div><strong>Roll:</strong> <span class="dyn-roll"></span></div>
+                            <div><strong>Fath:</strong> <span class="dyn-father"></span></div>
+                            <div><strong>DOB:</strong> <span class="dyn-dob"></span></div>
+                            <div style="grid-column: span 2;"><strong>Mob:</strong> <span class="dyn-phone"></span></div>
+                        </div>
+                    </div>
+                    <div class="photo-sec"><img src="student-id-card.html" class="photo photo-frame dyn-photo"></div>
+                </div>
+                <div class="footer"><div><span class="dyn-address"></span></div> <div><img src="student-id-card.html" class="sign-frame dyn-sign" style="max-height:15px;"></div></div>
+            </div>`,
+        't12': `
+            <div class="id-card horiz-card t12-horiz">
+                <div class="inner-border">
+                    <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo" style="width:25px;"><div class="school-name dyn-school" style="color:var(--card-primary);"></div></div>
+                    <div class="body-area">
+                        <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                        <div class="details">
+                            <div style="font-size:13px; font-weight:800; margin-bottom:5px;" class="dyn-name"></div>
+                            <table>
+                                <tr><td>Class / Sec</td><td>: <span class="dyn-class"></span></td></tr>
+                                <tr><td>Roll No.</td><td>: <span class="dyn-roll"></span></td></tr>
+                                <tr><td>Father Name</td><td>: <span class="dyn-father"></span></td></tr>
+                                <tr><td>Date of Birth</td><td>: <span class="dyn-dob"></span></td></tr>
+                                <tr><td>Contact</td><td>: <span class="dyn-phone"></span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="position:absolute; bottom:15px; right:20px; text-align:center;"><img src="student-id-card.html" class="sign-frame dyn-sign" style="max-height:20px;"><br><span style="font-size:7px; font-weight:bold;">Headmaster</span></div>
+                </div>
+            </div>`,
+        't13': `
+            <div class="id-card horiz-card t13-horiz">
+                <div class="header"><img src="student-id-card.html" class="logo logo-frame dyn-logo" style="width:30px; background:white; border-radius:50%; padding:2px;"><div class="school-name dyn-school"></div></div>
+                <div class="body">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="info-list">
+                        <div class="student-name dyn-name"></div>
+                        <div><strong>Cls:</strong> <span class="dyn-class"></span> | <strong>Roll:</strong> <span class="dyn-roll"></span></div>
+                        <div><strong>F:</strong> <span class="dyn-father"></span></div>
+                        <div><strong>DOB:</strong> <span class="dyn-dob"></span> | <strong>BG:</strong> <span class="dyn-bg"></span></div>
+                        <div><strong>Mob:</strong> <span class="dyn-phone"></span></div>
+                    </div>
+                </div>
+                <div class="bottom-bar">Valid for Year 2026-27</div>
+                <div style="position:absolute; bottom:5px; right:15px;"><img src="student-id-card.html" class="sign-frame dyn-sign" style="max-height:20px;"></div>
+            </div>`,
+        't14': `
+            <div class="id-card horiz-card t14-horiz">
+                <div class="top-row"><img src="student-id-card.html" class="logo logo-frame dyn-logo"><div class="school-name dyn-school"></div></div>
+                <div class="mid-row">
+                    <img src="student-id-card.html" class="photo photo-frame dyn-photo">
+                    <div class="details-wrap">
+                        <div class="student-name dyn-name"></div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span>Class: <span class="dyn-class" style="font-weight:bold;"></span></span> <span>Roll: <span class="dyn-roll" style="font-weight:bold;"></span></span></div>
+                        <div style="margin-bottom:3px;">Father: <span class="dyn-father"></span></div>
+                        <div style="margin-bottom:3px;">DOB: <span class="dyn-dob"></span></div>
+                        <div>Mob: <span class="dyn-phone"></span></div>
+                    </div>
+                </div>
+                <div style="position:absolute; bottom:5px; right:15px;"><img src="student-id-card.html" class="sign-frame dyn-sign" style="max-height:18px;"></div>
+                <div style="position:absolute; bottom:5px; left:15px; font-size:7px; color:#888;">Add: <span class="dyn-address"></span></div>
+            </div>`
+    };
+
+    function updatePreview() {
+        const data = getFormData();
+        const container = document.getElementById('render-card');
+        
+        const setVal = (cls, val) => {
+            container.querySelectorAll('.' + cls).forEach(el => {
+                if(el.tagName === 'IMG') el.src = val;
+                else el.innerText = val;
+            });
+        };
+
+        setVal('dyn-school', data.school);
+        setVal('dyn-name', data.name);
+        setVal('dyn-class', data.cls);
+        setVal('dyn-roll', data.roll);
+        setVal('dyn-father', data.father);
+        setVal('dyn-mother', data.mother);
+        setVal('dyn-dob', data.dob);
+        setVal('dyn-bg', data.bg);
+        setVal('dyn-phone', data.phone);
+        setVal('dyn-address', data.address);
+        
+        setVal('dyn-photo', photoDataUrl);
+        setVal('dyn-logo', logoDataUrl);
+        setVal('dyn-sign', signDataUrl);
+
+        container.querySelectorAll('.dyn-photo').forEach(el => {
+            if(data.showBorder) el.classList.add('custom-border');
+            else el.classList.remove('custom-border');
+        });
+    }
+
+    function getFormData() {
+        return {
+            school: document.getElementById('inp-school').value,
+            name: document.getElementById('inp-name').value,
+            cls: document.getElementById('inp-class').value,
+            roll: document.getElementById('inp-roll').value,
+            father: document.getElementById('inp-father').value,
+            mother: document.getElementById('inp-mother').value,
+            dob: document.getElementById('inp-dob').value,
+            bg: document.getElementById('inp-bg').value,
+            phone: document.getElementById('inp-phone').value,
+            address: document.getElementById('inp-address').value,
+            showBorder: document.getElementById('inp-photo-border').checked
+        };
+    }
+
+    function handleImage(event, type) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(type === 'preview-photo') photoDataUrl = e.target.result;
+                if(type === 'preview-logo') logoDataUrl = e.target.result;
+                if(type === 'preview-sign') signDataUrl = e.target.result;
+                updatePreview();
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function selectTemplate(t_id, el) {
+        currentTemplate = t_id;
+        document.querySelectorAll('.template-option').forEach(btn => btn.classList.remove('active'));
+        el.classList.add('active');
+        
+        document.getElementById('live-preview-container').innerHTML = templates[t_id];
+        document.getElementById('live-preview-container').firstElementChild.id = 'render-card';
+        updatePreview();
+    }
+
+    function updateColors() {
+        const primary = document.getElementById('color-primary').value;
+        const secondary = document.getElementById('color-secondary').value;
+        document.documentElement.style.setProperty('--card-primary', primary);
+        document.documentElement.style.setProperty('--card-secondary', secondary);
+    }
+
+    function addStudent() {
+        const data = getFormData();
+        if(!data.name) return alert("Please enter at least a student name.");
+
+        const studentRecord = {
+            id: Date.now(),
+            template: currentTemplate,
+            htmlString: templates[currentTemplate],
+            data: data,
+            photo: photoDataUrl,
+            logo: logoDataUrl,
+            sign: signDataUrl
+        };
+
+        students.push(studentRecord);
+        renderStudentList();
+    }
+
+    function removeStudent(id) {
+        students = students.filter(s => s.id !== id);
+        renderStudentList();
+    }
+
+    function renderStudentList() {
+        const ul = document.getElementById('student-list-ui');
+        ul.innerHTML = '';
+        document.getElementById('count').innerText = students.length;
+
+        if(students.length === 0) {
+            ul.innerHTML = `<div style="text-align: center; color: #94a3b8; font-size: 0.85rem; margin-top: 20px;">No students added yet.<br>Fill details and click "+ Add to Print List"</div>`;
+            return;
+        }
+
+        students.forEach(student => {
+            const li = document.createElement('li');
+            li.className = 'student-item';
+            li.innerHTML = `
+                <div>
+                    <strong>${student.data.name}</strong><br>
+                    <span style="color: #64748b; font-size: 0.75rem;">Class: ${student.data.cls} | Roll: ${student.data.roll}</span>
+                </div>
+                <button class="remove-btn" onclick="removeStudent(${student.id})" title="Remove">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            `;
+            ul.appendChild(li);
+        });
+    }
+
+    function printCards() {
+        if(students.length === 0) return alert("Please add at least one student to the print list first.");
+
+        const printContainer = document.getElementById('print-container');
+        const gridClass = document.getElementById('grid-layout').value;
+        
+        printContainer.className = gridClass;
+        printContainer.innerHTML = '';
+
+        students.forEach(student => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = student.htmlString;
+            
+            const setV = (cls, val) => {
+                tempDiv.querySelectorAll('.' + cls).forEach(el => {
+                    if(el.tagName === 'IMG') el.src = val;
+                    else el.innerText = val;
+                });
+            };
+
+            setV('dyn-school', student.data.school);
+            setV('dyn-name', student.data.name);
+            setV('dyn-class', student.data.cls);
+            setV('dyn-roll', student.data.roll);
+            setV('dyn-father', student.data.father);
+            setV('dyn-mother', student.data.mother);
+            setV('dyn-dob', student.data.dob);
+            setV('dyn-bg', student.data.bg);
+            setV('dyn-phone', student.data.phone);
+            setV('dyn-address', student.data.address);
+            
+            setV('dyn-photo', student.photo);
+            setV('dyn-logo', student.logo);
+            setV('dyn-sign', student.sign);
+
+            tempDiv.querySelectorAll('.dyn-photo').forEach(el => {
+                if(student.data.showBorder) el.classList.add('custom-border');
+                else el.classList.remove('custom-border');
+            });
+
+            printContainer.appendChild(tempDiv.firstElementChild);
+        });
+
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    }
+
+    updatePreview();
+    updateColors();
+
+</script>
+</body>
+</html>

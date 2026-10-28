@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>Free AI Photo Background Remover | Remove Image Background Online - Smart CSC Tools</title>
+    <meta name="title" content="Free AI Background Remover | Remove Image Background Online">
+    <meta name="description" content="Remove image backgrounds free with AI. 100% client-side processing, no upload, unlimited use. High-quality transparent PNG download. Privacy guaranteed.">
+    <meta name="keywords" content="background remover, remove background, image background remover, free background removal, AI background remover, transparent background, png background remover">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartcsctools.org/photo-background-remover.html">
+    <meta property="og:title" content="Free AI Background Remover - Remove Image Background">
+    <meta property="og:description" content="Remove image backgrounds instantly with AI. 100% free, no server upload.">
+    <meta property="og:image" content="https://smartcsctools.org/images/photo-background-remover.png">
+    
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- IMG.LY Background Removal Library -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@imgly/background-removal": "https://esm.sh/@imgly/background-removal@1.4.5"
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .upload-area {
+            transition: all 0.3s ease;
+            border: 3px dashed #cbd5e1;
+            background: white;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f8fafc;
+            transform: translateY(-2px);
+        }
+        
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #e0f2fe;
+            transform: scale(1.02);
+        }
+        
+        .upload-area.has-image {
+            border-style: solid;
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #e2e8f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .bg-option {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .bg-option.active {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto mb-8">
+        <div class="flex justify-between items-center bg-white/90 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg">
+            <a href="index.html" class="flex items-center space-x-3">
+                <i class="fas fa-magic text-3xl text-purple-600"></i>
+                <span class="text-2xl font-bold text-gray-800 hidden sm:block">Smart CSC Tools</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <div class="flex space-x-3">
+                    <a href="photo-background-remover.html#" onclick="shareOnWhatsApp()" class="text-green-600 hover:text-green-700 text-2xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="photo-background-remover.html#" onclick="shareOnFacebook()" class="text-blue-600 hover:text-blue-700 text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="photo-background-remover.html#" onclick="shareOnTwitter()" class="text-sky-500 hover:text-sky-600 text-2xl"><i class="fab fa-twitter"></i></a>
+                </div>
+                <a href="index.html" class="bg-purple-600 text-white px-5 py-2 rounded-xl hover:bg-purple-700 transition">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                Photo Background Remover
+            </h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                Remove image backgrounds instantly. <span class="font-bold">100% free, private & unlimited.</span> 
+            </p>
+        </div>
+        
+        <!-- Stats Bar -->
+        <div class="flex flex-wrap justify-center gap-6 mb-8">
+            <div class="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white">
+                <i class="fas fa-users mr-2"></i>
+                <span class="font-bold">50,000+</span> Happy Users
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white">
+                <i class="fas fa-star mr-2 text-yellow-300"></i>
+                <span class="font-bold">4.8/5</span> Rating
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white">
+                <i class="fas fa-infinity mr-2"></i>
+                <span class="font-bold">Unlimited</span> Free
+            </div>
+        </div>
+        
+        <!-- Main Tool Card -->
+        <div class="glass-card p-6 md:p-8 mb-8">
+            
+            <!-- Breadcrumb -->
+            <div class="flex items-center text-sm text-gray-600 mb-6 pb-4 border-b">
+                <a href="index.html" class="hover:text-purple-600">Home</a>
+                
+                <i class="fas fa-chevron-right mx-2 text-xs"></i>
+                <span class="text-purple-600 font-semibold">Background Remover</span>
+            </div>
+            
+            <!-- Upload Area -->
+            <div id="uploadArea" class="upload-area p-8" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt text-7xl text-purple-400 mb-4"></i>
+                <p class="text-2xl text-gray-700 mb-2">Drag & drop your image here</p>
+                <p class="text-gray-500 mb-4">or click to browse</p>
+                <button class="bg-purple-600 text-white px-8 py-3 rounded-xl hover:bg-purple-700 transition text-lg">
+                    Select Image
+                </button>
+                <input type="file" id="fileInput" accept="image/*" class="hidden" />
+                <p class="text-sm text-gray-400 mt-4">Supports: JPG, PNG, WEBP (Max 20MB)</p>
+                <p class="text-xs text-gray-400 mt-2">
+                    <i class="fas fa-lock mr-1"></i> 100% Private - Processed in your browser
+                </p>
+            </div>
+            
+            <!-- Preview Section -->
+            <div id="previewSection" class="hidden mt-8">
+                <div class="flex justify-center mb-6">
+                    <div class="relative">
+                        <img id="preview" src="photo-background-remover.html" alt="Preview" class="max-h-80 rounded-2xl shadow-2xl" />
+                        <button onclick="resetTool()" class="absolute -top-3 -right-3 bg-red-500 text-white w-10 h-10 rounded-full hover:bg-red-600 transition shadow-lg">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Background Color Options -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                        <i class="fas fa-palette text-purple-600 mr-2"></i>
+                        Choose Background Color:
+                    </h3>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <button onclick="setBgColor('transparent')" id="btn-transparent" class="bg-option active bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-medium">
+                            <i class="fas fa-eye-slash mr-2"></i>Transparent
+                        </button>
+                        <button onclick="setBgColor('#ffffff')" id="btn-white" class="bg-option bg-white text-gray-800 border-2 border-gray-300 px-6 py-3 rounded-xl font-medium hover:border-purple-500">
+                            <i class="fas fa-square text-white mr-2" style="text-shadow: 0 0 0 1px #000;"></i>White
+                        </button>
+                        <button onclick="setBgColor('#000000')" id="btn-black" class="bg-option bg-black text-white px-6 py-3 rounded-xl font-medium hover:border-purple-500">
+                            <i class="fas fa-square mr-2"></i>Black
+                        </button>
+                        <button onclick="setBgColor('#3b82f6')" id="btn-blue" class="bg-option bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:border-purple-500">
+                            <i class="fas fa-square mr-2"></i>Blue
+                        </button>
+                        <div class="relative">
+                            <input type="color" id="customColor" value="#8b5cf6" class="w-16 h-12 rounded-xl cursor-pointer" onchange="setBgColor(this.value)" />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Process Button -->
+                <button id="processBtn" onclick="removeBackground()" class="btn-primary w-full text-xl flex items-center justify-center">
+                    <i class="fas fa-magic mr-3"></i>
+                    Remove Background Now
+                </button>
+            </div>
+            
+            <!-- Loading Section -->
+            <div id="loadingSection" class="hidden text-center py-8">
+                <div class="loading-spinner mx-auto mb-6"></div>
+                <h3 id="loadingMessage" class="text-2xl font-semibold text-gray-800 mb-2">Downloading AI Model...</h3>
+                <p class="text-gray-600 mb-4">This happens only once. The model will be cached in your browser.</p>
+                
+                <div class="progress-bar max-w-md mx-auto">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+                
+                <div class="flex justify-between text-sm text-gray-600 max-w-md mx-auto">
+                    <span id="progressStatus">Initializing...</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                
+                <p class="text-sm text-gray-500 mt-4">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    First time setup: Downloading ~176MB model (one-time only)
+                </p>
+            </div>
+            
+            <!-- Result Section -->
+            <div id="resultSection" class="hidden mt-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">✨ Background Removed Successfully!</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <p class="font-semibold text-gray-700 mb-3">Original Image</p>
+                        <img id="originalResult" src="photo-background-remover.html" alt="Original" class="rounded-xl shadow-lg mx-auto max-h-64" />
+                    </div>
+                    <div class="text-center">
+                        <p class="font-semibold text-gray-700 mb-3">Result</p>
+                        <img id="result" src="photo-background-remover.html" alt="Result" class="rounded-xl shadow-lg mx-auto max-h-64" />
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                    <a id="downloadBtn" href="photo-background-remover.html#" download="background-removed.png" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl text-center font-semibold text-lg transition flex items-center justify-center">
+                        <i class="fas fa-download mr-2"></i>
+                        Download PNG
+                    </a>
+                    <button onclick="resetTool()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-4 rounded-xl font-semibold text-lg transition flex items-center justify-center">
+                        <i class="fas fa-redo mr-2"></i>
+                        Remove Another
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="feature-card">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lock text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">100% Private</h3>
+                <p class="text-gray-600">Your images never leave your device. Processed locally in your browser.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-infinity text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">Unlimited Free</h3>
+                <p class="text-gray-600">No limits, no credits, no signup. Remove as many images as you want.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-bolt text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="font-semibold text-xl mb-2">Lightning Fast</h3>
+                <p class="text-gray-600">Advanced AI model optimized for speed. Results in 2-5 seconds.</p>
+            </div>
+        </div>
+        
+        <!-- How to Use -->
+        <div class="glass-card p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">How to Remove Background in 3 Steps</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+                    <h3 class="font-semibold text-xl mb-2">Upload Image</h3>
+                    <p class="text-gray-600">Drag & drop or click to select your image (JPG, PNG, WEBP)</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+                    <h3 class="font-semibold text-xl mb-2">AI Processing</h3>
+                    <p class="text-gray-600">Our AI automatically removes background with precision</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+                    <h3 class="font-semibold text-xl mb-2">Download Result</h3>
+                    <p class="text-gray-600">Get your image with transparent background instantly</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="glass-card p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <div class="bg-white rounded-xl p-5 shadow-sm">
+                    <h3 class="font-semibold text-lg mb-2 flex items-center">
+                        <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                        Is this really free and unlimited?
+                    </h3>
+                    <p class="text-gray-600 ml-7">Yes! 100% free with no limits. All processing happens in your browser, so there are no server costs or restrictions.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-5 shadow-sm">
+                    <h3 class="font-semibold text-lg mb-2 flex items-center">
+                        <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                        Why is it downloading something?
+                    </h3>
+                    <p class="text-gray-600 ml-7">The first time you use it, the AI model (~176MB) downloads to your browser. After that, it works offline instantly!</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-5 shadow-sm">
+                    <h3 class="font-semibold text-lg mb-2 flex items-center">
+                        <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                        Are my images private?
+                    </h3>
+                    <p class="text-gray-600 ml-7">Absolutely! Your images never leave your device. Everything is processed locally in your browser for complete privacy.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-5 shadow-sm">
+                    <h3 class="font-semibold text-lg mb-2 flex items-center">
+                        <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                        What image formats are supported?
+                    </h3>
+                    <p class="text-gray-600 ml-7">We support JPG, PNG, and WEBP formats. Maximum file size is 20MB for optimal performance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-white/80">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="privacy.html" class="hover:text-white">Privacy</a>
+                <a href="terms.html" class="hover:text-white">Terms</a>
+                <a href="contact.html" class="hover:text-white">Contact</a>
+            </div>
+            <p>&copy; 2026 Smart CSC Tools. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script type="module">
+        // Import the background removal library
+        import { removeBackground } from 'https://esm.sh/@imgly/background-removal@1.4.5';
+        
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const previewSection = document.getElementById('previewSection');
+        const preview = document.getElementById('preview');
+        const loadingSection = document.getElementById('loadingSection');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const progressFill = document.getElementById('progressFill');
+        const progressStatus = document.getElementById('progressStatus');
+        const progressPercent = document.getElementById('progressPercent');
+        const resultSection = document.getElementById('resultSection');
+        const originalResult = document.getElementById('originalResult');
+        const result = document.getElementById('result');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const processBtn = document.getElementById('processBtn');
+        
+        // State
+        let selectedBgColor = 'transparent';
+        let originalFile = null;
+        let originalImageUrl = null;
+        let processedBlob = null;
+        
+        // Drag & Drop Handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length) {
+                const file = e.dataTransfer.files[0];
+                handleFileSelect(file);
+            }
+        });
+        
+        // File Input Handler
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+        
+        // Handle File Selection
+        function handleFileSelect(file) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('Please upload an image file (JPG, PNG, WEBP)', 'error');
+                return;
+            }
+            
+            // Validate file size (20MB max)
+            if (file.size > 20 * 1024 * 1024) {
+                showToast('File size should be less than 20MB', 'error');
+                return;
+            }
+            
+            originalFile = file;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImageUrl = e.target.result;
+                preview.src = originalImageUrl;
+                
+                // Show preview, hide upload
+                previewSection.classList.remove('hidden');
+                uploadArea.classList.add('hidden');
+                
+                // Reset result section
+                resultSection.classList.add('hidden');
+                
+                showToast('Image uploaded successfully!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Set Background Color
+        window.setBgColor = function(color) {
+            selectedBgColor = color;
+            
+            // Update active state on buttons
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('active', 'border-purple-500', 'ring-2', 'ring-purple-500');
+            });
+            
+            if (color === 'transparent') {
+                document.getElementById('btn-transparent')?.classList.add('active', 'border-purple-500', 'ring-2', 'ring-purple-500');
+            } else if (color === '#ffffff') {
+                document.getElementById('btn-white')?.classList.add('active', 'border-purple-500', 'ring-2', 'ring-purple-500');
+            } else if (color === '#000000') {
+                document.getElementById('btn-black')?.classList.add('active', 'border-purple-500', 'ring-2', 'ring-purple-500');
+            } else if (color === '#3b82f6') {
+                document.getElementById('btn-blue')?.classList.add('active', 'border-purple-500', 'ring-2', 'ring-purple-500');
+            }
+        };
+        
+        // Main Background Removal Function
+        window.removeBackground = async function() {
+            if (!originalImageUrl) {
+                showToast('Please select an image first', 'error');
+                return;
+            }
+            
+            // Show loading section
+            previewSection.classList.add('hidden');
+            loadingSection.classList.remove('hidden');
+            processBtn.disabled = true;
+            
+            try {
+                // Configure the background removal
+                const config = {
+                    progress: (key, current, total) => {
+                        // Update progress bar
+                        const percent = Math.round((current / total) * 100);
+                        progressFill.style.width = percent + '%';
+                        progressPercent.textContent = percent + '%';
+                        
+                        // Update status message based on key
+                        if (key === 'fetch') {
+                            progressStatus.textContent = 'Downloading model...';
+                        } else if (key === 'compute') {
+                            progressStatus.textContent = 'Processing image...';
+                        } else if (key === 'inference') {
+                            progressStatus.textContent = 'AI is working...';
+                        }
+                        
+                        loadingMessage.textContent = key === 'fetch' ? 'Downloading AI Model...' : 'Removing Background...';
+                    },
+                    model: 'medium',
+                    output: {
+                        format: 'image/png',
+                        quality: 0.9
+                    }
+                };
+                
+                // Remove background
+                const blob = await removeBackground(originalImageUrl, config);
+                
+                // Apply background color if not transparent
+                if (selectedBgColor !== 'transparent') {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+                    
+                    await new Promise((resolve) => {
+                        img.onload = () => {
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            
+                            // Fill with selected color
+                            ctx.fillStyle = selectedBgColor;
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            
+                            // Draw processed image on top
+                            ctx.drawImage(img, 0, 0);
+                            
+                            // Convert to blob
+                            canvas.toBlob((newBlob) => {
+                                processedBlob = newBlob;
+                                resolve();
+                            }, 'image/png');
+                        };
+                        img.src = URL.createObjectURL(blob);
+                    });
+                } else {
+                    processedBlob = blob;
+                }
+                
+                // Show result
+                const resultUrl = URL.createObjectURL(processedBlob);
+                originalResult.src = originalImageUrl;
+                result.src = resultUrl;
+                downloadBtn.href = resultUrl;
+                
+                // Hide loading, show result
+                loadingSection.classList.add('hidden');
+                resultSection.classList.remove('hidden');
+                
+                showToast('Background removed successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Error removing background. Please try again.', 'error');
+                
+                // Reset UI
+                loadingSection.classList.add('hidden');
+                previewSection.classList.remove('hidden');
+            } finally {
+                processBtn.disabled = false;
+            }
+        };
+        
+        // Reset Tool
+        window.resetTool = function() {
+            // Reset file input
+            fileInput.value = '';
+            
+            // Hide all sections except upload
+            previewSection.classList.add('hidden');
+            loadingSection.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            uploadArea.classList.remove('hidden');
+            
+            // Reset state
+            originalFile = null;
+            originalImageUrl = null;
+            processedBlob = null;
+            
+            // Reset progress bar
+            progressFill.style.width = '0%';
+            progressPercent.textContent = '0%';
+            progressStatus.textContent = 'Initializing...';
+        };
+        
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'error' ? 'bg-red-500' : 'bg-green-500'}`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-3 text-xl"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Share Functions
+        window.shareOnWhatsApp = function() {
+            const text = 'Check out this free AI background remover - Remove image backgrounds instantly!';
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        };
+        
+        window.shareOnFacebook = function() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        window.shareOnTwitter = function() {
+            const text = 'Free AI Background Remover - No upload, 100% private';
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        // Initialize
+        setBgColor('transparent');
+    </script>
+</body>
+</html>

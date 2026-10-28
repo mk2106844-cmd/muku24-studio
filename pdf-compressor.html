@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <!-- Resource Hints & Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary Meta Tags - SEO Optimized -->
+    <title>Compress PDF Files Online Free | Reduce PDF Size - Smart CSC Tools</title>
+    <meta name="title" content="Compress PDF Files Online Free - Reduce PDF File Size Instantly">
+    <meta name="description" content="Free online PDF compressor tool to reduce PDF file size online. Maintain quality while reducing file size. No registration, no watermark, 100% private client-side processing.">
+    <meta name="keywords" content="compress pdf, reduce pdf size, pdf compressor, shrink pdf, pdf file size reducer, online pdf compressor, free pdf tool, smart csc tools, pdf resizer">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="revisit-after" content="1 day">
+    <meta name="language" content="English">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="pdf-compressor.html">
+    
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartcsctools.org/pdf-compressor.html">
+    <meta property="og:title" content="Free PDF Compressor - Reduce PDF Size Online">
+    <meta property="og:description" content="Reduce your PDF file size instantly for free. Secure client-side processing, no uploads required.">
+    <meta property="og:image" content="https://smartcsctools.org/favicon.png">
+    <meta property="og:site_name" content="Smart CSC Tools">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://smartcsctools.org/pdf-compressor.html">
+    <meta name="twitter:title" content="Free PDF Compressor - Reduce PDF Size Online">
+    <meta name="twitter:description" content="Reduce your PDF file size instantly for free. Secure client-side processing, no uploads.">
+    <meta name="twitter:image" content="https://smartcsctools.org/favicon.png">
+    
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <!-- PDFLib for merging/creating pdfs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+            min-height: 100vh;
+        }
+        
+        .drop-zone {
+            border: 3px dashed #cbd5e1;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            background: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .drop-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
+        .drop-zone:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.2);
+        }
+        
+        .drop-zone.dragover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+        
+        .drop-zone.dragover::before {
+            opacity: 0.05;
+        }
+        
+        .drop-zone * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .toast-message {
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .compression-option {
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        
+        .compression-option.active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://smartcsctools.org/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://smartcsctools.org/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://smartcsctools.org/favicon.png">
+</head>
+<body>
+
+    <!-- Navigation with Breadcrumbs -->
+    <nav class="bg-white shadow-md sticky top-0 z-50" aria-label="Breadcrumb">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <ol class="flex items-center space-x-2 text-sm">
+                    <li>
+                        <a href="index.html" class="text-gray-600 hover:text-blue-600 transition flex items-center">
+                            <i class="fas fa-home mr-1"></i> Home
+                        </a>
+                    </li>
+                   
+                    <li class="text-gray-400">/</li>
+                    <li class="text-blue-600 font-semibold" aria-current="page">Compress PDF</li>
+                </ol>
+                
+                <!-- Share Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="shareOnWhatsApp()" class="text-green-600 hover:text-green-700 transition" title="Share on WhatsApp">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </button>
+                    <button onclick="shareOnFacebook()" class="text-blue-600 hover:text-blue-700 transition" title="Share on Facebook">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </button>
+                    <button onclick="shareOnTwitter()" class="text-sky-500 hover:text-sky-600 transition" title="Share on Twitter">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+                Compress PDF Files Online
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Reduce PDF file size online free while maintaining maximum visual quality. <span class="font-bold text-blue-600">100% Secure • Client-Side Processing</span>
+            </p>
+            
+            <!-- Stats Counter -->
+            <div class="flex justify-center gap-8 mt-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                    <i class="fas fa-compress-arrows-alt text-blue-500 mr-2"></i>
+                    <span>Fast PDF Compression</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+                    <span>100% Free & Unlimited</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drop Zone Area & Options -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Drop Zone -->
+            <div class="drop-zone mb-6" id="dropZone" role="button" tabindex="0" aria-label="Drop zone for PDF files">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-file-pdf text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Drag & Drop PDF File Here</h3>
+                    <p class="text-gray-500 mb-4">or click to browse from computer</p>
+                    <input type="file" id="pdfInput" accept=".pdf" class="hidden" />
+                    <button id="selectFilesBtn" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition transform hover:scale-105 shadow-lg">
+                        Select PDF File
+                    </button>
+                    <p class="text-xs text-gray-400 mt-4">No file size limit. Processing is done entirely in your browser.</p>
+                </div>
+            </div>
+
+            <!-- Configuration & Actions (Hidden initially) -->
+            <div id="compressBox" class="bg-white rounded-2xl shadow-xl p-6 mb-6 hidden">
+                <div class="flex items-center justify-between border-b pb-4 mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-file-invoice text-blue-500 mr-2"></i> File Details
+                    </h3>
+                    <button onclick="resetTool()" class="text-red-500 hover:text-red-700 flex items-center gap-1 font-semibold text-sm">
+                        <i class="fas fa-trash-alt"></i> Clear File
+                    </button>
+                </div>
+
+                <!-- Selected File Display -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center gap-4 mb-6">
+                    <div class="bg-red-100 text-red-600 w-12 h-12 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 id="fileName" class="font-bold text-gray-800 truncate text-base">filename.pdf</h4>
+                        <p id="fileSize" class="text-sm text-gray-500">0.00 KB</p>
+                    </div>
+                </div>
+
+                <!-- Compression Level Selection -->
+                <div class="mb-8">
+                    <h4 class="font-bold text-gray-800 mb-4 flex items-center text-lg">
+                        <i class="fas fa-sliders-h text-blue-500 mr-2"></i> Select Compression Level
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Option 1: Low -->
+                        <div onclick="selectCompression('low')" id="option-low" class="compression-option rounded-xl p-4 cursor-pointer hover:border-blue-400">
+                            <h5 class="font-bold text-gray-800 text-base mb-1">Less Compression</h5>
+                            <p class="text-xs text-gray-500 mb-2">High image quality</p>
+                            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">~150 DPI</span>
+                        </div>
+                        <!-- Option 2: Medium -->
+                        <div onclick="selectCompression('medium')" id="option-medium" class="compression-option active rounded-xl p-4 cursor-pointer hover:border-blue-400">
+                            <h5 class="font-bold text-gray-800 text-base mb-1">Recommended</h5>
+                            <p class="text-xs text-gray-500 mb-2">Good balance of quality & size</p>
+                            <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">~120 DPI</span>
+                        </div>
+                        <!-- Option 3: High -->
+                        <div onclick="selectCompression('high')" id="option-high" class="compression-option rounded-xl p-4 cursor-pointer hover:border-blue-400">
+                            <h5 class="font-bold text-gray-800 text-base mb-1">Extreme Compression</h5>
+                            <p class="text-xs text-gray-500 mb-2">Smallest size, lower quality</p>
+                            <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded">~90 DPI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex flex-col gap-4">
+                    <button id="compressBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.01] flex items-center justify-center gap-2 text-lg">
+                        <i class="fas fa-compress-arrows-alt"></i> Compress PDF
+                    </button>
+                    
+                    <button id="downloadBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition hidden flex items-center justify-center gap-2 text-lg">
+                        <i class="fas fa-download"></i> Download Compressed PDF
+                    </button>
+                </div>
+
+                <!-- Progress Container -->
+                <div id="progressContainer" class="mt-6 border-t pt-6 hidden">
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span id="statusMessage" class="font-semibold text-blue-600 animate-pulse">Initializing compression...</span>
+                        <span id="progressPercentage" class="font-bold">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                        <div id="progressBar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">Rendering and compressing PDF pages locally. Please keep this tab open.</p>
+                </div>
+
+                <!-- Result Dashboard -->
+                <div id="resultBox" class="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-6 hidden">
+                    <h4 class="font-bold text-gray-800 mb-4 flex items-center text-lg">
+                        <i class="fas fa-chart-pie text-green-500 mr-2"></i> Compression Summary
+                    </h4>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="p-3 bg-white border rounded-lg">
+                            <p class="text-xs text-gray-500 uppercase font-semibold">Original Size</p>
+                            <p id="originalSizeDisplay" class="text-lg font-bold text-gray-700 mt-1">0.00 KB</p>
+                        </div>
+                        <div class="p-3 bg-white border rounded-lg">
+                            <p class="text-xs text-gray-500 uppercase font-semibold">Compressed Size</p>
+                            <p id="compressedSizeDisplay" class="text-lg font-bold text-green-600 mt-1">0.00 KB</p>
+                        </div>
+                        <div class="p-3 bg-white border rounded-lg">
+                            <p class="text-xs text-gray-500 uppercase font-semibold">Space Saved</p>
+                            <p id="savingDisplay" class="text-lg font-bold text-purple-600 mt-1">0%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info / How It Works -->
+        <div class="max-w-4xl mx-auto mt-12 bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">How to Compress PDF Without Losing Quality</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                    <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Upload PDF</h4>
+                    <p class="text-sm text-gray-500">Select or drag & drop your PDF file into the box.</p>
+                </div>
+                <div>
+                    <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Choose Level</h4>
+                    <p class="text-sm text-gray-500">Pick Low, Recommended, or Extreme compression level.</p>
+                </div>
+                <div>
+                    <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                    <h4 class="font-bold text-gray-800 mb-2">Download File</h4>
+                    <p class="text-sm text-gray-500">Get your highly optimized, reduced size PDF instantly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-200 pt-16 pb-8 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          
+          <!-- Column 1: About & Social -->
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Smart CSC Tools</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              India's No.1 Free Platform for CSC VLEs. Quick and secure document crop, resizing, converters and online utility.
+            </p>
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="WhatsApp Chat">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.004 2c-5.518 0-9.996 4.477-9.996 9.996 0 1.83.493 3.543 1.348 5.03l-1.356 4.974 5.097-1.335c1.455.8 3.116 1.26 4.907 1.26 5.518 0 9.996-4.477 9.996-9.996 0-5.519-4.478-9.996-9.996-9.996zm4.618 13.064c-.207.584-1.008 1.077-1.583 1.158-.396.056-.913.088-2.529-.575-2.067-.847-3.4-2.956-3.504-3.094-.103-.138-.843-1.121-.843-2.148 0-1.026.536-1.53.727-1.737.19-.207.414-.259.552-.259.138 0 .276.002.396.007.126.006.293-.047.458.353.17.414.58 1.414.63 1.517.05.103.084.224.015.358-.068.138-.103.224-.207.345-.103.12-.22.271-.314.364-.103.103-.211.216-.09.423.12.207.534.878 1.146 1.423.788.702 1.452.92 1.658 1.023.207.103.327.086.448-.052.12-.138.517-.603.655-.81.138-.207.276-.172.466-.103.19.069 1.207.569 1.414.672.207.103.345.155.396.242.052.086.052.5-.155 1.084z" />
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="Facebook Page">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="YouTube Channel">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Quick Links</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Home</a></li>
+              <li><a href="index.html#tools" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Our Tools</a></li>
+              <li><a href="about.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> About Us</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Legal & Support (AdSense Required) -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Legal & Support</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="privacy.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Terms of Service</a></li>
+              <li><a href="disclaimer.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Disclaimer</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter & Contact Info -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-white mb-2 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Newsletter</h4>
+            <p class="text-xs text-slate-400 leading-normal">
+              Subscribe to get the latest updates on new CSC tools, updates, and templates directly in your inbox.
+            </p>
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col gap-2 mt-2">
+              <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide transition duration-300">
+                Subscribe
+              </button>
+            </form>
+            
+          </div>
+
+        </div>
+
+        <!-- Divider & Bottom Bar -->
+        <div class="border-t border-slate-800 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>&copy; 2026 Smart CSC Tools. All rights reserved. </p>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Subscribe Handler Script -->
+    <script>
+      function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert("Thank you for subscribing! We'll keep you updated.");
+          emailInput.value = "";
+        }
+      }
+    </script>
+
+    <script type="module">
+        // Configure PDF.js Worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+
+        // DOM elements
+        const dropZone = document.getElementById('dropZone');
+        const pdfInput = document.getElementById('pdfInput');
+        const selectFilesBtn = document.getElementById('selectFilesBtn');
+        const compressBox = document.getElementById('compressBox');
+        const fileNameEl = document.getElementById('fileName');
+        const fileSizeEl = document.getElementById('fileSize');
+        const compressBtn = document.getElementById('compressBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercentage = document.getElementById('progressPercentage');
+        const statusMessage = document.getElementById('statusMessage');
+        const resultBox = document.getElementById('resultBox');
+        const originalSizeDisplay = document.getElementById('originalSizeDisplay');
+        const compressedSizeDisplay = document.getElementById('compressedSizeDisplay');
+        const savingDisplay = document.getElementById('savingDisplay');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // State
+        let selectedFile = null;
+        let compressedBlob = null;
+        let selectedLevel = 'medium'; // default compression level
+
+        // Drag and Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Click selection
+        selectFilesBtn.addEventListener('click', () => pdfInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target !== selectFilesBtn) {
+                pdfInput.click();
+            }
+        });
+
+        pdfInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        // File Handler
+        function handleFileSelect(file) {
+            if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+                showToast('Please upload a valid PDF file.', 'error');
+                return;
+            }
+
+            selectedFile = file;
+            fileNameEl.textContent = file.name;
+            fileSizeEl.textContent = formatFileSize(file.size);
+
+            // Toggle views
+            dropZone.classList.add('hidden');
+            compressBox.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+            downloadBtn.classList.add('hidden');
+            compressBtn.classList.remove('hidden');
+
+            showToast('PDF loaded successfully!', 'success');
+        }
+
+        // Compression Selection
+        window.selectCompression = function(level) {
+            selectedLevel = level;
+            
+            // Update active styling
+            document.querySelectorAll('.compression-option').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`option-${level}`).classList.add('active');
+        };
+
+        // File Size Utility
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Main Compress Logic
+        compressBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+
+            try {
+                // Disable controls
+                compressBtn.disabled = true;
+                progressContainer.classList.remove('hidden');
+                resultBox.classList.add('hidden');
+
+                // Read file as ArrayBuffer
+                statusMessage.textContent = 'Reading PDF document...';
+                progressBar.style.width = '5%';
+                progressPercentage.textContent = '5%';
+
+                const fileReader = new FileReader();
+                const arrayBuffer = await new Promise((resolve, reject) => {
+                    fileReader.onload = () => resolve(fileReader.result);
+                    fileReader.onerror = reject;
+                    fileReader.readAsArrayBuffer(selectedFile);
+                });
+
+                // Start page by page compression
+                statusMessage.textContent = 'Loading pages...';
+                progressBar.style.width = '10%';
+                progressPercentage.textContent = '10%';
+
+                const pdfjsDoc = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+                const numPages = pdfjsDoc.numPages;
+
+                const compressedPdfDoc = await PDFLib.PDFDocument.create();
+
+                // Setup compression factors
+                let quality = 0.6;
+                let scale = 1.0;
+
+                if (selectedLevel === 'low') {
+                    quality = 0.8;
+                    scale = 1.3;
+                } else if (selectedLevel === 'medium') {
+                    quality = 0.6;
+                    scale = 1.0;
+                } else if (selectedLevel === 'high') {
+                    quality = 0.4;
+                    scale = 0.8;
+                }
+
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    statusMessage.textContent = `Processing page ${pageNum} of ${numPages}...`;
+                    
+                    // Render PDF.js page to canvas
+                    const page = await pdfjsDoc.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    await page.render(renderContext).promise;
+
+                    // Convert to JPEG data
+                    const jpegDataUrl = canvas.toDataURL('image/jpeg', quality);
+                    const jpegBytes = await fetch(jpegDataUrl).then(res => res.arrayBuffer());
+
+                    // Add image to new PDFDoc
+                    const embeddedImage = await compressedPdfDoc.embedJpg(jpegBytes);
+                    const pageDimensions = embeddedImage.scale(1.0 / scale);
+
+                    const newPage = compressedPdfDoc.addPage([pageDimensions.width, pageDimensions.height]);
+                    newPage.drawImage(embeddedImage, {
+                        x: 0,
+                        y: 0,
+                        width: pageDimensions.width,
+                        height: pageDimensions.height
+                    });
+
+                    // Update progress
+                    const percent = Math.round((pageNum / numPages) * 80) + 10; // map pages to 10% - 90% range
+                    progressBar.style.width = `${percent}%`;
+                    progressPercentage.textContent = `${percent}%`;
+                }
+
+                statusMessage.textContent = 'Saving compressed document...';
+                progressBar.style.width = '95%';
+                progressPercentage.textContent = '95%';
+
+                const compressedBytes = await compressedPdfDoc.save();
+                compressedBlob = new Blob([compressedBytes], { type: 'application/pdf' });
+
+                progressBar.style.width = '100%';
+                progressPercentage.textContent = '100%';
+                statusMessage.textContent = 'Done!';
+
+                // Display summary & download button
+                originalSizeDisplay.textContent = formatFileSize(selectedFile.size);
+                compressedSizeDisplay.textContent = formatFileSize(compressedBlob.size);
+                
+                let savedPercent = 0;
+                if (compressedBlob.size < selectedFile.size) {
+                    savedPercent = Math.round(((selectedFile.size - compressedBlob.size) / selectedFile.size) * 100);
+                }
+                savingDisplay.textContent = `${savedPercent}%`;
+
+                resultBox.classList.remove('hidden');
+                compressBtn.classList.add('hidden');
+                downloadBtn.classList.remove('hidden');
+
+                showToast('PDF compressed successfully!', 'success');
+            } catch (err) {
+                console.error(err);
+                showToast('Failed to compress PDF. Please try a different document.', 'error');
+            } finally {
+                compressBtn.disabled = false;
+                progressContainer.classList.add('hidden');
+            }
+        });
+
+        // Download Action
+        downloadBtn.addEventListener('click', () => {
+            if (!compressedBlob) return;
+
+            const url = URL.createObjectURL(compressedBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            const originalName = selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.'));
+            link.download = `${originalName}-compressed.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 100);
+
+            showToast('Download started!', 'success');
+        });
+
+        // Reset Tool
+        window.resetTool = function() {
+            selectedFile = null;
+            compressedBlob = null;
+            selectedLevel = 'medium';
+            pdfInput.value = '';
+
+            // Update UI
+            document.querySelectorAll('.compression-option').forEach(el => el.classList.remove('active'));
+            document.getElementById('option-medium').classList.add('active');
+
+            compressBox.classList.add('hidden');
+            resultBox.classList.add('hidden');
+            dropZone.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            progressPercentage.textContent = '0%';
+        };
+
+        // Show Toast
+        function showToast(message, type = 'info') {
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-yellow-500',
+                info: 'bg-blue-500'
+            };
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            
+            const toast = document.createElement('div');
+            toast.className = `toast-message ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg flex items-center`;
+            toast.innerHTML = `<i class="fas ${icons[type]} mr-3"></i>${message}`;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Share Functions
+        window.shareOnWhatsApp = function() {
+            const text = 'Free PDF Compressor - Reduce PDF file size online free.';
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        };
+        
+        window.shareOnFacebook = function() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        window.shareOnTwitter = function() {
+            const text = 'Free PDF Compressor - Reduce PDF file size online free';
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        };
+    </script>
+<script src="https://smartcsctools.org/cookie-consent.js?v=2" defer></script></body>
+</html>

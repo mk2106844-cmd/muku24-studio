@@ -1,0 +1,343 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MP ESB Template Generator | Smart CSC Tools</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5903040139930597"
+     crossorigin="anonymous"></script>
+
+  <style>
+    * { box-sizing: border-box }
+    @media (min-width: 1024px) {
+      .page-width { width: 900px }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+       <a
+  href="index.html"
+  aria-label="Back to Home"
+  title="Back to Home"
+  class="fixed z-50 top-5 right-5 sm:top-6 sm:right-6
+         group inline-flex items-center gap-2
+         rounded-full px-4 py-3
+         bg-gradient-to-r from-indigo-600 to-violet-600
+         text-white shadow-xl shadow-indigo-600/30
+         ring-1 ring-white/10
+         hover:from-indigo-500 hover:to-violet-500
+         active:scale-[0.98]
+         transition-all duration-300
+         focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400/60
+         dark:shadow-none dark:ring-0"
+  style="padding-top: calc(0.75rem + env(safe-area-inset-top));"
+>
+  <!-- Glow ring -->
+  <span class="absolute inset-0 -z-10 rounded-full blur-xl opacity-25
+               bg-indigo-500/60 group-hover:opacity-40 transition"></span>
+
+  <!-- Home Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+       class="h-5 w-5 shrink-0">
+    <path fill="currentColor"
+          d="M12 3.2 3 10h2v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9h2L12 3.2z"/>
+  </svg>
+
+  <span class="font-semibold tracking-wide">Back to Home</span>
+
+  <!-- Arrow appears on hover -->
+   
+</a>
+
+  <main class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">MP ESB Template Generator</h1>
+
+    <section class="bg-white border border-blue-400 rounded-xl shadow-sm p-6 md:p-8 max-w-3xl mx-auto mb-10">
+      <div class="grid grid-cols-1 gap-5">
+        <label class="block">
+          <span class="block text-sm font-medium">Name On Photo <span class="text-red-500">*</span></span>
+          <input id="nameInput" type="text" placeholder="Name" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+        </label>
+
+        <label class="block">
+          <span class="block text-sm font-medium">Date On Photo <span class="text-red-500">*</span></span>
+          <input id="dateInput" type="text" placeholder="DD-MM-YYYY" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+        </label>
+
+        <label class="block">
+          <span class="block text-sm font-medium">Photo <span class="text-red-500">*</span></span>
+          <input id="photoInput" type="file" accept="image/*" class="mt-1 block w-full text-sm" />
+        </label>
+
+        <label class="block">
+          <span class="block text-sm font-medium">Signature Photo <span class="text-red-500">*</span></span>
+          <input id="signInput" type="file" accept="image/*" class="mt-1 block w-full text-sm" />
+        </label>
+
+        <label class="block">
+          <span class="block text-sm font-medium">Declaration Photo <span class="text-red-500">*</span></span>
+          <input id="declInput" type="file" accept="image/*" class="mt-1 block w-full text-sm" />
+        </label>
+
+        <div class="flex justify-end">
+          <button id="downloadBtn" class="inline-flex items-center justify-center rounded-md bg-blue-600 text-white font-semibold px-6 py-3 hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
+            Generate & Download PNG
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-width mx-auto bg-white p-4 md:p-6 border border-gray-300 rounded-xl shadow-sm">
+      <div id="template" class="mx-auto bg-white text-gray-900">
+        <header class="text-center">
+          <p class="text-sm md:text-base font-medium">Madhya Pradesh Employees Selection Board, Bhopal</p>
+          <p class="text-sm md:text-base">मध्यप्रदेश कर्मचारी चयन मंडल, भोपाल</p>
+          <p class="text-sm mt-6">Predefined Template</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div class="flex flex-col">
+            <div class="text-lg font-semibold mb-2">फोटो / Photo</div>
+            <div class="border border-gray-400 rounded-md p-2 w-full max-w-xs">
+              <div class="h-56 w-56 border border-gray-300 mx-auto overflow-hidden">
+                <img id="photoImg" alt="Photo" crossOrigin="anonymous" class="h-full w-full object-cover" />
+              </div>
+            </div>
+            <div class="text-center mt-2 leading-tight">
+              <div id="nameText" class="font-medium">Name</div>
+              <div id="dateText">DD-MM-YYYY</div>
+              <div class="text-gray-600 mt-1">Box 1</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="text-lg font-semibold mb-2">हस्ताक्षर / Signature</div>
+            <div class="border border-gray-400 rounded-md p-2 w-full max-w-lg">
+              <div class="h-28 w-full border border-gray-300 overflow-hidden">
+                <img id="signImg" alt="Signature" crossOrigin="anonymous" class="h-full w-full object-cover" />
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h3 class="font-semibold text-base md:text-lg">निर्देश /Instruction ( हस्ताक्षर / Signature)</h3>
+              <ul class="list-disc ml-6 mt-2 space-y-1 text-sm">
+                <li>बॉक्स 2 में आवेदक अपने पूरे हस्ताक्षर करें। अंग्रेजी के कैपिटल अक्षरों में हस्ताक्षर न करें।</li>
+                <li>Do your full signature within box-2. Do not sign in capital letters.</li>
+                <li>More than one signature will be invalid. Short signature is not allowed.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h3 class="font-semibold text-base md:text-lg">निर्देश /Instruction ( फोटो / Photo )</h3>
+          <ul class="list-disc ml-6 mt-2 space-y-1 text-sm">
+            <li>फोटोग्राफ के निचले हिस्से पर फोटो खिंचवाने की दिनांक व आवेदक का नाम स्पष्ट होना चाहिए तथा यह आवेदन करने की तिथि से तीन माह से अधिक पुराना नहीं होना चाहिए।</li>
+            <li>Photograph of the candidate should bear his/her name and the date on the front of the lower part of photograph and it should not be older more than 3 months from application date.</li>
+          </ul>
+        </div>
+
+        <div class="mt-6 border border-gray-400 rounded-md p-4">
+          <h3 class="font-semibold text-base md:text-lg mb-2">स्व-घोषणा / Self Declaration</h3>
+          <p class="text-sm leading-relaxed">
+            मैं घोषणा करता हूँ कि मेरे द्वारा आवेदन में दी गयी समस्त जानकारी पूर्णतः सत्य है। यदि मेरे द्वारा दी गयी जानकारी किसी भी स्तर पर झूठी या पात्रता मापदण्डों
+            की आवश्यकताओं के अनुसार संतोषजनक नहीं पाई जाती है तो मेरी उम्मीदवारी रद्द की जा सकती है।
+          </p>
+          <div class="text-center my-2 font-semibold">अथवा / OR</div>
+          <p class="text-sm leading-relaxed">
+            I hereby declare that all statements made in this application are true to the best of my knowledge and belief.
+            If any information being found false at any stage or not satisfying the eligibility criteria according to the requirements, my candidature is liable to be cancelled.
+          </p>
+        </div>
+
+        <div class="mt-8 text-center">
+          <h3 class="font-semibold text-base md:text-lg">स्व-घोषणा / Self Declaration</h3>
+          <div class="text-sm text-gray-700 mt-1">(ऊपर दिए गए घोषणा को बॉक्स - 3 के अंदर अपने लेखन में कॉपी करें / Copy in your running hand writing in box-3, the declaration given above)</div>
+        </div>
+
+        <div class="mt-3 border border-gray-400 rounded-md p-2">
+          <div class="h-48 md:h-56 w-full border border-gray-300 overflow-hidden">
+            <img id="declImg" alt="Declaration" crossOrigin="anonymous" class="h-full w-full object-cover" />
+          </div>
+          <div class="text-center text-gray-600 mt-1">Box 3</div>
+        </div>
+
+        <div class="text-center text-gray-500 mt-10 select-none">--------------</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const nameInput = document.getElementById('nameInput');
+    const dateInput = document.getElementById('dateInput');
+    const nameText = document.getElementById('nameText');
+    const dateText = document.getElementById('dateText');
+
+    const photoInput = document.getElementById('photoInput');
+    const signInput = document.getElementById('signInput');
+    const declInput = document.getElementById('declInput');
+
+    const photoImg = document.getElementById('photoImg');
+    const signImg = document.getElementById('signImg');
+    const declImg = document.getElementById('declImg');
+
+    function readToImg(input, img) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => { img.src = e.target.result; };
+      reader.readAsDataURL(file);
+    }
+
+    function waitForImage(img) {
+      return new Promise(resolve => {
+        if (img.complete && img.naturalWidth) resolve();
+        else {
+          img.addEventListener('load', () => resolve(), { once: true });
+          img.addEventListener('error', () => resolve(), { once: true });
+        }
+      });
+    }
+
+    nameInput.addEventListener('input', e => { nameText.textContent = e.target.value || 'Name'; });
+    dateInput.addEventListener('input', e => { dateText.textContent = e.target.value || 'DD-MM-YYYY'; });
+
+    photoInput.addEventListener('change', e => readToImg(e.target, photoImg));
+    signInput.addEventListener('change', e => readToImg(e.target, signImg));
+    declInput.addEventListener('change', e => readToImg(e.target, declImg));
+
+    document.getElementById('downloadBtn').addEventListener('click', async () => {
+      await Promise.all([waitForImage(photoImg), waitForImage(signImg), waitForImage(declImg)]);
+      const node = document.getElementById('template');
+      const canvas = await html2canvas(node, { useCORS: true, backgroundColor: '#ffffff', scale: 2, windowWidth: node.scrollWidth, windowHeight: node.scrollHeight });
+      const dataURL = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'mp-esb-template.png';
+      link.href = dataURL;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  </script>
+
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-200 pt-16 pb-8 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          
+          <!-- Column 1: About & Social -->
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Smart CSC Tools</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              India's No.1 Free Platform for CSC VLEs. Quick and secure document crop, resizing, converters and online utility.
+            </p>
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="WhatsApp Chat">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.004 2c-5.518 0-9.996 4.477-9.996 9.996 0 1.83.493 3.543 1.348 5.03l-1.356 4.974 5.097-1.335c1.455.8 3.116 1.26 4.907 1.26 5.518 0 9.996-4.477 9.996-9.996 0-5.519-4.478-9.996-9.996-9.996zm4.618 13.064c-.207.584-1.008 1.077-1.583 1.158-.396.056-.913.088-2.529-.575-2.067-.847-3.4-2.956-3.504-3.094-.103-.138-.843-1.121-.843-2.148 0-1.026.536-1.53.727-1.737.19-.207.414-.259.552-.259.138 0 .276.002.396.007.126.006.293-.047.458.353.17.414.58 1.414.63 1.517.05.103.084.224.015.358-.068.138-.103.224-.207.345-.103.12-.22.271-.314.364-.103.103-.211.216-.09.423.12.207.534.878 1.146 1.423.788.702 1.452.92 1.658 1.023.207.103.327.086.448-.052.12-.138.517-.603.655-.81.138-.207.276-.172.466-.103.19.069 1.207.569 1.414.672.207.103.345.155.396.242.052.086.052.5-.155 1.084z" />
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="Facebook Page">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="YouTube Channel">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Quick Links</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Home</a></li>
+              <li><a href="index.html#tools" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Our Tools</a></li>
+              <li><a href="about.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> About Us</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Legal & Support (AdSense Required) -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Legal & Support</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="privacy.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Terms of Service</a></li>
+              <li><a href="disclaimer.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Disclaimer</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter & Contact Info -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-white mb-2 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Newsletter</h4>
+            <p class="text-xs text-slate-400 leading-normal">
+              Subscribe to get the latest updates on new CSC tools, updates, and templates directly in your inbox.
+            </p>
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col gap-2 mt-2">
+              <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide transition duration-300">
+                Subscribe
+              </button>
+            </form>
+            
+          </div>
+
+        </div>
+
+        <!-- Divider & Bottom Bar -->
+        <div class="border-t border-slate-800 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>&copy; 2026 Smart CSC Tools. All rights reserved.</p>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Subscribe Handler Script -->
+    <script>
+      function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert("Thank you for subscribing! We'll keep you updated.");
+          emailInput.value = "";
+        }
+      }
+    </script>
+
+<script src="https://smartcsctools.org/cookie-consent.js?v=2"></script></body>
+</html>

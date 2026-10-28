@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Passport Photo Maker – Smart CSC Tools</title>
+  <meta name="description" content="AI Passport Photo Maker – Instantly generate passport-ready photos using Google AI Studio. Prompts auto-copy with one click." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f6fa;
+      --surface: #ffffff;
+      --surface2: #f0f1f7;
+      --border: rgba(0,0,0,0.10);
+      --border-hover: #7F77DD;
+      --text-primary: #1a1a2e;
+      --text-secondary: #5a5a7a;
+      --accent: #4F3EBD;
+      --accent-light: #EDE9FB;
+      --accent-text: #3C3489;
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-text: #0F6E56;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 50px;
+      --font: 'Inter', sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f1a;
+        --surface: #1a1a2e;
+        --surface2: #22223a;
+        --border: rgba(255,255,255,0.10);
+        --text-primary: #e8e8f5;
+        --text-secondary: #9999bb;
+        --accent-light: #26215C;
+        --accent-text: #AFA9EC;
+        --green-light: #085041;
+        --green-text: #9FE1CB;
+      }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+    }
+
+    /* --- Language Toggle --- */
+    .lang-toggle {
+      display: flex;
+      background: var(--surface2);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      margin-bottom: 1.75rem;
+      border: 0.5px solid var(--border);
+    }
+    .lang-btn {
+      flex: 1;
+      padding: 9px 0;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .site-badge {
+      display: inline-block;
+      font-size: 11px;
+      background: var(--accent-light);
+      color: var(--accent-text);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+    
+    .site-badge {
+    display: inline-block;
+    padding: 16px 32px;      /* बटन बड़ा होगा */
+    background: #0d6efd;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;         /* टेक्स्ट बड़ा */
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.3);
+}
+
+.site-badge:hover {
+    background: #0b5ed7;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.4);
+}
+    .hero h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .hero h1 .icon { font-size: 24px; }
+    .hero p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* --- Photo Cards --- */
+    .cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
+
+    .photo-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      width: 100%;
+      font-family: var(--font);
+    }
+    .photo-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 3px rgba(79,62,189,0.08);
+    }
+    .photo-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .photo-card.copied { border-color: var(--green); }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .av-male   { background: #E6F1FB; }
+    .av-female { background: #FBEAF0; }
+    .av-hijab  { background: #EAF3DE; }
+
+    @media (prefers-color-scheme: dark) {
+      .av-male   { background: #0C447C; }
+      .av-female { background: #72243E; }
+      .av-hijab  { background: #27500A; }
+    }
+
+    .card-body { flex: 1; min-width: 0; }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 3px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 4px;
+    }
+    .copy-hint { font-size: 11px; color: var(--text-secondary); opacity: 0.7; }
+
+    .copy-badge {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--green-light);
+      color: var(--green-text);
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .photo-card.copied .copy-badge { opacity: 1; }
+
+    /* --- Action Buttons --- */
+    .action-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font);
+      font-weight: 500;
+      transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .action-btn:hover { background: var(--surface2); border-color: var(--border-hover); }
+    .action-btn svg { flex-shrink: 0; }
+
+    /* --- Guide Box --- */
+    .guide-box {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+    }
+    .guide-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-steps { list-style: none; }
+    .guide-step {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      align-items: flex-start;
+    }
+    .guide-step:last-child { margin-bottom: 0; }
+    .step-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-width: 90px;
+    }
+
+    /* --- Toast --- */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(70px);
+      background: var(--green);
+      color: #fff;
+      padding: 11px 26px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(29,158,117,0.35);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      body { padding: 1.25rem 0.75rem 2.5rem; }
+      .hero h1 { font-size: 20px; }
+      .action-row { gap: 8px; }
+      .action-btn { font-size: 12px; padding: 9px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Language Toggle -->
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+    <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिन्दी</button>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <a href="index.html" class="site-badge">
+    ← Back To Home
+</a>
+    <h1>
+      <span class="icon">🪪</span>
+      <span id="txt-title">AI Passport Photo Maker</span>
+    </h1>
+    <p id="txt-subtitle">Card click karein — prompt auto-copy hoga aur Google AI Studio khulega</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards" role="list">
+
+    <button class="photo-card" id="card-male" onclick="copyAndOpen('male')" aria-label="Male Passport Photo — click to copy prompt">
+      <div class="avatar av-male" aria-hidden="true">👨</div>
+      <div class="card-body">
+        <div class="card-title" id="txt-male-label">Male Passport Photo</div>
+        <div class="card-desc" id="txt-male-desc">Official standards ke anusaar natural passport photo automatically generate karta hai.</div>
+        <div class="copy-hint" id="txt-male-hint">Click karein → Prompt copy + AI Studio open</div>
+      </div>
+      <div class="copy-badge" id="badge-male" aria-live="polite">✓ Copied!</div>
+    </button>
+
+    <button class="photo-card" id="card-female" onclick="copyAndOpen('female')" aria-label="Female Passport Photo — click to copy prompt">
+      <div class="avatar av-female" aria-hidden="true">👩</div>
+      <div class="card-body">
+        <div class="card-title" id="txt-female-label">Female Passport Photo</div>
+        <div class="card-desc" id="txt-female-desc">Kisi bhi photo se passport headshot banata hai, kaanon ke saath.</div>
+        <div class="copy-hint" id="txt-female-hint">Click karein → Prompt copy + AI Studio open</div>
+      </div>
+      <div class="copy-badge" id="badge-female" aria-live="polite">✓ Copied!</div>
+    </button>
+
+    <button class="photo-card" id="card-hijab" onclick="copyAndOpen('hijab')" aria-label="Hijab Passport Photo — click to copy prompt">
+      <div class="avatar av-hijab" aria-hidden="true">🧕</div>
+      <div class="card-body">
+        <div class="card-title" id="txt-hijab-label">Hijab Passport Photo</div>
+        <div class="card-desc" id="txt-hijab-desc">Hijab pehne kisi bhi photo se passport-perfect facial headshot banata hai.</div>
+        <div class="copy-hint" id="txt-hijab-hint">Click karein → Prompt copy + AI Studio open</div>
+      </div>
+      <div class="copy-badge" id="badge-hijab" aria-live="polite">✓ Copied!</div>
+    </button>
+
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-row">
+    <a class="action-btn" href="https://youtu.be/r4VZnez4BEw?si=m-fCYFCjIz7WbN_j" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F3EBD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <span id="txt-btn-usage">Usage Guide Dekhein</span>
+    </a>
+    <a class="action-btn" href="images/ai-passport-photo.png" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F3EBD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span id="txt-btn-demo">Demo Photos Dekhein</span>
+    </a>
+  </div>
+
+  <!-- Guide Box -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span aria-hidden="true">🚀</span>
+      <span id="txt-guide-heading">Kaise Use Karein &amp; Guidelines</span>
+    </div>
+    <ol class="guide-steps">
+      <li class="guide-step">
+        <span class="step-label" id="txt-s1l">1. Login:</span>
+        <span id="txt-s1">Apne Google account se AI Studio mein jaayein. Storage ke liye Google Drive connect karein.</span>
+      </li>
+      <li class="guide-step">
+        <span class="step-label" id="txt-s2l">2. Type Chunein:</span>
+        <span id="txt-s2">Upar diye gaye photo category card par click karein — Prompt auto-copy ho jaayega.</span>
+      </li>
+      <li class="guide-step">
+        <span class="step-label" id="txt-s3l">3. Paste Karein:</span>
+        <span id="txt-s3">AI Studio mein chat box mein Paste (Ctrl+V) karein.</span>
+      </li>
+      <li class="guide-step">
+        <span class="step-label" id="txt-s4l">4. Settings:</span>
+        <span id="txt-s4">Right sidebar mein Aspect Ratio: 4:5 select karein.</span>
+      </li>
+      <li class="guide-step">
+        <span class="step-label" id="txt-s5l">5. Upload Karein:</span>
+        <span id="txt-s5">Box ke neeche '+' ya Upload icon click karein aur apni photo add karein.</span>
+      </li>
+      <li class="guide-step">
+        <span class="step-label" id="txt-s6l">6. Generate Karein:</span>
+        <span id="txt-s6">Run button click karein. Sirf 15 second mein HD passport photo taiyaar!</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Powered by <a href="index.html" target="_blank" rel="noopener">smartcsctools.org</a> &nbsp;|&nbsp; Ai Passport Photo Maker by Smart CSC Tools</p>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  var currentLang = 'hi';
+
+  var prompts = {
+    male: "Generate a professional male passport photo. Requirements: Plain white or very light gray background, face centered and looking straight at camera with neutral expression, both ears visible, proper even lighting with no shadows on face, shoulders and upper chest visible, formal attire preferred and same face, high resolution output. Aspect ratio 4:5. The photo must meet official government passport photo standards.",
+    female: "Generate a professional female passport photo. Requirements: Plain white or very light gray background, face centered and looking straight at camera, both ears clearly visible, hair neatly styled away from face, neutral expression with mouth closed, proper even lighting with no shadows on face, shoulders visible, high resolution. Aspect ratio 4:5. Must meet official passport standards.",
+    hijab: "Generate a professional passport photo of a female person wearing a hijab. Requirements: Plain white or very light gray background, full face completely visible and centered, hijab neatly and securely framing the face showing the entire face clearly, neutral expression, proper even lighting with no shadows on face, shoulders visible, high resolution output. Aspect ratio 4:5. Must meet official passport standards for religious head coverings."
+  };
+
+  var content = {
+    en: {
+      'txt-title': 'AI Passport Photo Maker',
+      'txt-subtitle': 'Click a card to auto-copy the prompt and open Google AI Studio instantly.',
+      'txt-male-label': 'Male Passport Photo',
+      'txt-male-desc': 'Automatically generate a natural passport photo meeting official standards.',
+      'txt-male-hint': 'Click → Prompt copies & AI Studio opens',
+      'txt-female-label': 'Female Passport Photo',
+      'txt-female-desc': 'Create a passport headshot from any photo, ears will be clearly visible.',
+      'txt-female-hint': 'Click → Prompt copies & AI Studio opens',
+      'txt-hijab-label': 'Hijab Passport Photo',
+      'txt-hijab-desc': 'Create passport-perfect facial headshots from any photo wearing a hijab.',
+      'txt-hijab-hint': 'Click → Prompt copies & AI Studio opens',
+      'txt-btn-usage': 'View Usage Method',
+      'txt-btn-demo': 'View Demo Photos',
+      'txt-guide-heading': 'How to Use & Guidelines',
+      'txt-s1l': '1. Login:',
+      'txt-s1': 'Access AI Studio with your Google account. Connect Google Drive if prompted for storage.',
+      'txt-s2l': '2. Select Type:',
+      'txt-s2': 'Click a photo category card above — the prompt will auto-copy to clipboard.',
+      'txt-s3l': '3. Paste:',
+      'txt-s3': 'In AI Studio, Paste (Ctrl+V) the prompt into the chat box.',
+      'txt-s4l': '4. Settings:',
+      'txt-s4': 'On the right sidebar, select Aspect Ratio: 4:5.',
+      'txt-s5l': '5. Upload:',
+      'txt-s5': "Click the '+' or Upload icon below the box to add your photo.",
+      'txt-s6l': '6. Generate:',
+      'txt-s6': 'Click the Run button. Wait 15 seconds for your HD passport photo!',
+      'badge': '✓ Copied!',
+      'toast': '✓ Prompt copied! Opening AI Studio...'
+    },
+    hi: {
+      'txt-title': 'AI Passport Photo Maker',
+      'txt-subtitle': 'Card click karein — prompt auto-copy hoga aur Google AI Studio khulega',
+      'txt-male-label': 'Male Passport Photo',
+      'txt-male-desc': 'Official standards ke anusaar natural passport photo automatically generate karta hai.',
+      'txt-male-hint': 'Click karein → Prompt copy + AI Studio open',
+      'txt-female-label': 'Female Passport Photo',
+      'txt-female-desc': 'Kisi bhi photo se passport headshot banata hai, kaanon ke saath.',
+      'txt-female-hint': 'Click karein → Prompt copy + AI Studio open',
+      'txt-hijab-label': 'Hijab Passport Photo',
+      'txt-hijab-desc': 'Hijab pehne kisi bhi photo se passport-perfect facial headshot banata hai.',
+      'txt-hijab-hint': 'Click karein → Prompt copy + AI Studio open',
+      'txt-btn-usage': 'Usage Guide Dekhein',
+      'txt-btn-demo': 'Demo Photos Dekhein',
+      'txt-guide-heading': 'Kaise Use Karein & Guidelines',
+      'txt-s1l': '1. Login:',
+      'txt-s1': 'Apne Google account se AI Studio mein jaayein. Storage ke liye Google Drive connect karein.',
+      'txt-s2l': '2. Type Chunein:',
+      'txt-s2': 'Upar diye gaye photo category card par click karein — Prompt auto-copy ho jaayega.',
+      'txt-s3l': '3. Paste Karein:',
+      'txt-s3': 'AI Studio mein chat box mein Paste (Ctrl+V) karein.',
+      'txt-s4l': '4. Settings:',
+      'txt-s4': 'Right sidebar mein Aspect Ratio: 4:5 select karein.',
+      'txt-s5l': '5. Upload Karein:',
+      'txt-s5': "Box ke neeche '+' ya Upload icon click karein aur apni photo add karein.",
+      'txt-s6l': '6. Generate Karein:',
+      'txt-s6': 'Run button click karein. Sirf 15 second mein HD passport photo taiyaar!',
+      'badge': '✓ Copy ho gaya!',
+      'toast': '✓ Prompt copy ho gaya! AI Studio khul raha hai...'
+    }
+  };
+
+  function setLang(l) {
+    currentLang = l;
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    document.getElementById('btn-hi').classList.toggle('active', l === 'hi');
+    document.documentElement.lang = l === 'hi' ? 'hi' : 'en';
+    var c = content[l];
+    Object.keys(c).forEach(function(key) {
+      if (key === 'badge' || key === 'toast') return;
+      var el = document.getElementById(key);
+      if (el) el.textContent = c[key];
+    });
+    ['male','female','hijab'].forEach(function(type) {
+      var badge = document.getElementById('badge-' + type);
+      if (badge) badge.textContent = c['badge'];
+    });
+  }
+
+  function copyAndOpen(type) {
+    var prompt = prompts[type];
+    var c = content[currentLang];
+
+    // Copy to clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(prompt).catch(function() { fallbackCopy(prompt); });
+    } else {
+      fallbackCopy(prompt);
+    }
+
+    // Visual feedback
+    var card = document.getElementById('card-' + type);
+    card.classList.add('copied');
+    setTimeout(function() { card.classList.remove('copied'); }, 2500);
+
+    // Toast
+    showToast(c['toast']);
+
+    // Open AI Studio after short delay
+    setTimeout(function() {
+      window.open('https://aistudio.google.com/prompts/new_chat', '_blank', 'noopener,noreferrer');
+    }, 500);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+
+  var toastTimer;
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { t.classList.remove('show'); }, 3200);
+  }
+
+  // Init
+  setLang('hi');
+</script>
+</body>
+</html>

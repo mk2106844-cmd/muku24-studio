@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9fdf7"/>
+      <stop offset="50%" stop-color="#eef8e8"/>
+      <stop offset="100%" stop-color="#dff0d5"/>
+    </linearGradient>
+  </defs>
+  <!-- Card Border & Background -->
+  <rect x="10" y="10" width="780" height="430" rx="28" fill="url(#bg)" stroke="#164e26" stroke-width="8"/>
+  <rect x="15" y="15" width="770" height="420" rx="24" fill="none" stroke="#b8973d" stroke-width="2"/>
+
+  <!-- Top Titles -->
+  <text x="55" y="80" font-family="sans-serif" font-size="44" font-weight="900" fill="#165b31">Agri <tspan fill="#d4a024">Card</tspan></text>
+  <text x="315" y="78" font-family="sans-serif" font-size="46" font-weight="bold" fill="#1b4d20">मेरा किसान कार्ड</text>
+  <path d="M315 95 Q440 82 460 102 Q480 82 595 95" fill="none" stroke="#1b4d20" stroke-width="4"/>
+
+  <!-- Decorative Leaves Top Right -->
+  <g fill="#15803d" opacity="0.85">
+    <path d="M620 20 Q670 30 690 80 Q640 80 620 20 Z"/>
+    <path d="M700 85 Q750 75 770 130 Q715 135 700 85 Z"/>
+    <path d="M695 75 Q730 25 765 45 Q740 85 695 75 Z"/>
+  </g>
+
+  <!-- Photo Box -->
+  <rect x="55" y="115" width="150" height="190" rx="10" fill="#e5e7eb" stroke="#ffffff" stroke-width="6"/>
+  <rect x="55" y="115" width="150" height="190" rx="10" fill="none" stroke="#165b31" stroke-width="2"/>
+  <circle cx="130" cy="210" r="24" fill="#cbd5e1"/>
+  <rect x="95" y="180" width="70" height="50" rx="8" fill="#cbd5e1"/>
+  <circle cx="130" cy="205" r="14" fill="#e5e7eb"/>
+  <text x="130" y="330" font-family="sans-serif" font-size="18" font-weight="bold" fill="#111" text-anchor="middle">फ़ोटो / PHOTO</text>
+
+  <!-- Center Labels -->
+  <g font-family="sans-serif" font-size="25" font-weight="bold" fill="#111">
+    <text x="250" y="210">जन्म (Date of Birth):</text>
+    <text x="250" y="250">लिंग (Gender):</text>
+    <text x="250" y="290">मोबाइल (Mobile):</text>
+    <text x="250" y="330">आधार (Aadhaar):</text>
+  </g>
+
+  <!-- QR Code Box -->
+  <rect x="605" y="180" width="135" height="135" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="3"/>
+  <rect x="620" y="195" width="30" height="30" fill="none" stroke="#000" stroke-width="6"/>
+  <rect x="630" y="205" width="10" height="10" fill="#000"/>
+  <rect x="695" y="195" width="30" height="30" fill="none" stroke="#000" stroke-width="6"/>
+  <rect x="705" y="205" width="10" height="10" fill="#000"/>
+  <rect x="620" y="270" width="30" height="30" fill="none" stroke="#000" stroke-width="6"/>
+  <rect x="630" y="280" width="10" height="10" fill="#000"/>
+  <path d="M660 195 h15 v15 h-15 z M660 225 h25 v15 h-25 z M620 240 h30 v15 h-30 z M665 255 h20 v45 h-20 z M695 245 h30 v20 h-30 z M700 280 h25 v20 h-25 z" fill="#000"/>
+
+  <!-- Bottom Holder Name Bar -->
+  <rect x="155" y="355" width="430" height="60" rx="30" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="370" y="433" font-family="sans-serif" font-size="18" font-weight="bold" fill="#111" text-anchor="middle">धारक का नाम / Holder's Name</text>
+
+  <!-- Bottom Right Green Badge -->
+  <rect x="600" y="348" width="186" height="88" rx="18" fill="#14532d"/>
+  <text x="693" y="388" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">FARMER</text>
+  <text x="693" y="424" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">CARD</text>
+</svg>

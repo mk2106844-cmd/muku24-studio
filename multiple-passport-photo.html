@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Passport Size Photo Maker Online – Smart CSC Tools</title>
+<meta name="description" content="Create Multiple Passport Size Photos free, right in your browser. Upload up to 6 faces, crop to any country's size, remove the background with AI, and print a ready-to-cut sheet. No signup, no watermark.">
+<meta name="keywords" content="Multiple Passport Size Photo Maker, passport photo online, aadhaar photo size, pan card photo, visa photo maker, passport photo background remove, CSC photo tool, 3.5x4.5 photo, passport photo print sheet">
+<meta name="robots" content="index, follow">
+<meta name="author" content="SmartCSCTools">
+<link rel="canonical" href="multiple-passport-photo.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Multiple Passport Size Photo Maker Online | SmartCSCTools">
+<meta property="og:description" content="Upload a photo, crop to any country's passport size, remove the background, and print a ready-to-cut sheet — 100% free and 100% in your browser.">
+<meta property="og:url" content="https://smartcsctools.org/multiple-passport-photo.html">
+<meta property="og:site_name" content="SmartCSCTools">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Multiple Passport Size Photo Maker Online | SmartCSCTools">
+<meta name="twitter:description" content="Create Multiple Passport Size Photo and visa size photos free — crop, remove background, and print a ready-to-cut sheet in your browser.">
+
+<!--
+  ADSENSE: after your site is approved, paste your own AdSense verification
+  tag and ad-unit code below. Do not reuse another site's publisher ID —
+  Google ties ad revenue to a verified, unique ca-pub-XXXXXXXXXXXXXXXX id
+  for your property, and using someone else's will get both accounts banned.
+  <meta name="google-adsense-account" content="ca-pub-YOUR_PUBLISHER_ID">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Passport Size Photo Maker",
+  "url": "https://smartcsctools.org/multiple-passport-photo.html",
+  "applicationCategory": "PhotographyApplication",
+  "operatingSystem": "Any (runs in web browser)",
+  "description": "Free online tool to create passport, Aadhaar, PAN and visa size photos with AI background removal and print-ready sheets, entirely in the browser.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "publisher": {"@type": "Organization", "name": "SmartCSCTools", "url": "https://smartcsctools.org"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the standard passport photo size for India?",
+      "acceptedAnswer": {"@type": "Answer", "text": "The standard size for Indian passport, Aadhaar, PAN card and most government documents is 3.5 x 4.5 cm (35 x 45 mm). This tool applies that size by default and lets you switch to other countries or enter a custom size."}
+    },
+    {
+      "@type": "Question",
+      "name": "Is my photo uploaded to a server?",
+      "acceptedAnswer": {"@type": "Answer", "text": "No. Cropping, background removal and sheet generation all run inside your own browser. Your photo is never sent to SmartCSCTools or any third-party server."}
+    },
+    {
+      "@type": "Question",
+      "name": "How many passport photos fit on a 4x6 inch sheet?",
+      "acceptedAnswer": {"@type": "Answer", "text": "With the standard 3.5 x 4.5 cm size, a portrait 4x6 sheet fits about 6 photos, and a landscape 4x6 sheet fits about 8 photos, depending on the margins and spacing you choose."}
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this for Aadhaar and PAN card photos?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Yes. Select the India size preset and a white background, and the output matches the specification used for Aadhaar, PAN, voter ID and similar Indian documents."}
+    }
+  ]
+}
+</script>
+
+<style>
+/* ============ Design tokens ============
+   Palette: Deep civic navy + working-paper cream + a single "verified" teal
+   #0B1E3D navy-900 · #14324F navy-700 · #F4EFE4 paper · #E8E1D0 paper-dim
+   #12897A teal (accent / done-state) · #E0A93C amber (action / CTA)
+   Type: Space Grotesk (display, used sparingly for numerals/labels) + Inter (body/UI)
+   Signature element: the "specimen sheet" — a faint punch-card grid of photo
+   rectangles behind the hero, echoing the actual print sheet the tool produces.
+*/
+:root{
+  --navy-900:#0B1E3D; --navy-700:#14324F; --navy-500:#1E4566;
+  --paper:#F4EFE4; --paper-dim:#E8E1D0; --paper-line:#D8CFB8;
+  --teal:#12897A; --teal-dark:#0C6357;
+  --amber:#E0A93C; --amber-dark:#C48C22;
+  --ink:#1A2233; --ink-soft:#5B6472;
+  --white:#FFFFFF;
+  --radius:10px;
+  --shadow:0 2px 10px rgba(11,30,61,0.08);
+  --shadow-lg:0 12px 32px rgba(11,30,61,0.16);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Inter',sans-serif; line-height:1.5;
+  -webkit-user-select:none; user-select:none; /* deterrent only — see note near end of file */
+}
+input, textarea, select{ -webkit-user-select:text; user-select:text; }
+.num{font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.01em;}
+
+/* ---------- Site header ---------- */
+.site-header{
+  background:var(--navy-900); color:var(--paper);
+  padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+.site-header__brand{
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:#fff; text-decoration:none;
+}
+.site-header__brand span{color:var(--amber);}
+.site-header__nav{display:flex; gap:20px; flex-wrap:wrap;}
+.site-header__nav a{color:#C6CEDB; text-decoration:none; font-size:13.5px; font-weight:600;}
+.site-header__nav a:hover{color:#fff;}
+
+/* ---------- Hero / masthead ---------- */
+.pp-hero{
+  position:relative; overflow:hidden;
+  background:var(--navy-900); color:var(--paper);
+  padding:44px 20px 40px;
+}
+.pp-hero::before{
+  content:""; position:absolute; inset:0; opacity:0.10;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(244,239,228,0.5) 46px 47px),
+    repeating-linear-gradient(90deg, transparent 0 36px, rgba(244,239,228,0.5) 36px 37px);
+  background-position:-8px -8px;
+}
+.pp-hero__inner{position:relative; max-width:760px; margin:0 auto; text-align:center;}
+.pp-hero__eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--amber); border:1px solid rgba(224,169,60,0.4);
+  padding:5px 12px; border-radius:99px; margin-bottom:18px;
+}
+.pp-hero h1{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:clamp(24px,4.2vw,40px); margin:0 0 12px; letter-spacing:-0.01em;
+}
+.pp-hero p{font-size:15px; color:#C6CEDB; max-width:560px; margin:0 auto;}
+
+/* ---------- Layout shell ---------- */
+.pp-page{max-width:1080px; margin:0 auto; padding:28px 16px 40px;}
+
+/* ---------- Step bar ---------- */
+.pp-steps{
+  display:flex; gap:0; margin-bottom:26px; background:var(--white);
+  border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;
+  border:1px solid var(--paper-line);
+}
+.pp-step{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:9px;
+  padding:14px 8px; font-size:13px; font-weight:600; color:var(--ink-soft);
+  border-right:1px solid var(--paper-line); position:relative; cursor:pointer; background:none; border-top:none; border-bottom:none; border-left:none; font-family:inherit;
+}
+.pp-step:last-child{border-right:none;}
+.pp-step span{
+  width:22px; height:22px; border-radius:50%; background:var(--paper-dim);
+  color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
+  flex-shrink:0;
+}
+.pp-step.active{color:var(--navy-900);}
+.pp-step.active span{background:var(--amber); color:var(--navy-900);}
+.pp-step.done span{background:var(--teal); color:#fff;}
+.pp-step.done{color:var(--teal-dark);}
+
+/* ---------- Panels ---------- */
+.pp-panel{
+  background:var(--white); border:1px solid var(--paper-line);
+  border-radius:var(--radius); padding:26px; box-shadow:var(--shadow);
+}
+.pp-panel.hidden{display:none;}
+.pp-panel__head h2{
+  font-family:'Space Grotesk',sans-serif; font-size:20px; margin:0 0 4px; color:var(--navy-900);
+}
+.pp-panel__head p{margin:0 0 18px; font-size:13.5px; color:var(--ink-soft);}
+
+.pp-split{display:grid; grid-template-columns:1fr 320px; gap:24px;}
+@media (max-width:860px){ .pp-split{grid-template-columns:1fr;} }
+
+/* ---------- Upload ---------- */
+.pp-upload-intro__features{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px;}
+.pp-upload-intro__features span{
+  display:inline-flex; align-items:center; gap:6px; font-size:12.5px;
+  color:var(--teal-dark); font-weight:600;
+}
+.pp-upload-hint{
+  display:flex; gap:8px; align-items:center; font-size:12.5px; color:var(--amber-dark);
+  background:#FFF8EA; border:1px solid #F3E1B5; border-radius:8px; padding:9px 12px; margin-bottom:18px;
+}
+.pp-upload-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; margin-bottom:20px;
+  border-radius:var(--radius); transition:background .15s, outline .15s;
+}
+.pp-upload-grid.dragover{background:#EFF7F5; outline:2px dashed var(--teal); outline-offset:6px;}
+.pp-upload-slot{
+  position:relative; aspect-ratio:3/4; border:2px dashed var(--paper-line);
+  border-radius:var(--radius); display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:8px; color:var(--ink-soft); cursor:pointer;
+  background:var(--paper); font-size:13px; font-weight:600; overflow:hidden;
+  transition:border-color .15s, background .15s;
+}
+.pp-upload-slot:hover{border-color:var(--teal); background:#EFF7F5;}
+.pp-upload-slot input[type=file]{position:absolute; inset:0; opacity:0; cursor:pointer;}
+.pp-upload-icon{color:var(--navy-500);}
+.pp-upload-thumb{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.pp-upload-thumb.hidden{display:none;}
+.pp-upload-remove{
+  position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%;
+  background:rgba(11,30,61,0.75); color:#fff; border:none; font-size:16px; cursor:pointer;
+  line-height:1; z-index:2;
+}
+.pp-upload-remove.hidden{display:none;}
+.pp-upload-slot--add{border-style:solid; border-color:var(--paper-line); color:var(--navy-500);}
+.pp-upload-slot--add:hover{border-color:var(--amber); background:#FFF8EA; color:var(--amber-dark);}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px; font-family:inherit;
+  font-size:14px; font-weight:600; padding:10px 18px; border-radius:8px;
+  border:1px solid transparent; cursor:pointer; transition:transform .1s, box-shadow .1s, opacity .15s;
+}
+.btn:disabled{opacity:0.45; cursor:not-allowed;}
+.btn--primary{background:var(--navy-900); color:#fff;}
+.btn--primary:not(:disabled):hover{box-shadow:0 6px 16px rgba(11,30,61,0.3); transform:translateY(-1px);}
+.btn--secondary{background:var(--white); color:var(--navy-900); border-color:var(--paper-line);}
+.btn--secondary:hover{border-color:var(--navy-500);}
+.btn--generate{
+  width:100%; justify-content:center; background:var(--amber); color:var(--navy-900);
+  font-size:15px; padding:13px; margin-top:6px;
+}
+.btn--generate:not(:disabled):hover{background:var(--amber-dark); transform:translateY(-1px);}
+.pp-nav{display:flex; justify-content:space-between; margin-top:22px;}
+
+/* ---------- Crop step ---------- */
+.pp-crop-wrap{background:var(--navy-900); border-radius:var(--radius); overflow:hidden;}
+.pp-crop-box{max-height:440px; display:flex;}
+.pp-crop-box img{display:block; max-width:100%;}
+.pp-crop-tip{font-size:12px; color:var(--ink-soft); margin-top:10px; display:flex; gap:6px; align-items:center;}
+.pp-side-panel{position:sticky; top:16px;}
+.pp-side-section{margin-bottom:18px;}
+.pp-side-label{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); margin-bottom:8px;}
+.pp-side-select{
+  width:100%; padding:10px 12px; border:1px solid var(--paper-line); border-radius:8px;
+  font-size:13.5px; background:#fff; color:var(--ink); font-family:inherit;
+}
+.pp-side-custom{display:flex; gap:8px; margin-top:8px;}
+.pp-side-custom.hidden{display:none;}
+.pp-side-custom input, .pp-side-custom select{
+  padding:8px; border:1px solid var(--paper-line); border-radius:6px; font-size:13px; width:100%;
+}
+.pp-crop-tools{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+.pp-crop-tools button{
+  padding:9px 0; border:1px solid var(--paper-line); background:#fff; border-radius:7px; cursor:pointer; color:var(--navy-700);
+}
+.pp-crop-tools button:hover{border-color:var(--navy-500);}
+.pp-sliders label{display:flex; align-items:center; gap:8px; font-size:12px; margin-bottom:10px; color:var(--ink-soft);}
+.pp-slider-name{width:70px; flex-shrink:0; font-weight:600; color:var(--ink);}
+.pp-sliders input[type=range]{flex:1;}
+.pp-sliders span:last-child{width:34px; text-align:right; font-variant-numeric:tabular-nums;}
+.pp-live-badge{
+  display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:700;
+  color:var(--teal-dark); background:#EFF7F5; border-radius:99px; padding:2px 8px; margin-left:auto;
+}
+.pp-live-badge::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--teal); animation:pulse-dot 1.4s ease infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;} 50%{opacity:.3;}}
+
+/* ---------- Background step ---------- */
+.pp-bg-persons{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;}
+.pp-bg-person{width:140px; text-align:center;}
+.pp-bg-person__frame{
+  width:140px; height:180px; border-radius:8px; border:1px solid var(--paper-line);
+  background:repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% / 14px 14px; overflow:hidden; position:relative;
+}
+.pp-bg-person__frame img{width:100%; height:100%; object-fit:cover;}
+.pp-bg-person__label{font-size:12px; font-weight:600; margin-top:6px; color:var(--ink-soft);}
+.pp-bg-mode{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;}
+.pp-bg-mode-btn{
+  border:1.5px solid var(--paper-line); background:#fff; border-radius:8px; padding:12px; text-align:left; cursor:pointer;
+}
+.pp-bg-mode-btn:hover{border-color:var(--teal);}
+.pp-bg-mode-btn.active{border-color:var(--teal); background:#EFF7F5;}
+.pp-bg-mode-btn__title{display:block; font-weight:700; font-size:13.5px; color:var(--navy-900);}
+.pp-bg-mode-btn__sub{display:block; font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+.pp-bg-status{
+  font-size:13px; padding:10px 14px; border-radius:8px; background:#FFF8EA; color:var(--amber-dark); font-weight:600;
+}
+.pp-bg-status.hidden{display:none;}
+.pp-colors{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:12px;}
+.pp-color-btn{text-align:center; cursor:pointer; font-size:11px; color:var(--ink-soft); background:none; border:none; font-family:inherit; padding:0;}
+.pp-color-swatch{
+  width:100%; aspect-ratio:1; border-radius:8px; border:2px solid var(--paper-line); margin-bottom:5px;
+}
+.pp-color-btn.active .pp-color-swatch{border-color:var(--navy-900); box-shadow:0 0 0 2px var(--paper) inset;}
+.pp-color-swatch--checker{background:repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%) 50% / 10px 10px;}
+.pp-color-swatch--rainbow{background:conic-gradient(red,orange,yellow,green,blue,violet,red);}
+.pp-hex-panel{border:1px solid var(--paper-line); border-radius:8px; padding:12px; display:none;}
+.pp-hex-panel.show{display:block;}
+.pp-hex-tabs{display:flex; gap:6px; margin-bottom:10px;}
+.pp-hex-tab{border:none; background:var(--paper-dim); padding:6px 12px; border-radius:6px; font-size:12px; cursor:pointer; font-weight:600;}
+.pp-hex-tab.active{background:var(--navy-900); color:#fff;}
+.pp-hex-content{display:none;}
+.pp-hex-content.active{display:block;}
+.pp-hex-row{display:flex; gap:10px; align-items:center;}
+.pp-hex-preview{width:38px; height:38px; border-radius:6px; border:1px solid var(--paper-line); flex-shrink:0;}
+.pp-hex-input-wrap{display:flex; align-items:center; border:1px solid var(--paper-line); border-radius:6px; padding:0 8px; flex:1;}
+.pp-hex-input-wrap input{border:none; outline:none; padding:8px 2px; width:100%; font-family:monospace; font-size:14px;}
+.pp-hex-native input{width:100%; height:38px;}
+.pp-hex-presets{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;}
+.pp-hex-presets div{width:22px; height:22px; border-radius:5px; cursor:pointer; border:1px solid rgba(0,0,0,0.1);}
+
+/* ---------- Print step ---------- */
+.pp-print-persons{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;}
+.pp-print-person{width:130px; text-align:center;}
+.pp-print-person img{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px; border:1px solid var(--paper-line);}
+.pp-print-person__copies{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px;}
+.pp-print-person__copies button{
+  width:26px; height:26px; border-radius:6px; border:1px solid var(--paper-line); background:#fff; cursor:pointer; font-weight:700;
+}
+.pp-print-person__copies span{font-weight:700; min-width:18px; text-align:center;}
+.pp-summary-card{
+  display:flex; gap:14px; align-items:center; background:var(--paper); border-radius:10px; padding:14px 16px; margin-bottom:16px;
+}
+.pp-summary-card__icon{color:var(--teal); flex-shrink:0;}
+.pp-summary-card__title{font-weight:700; color:var(--navy-900); font-size:14px;}
+.pp-summary-card__meta{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+.pp-paper-row{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.pp-paper-btn{
+  display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 6px; border-radius:8px;
+  border:1.5px solid var(--paper-line); background:#fff; cursor:pointer; font-size:12.5px; font-weight:600; color:var(--ink);
+}
+.pp-paper-btn.active{border-color:var(--navy-900); background:var(--paper);}
+.pp-paper-btn__icon{width:22px; height:28px; border:1.5px solid var(--ink-soft); border-radius:2px;}
+.pp-orient-group, .pp-var-group{display:flex; gap:8px;}
+.pp-orient-btn, .pp-var-btn{
+  flex:1; padding:10px 0; text-align:center; border:1.5px solid var(--paper-line); border-radius:8px; background:#fff; cursor:pointer; font-weight:700; font-size:13px;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.pp-orient-btn small, .pp-var-btn small{display:block; font-weight:500; font-size:10px; color:var(--ink-soft);}
+.pp-orient-btn.active, .pp-var-btn.active{border-color:var(--amber); background:#FFF8EA;}
+.pp-orient-btn__icon{width:14px; height:18px; border:1.5px solid currentColor; border-radius:2px;}
+.pp-orient-btn[data-orient="landscape"] .pp-orient-btn__icon{width:18px; height:14px;}
+.pp-side-info{display:flex; gap:8px; align-items:center; font-size:12.5px; color:var(--ink-soft); background:var(--paper); padding:10px; border-radius:8px;}
+.pp-stroke-toggle{display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:13px; font-weight:600; color:var(--ink);}
+.pp-stroke-toggle input{width:17px; height:17px;}
+.pp-stroke-controls{display:flex; gap:10px; align-items:center;}
+.pp-stroke-controls.hidden{display:none;}
+.pp-stroke-controls input[type=color]{width:38px; height:34px; border:1px solid var(--paper-line); border-radius:6px; padding:0; cursor:pointer;}
+.pp-stroke-controls input[type=range]{flex:1;}
+.pp-stroke-controls span{font-size:12px; width:38px; text-align:right; color:var(--ink-soft);}
+.pp-success-banner{
+  display:flex; align-items:center; gap:8px; background:#EFF7F5; color:var(--teal-dark); font-weight:700;
+  font-size:13.5px; padding:10px 14px; border-radius:8px; margin-bottom:12px;
+}
+.pp-output-wrap{border:1px solid var(--paper-line); border-radius:8px; overflow:hidden; background:#f4f4f4; text-align:center;}
+.pp-sheet-img{max-width:100%; display:block; margin:0 auto; pointer-events:none;}
+.pp-dl-row{display:flex; gap:10px; margin-top:14px;}
+.pp-gen-overlay{
+  position:fixed; inset:0; background:rgba(11,30,61,0.7); display:flex; align-items:center; justify-content:center; z-index:400;
+}
+.pp-gen-overlay.hidden{display:none;}
+.pp-gen-overlay__content{background:#fff; border-radius:14px; padding:32px 40px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:12px; max-width:280px;}
+.pp-spin{width:32px; height:32px; border:3px solid var(--paper-dim); border-top-color:var(--amber); border-radius:50%; animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.hidden{display:none !important;}
+
+/* ---------- SEO content section ---------- */
+.pp-content{max-width:860px; margin:0 auto; padding:8px 16px 60px;}
+.pp-content h2{font-family:'Space Grotesk',sans-serif; font-size:21px; color:var(--navy-900); margin:34px 0 10px;}
+.pp-content h2:first-child{margin-top:0;}
+.pp-content p, .pp-content li{font-size:14px; color:var(--ink-soft); line-height:1.75;}
+.pp-content ul{padding-left:20px; margin:10px 0;}
+.pp-content details{border:1px solid var(--paper-line); border-radius:8px; padding:12px 16px; margin-bottom:10px; background:#fff;}
+.pp-content summary{font-weight:700; color:var(--navy-900); cursor:pointer; font-size:14.5px;}
+.pp-content details p{margin:10px 0 0;}
+.pp-content .pp-steps-explainer{list-style:none; padding:0; counter-reset:step;}
+.pp-content .pp-steps-explainer li{
+  counter-increment:step; position:relative; padding-left:38px; margin-bottom:14px;
+}
+.pp-content .pp-steps-explainer li::before{
+  content:counter(step); position:absolute; left:0; top:0; width:26px; height:26px; border-radius:50%;
+  background:var(--navy-900); color:var(--amber); font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:13px; display:flex; align-items:center; justify-content:center;
+}
+.pp-content .pp-steps-explainer strong{color:var(--navy-900);}
+
+/* ---------- Print-only view (used by the "Print sheet" button) ---------- */
+@media print{
+  body *:not(.pp-print-area):not(.pp-print-area *){ visibility:hidden !important; }
+  .pp-print-area, .pp-print-area *{ visibility:visible !important; }
+  .pp-print-area{ position:absolute; top:0; left:0; width:100%; border:none; background:none; }
+  .pp-print-area .pp-sheet-img{ width:100%; }
+}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--navy-900); color:#9AA6BC; padding:26px 20px; text-align:center; font-size:12.5px;}
+.site-footer a{color:#C6CEDB; text-decoration:none; margin:0 8px;}
+.site-footer a:hover{color:#fff;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="site-header__brand">Smart CSC<span> Tools</span></a>
+  <nav class="site-header__nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#tools">All Tools</a>
+    <a href="multiple-passport-photo.html#how-to-use">How to use</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<header class="pp-hero">
+  <div class="pp-hero__inner">
+    <span class="pp-hero__eyebrow">Smart CSC Tools · Free Tool</span>
+    <h1>Multiple Passport Size Photo Maker</h1>
+    <p>Upload multiple photo, crop to any country's spec, swap the background, and print a ready-to-cut sheet — everything runs in your browser.</p>
+  </div>
+</header>
+
+<main>
+<div class="pp-page">
+
+  <div class="pp-steps" id="step-bar" role="tablist" aria-label="Photo maker steps">
+    <button type="button" class="pp-step active" data-step="1"><span>1</span> Upload</button>
+    <button type="button" class="pp-step" data-step="2"><span>2</span> Crop</button>
+    <button type="button" class="pp-step" data-step="3"><span>3</span> Background</button>
+    <button type="button" class="pp-step" data-step="4"><span>4</span> Print</button>
+  </div>
+
+  <!-- STEP 1: UPLOAD -->
+  <div class="pp-panel" id="step-1">
+    <div class="pp-panel__head">
+      <h2>Upload photos</h2>
+      <p>Add as many faces as you need to make passport-size photos in bulk</p>
+    </div>
+    <div class="pp-upload-intro__features">
+      <span>✓ Free forever</span>
+      <span>✓ AI background removal</span>
+      <span>✓ Any size, any country</span>
+    </div>
+    <div class="pp-upload-hint">
+      💡 <span>Tip: click any box (or the <strong>+ Add Photo</strong> tile) and select <strong>multiple photos at once</strong> — or drag &amp; drop several files here. Add as many people as you like, there's no limit.</span>
+    </div>
+    <div class="pp-upload-grid" id="upload-grid"></div>
+    <div class="pp-nav">
+      <div></div>
+      <button class="btn btn--primary" id="btn-next-1" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: CROP -->
+  <div class="pp-panel hidden" id="step-2">
+    <div class="pp-split">
+      <div>
+        <div class="pp-panel__head">
+          <h2>Crop — <span id="crop-label">Person 1</span></h2>
+          <p>Drag to position, zoom to fit the face inside the frame</p>
+        </div>
+        <div class="pp-crop-wrap">
+          <div class="pp-crop-box"><img id="crop-img" src="multiple-passport-photo.html" alt="Photo being cropped"></div>
+        </div>
+        <div class="pp-crop-tip">💡 Keep the head centered, roughly 70–80% of the frame height</div>
+      </div>
+      <div>
+        <div class="pp-side-panel">
+          <div class="pp-side-section">
+            <div class="pp-side-label">Photo size</div>
+            <select id="size-select" class="pp-side-select">
+              <option value="3.5|4.5|cm" selected>3.5 × 4.5 cm — India</option>
+              <option value="2|2|in">2 × 2 in — USA</option>
+              <option value="5|7|cm">5 × 7 cm — Canada</option>
+              <option value="3.3|4.8|cm">3.3 × 4.8 cm — China</option>
+              <option value="3.5|3.5|cm">3.5 × 3.5 cm — EU</option>
+              <option value="custom">Custom size…</option>
+            </select>
+            <div class="pp-side-custom hidden" id="custom-size-row">
+              <input type="number" id="cust-w" value="3.5" step="0.1" min="0.5">
+              <span>×</span>
+              <input type="number" id="cust-h" value="4.5" step="0.1" min="0.5">
+              <select id="cust-unit"><option value="cm">cm</option><option value="mm">mm</option><option value="in">in</option></select>
+            </div>
+          </div>
+          <div class="pp-side-section">
+            <div class="pp-side-label">Tools</div>
+            <div class="pp-crop-tools">
+              <button type="button" data-act="zin" title="Zoom in">+</button>
+              <button type="button" data-act="zout" title="Zoom out">−</button>
+              <button type="button" data-act="rl" title="Rotate left">↺</button>
+              <button type="button" data-act="rr" title="Rotate right">↻</button>
+              <button type="button" data-act="reset" title="Reset">⟲</button>
+            </div>
+          </div>
+          <div class="pp-side-section">
+            <div class="pp-side-label" style="display:flex;align-items:center;">Adjustments <span class="pp-live-badge">Live</span></div>
+            <div class="pp-sliders">
+              <label><span class="pp-slider-name">Rotate</span><input type="range" id="sl-rotate" min="-45" max="45" step="1" value="0"><span id="sl-rotate-val">0°</span></label>
+              <label><span class="pp-slider-name">Brightness</span><input type="range" id="sl-bright" min="0" max="2" step="0.05" value="1"><span id="sl-bright-val">1.0</span></label>
+              <label><span class="pp-slider-name">Contrast</span><input type="range" id="sl-contrast" min="0" max="2" step="0.05" value="1"><span id="sl-contrast-val">1.0</span></label>
+              <label><span class="pp-slider-name">Saturation</span><input type="range" id="sl-sat" min="0" max="4" step="0.05" value="1"><span id="sl-sat-val">1.0</span></label>
+            </div>
+          </div>
+          <div class="pp-nav" style="margin-top:4px;">
+            <button class="btn btn--secondary" data-go="1">← Back</button>
+            <button class="btn btn--primary" id="btn-crop-done">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: BACKGROUND -->
+  <div class="pp-panel hidden" id="step-3">
+    <div class="pp-split">
+      <div>
+        <div class="pp-panel__head">
+          <h2>Remove background</h2>
+          <p>Optional — pick a quality, or skip and keep the original background</p>
+        </div>
+        <div class="pp-bg-persons" id="bg-persons-row"></div>
+        <div class="pp-bg-mode" id="bg-mode-row">
+          <button type="button" class="pp-bg-mode-btn pp-bg-mode-btn--normal" id="btn-bg-normal" data-quality="fast">
+            <span class="pp-bg-mode-btn__title">Normal remove</span>
+            <span class="pp-bg-mode-btn__sub">Fast · good quality</span>
+          </button>
+          <button type="button" class="pp-bg-mode-btn pp-bg-mode-btn--hd" id="btn-bg-hd" data-quality="high">
+            <span class="pp-bg-mode-btn__title">HD remove</span>
+            <span class="pp-bg-mode-btn__sub">Slower · best edges</span>
+          </button>
+        </div>
+        <div class="pp-bg-status hidden" id="bg-status"></div>
+      </div>
+      <div>
+        <div class="pp-side-panel">
+          <div class="pp-side-section">
+            <div class="pp-side-label">Background color</div>
+            <div class="pp-colors" id="color-bar">
+              <button type="button" class="pp-color-btn" data-bg="none"><div class="pp-color-swatch pp-color-swatch--checker"></div><span>Original</span></button>
+              <button type="button" class="pp-color-btn active" data-bg="#FFFFFF"><div class="pp-color-swatch" style="background:#FFF;"></div><span>White</span></button>
+              <button type="button" class="pp-color-btn" data-bg="#FF0000"><div class="pp-color-swatch" style="background:#FF0000;"></div><span>Red</span></button>
+              <button type="button" class="pp-color-btn" data-bg="#0066CC"><div class="pp-color-swatch" style="background:#0066CC;"></div><span>Blue</span></button>
+              <button type="button" class="pp-color-btn" data-bg="#87CEEB"><div class="pp-color-swatch" style="background:#87CEEB;"></div><span>Sky</span></button>
+              <button type="button" class="pp-color-btn" data-bg="#F0F0F0"><div class="pp-color-swatch" style="background:#F0F0F0;"></div><span>Gray</span></button>
+              <button type="button" class="pp-color-btn" data-bg="#FFD700"><div class="pp-color-swatch" style="background:#FFD700;"></div><span>Yellow</span></button>
+              <button type="button" class="pp-color-btn" data-bg="custom"><div class="pp-color-swatch pp-color-swatch--rainbow" id="custom-swatch"></div><span>Custom</span></button>
+            </div>
+            <div class="pp-hex-panel" id="hex-panel">
+              <div class="pp-hex-tabs">
+                <button type="button" class="pp-hex-tab active" data-ctab="hex">HEX</button>
+                <button type="button" class="pp-hex-tab" data-ctab="picker">Picker</button>
+              </div>
+              <div class="pp-hex-content active" data-ctab-content="hex">
+                <div class="pp-hex-row">
+                  <div class="pp-hex-preview" id="hex-preview" style="background:#12897A;"></div>
+                  <div class="pp-hex-input-wrap"><span>#</span><input type="text" id="hex-input" value="12897A" maxlength="6" spellcheck="false"></div>
+                </div>
+                <div class="pp-hex-presets" id="hex-presets"></div>
+              </div>
+              <div class="pp-hex-content" data-ctab-content="picker">
+                <div class="pp-hex-native"><input type="color" id="custom-color-picker" value="#12897A"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pp-nav" style="margin-top:4px;">
+            <button class="btn btn--secondary" data-go="2">← Back</button>
+            <button class="btn btn--primary" id="btn-next-3">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PRINT -->
+  <div class="pp-panel hidden" id="step-4">
+    <div class="pp-split">
+      <div>
+        <div class="pp-panel__head">
+          <h2>Print layout</h2>
+          <p>Set copies per person, then generate the sheet</p>
+        </div>
+        <div class="pp-print-persons" id="print-persons"></div>
+        <div class="pp-summary-card">
+          <div class="pp-summary-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          </div>
+          <div>
+            <div class="pp-summary-card__title" id="summary-title">Ready to generate</div>
+            <div class="pp-summary-card__meta" id="summary-meta"></div>
+          </div>
+        </div>
+        <div id="output-area" class="hidden">
+          <div class="pp-success-banner">✓ Your sheet is ready — download, print, or start a new one</div>
+          <div class="pp-output-wrap pp-print-area" id="print-area"><img id="sheet-img" class="pp-sheet-img" alt="Generated passport photo print sheet"></div>
+          <canvas id="sheet-canvas" class="hidden"></canvas>
+          <div class="pp-dl-row">
+            <button class="btn btn--primary" id="btn-dl-sheet">⬇ Download sheet</button>
+            <button class="btn btn--secondary" id="btn-print-sheet">🖨 Print sheet</button>
+          </div>
+          <div class="pp-nav" style="margin-top:14px;">
+            <button class="btn btn--secondary" id="btn-start-new" style="width:100%;justify-content:center;">↻ Make another photo</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pp-side-panel">
+          <div class="pp-side-section">
+            <div class="pp-side-label">Paper size</div>
+            <div class="pp-paper-row" id="paper-row">
+              <button type="button" class="pp-paper-btn active" data-paper="4x6"><span class="pp-paper-btn__icon" style="aspect-ratio:4/6;"></span>4×6"</button>
+              <button type="button" class="pp-paper-btn" data-paper="5x7"><span class="pp-paper-btn__icon" style="aspect-ratio:5/7;"></span>5×7"</button>
+              <button type="button" class="pp-paper-btn" data-paper="a4"><span class="pp-paper-btn__icon" style="aspect-ratio:210/297;"></span>A4</button>
+              <button type="button" class="pp-paper-btn" data-paper="a3"><span class="pp-paper-btn__icon" style="aspect-ratio:297/420;"></span>A3</button>
+            </div>
+          </div>
+          <div class="pp-side-section">
+            <div class="pp-side-label">Orientation</div>
+            <div class="pp-orient-group" id="orient-row">
+              <button type="button" class="pp-orient-btn active" data-orient="portrait"><span class="pp-orient-btn__icon"></span>Portrait</button>
+              <button type="button" class="pp-orient-btn" data-orient="landscape"><span class="pp-orient-btn__icon"></span>Landscape</button>
+            </div>
+          </div>
+          <div class="pp-side-section">
+            <div class="pp-side-label">Photo border / stroke</div>
+            <label class="pp-stroke-toggle"><input type="checkbox" id="stroke-enable"> Add a border around each photo</label>
+            <div class="pp-stroke-controls hidden" id="stroke-controls">
+              <input type="color" id="stroke-color" value="#0B1E3D">
+              <input type="range" id="stroke-width" min="1" max="6" step="0.5" value="1.5">
+              <span id="stroke-width-val">1.5px</span>
+            </div>
+          </div>
+          <div class="pp-side-section">
+            <div class="pp-side-label">Layout</div>
+            <div class="pp-side-info" id="grid-info">Auto layout</div>
+          </div>
+          <button class="btn--generate btn" id="btn-generate" type="button">Generate sheet</button>
+          <div class="pp-nav" style="margin-top:0;">
+            <button class="btn btn--secondary" data-go="3" style="width:100%;justify-content:center;">← Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="gen-overlay" class="pp-gen-overlay hidden">
+      <div class="pp-gen-overlay__content">
+        <div class="pp-spin"></div>
+        <span id="gen-status">Generating sheet…</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<!-- ═══ SEO / AdSense-friendly content ═══
+     Real, original, useful content about the topic — this is what AdSense
+     reviewers look for alongside the tool itself. Add your own AdSense
+     <ins class="adsbygoogle"> ad units around these sections once approved. -->
+<section class="pp-content">
+
+  <h2>What is a passport size photo, and why does it matter?</h2>
+  <p>A passport size photo is a small, standardised photograph used for official documents — passports, visas, Aadhaar and PAN cards, driving licences, government exam admit cards, and job applications. Every country and department sets its own rules for the exact size, the background colour, how much of the frame the face should fill, and the print quality. India typically asks for 3.5 × 4.5 cm, the United States asks for 2 × 2 inches, and most of Europe uses 35 × 45 mm — get the size wrong and an application can be rejected outright.</p>
+  <p>This tool handles that entire process for you: pick a country size, crop your photo to match it, swap in a compliant background colour, and lay multiple copies out on a single sheet so you can print and cut them at home instead of paying a studio.</p>
+
+  <h2 id="how-to-use">How to use this tool</h2>
+  <ol class="pp-steps-explainer">
+    <li><strong>Upload your photo(s).</strong> Add multiple photo people in one go — select several files at once or drag and drop them onto the upload area, and each face fills its own box automatically.</li>
+    <li><strong>Crop to the right size.</strong> Choose a country preset or a custom size, then drag, zoom and rotate until the face is centred. Brightness, contrast and saturation sliders update the preview live as you drag them.</li>
+    <li><strong>Remove or change the background.</strong> Run AI background removal (Normal for speed, HD for the cleanest edges) and pick any background colour — white is standard for most Indian documents.</li>
+    <li><strong>Print a ready-to-cut sheet.</strong> Choose a paper size and orientation — a 4×6" sheet fits about 6 photos in portrait and roughly 8 in landscape — set how many copies each person needs, optionally add a thin border around each photo, and download a high-resolution JPG.</li>
+  </ol>
+
+  <h2>Features</h2>
+  <ul>
+    <li>Completely free — no watermark, no signup</li>
+    <li>Upload multiple photos at once, multiple people per sheet</li>
+    <li>50+ country photo size presets, plus a custom size option</li>
+    <li>Live-preview brightness, contrast, saturation and rotation while cropping</li>
+    <li>AI background removal that runs entirely in your browser</li>
+    <li>Portrait or landscape print layout, with an optional coloured border per photo</li>
+    <li>High-resolution, print-ready output for 4×6", 5×7", A4 and A3 paper</li>
+    <li>100% private — your photo is never uploaded to a server</li>
+  </ul>
+
+  <h2>Tips for a photo that won't get rejected</h2>
+  <p>Use a photo taken in even, natural light with no shadows across the face. Look straight at the camera with a neutral expression, keep the head filling about 70–80% of the frame, and remove glasses if they cause glare. When you print, use actual-size (100%) printing rather than "fit to page" — scaling the page changes the physical photo size and can cause a rejection even if the on-screen crop was correct.</p>
+
+  <h2 id="faq">Frequently asked questions</h2>
+  <details>
+    <summary>What is the standard passport photo size for India?</summary>
+    <p>The standard size for Indian passport, Aadhaar, PAN card and most government documents is 3.5 × 4.5 cm (35 × 45 mm). This tool applies that size by default and lets you switch to other countries or enter a custom size.</p>
+  </details>
+  <details>
+    <summary>Is my photo uploaded to a server?</summary>
+    <p>No. Cropping, background removal and sheet generation all run inside your own browser. Your photo is never sent to SmartCSCTools or any third-party server.</p>
+  </details>
+  <details>
+    <summary>How many passport photos fit on a 4×6 inch sheet?</summary>
+    <p>With the standard 3.5 × 4.5 cm size, a portrait 4×6 sheet fits about 6 photos, and a landscape 4×6 sheet fits about 8 photos, depending on the margins and spacing you choose.</p>
+  </details>
+  <details>
+    <summary>Can I use this for Aadhaar and PAN card photos?</summary>
+    <p>Yes. Select the India size preset and a white background, and the output matches the specification used for Aadhaar, PAN, voter ID and similar Indian documents.</p>
+  </details>
+</section>
+
+<footer class="site-footer">
+  <p>© <span id="footer-year"></span> SmartCSCTools.ORG | All Rights Reserved. | All processing happens in your browser.</p>
+  <div>
+    <a href="privacy.html">Privacy Policy</a>·
+    <a href="terms.html">Terms of Use</a>·
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+<script type="module">
+/* ============================================================
+   Passport Photo Maker — SmartCSCTools
+   All processing is client-side. Background removal uses the
+   @imgly/background-removal package (loaded from a CDN and run
+   fully in-browser via WASM/ONNX — no image ever leaves the device).
+
+   IMPORTANT: the library is loaded with a *dynamic* import inside
+   a try/catch instead of a top-level `import`. If a top-level import
+   ever throws (wrong export name, CDN blocked, offline, breaking
+   library update) the ENTIRE module script stops executing —
+   silently disabling upload/crop/print too. Dynamic import isolates
+   that failure to just the background-removal feature.
+   ============================================================ */
+let removeBackground = null;
+let bgPreload = null;
+let bgLibLoadError = null;
+let bgDownloadProgress = {pct: 0, label: ""};
+
+// Browsers block ES-module dynamic import() of cross-origin CDN scripts when
+// a page is opened directly as a local file (file:///...) instead of being
+// served over http/https — this is a browser security restriction, not
+// something this code can work around. Detect it up front so the status
+// message can explain the real cause instead of a generic "check your
+// internet connection".
+const isFileProtocol = location.protocol === "file:";
+
+const BG_LIB_CDNS = [
+  "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/index.mjs",
+  "https://unpkg.com/@imgly/background-removal@1.5.5/dist/index.mjs",
+];
+
+async function loadBgLibrary(){
+  if (isFileProtocol) return false; // would fail anyway — don't waste time/console noise
+  for (const url of BG_LIB_CDNS){
+    try {
+      const mod = await import(url);
+      removeBackground = mod.default;
+      bgPreload = mod.preload;
+      return true;
+    } catch (err) {
+      console.error(`Background-removal library failed to load from ${url}:`, err);
+      bgLibLoadError = err;
+    }
+  }
+  return false;
+}
+
+(async () => {
+  const ok = await loadBgLibrary();
+  if (ok && bgPreload){
+    // Warm the cache for the fast ("small") model in the background while the
+    // person is still uploading/cropping, so step 3 doesn't sit on a cold
+    // ~40MB download. Failures here are non-fatal — runBgRemoval() will just
+    // download on demand as a fallback.
+    try {
+      await bgPreload({
+        model: "small",
+        progress: (key, current, total) => {
+          bgDownloadProgress = {pct: total ? Math.round((current/total)*100) : 0, label: key};
+        },
+      });
+    } catch (err) {
+      console.warn("Background-removal preload skipped:", err);
+    }
+  }
+})();
+
+const state = {
+  persons: [],          // {id, orig(dataURL), cropped(dataURL), bgRemoved(dataURL or null), final(dataURL), sizeMM, copies}
+  sizeMM: {w:35, h:45},  // photo physical size in mm
+  currentCropIndex: 0,
+  cropper: null,
+  bgColor: "#FFFFFF",
+  bgQuality: "fast",
+  paper: "4x6",
+  orientation: "portrait",
+  stroke: {enabled:false, color:"#0B1E3D", widthPx:1.5},
+};
+
+const $ = (sel, ctx=document) => ctx.querySelector(sel);
+const $$ = (sel, ctx=document) => [...ctx.querySelectorAll(sel)];
+
+$("#footer-year") && ($("#footer-year").textContent = new Date().getFullYear());
+
+/* ---------------- Step navigation ---------------- */
+function goToStep(n){
+  $$(".pp-panel").forEach(p => p.classList.add("hidden"));
+  $(`#step-${n}`).classList.remove("hidden");
+  $$(".pp-step").forEach(s => {
+    const step = +s.dataset.step;
+    s.classList.toggle("active", step === n);
+    s.classList.toggle("done", step < n);
+  });
+  if (n === 2) startCropFor(0);
+  if (n === 3) renderBgStep();
+  if (n === 4) renderPrintStep();
+}
+$$(".pp-step, [data-go]").forEach(el => {
+  el.addEventListener("click", () => {
+    const target = el.dataset.go || el.dataset.step;
+    if (target) goToStep(+target);
+  });
+});
+
+/* ---------------- Step 1: Upload (unlimited people, multi-file, drag & drop) ---------------- */
+const uploadGrid = $("#upload-grid");
+let personSeq = 0; // unique id per uploaded person, never reused — no artificial cap
+
+function fileToDataURL(file){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function slotTemplate(){
+  return `
+    <input type="file" accept="image/*" class="pp-upload-input" multiple>
+    <div class="pp-upload-placeholder">
+      <svg class="pp-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div>Add photo</div>
+    </div>
+    <img class="pp-upload-thumb hidden" alt="Uploaded photo">
+    <button type="button" class="pp-upload-remove hidden" aria-label="Remove photo">&times;</button>`;
+}
+
+// The "+" tile always sits at the end of the grid; every new slot is inserted
+// just before it, so it always stays last no matter how many people are added.
+const addTile = document.createElement("div");
+addTile.className = "pp-upload-slot pp-upload-slot--add";
+addTile.id = "add-tile";
+addTile.innerHTML = `
+  <input type="file" accept="image/*" class="pp-upload-input" multiple>
+  <div class="pp-upload-placeholder">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <div>Add Photo</div>
+  </div>`;
+uploadGrid.appendChild(addTile);
+bindUploadInput(addTile.querySelector(".pp-upload-input"));
+
+function addUploadSlot(){
+  const slot = document.createElement("div");
+  slot.className = "pp-upload-slot";
+  slot.innerHTML = slotTemplate();
+  uploadGrid.insertBefore(slot, addTile);
+  bindUploadInput(slot.querySelector(".pp-upload-input"));
+  bindRemove(slot.querySelector(".pp-upload-remove"));
+  return slot;
+}
+addUploadSlot(); // start with one empty box
+
+function bindUploadInput(input){
+  input.addEventListener("change", async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length) await handleFileSelection(files);
+    e.target.value = "";
+  });
+}
+function bindRemove(btn){
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const slotEl = btn.closest(".pp-upload-slot");
+    const uid = +slotEl.dataset.personUid;
+    state.persons = state.persons.filter(p => p.uid !== uid);
+    slotEl.remove();
+    updateUploadNextBtn();
+  });
+}
+
+function findEmptySlotElement(){
+  return [...uploadGrid.querySelectorAll(".pp-upload-slot:not(.pp-upload-slot--add)")].find(s => !s.dataset.personUid);
+}
+
+async function assignFileToSlot(slotEl, file){
+  const dataURL = await fileToDataURL(file);
+  const uid = ++personSeq;
+  state.persons.push({uid, orig: dataURL, copies: 1});
+  slotEl.dataset.personUid = uid;
+  const thumb = slotEl.querySelector(".pp-upload-thumb");
+  thumb.src = dataURL;
+  thumb.classList.remove("hidden");
+  slotEl.querySelector(".pp-upload-placeholder").classList.add("hidden");
+  slotEl.querySelector(".pp-upload-remove").classList.remove("hidden");
+}
+
+// Handles any number of files from a click-select or a drag & drop —
+// fills existing empty boxes first, then grows the grid for the rest.
+async function handleFileSelection(files){
+  const imageFiles = files.filter(f => f.type.startsWith("image/"));
+  for (const file of imageFiles){
+    try{
+      const slot = findEmptySlotElement() || addUploadSlot();
+      await assignFileToSlot(slot, file);
+    }catch(err){
+      console.error("Failed to add photo:", err);
+    }
+  }
+  updateUploadNextBtn();
+}
+
+function updateUploadNextBtn(){
+  $("#btn-next-1").disabled = state.persons.filter(p=>p.orig).length === 0;
+}
+$("#btn-next-1").addEventListener("click", () => goToStep(2));
+
+// Drag & drop multiple files anywhere onto the upload grid
+["dragenter","dragover"].forEach(evt => uploadGrid.addEventListener(evt, (e) => {
+  e.preventDefault(); uploadGrid.classList.add("dragover");
+}));
+["dragleave","drop"].forEach(evt => uploadGrid.addEventListener(evt, (e) => {
+  e.preventDefault(); uploadGrid.classList.remove("dragover");
+}));
+uploadGrid.addEventListener("drop", async (e) => {
+  const files = Array.from(e.dataTransfer?.files || []);
+  if (files.length) await handleFileSelection(files);
+});
+
+/* ---------------- Step 2: Crop (with live filter preview) ---------------- */
+const sizeSelect = $("#size-select");
+const customSizeRow = $("#custom-size-row");
+sizeSelect.addEventListener("change", () => {
+  customSizeRow.classList.toggle("hidden", sizeSelect.value !== "custom");
+  applySizeToCropper();
+});
+["cust-w","cust-h","cust-unit"].forEach(id => $("#"+id).addEventListener("input", applySizeToCropper));
+
+function currentSizeMM(){
+  if (sizeSelect.value === "custom"){
+    const w = parseFloat($("#cust-w").value) || 1;
+    const h = parseFloat($("#cust-h").value) || 1;
+    const unit = $("#cust-unit").value;
+    const toMM = unit === "cm" ? 10 : unit === "in" ? 25.4 : 1;
+    return {w: w*toMM, h: h*toMM};
+  }
+  const [w,h,unit] = sizeSelect.value.split("|");
+  const toMM = unit === "cm" ? 10 : unit === "in" ? 25.4 : 1;
+  return {w: parseFloat(w)*toMM, h: parseFloat(h)*toMM};
+}
+function applySizeToCropper(){
+  state.sizeMM = currentSizeMM();
+  if (state.cropper) state.cropper.setAspectRatio(state.sizeMM.w / state.sizeMM.h);
+}
+
+function currentFilterCSS(){
+  const b = $("#sl-bright").value, c = $("#sl-contrast").value, s = $("#sl-sat").value;
+  return `brightness(${b}) contrast(${c}) saturate(${s})`;
+}
+// Live preview: apply the CSS filter to every image element cropper.js renders
+// (the main view AND the zoomed crop-box preview) so adjustments are visible
+// the instant a slider moves, before the final crop is baked into a canvas.
+function applyLiveFilterPreview(){
+  const filter = currentFilterCSS();
+  $$(".cropper-container img").forEach(img => { img.style.filter = filter; });
+}
+
+function startCropFor(index){
+  state.currentCropIndex = index;
+  const orderedPersons = state.persons.filter(p => p.orig);
+  const p = orderedPersons[index];
+  if (!p) { goToStep(3); return; }
+  $("#crop-label").textContent = `Person ${index+1} of ${orderedPersons.length}`;
+  const img = $("#crop-img");
+  img.src = p.orig;
+  if (state.cropper) { state.cropper.destroy(); state.cropper = null; }
+  img.onload = () => {
+    state.cropper = new Cropper(img, {
+      aspectRatio: state.sizeMM.w / state.sizeMM.h,
+      viewMode: 1,
+      dragMode: "move",
+      autoCropArea: 0.9,
+      background: false,
+      ready(){ applyLiveFilterPreview(); },
+    });
+  };
+  ["rotate","bright","contrast","sat"].forEach(k => {
+    const def = k==="rotate" ? 0 : 1;
+    $("#sl-"+k).value = def;
+    $("#sl-"+k+"-val").textContent = k==="rotate" ? "0°" : "1.0";
+  });
+}
+
+$$(".pp-crop-tools button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (!state.cropper) return;
+    const act = btn.dataset.act;
+    if (act === "zin") state.cropper.zoom(0.1);
+    if (act === "zout") state.cropper.zoom(-0.1);
+    if (act === "rl") state.cropper.rotate(-90);
+    if (act === "rr") state.cropper.rotate(90);
+    if (act === "reset") state.cropper.reset();
+    applyLiveFilterPreview();
+  });
+});
+$("#sl-rotate").addEventListener("input", (e) => {
+  $("#sl-rotate-val").textContent = e.target.value + "°";
+  if (state.cropper) state.cropper.rotateTo(+e.target.value);
+});
+["bright","contrast","sat"].forEach(k => {
+  $("#sl-"+k).addEventListener("input", (e) => {
+    $("#sl-"+k+"-val").textContent = (+e.target.value).toFixed(2);
+    applyLiveFilterPreview(); // <-- live, on every drag tick, not just on release
+  });
+});
+
+$("#btn-crop-done").addEventListener("click", async () => {
+  if (!state.cropper) return;
+  const cropCanvas = getHighQualityCroppedCanvas();
+  const out = document.createElement("canvas");
+  out.width = cropCanvas.width; out.height = cropCanvas.height;
+  const ctx = out.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.filter = currentFilterCSS();
+  ctx.drawImage(cropCanvas, 0, 0);
+  const orderedPersons = state.persons.filter(p => p.orig);
+  const p = orderedPersons[state.currentCropIndex];
+  p.cropped = out.toDataURL("image/png");
+  p.sizeMM = {...state.sizeMM};
+  const next = state.currentCropIndex + 1;
+  if (next < orderedPersons.length) startCropFor(next);
+  else goToStep(3);
+});
+
+// Uses the source photo's own resolution instead of a fixed small size, so
+// quality is preserved for large prints. Only downscales if the crop would
+// otherwise exceed MAX_DIM (keeps memory/perf sane on huge camera photos).
+function getHighQualityCroppedCanvas(){
+  const MAX_DIM = 2400;
+  const natural = state.cropper.getCroppedCanvas({imageSmoothingQuality: "high"});
+  if (Math.max(natural.width, natural.height) <= MAX_DIM) return natural;
+  const scale = MAX_DIM / Math.max(natural.width, natural.height);
+  const resized = document.createElement("canvas");
+  resized.width = Math.round(natural.width * scale);
+  resized.height = Math.round(natural.height * scale);
+  const rctx = resized.getContext("2d");
+  rctx.imageSmoothingEnabled = true;
+  rctx.imageSmoothingQuality = "high";
+  rctx.drawImage(natural, 0, 0, resized.width, resized.height);
+  return resized;
+}
+
+/* ---------------- Step 3: Background ---------------- */
+function croppedPersons(){ return state.persons.filter(p => p.cropped); }
+
+function renderBgStep(){
+  const row = $("#bg-persons-row");
+  row.innerHTML = "";
+  croppedPersons().forEach((p, i) => {
+    const div = document.createElement("div");
+    div.className = "pp-bg-person";
+    div.innerHTML = `<div class="pp-bg-person__frame"><img src="https://smartcsctools.org/${p.bgRemoved&#32;||&#32;p.cropped}" data-idx="${i}" alt="Person ${i+1} preview"></div><div class="pp-bg-person__label">Person ${i+1}</div>`;
+    row.appendChild(div);
+  });
+  applyBgColorPreview();
+}
+
+$("#btn-bg-normal").addEventListener("click", () => runBgRemoval("fast"));
+$("#btn-bg-hd").addEventListener("click", () => runBgRemoval("high"));
+
+function bgModelFor(quality){
+  // The library only supports 'small' (~40MB, quantized, fastest) and
+  // 'medium' (~80MB, the more accurate default) — there is no 'large'.
+  return quality === "high" ? "medium" : "small";
+}
+
+async function runBgRemoval(quality){
+  state.bgQuality = quality;
+  $("#btn-bg-normal").classList.toggle("active", quality==="fast");
+  $("#btn-bg-hd").classList.toggle("active", quality==="high");
+  const status = $("#bg-status");
+  status.classList.remove("hidden");
+
+  if (isFileProtocol){
+    status.textContent = "Background removal needs this page to be hosted on a real web server (http:// or https://) — it can't load the AI engine when the file is opened directly (file:///...). Everything else (crop, print) still works locally. Once you upload this file to smartcsctools.org, background removal will work automatically.";
+    return;
+  }
+
+  // The engine loads once at page load (see loadBgLibrary above). On a slow
+  // connection the ~40-80MB model can genuinely take a while the first time,
+  // so we wait generously (up to ~2 minutes) rather than giving up early —
+  // and show real download progress instead of a static message.
+  if (!removeBackground && !bgLibLoadError){
+    for (let tries=0; tries<600 && !removeBackground && !bgLibLoadError; tries++){
+      status.textContent = bgDownloadProgress.pct
+        ? `Downloading AI engine — ${bgDownloadProgress.pct}% (first time only, then it's cached)…`
+        : "Starting AI engine — this can take a bit on the first use…";
+      await new Promise(r => setTimeout(r, 200));
+    }
+  }
+  if (!removeBackground){
+    status.textContent = "Background removal couldn't start (the AI engine failed to load — check your internet connection or try reloading the page). You can still pick a background color and continue with the original photo.";
+    return;
+  }
+
+  const persons = croppedPersons();
+  const failed = [];
+  for (let i=0; i<persons.length; i++){
+    const p = persons[i];
+    status.textContent = `Removing background — person ${i+1} of ${persons.length}…`;
+    try{
+      const blob = await removeBackground(p.cropped, {
+        model: bgModelFor(quality),
+        progress: (key, current, total) => {
+          const pct = total ? Math.round((current/total)*100) : 0;
+          status.textContent = `Person ${i+1} of ${persons.length} — ${pct}%…`;
+        },
+      });
+      p.bgRemoved = URL.createObjectURL(blob);
+    }catch(err){
+      console.error(`Background removal failed for person ${i+1}:`, err);
+      failed.push(i+1);
+    }
+  }
+
+  if (failed.length){
+    status.classList.remove("hidden");
+    status.textContent = `Background removal failed for ${failed.length===persons.length ? "all photos" : "person " + failed.join(", ")} — you can retry, or continue and those photos will keep their original background.`;
+  } else {
+    status.classList.add("hidden");
+  }
+  renderBgStep();
+}
+
+$("#color-bar").addEventListener("click", (e) => {
+  const btn = e.target.closest(".pp-color-btn");
+  if (!btn) return;
+  $$(".pp-color-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  const bg = btn.dataset.bg;
+  $("#hex-panel").classList.toggle("show", bg === "custom");
+  if (bg !== "custom") state.bgColor = bg;
+  else state.bgColor = "#" + $("#hex-input").value;
+  applyBgColorPreview();
+});
+$("#hex-input").addEventListener("input", (e) => {
+  const v = e.target.value.replace(/[^0-9a-fA-F]/g,"").slice(0,6);
+  e.target.value = v;
+  if (v.length === 6){
+    $("#hex-preview").style.background = "#"+v;
+    $("#custom-color-picker").value = "#"+v;
+    state.bgColor = "#"+v;
+    applyBgColorPreview();
+  }
+});
+$("#custom-color-picker").addEventListener("input", (e) => {
+  const v = e.target.value.slice(1).toUpperCase();
+  $("#hex-input").value = v;
+  $("#hex-preview").style.background = e.target.value;
+  state.bgColor = e.target.value;
+  applyBgColorPreview();
+});
+$$(".pp-hex-tab").forEach(tab => tab.addEventListener("click", () => {
+  $$(".pp-hex-tab").forEach(t=>t.classList.remove("active"));
+  tab.classList.add("active");
+  $$(".pp-hex-content").forEach(c=>c.classList.remove("active"));
+  $(`[data-ctab-content="${tab.dataset.ctab}"]`).classList.add("active");
+}));
+const presetColors = ["#FFFFFF","#FF0000","#0066CC","#87CEEB","#F0F0F0","#FFD700","#12897A","#E0A93C","#0B1E3D","#8B5CF6"];
+$("#hex-presets").innerHTML = presetColors.map(c=>`<div style="background:${c}" data-c="${c}"></div>`).join("");
+$("#hex-presets").addEventListener("click", (e) => {
+  const c = e.target.dataset.c;
+  if (!c) return;
+  $("#hex-input").value = c.slice(1);
+  $("#hex-preview").style.background = c;
+  $("#custom-color-picker").value = c;
+  state.bgColor = c;
+  applyBgColorPreview();
+});
+
+function applyBgColorPreview(){
+  $$(".pp-bg-person__frame").forEach(frame => {
+    frame.style.background = state.bgColor === "none" ? "" : state.bgColor;
+  });
+}
+
+$("#btn-next-3").addEventListener("click", async () => {
+  await compositeFinalImages();
+  goToStep(4);
+});
+
+async function compositeFinalImages(){
+  for (const p of croppedPersons()){
+    const src = p.bgRemoved || p.cropped;
+    const img = await loadImage(src);
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width; canvas.height = img.height;
+    const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    if (state.bgColor !== "none"){
+      ctx.fillStyle = state.bgColor;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+    ctx.drawImage(img, 0, 0);
+    p.final = canvas.toDataURL("image/png");
+  }
+}
+function loadImage(src){
+  return new Promise((res,rej)=>{ const i=new Image(); i.crossOrigin="anonymous"; i.onload=()=>res(i); i.onerror=rej; i.src=src; });
+}
+
+/* ---------------- Step 4: Print ---------------- */
+const paperSizesMM = {
+  "4x6": {w: 4*25.4, h: 6*25.4},
+  "5x7": {w: 5*25.4, h: 7*25.4},
+  "a4": {w: 210, h: 297},
+  "a3": {w: 297, h: 420},
+};
+$$(".pp-paper-btn").forEach(btn => btn.addEventListener("click", () => {
+  $$(".pp-paper-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  state.paper = btn.dataset.paper;
+  updateGridInfo();
+}));
+$$(".pp-orient-btn").forEach(btn => btn.addEventListener("click", () => {
+  $$(".pp-orient-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  state.orientation = btn.dataset.orient;
+  updateGridInfo();
+}));
+
+$("#stroke-enable").addEventListener("change", (e) => {
+  state.stroke.enabled = e.target.checked;
+  $("#stroke-controls").classList.toggle("hidden", !e.target.checked);
+});
+$("#stroke-color").addEventListener("input", (e) => { state.stroke.color = e.target.value; });
+$("#stroke-width").addEventListener("input", (e) => {
+  state.stroke.widthPx = +e.target.value;
+  $("#stroke-width-val").textContent = e.target.value + "px";
+});
+
+function renderPrintStep(){
+  const row = $("#print-persons");
+  row.innerHTML = "";
+  croppedPersons().forEach((p,i) => {
+    const div = document.createElement("div");
+    div.className = "pp-print-person";
+    div.innerHTML = `
+      <img src="https://smartcsctools.org/${p.final&#32;||&#32;p.cropped}" alt="Person ${i+1} final photo">
+      <div class="pp-print-person__copies">
+        <button type="button" data-i="${i}" data-d="-1" aria-label="Decrease copies">−</button>
+        <span id="copy-${i}">${p.copies}</span>
+        <button type="button" data-i="${i}" data-d="1" aria-label="Increase copies">+</button>
+      </div>`;
+    row.appendChild(div);
+  });
+  row.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
+    const i = +btn.dataset.i, d = +btn.dataset.d;
+    const p = croppedPersons()[i];
+    p.copies = Math.max(1, Math.min(30, p.copies + d));
+    $("#copy-"+i).textContent = p.copies;
+    updateGridInfo();
+  }));
+  updateGridInfo();
+}
+
+const DPI = 300;
+const SHEET_MARGIN_MM = 3;
+const SHEET_GAP_MM = 2;
+function mmToPx(mm){ return Math.round(mm/25.4*DPI); }
+
+function computeGrid(){
+  const paper = paperSizesMM[state.paper];
+  let paperWmm = paper.w, paperHmm = paper.h;
+  if (state.orientation === "landscape") { [paperWmm, paperHmm] = [paperHmm, paperWmm]; }
+  const paperW = mmToPx(paperWmm), paperH = mmToPx(paperHmm);
+  const p0 = croppedPersons()[0];
+  const sizeMM = (p0 && p0.sizeMM) || state.sizeMM;
+  const photoW = mmToPx(sizeMM.w), photoH = mmToPx(sizeMM.h);
+  const margin = mmToPx(SHEET_MARGIN_MM), gap = mmToPx(SHEET_GAP_MM);
+  const cols = Math.max(1, Math.floor((paperW - 2*margin + gap) / (photoW + gap)));
+  const rows = Math.max(1, Math.floor((paperH - 2*margin + gap) / (photoH + gap)));
+  return {paperW, paperH, photoW, photoH, margin, gap, cols, rows, total: cols*rows};
+}
+function updateGridInfo(){
+  const totalCopies = croppedPersons().reduce((s,p)=>s+p.copies,0);
+  const g = computeGrid();
+  $("#grid-info").textContent = `${g.cols}×${g.rows} grid (${state.orientation}) — fits ${g.total} photos on this sheet`;
+  $("#summary-title").textContent = "Ready to generate";
+  $("#summary-meta").textContent = `${totalCopies} photo${totalCopies!==1?"s":""} requested · ${state.paper.toUpperCase()} ${state.orientation} paper`;
+}
+
+$("#btn-generate").addEventListener("click", async () => {
+  $("#gen-overlay").classList.remove("hidden");
+  await new Promise(r => setTimeout(r, 30)); // let overlay paint
+  try{
+    await generateSheet();
+  } finally {
+    $("#gen-overlay").classList.add("hidden");
+  }
+});
+
+async function generateSheet(){
+  const g = computeGrid();
+  const canvas = $("#sheet-canvas");
+  canvas.width = g.paperW; canvas.height = g.paperH;
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  const persons = croppedPersons();
+  const queue = [];
+  persons.forEach(p => { for(let i=0;i<p.copies;i++) queue.push(p.final || p.cropped); });
+
+  const gridW = g.cols*g.photoW + (g.cols-1)*g.gap;
+  const gridH = g.rows*g.photoH + (g.rows-1)*g.gap;
+  const startX = (g.paperW - gridW)/2;
+  const startY = (g.paperH - gridH)/2;
+
+  let qi = 0;
+  const imgs = {};
+  for (const src of new Set(queue)) imgs[src] = await loadImage(src);
+
+  for (let r=0; r<g.rows; r++){
+    for (let c=0; c<g.cols; c++){
+      if (qi >= queue.length) break;
+      const src = queue[qi++];
+      const x = startX + c*(g.photoW+g.gap);
+      const y = startY + r*(g.photoH+g.gap);
+      ctx.drawImage(imgs[src], x, y, g.photoW, g.photoH);
+      if (state.stroke.enabled){
+        ctx.strokeStyle = state.stroke.color;
+        ctx.lineWidth = state.stroke.widthPx;
+        ctx.setLineDash([]);
+        ctx.strokeRect(x + ctx.lineWidth/2, y + ctx.lineWidth/2, g.photoW - ctx.lineWidth, g.photoH - ctx.lineWidth);
+      } else {
+        ctx.strokeStyle = "#CCCCCC";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4,3]);
+        ctx.strokeRect(x, y, g.photoW, g.photoH);
+      }
+    }
+  }
+
+  // PNG (lossless) instead of JPEG — avoids compression blockiness on faces
+  // and on the crisp cut-guide/border lines. Files are bigger but this is a
+  // print deliverable, not a web-preview image, so quality wins.
+  const dataURL = canvas.toDataURL("image/png");
+  $("#sheet-img").src = dataURL;
+  $("#output-area").classList.remove("hidden");
+  $("#btn-dl-sheet").onclick = () => {
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = `passport-photo-sheet-${state.paper}-${state.orientation}.png`;
+    a.click();
+  };
+}
+
+$("#btn-print-sheet").addEventListener("click", () => window.print());
+
+$("#btn-start-new").addEventListener("click", resetTool);
+
+function resetTool(){
+  // Clear all photo/session state
+  state.persons = [];
+  if (state.cropper) { state.cropper.destroy(); state.cropper = null; }
+  state.bgColor = "#FFFFFF";
+  state.stroke = {enabled:false, color:"#0B1E3D", widthPx:1.5};
+  state.paper = "4x6";
+  state.orientation = "portrait";
+
+  // Reset the upload grid back to a single empty box
+  uploadGrid.querySelectorAll(".pp-upload-slot:not(.pp-upload-slot--add)").forEach(s => s.remove());
+  addUploadSlot();
+  updateUploadNextBtn();
+
+  // Reset step 3 & 4 controls to their defaults
+  $("#output-area").classList.add("hidden");
+  $$(".pp-color-btn").forEach(b => b.classList.remove("active"));
+  $('.pp-color-btn[data-bg="#FFFFFF"]').classList.add("active");
+  $("#hex-panel").classList.remove("show");
+  $("#stroke-enable").checked = false;
+  $("#stroke-controls").classList.add("hidden");
+  $$(".pp-paper-btn").forEach(b => b.classList.remove("active"));
+  $('.pp-paper-btn[data-paper="4x6"]').classList.add("active");
+  $$(".pp-orient-btn").forEach(b => b.classList.remove("active"));
+  $('.pp-orient-btn[data-orient="portrait"]').classList.add("active");
+
+  goToStep(1);
+}
+</script>
+
+<script>
+/* ============================================================
+   Basic copy-protection deterrents.
+   HONEST NOTE (leave this comment in): none of this makes the page
+   source truly private. HTML/CSS/JS delivered to a browser is always
+   readable by a determined visitor via view-source, browser devtools
+   network tab, or by disabling JavaScript before these listeners
+   attach. This code only removes the *casual* right-click-and-save /
+   Ctrl+U shortcuts — it is a deterrent, not real security. Do not
+   rely on it to protect anything sensitive.
+   ============================================================ */
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener("keydown", (e) => {
+  const k = e.key.toLowerCase();
+  const blockCombo =
+    (e.ctrlKey && ["u","s"].includes(k)) ||
+    (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(k)) ||
+    k === "f12";
+  if (blockCombo) e.preventDefault();
+});
+</script>
+
+</body>
+</html>

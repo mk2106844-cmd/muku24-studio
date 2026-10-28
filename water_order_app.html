@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="hi">
+    <head>
+    <base href="https://calm-elf-a7af6e.netlify.app/">
+    <script>
+      // Purana bhara hua data hatana
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch(e) {}
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+          if (el.type !== 'submit' && el.type !== 'button') {
+            el.value = '';
+          }
+        });
+      });
+    </script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>पानी ऑर्डर</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+:root{--bg:#f2f8fc;--card:#fff;--tx:#0b2540;--mu:#5b7189;--pr:#0a7cc4;--bd:#d6e4ef;--ok:#16a34a}
+@media (prefers-color-scheme:dark){:root{--bg:#0a1722;--card:#12263a;--tx:#e8f2fa;--mu:#8fa8bf;--pr:#38a8ee;--bd:#23415c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+header{text-align:center;padding:18px 8px 4px}header h1{margin:0;font-size:23px;color:var(--pr)}header p{margin:4px 0 0;color:var(--mu);font-size:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-top:14px}
+.card h2{margin:0 0 8px;font-size:16px}
+.hi{display:flex;justify-content:space-between;align-items:center;gap:8px}.hi small{color:var(--mu);display:block}
+.link{background:none;border:0;color:var(--pr);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bd)}.item:last-child{border:0}
+.item img,.ph{width:72px;height:72px;object-fit:contain;background:#fff;border-radius:10px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:32px}
+.nm{flex:1}.nm b{display:block;font-size:17px}.nm span{color:var(--pr);font-weight:700}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:36px;height:36px;border-radius:50%;border:1px solid var(--pr);background:transparent;color:var(--pr);font-size:20px;cursor:pointer}
+.qty output{min-width:20px;text-align:center;font-weight:700}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+input,textarea{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 13px;border-radius:20px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:14px;cursor:pointer}
+.chip.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.tot{display:flex;justify-content:space-between;font-size:18px;font-weight:700;padding-top:8px}
+.btn{display:block;width:100%;margin-top:14px;padding:15px;border:0;border-radius:12px;background:var(--ok);color:#fff;font-size:17px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none}
+.btn.alt{background:transparent;color:var(--pr);border:1px solid var(--pr);margin-top:8px;font-size:15px;padding:11px}
+.btn:disabled{opacity:.6}
+.err{color:#dc2626;font-size:13px;min-height:18px;margin-top:8px}
+.hide{display:none}
+#done{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+#done .box{background:var(--card);border-radius:16px;padding:20px;max-width:400px;width:100%;text-align:center}
+#done .tick{font-size:52px}
+.arow{display:grid;grid-template-columns:1fr 78px auto auto auto;gap:6px;align-items:center;margin-top:8px}
+.arow input[type=checkbox]{width:22px;height:22px}
+.x{background:none;border:0;font-size:20px;cursor:pointer}
+.ord{border-top:1px dashed var(--bd);padding:10px 0;font-size:14px}
+.ord.done{opacity:.55}
+</style></head><body><div class="wrap" id="app"></div>
+<script>
+// ====== सिर्फ़ ये 2 चीज़ें Supabase से लेकर यहाँ डालें ======
+var CFG={url:"https://ktizramrvpyzvtsyxbsp.supabase.co",key:"sb_publishable_956_5_kb05TNQTnn4HbJuQ_4HcR0LwF"};
+// =========================================================
+var sb=supabase.createClient(CFG.url,CFG.key);
+var $=function(i){return document.getElementById(i)},K="waterAcct",L="waterLast";
+var qty={},acct=null,products=[],shop="",sel={day:"आज",slot:"सुबह (7-11)",pay:"कैश (डिलीवरी पर)"};
+function load(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function chips(el,key,opts){el.innerHTML=opts.map(function(o){return '<button type="button" class="chip'+(sel[key]==o?' on':'')+'" data-v="'+o+'">'+o+'</button>'}).join("");el.onclick=function(e){var b=e.target.closest(".chip");if(!b)return;sel[key]=b.dataset.v;chips(el,key,opts)}}
+window.addEventListener("hashchange",function(){location.reload()});
+if(location.hash==="#admin")admin();else customer();
+
+/* ================= ग्राहक ================= */
+async function customer(){
+ $("app").innerHTML='<header><h1>💧 पानी ऑर्डर</h1><p id="sn">लोड हो रहा है...</p></header>'
+ +'<div id="reg" class="hide"><div class="card"><h2>खाता बनाएँ (सिर्फ़ एक बार)</h2><label>नाम *</label><input id="rn" autocomplete="name" placeholder="आपका नाम"><label>मोबाइल नंबर *</label><input id="rp" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10 अंकों का नंबर"><label>पूरा पता *</label><textarea id="ra" rows="2" placeholder="गाँव / मोहल्ला / मकान नंबर"></textarea><label>लैंडमार्क</label><input id="rl" placeholder="जैसे: स्कूल के पास"><div class="err" id="rerr"></div><button class="btn" id="save">खाता सेव करें</button></div></div>'
+ +'<div id="shop" class="hide"><div class="card hi"><div><b id="hn"></b><small id="hp"></small></div><button class="link" id="edit">बदलें</button></div>'
+ +'<div class="card" id="lastc"><h2>पिछला ऑर्डर</h2><div id="lasttx" style="font-size:14px;color:var(--mu)"></div><button class="btn alt" id="again">🔁 वही दोबारा चुनें</button></div>'
+ +'<div class="card"><h2>क्या चाहिए?</h2><div id="list"></div><div class="tot"><span>कुल</span><span id="total">₹0</span></div></div>'
+ +'<div class="card"><h2>डिलीवरी</h2><label>दिन</label><div class="chips" id="cd"></div><label>समय</label><div class="chips" id="cs"></div><label>पेमेंट</label><div class="chips" id="cp"></div><label>कोई संदेश</label><input id="msg" placeholder="जैसे: खाली जार वापस ले जाना है"><div class="err" id="err"></div><button class="btn" id="go">✅ ऑर्डर पक्का करें</button></div></div>';
+ chips($("cd"),"day",["आज","कल"]);chips($("cs"),"slot",["सुबह (7-11)","दोपहर (11-3)","शाम (3-7)"]);chips($("cp"),"pay",["कैश (डिलीवरी पर)","UPI / ऑनलाइन"]);
+ var s=await sb.from("settings").select("shop_name").eq("id",1).single();
+ var p=await sb.from("products").select("*").eq("active",true).order("sort").order("id");
+ if(s.error||p.error){$("sn").textContent="लोड नहीं हो सका, पेज दोबारा खोलें।";return}
+ shop=s.data.shop_name;products=p.data;$("sn").textContent=shop;show();
+ $("list").onclick=function(e){var b=e.target.closest("button");if(!b)return;var i=b.dataset.i;qty[i]=Math.max(0,Math.min(50,(qty[i]||0)+ +b.dataset.d));render()};
+ $("save").onclick=function(){var n=$("rn").value.trim(),ph=$("rp").value.trim(),a=$("ra").value.trim(),e="";
+  if(!n)e="नाम लिखें।";else if(!/^[6-9]\d{9}$/.test(ph))e="सही 10 अंकों का मोबाइल नंबर लिखें।";else if(a.length<5)e="पूरा पता लिखें।";
+  $("rerr").textContent=e;if(e)return;store(K,{name:n,phone:ph,addr:a,land:$("rl").value.trim()});show()};
+ $("edit").onclick=function(){$("rn").value=acct.name;$("rp").value=acct.phone;$("ra").value=acct.addr;$("rl").value=acct.land||"";$("reg").className="";$("shop").className="hide"};
+ $("again").onclick=function(){var l=load(L);qty=l?l.qty:{};render()};
+ $("go").onclick=order;
+}
+function show(){
+ acct=load(K);$("reg").className=acct?"hide":"";$("shop").className=acct?"":"hide";if(!acct)return;
+ $("hn").textContent="नमस्ते, "+acct.name;$("hp").textContent=acct.phone+" • "+acct.addr;
+ var last=load(L);$("lastc").className=last?"card":"hide";if(last)$("lasttx").textContent=last.txt;render();
+}
+function render(){
+ $("list").innerHTML=products.map(function(p){var im=p.image_url?'<img src="'+esc(p.image_url)+'" alt="">':'<div class="ph">💧</div>';
+  return '<div class="item">'+im+'<div class="nm"><b>'+esc(p.name)+'</b><span>₹'+p.price+'</span></div><div class="qty"><button data-i="'+p.id+'" data-d="-1" aria-label="कम">−</button><output>'+(qty[p.id]||0)+'</output><button data-i="'+p.id+'" data-d="1" aria-label="ज़्यादा">+</button></div></div>'}).join("");
+ var t=0;products.forEach(function(p){t+=(qty[p.id]||0)*p.price});$("total").textContent="₹"+t;
+}
+async function order(){
+ var items=[],short=[];products.forEach(function(p){var q=qty[p.id]||0;if(q){items.push({id:p.id,qty:q});short.push(p.name+" × "+q)}});
+ if(!items.length){$("err").textContent="कम से कम एक आइटम चुनें।";return}
+ $("err").textContent="";$("go").disabled=true;$("go").textContent="ऑर्डर भेजा जा रहा है...";
+ var r=await sb.functions.invoke("smooth-action",{body:{name:acct.name,phone:acct.phone,address:acct.addr,landmark:acct.land||"",items:items,day:sel.day,slot:sel.slot,pay:sel.pay,note:$("msg").value.trim()}});
+ $("go").disabled=false;$("go").textContent="✅ ऑर्डर पक्का करें";
+ if(r.error||!r.data||!r.data.ok){$("err").textContent=(r.data&&r.data.error)||"ऑर्डर नहीं जा सका, दोबारा कोशिश करें।";return}
+ store(L,{qty:qty,txt:short.join(", ")});qty={};show();
+ var m=document.createElement("div");m.id="done";
+ m.innerHTML='<div class="box"><div class="tick">✔️</div><h2>ऑर्डर पूरा हुआ!</h2><p>ऑर्डर ID: <b>'+esc(r.data.code)+'</b><br>कुल: <b>₹'+r.data.total+'</b></p><p style="color:var(--mu);font-size:14px">आपका ऑर्डर हमें मिल गया है। जल्द ही डिलीवरी होगी।</p><button class="btn" id="dc">ठीक है</button></div>';
+ document.body.appendChild(m);$("dc").onclick=function(){m.remove()};
+}
+
+/* ================= मालिक (#admin) ================= */
+async function admin(){
+ var s=await sb.auth.getSession();
+ if(!s.data.session){
+  $("app").innerHTML='<header><h1>🔐 मालिक लॉगिन</h1></header><div class="card"><label>ईमेल</label><input id="em" type="email" autocomplete="username"><label>पासवर्ड</label><input id="pw" type="password" autocomplete="current-password"><div class="err" id="le"></div><button class="btn" id="li">लॉगिन</button></div>';
+  $("li").onclick=async function(){var r=await sb.auth.signInWithPassword({email:$("em").value.trim(),password:$("pw").value});if(r.error)$("le").textContent="ईमेल या पासवर्ड ग़लत है।";else admin()};return}
+ $("app").innerHTML='<header><h1>⚙️ मालिक डैशबोर्ड</h1></header><div class="card hi"><span>लॉगिन हैं</span><button class="link" id="lo">लॉगआउट</button></div>'
+ +'<div class="card"><h2>📦 ऑर्डर <button class="link" id="rf">रिफ़्रेश</button></h2><div id="ords">...</div></div>'
+ +'<div class="card"><h2>दुकान का नाम</h2><input id="sh"><button class="btn alt" id="shs">सेव</button></div>'
+ +'<div class="card"><h2>सामान और रेट</h2><div style="font-size:12px;color:var(--mu)">नाम • रेट ₹ • उपलब्ध • सेव • हटाएँ</div><div id="prods"></div><button class="btn alt" id="addp">➕ नया सामान</button><div class="err" id="pe"></div></div>';
+ $("lo").onclick=async function(){await sb.auth.signOut();admin()};
+ $("rf").onclick=ords;
+ var st=await sb.from("settings").select("shop_name").eq("id",1).single();$("sh").value=st.data?st.data.shop_name:"";
+ $("shs").onclick=async function(){var r=await sb.from("settings").update({shop_name:$("sh").value.trim()}).eq("id",1);$("shs").textContent=r.error?"सेव नहीं हुआ":"सेव हो गया ✔️"};
+ $("addp").onclick=async function(){await sb.from("products").insert({name:"नया सामान",price:0,sort:99});prods()};
+ $("prods").onclick=async function(e){var b=e.target.closest("button");if(!b)return;var row=b.closest(".arow"),id=row.dataset.id;
+  if(b.dataset.a=="save"){var r=await sb.from("products").update({name:row.querySelector(".n").value.trim(),price:parseFloat(row.querySelector(".p").value)||0,active:row.querySelector(".c").checked}).eq("id",id);$("pe").textContent=r.error?"सेव नहीं हुआ":"सेव हो गया ✔️"}
+  else if(b.dataset.a=="del"&&confirm("इस सामान को हटाएँ?")){await sb.from("products").delete().eq("id",id);prods()}};
+ $("ords").onclick=async function(e){var b=e.target.closest("button");if(!b)return;await sb.from("orders").update({status:b.dataset.s}).eq("id",b.dataset.id);ords()};
+ prods();ords();
+}
+async function prods(){var r=await sb.from("products").select("*").order("sort").order("id");
+ $("prods").innerHTML=(r.data||[]).map(function(p){return '<div class="arow" data-id="'+p.id+'"><input class="n" value="'+esc(p.name)+'"><input class="p" type="number" inputmode="decimal" value="'+p.price+'"><input class="c" type="checkbox"'+(p.active?' checked':'')+'><button class="x" data-a="save">💾</button><button class="x" data-a="del">🗑️</button></div>'}).join("")}
+async function ords(){var r=await sb.from("orders").select("*").order("created_at",{ascending:false}).limit(40);
+ if(r.error){$("ords").textContent="ऑर्डर लोड नहीं हुए।";return}
+ $("ords").innerHTML=r.data.length?r.data.map(function(o){var d=o.status=="done";
+  return '<div class="ord'+(d?' done':'')+'"><b>'+esc(o.code)+'</b> • ₹'+o.total+' • '+new Date(o.created_at).toLocaleString("hi-IN")+'<br>'+o.items.map(function(i){return esc(i.name)+' × '+i.qty}).join(", ")+'<br>👤 '+esc(o.customer_name)+' • <a href="tel:'+esc(o.phone)+'">'+esc(o.phone)+'</a><br>📍 '+esc(o.address)+(o.landmark?' ('+esc(o.landmark)+')':'')+'<br>🕒 '+esc(o.delivery_day)+', '+esc(o.delivery_slot)+' • '+esc(o.payment)+(o.note?'<br>📝 '+esc(o.note):'')+'<br><button class="chip'+(d?'':' on')+'" data-id="'+o.id+'" data-s="'+(d?'new':'done')+'">'+(d?'↩️ वापस नया करें':'✅ डिलीवर हो गया')+'</button></div>'}).join(""):"अभी कोई ऑर्डर नहीं।"}
+</script></body></html>

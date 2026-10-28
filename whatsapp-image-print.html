@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Image Print Tool - Document & ID Scanner & Print Tool | Smart Csc Tools</title>
+    <meta name="description" content="Free online Smart ID Scanner & Print Tool for CSC. Scan Aadhar, PAN, Voter ID cards, enhance quality, and print on A4 paper with perfect layout. 100% private & secure.">
+    <meta name="keywords" content="Smart ID Scanner, CSC ID Print Tool, WhatsApp Image Print, Aadhar Card Scanner, PAN Card Scanner, ID Card A4 Print, Document Scanner Online, Smart CSC Tools, ID Card Cropper">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Smart ID Scanner & Print Tool | WhatsApp Image Print">
+    <meta property="og:description" content="Scan, enhance, and print ID cards perfectly on A4 paper. 100% local processing for maximum privacy.">
+    <meta property="og:image" content="https://smartcsctools.org/whatsapp-image-print.html">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Smart ID Scanner & Print Tool | WhatsApp Image Print">
+    <meta property="twitter:description" content="Scan, enhance, and print ID cards perfectly on A4 paper. 100% local processing for maximum privacy.">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Smart ID Scanner & Print Tool",
+      "description": "Professional tool for scanning and printing ID cards and documents on A4 paper.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Smart CSC Tools"
+      }
+    }
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Define onOpenCvReady globally before the OpenCV script loads
+        window.onOpenCvReady = function() {
+            console.log("OpenCV.js is ready");
+            if (typeof state !== 'undefined') {
+                state.isCvReady = true;
+            }
+            const status = document.getElementById('cv-status');
+            if (status) {
+                status.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Engine Ready';
+                status.classList.remove('text-amber-600', 'bg-amber-50');
+                status.classList.add('text-emerald-600', 'bg-emerald-50');
+                if (window.lucide) lucide.createIcons();
+            }
+        };
+    </script>
+    <!-- OpenCV.js (Using a faster CDN) -->
+    <script async src="https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.10.0-release.1/dist/opencv.js" type="text/javascript" onload="onOpenCvReady();"></script>
+    <script>
+        // Timeout check for local users
+        setTimeout(() => {
+            if (typeof cv === 'undefined' || !window.state || !window.state.isCvReady) {
+                const status = document.getElementById('cv-status');
+                if (status && status.innerText.includes('Loading')) {
+                    status.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4"></i> Slow Connection...';
+                    console.warn("OpenCV.js is taking longer than expected to load. Please check your internet connection.");
+                }
+            }
+        }, 10000);
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .canvas-container { position: relative; display: inline-block; }
+        .corner-handle {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            cursor: move;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .corner-handle:hover { background: #2563eb; scale: 1.1; }
+        .crop-overlay {
+            position: absolute;
+            pointer-events: none;
+            border: 2px dashed #3b82f6;
+            z-index: 5;
+        }
+        .step-transition { transition: all 0.3s ease-in-out; }
+        .hidden-step { display: none; opacity: 0; transform: translateY(10px); }
+        .active-step { display: block; opacity: 1; transform: translateY(0); }
+        
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body { 
+                background: white !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+            }
+            .no-print {
+                display: none !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: none !important;
+                width: 100% !important;
+            }
+            #step-3 {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #a4-page {
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                transform: none !important;
+                border: none !important;
+                background: white !important;
+            }
+            #print-content { 
+                padding: 15mm !important; 
+                display: flex !important;
+                /* Removed flex-direction: column to allow JS classes to work */
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 10mm !important;
+            }
+            #print-content img {
+                display: block !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        
+        .btn-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hover-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+        }
+        .btn-hover-effect:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header -->
+    <header class="no-print bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="flex items-center gap-2 bg-white border border-slate-200 hover:border-blue-300 hover:text-blue-600 px-4 py-2 rounded-xl transition-all text-slate-600 font-bold text-xs uppercase tracking-wider">
+                <i data-lucide="home" class="w-4 h-4"></i> Home
+            </a>
+            <div class="h-6 w-[1px] bg-slate-200 mx-2 hidden md:block"></div>
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-2 rounded-xl shadow-lg shadow-blue-200">
+                    <i data-lucide="scan" class="text-white w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-extrabold tracking-tight text-slate-800 leading-none">Smart CSC <span class="text-blue-600">Scanner</span></h1>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">WhatsApp Image Print Tool</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div id="cv-status" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-100">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                Engine Loading
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+        
+        <!-- Progress Bar -->
+        <div class="no-print max-w-2xl mx-auto mb-12">
+            <div class="flex items-center justify-between relative">
+                <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2 z-0"></div>
+                <div id="progress-line" class="absolute top-1/2 left-0 w-0 h-0.5 bg-blue-600 -translate-y-1/2 z-0 transition-all duration-500"></div>
+                
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div id="step-dot-1" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-lg shadow-blue-200 transition-all">1</div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-blue-600">Upload</span>
+                </div>
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div id="step-dot-2" class="w-8 h-8 rounded-full bg-white border-2 border-slate-200 text-slate-400 flex items-center justify-center font-bold text-xs transition-all">2</div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Scan</span>
+                </div>
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div id="step-dot-3" class="w-8 h-8 rounded-full bg-white border-2 border-slate-200 text-slate-400 flex items-center justify-center font-bold text-xs transition-all">3</div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Finish</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 1: UPLOAD -->
+        <section id="step-1" class="active-step step-transition">
+            <div class="text-center mb-12">
+                <div class="inline-block bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border border-blue-100">
+                    Step 1: Document Upload
+                </div>
+                <h2 id="step1-title" class="text-4xl font-black text-slate-900 mb-4 tracking-tight">Upload Your <span class="text-blue-600">ID Card</span></h2>
+                <p id="step1-desc" class="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed">Fast, secure, and professional document scanning directly in your browser.</p>
+                
+                <!-- Mode Selector -->
+                <div class="flex items-center justify-center gap-3 mt-10">
+                    <button onclick="setMode('idcard')" id="mode-idcard" class="mode-btn px-8 py-3 rounded-2xl text-sm font-black transition-all border-2 border-blue-600 bg-blue-600 text-white shadow-xl shadow-blue-100 flex items-center gap-2">
+                        <i data-lucide="credit-card" class="w-5 h-5"></i> ID Card
+                    </button>
+                    <button onclick="setMode('document')" id="mode-document" class="mode-btn px-8 py-3 rounded-2xl text-sm font-black transition-all border-2 border-slate-200 bg-white text-slate-600 hover:border-blue-300 flex items-center gap-2">
+                        <i data-lucide="file-text" class="w-5 h-5"></i> Document
+                    </button>
+                </div>
+            </div>
+
+            <div id="upload-grid" class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Front Side / Single Document -->
+                <div class="space-y-4">
+                    <h3 id="label-front" class="font-semibold text-slate-700 flex items-center gap-2">
+                        <i data-lucide="image" class="w-5 h-5"></i> Front Side
+                    </h3>
+                    <div id="drop-front" class="border-2 border-dashed border-slate-300 rounded-2xl p-8 bg-white hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer group relative overflow-hidden aspect-[1.58/1] flex flex-col items-center justify-center text-center">
+                        <input type="file" id="input-front" class="hidden" accept="image/*">
+                        <div id="preview-front-container" class="absolute inset-0 hidden">
+                            <img id="preview-front" class="w-full h-full object-contain">
+                            <button onclick="removeImage('front')" class="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 shadow-lg">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div id="upload-prompt-front" class="space-y-2">
+                            <div class="bg-slate-100 p-4 rounded-full inline-block group-hover:bg-blue-100 transition-colors">
+                                <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-400 group-hover:text-blue-500"></i>
+                            </div>
+                            <p class="text-sm font-medium text-slate-600">Click or drag front image</p>
+                            <p class="text-xs text-slate-400">JPG, PNG up to 10MB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Side -->
+                <div id="container-back" class="space-y-4">
+                    <h3 class="font-semibold text-slate-700 flex items-center gap-2">
+                        <i data-lucide="image" class="w-5 h-5"></i> Back Side
+                    </h3>
+                    <div id="drop-back" class="border-2 border-dashed border-slate-300 rounded-2xl p-8 bg-white hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer group relative overflow-hidden aspect-[1.58/1] flex flex-col items-center justify-center text-center">
+                        <input type="file" id="input-back" class="hidden" accept="image/*">
+                        <div id="preview-back-container" class="absolute inset-0 hidden">
+                            <img id="preview-back" class="w-full h-full object-contain">
+                            <button onclick="removeImage('back')" class="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 shadow-lg">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div id="upload-prompt-back" class="space-y-2">
+                            <div class="bg-slate-100 p-4 rounded-full inline-block group-hover:bg-blue-100 transition-colors">
+                                <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-400 group-hover:text-blue-500"></i>
+                            </div>
+                            <p class="text-sm font-medium text-slate-600">Click or drag back image</p>
+                            <p class="text-xs text-slate-400">JPG, PNG up to 10MB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <button id="btn-proceed" disabled class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-12 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-blue-200 hover:shadow-blue-300 hover:-translate-y-1 active:translate-y-0 disabled:from-slate-300 disabled:to-slate-400 disabled:shadow-none transition-all flex items-center gap-3 mx-auto uppercase tracking-wider">
+                    Start Scanning <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </button>
+                <p class="text-slate-400 text-xs font-bold mt-6 flex items-center justify-center gap-2 uppercase tracking-widest">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i> 100% Secure & Private
+                </p>
+            </div>
+        </section>
+
+        <!-- STEP 2: SCAN & ADJUST -->
+        <section id="step-2" class="hidden-step step-transition">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar Controls -->
+                <div class="lg:w-80 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 space-y-6">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="layers" class="w-4 h-4 text-blue-500"></i> Scan Mode
+                                </h3>
+                                <span class="bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-100">AI Powered</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setEnhancement('original', this)" class="enhance-btn active bg-blue-600 text-white border border-blue-600 shadow-md px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all">
+                                    Original
+                                </button>
+                                <button onclick="setEnhancement('magic', this)" class="enhance-btn bg-white text-slate-600 border border-slate-200 px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-slate-50 transition-all">
+                                    Magic
+                                </button>
+                                <button onclick="setEnhancement('bw', this)" class="enhance-btn bg-white text-slate-600 border border-slate-200 px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-slate-50 transition-all">
+                                    B&W
+                                </button>
+                                <button onclick="setEnhancement('clear', this)" class="enhance-btn bg-white text-slate-600 border border-slate-200 px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-slate-50 transition-all">
+                                    Clear Text
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-6 border-t border-slate-100">
+                            <h3 class="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
+                                <i data-lucide="sliders" class="w-4 h-4 text-blue-500"></i> Adjustments
+                            </h3>
+                            <div class="space-y-5">
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">
+                                        <span>Brightness</span>
+                                        <span id="val-brightness" class="text-blue-600 font-black">0</span>
+                                    </div>
+                                    <input type="range" id="slider-brightness" min="-100" max="100" value="0" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">
+                                        <span>Contrast</span>
+                                        <span id="val-contrast" class="text-blue-600 font-black">0</span>
+                                    </div>
+                                    <input type="range" id="slider-contrast" min="-100" max="100" value="0" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">
+                                        <span>Sharpness</span>
+                                        <span id="val-sharpness" class="text-blue-600 font-black">0</span>
+                                    </div>
+                                    <input type="range" id="slider-sharpness" min="0" max="100" value="0" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-100 flex flex-col gap-2">
+                            <button onclick="autoDetectEdges()" class="flex items-center justify-center gap-2 bg-blue-50 text-blue-700 py-3 rounded-xl hover:bg-blue-100 transition-all font-bold border border-blue-100 mb-2">
+                                <i data-lucide="scan-line" class="w-5 h-5"></i> Auto Detect Edges
+                            </button>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="rotateImage(-90)" class="flex items-center justify-center gap-2 bg-slate-100 text-slate-700 py-2 rounded-lg hover:bg-slate-200 transition-colors font-medium">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Left
+                                </button>
+                                <button onclick="rotateImage(90)" class="flex items-center justify-center gap-2 bg-slate-100 text-slate-700 py-2 rounded-lg hover:bg-slate-200 transition-colors font-medium">
+                                    <i data-lucide="rotate-cw" class="w-4 h-4"></i> Right
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="resetStep2()" class="flex-1 bg-white border border-slate-200 text-slate-600 py-3 rounded-xl font-bold hover:bg-slate-50 transition-colors">
+                            Reset
+                        </button>
+                        <button id="btn-confirm-scan" onclick="confirmScan()" class="flex-[2] bg-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all">
+                            Confirm Scan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="flex-1 bg-slate-200 rounded-3xl overflow-hidden relative flex items-center justify-center min-h-[500px] border-4 border-white shadow-inner">
+                    <div id="canvas-wrapper" class="canvas-container overflow-auto max-h-[700px] w-full flex items-center justify-center p-8">
+                        <div class="relative">
+                            <canvas id="scan-canvas"></canvas>
+                            <!-- Handles will be injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Zoom Controls -->
+                    <div class="absolute top-6 right-6 flex flex-col gap-2">
+                        <button onclick="changeZoom(0.2)" class="bg-white/90 backdrop-blur shadow-sm border border-slate-200 p-2 rounded-xl hover:bg-white transition-all text-slate-700" title="Zoom In">
+                            <i data-lucide="zoom-in" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="changeZoom(-0.2)" class="bg-white/90 backdrop-blur shadow-sm border border-slate-200 p-2 rounded-xl hover:bg-white transition-all text-slate-700" title="Zoom Out">
+                            <i data-lucide="zoom-out" class="w-5 h-5"></i>
+                        </button>
+                        <button onclick="resetZoom()" class="bg-white/90 backdrop-blur shadow-sm border border-slate-200 p-2 rounded-xl hover:bg-white transition-all text-slate-700" title="Reset Zoom">
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-3">
+                        <span id="scan-side-label">Front Side</span>
+                        <div class="w-px h-4 bg-white/20"></div>
+                        <span class="text-white/70">Drag corners to align card</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: PRINT LAYOUT -->
+        <section id="step-3" class="hidden-step step-transition">
+            <div class="no-print text-center mb-10">
+                <div class="inline-block bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border border-emerald-100">
+                    Step 3: Export Document
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 mb-4 tracking-tight">Your Document is <span class="text-emerald-500">Ready!</span></h2>
+                <p class="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed">Download your professionally scanned document or print it directly.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar Controls -->
+                <div class="no-print lg:w-80 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 space-y-6">
+                        <div>
+                            <h3 class="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
+                                <i data-lucide="layout" class="w-4 h-4 text-blue-500"></i> Layout Options
+                            </h3>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setLayout('vertical')" id="layout-vertical" class="layout-btn active bg-blue-600 text-white border border-blue-600 shadow-md p-3 rounded-xl text-[10px] font-black uppercase tracking-wider flex flex-col items-center gap-2 transition-all">
+                                    <i data-lucide="rectangle-vertical" class="w-5 h-5"></i> Vertical
+                                </button>
+                                <button onclick="setLayout('horizontal')" id="layout-horizontal" class="layout-btn bg-white text-slate-600 border border-slate-200 p-3 rounded-xl text-[10px] font-black uppercase tracking-wider flex flex-col items-center gap-2 hover:bg-slate-50 transition-all">
+                                    <i data-lucide="rectangle-horizontal" class="w-5 h-5"></i> Horizontal
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-6 border-t border-slate-100">
+                            <h3 class="font-black text-slate-800 text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
+                                <i data-lucide="settings" class="w-4 h-4 text-blue-500"></i> Settings
+                            </h3>
+                            <label class="flex items-center justify-between cursor-pointer group p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest transition-colors">Show Borders</span>
+                                <div class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="toggle-border" checked onchange="updatePrintPreview()" class="sr-only peer">
+                                    <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                </div>
+                            </label>
+
+                            <label class="flex items-center justify-between cursor-pointer group p-3 bg-blue-50/50 rounded-xl border border-blue-100/50">
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Quality Enhance</span>
+                                    <span class="text-[8px] text-blue-400 font-bold uppercase">AI Super Res</span>
+                                </div>
+                                <div class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="toggle-quality" onchange="toggleHighQuality()" class="sr-only peer">
+                                    <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <button onclick="downloadPDF()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-xs flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl shadow-slate-200 uppercase tracking-widest">
+                            <i data-lucide="file-down" class="w-5 h-5"></i> Download PDF
+                        </button>
+                        <button onclick="downloadJPG()" class="w-full bg-white border-2 border-slate-900 text-slate-900 py-4 rounded-2xl font-black text-xs flex items-center justify-center gap-3 hover:bg-slate-50 transition-all uppercase tracking-widest">
+                            <i data-lucide="image" class="w-5 h-5"></i> Download JPG
+                        </button>
+                        <button onclick="triggerPrint()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs flex items-center justify-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 uppercase tracking-widest">
+                            <i data-lucide="printer" class="w-5 h-5"></i> Print Now
+                        </button>
+                        <button onclick="location.reload()" class="w-full bg-slate-100 text-slate-600 py-4 rounded-2xl font-black text-[10px] flex items-center justify-center gap-2 hover:bg-slate-200 transition-all uppercase tracking-widest">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Scan New Document
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Print Preview Area -->
+                <div class="flex-1 bg-slate-200 p-8 rounded-[40px] overflow-auto flex justify-center min-h-[600px] border-8 border-white shadow-inner">
+                    <div id="a4-page" class="bg-white shadow-2xl origin-top transition-transform" style="width: 595px; height: 842px; min-width: 595px;">
+                        <!-- Print content will be rendered here -->
+                        <div id="print-content" class="w-full h-full p-10 flex flex-col items-center gap-10">
+                            <!-- ID Cards will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- How to Use Section -->
+    <section class="no-print max-w-7xl mx-auto px-6 py-20 border-t border-slate-200">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">How to Use Smart ID Scanner</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto">Follow these simple steps to scan and prepare your ID cards or documents for printing in high quality.</p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">1</div>
+                <h3 class="font-bold text-lg mb-3">Select Mode</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Choose between "ID Card" for both sides or "Single Document" for one-sided scanning.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">2</div>
+                <h3 class="font-bold text-lg mb-3">Upload Images</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Upload clear photos of your ID or document. You can drag and drop files directly.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">3</div>
+                <h3 class="font-bold text-lg mb-3">Crop & Adjust</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Drag the 4 corners to fit the document perfectly. Use filters to enhance clarity.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">4</div>
+                <h3 class="font-bold text-lg mb-3">Print or Save</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Download as high-res JPG, PDF, or print directly on A4 paper with perfect layout.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section class="no-print bg-slate-100 py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-slate-500">Everything you need to know about our Smart ID Scanner tool.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-2">Is my data safe?</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Yes, absolutely. All image processing happens locally in your browser. We never upload your sensitive ID cards or documents to any server.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-2">Can I scan any document?</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Yes! While optimized for ID cards (Aadhar, PAN, Voter ID), you can use the "Single Document" mode for any certificate, letter, or one-sided document.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-2">How do I get the best print quality?</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Ensure your photos are taken in good lighting and are not blurry. Use the "Magic Enhance" filter to sharpen text and adjust brightness/contrast if needed.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-2">What formats are supported for download?</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">You can download your scanned results as high-resolution JPEG images or as a ready-to-print PDF file.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="no-print border-t border-slate-200 py-12 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-600 p-2 rounded-lg">
+                        <i data-lucide="scan" class="text-white w-5 h-5"></i>
+                    </div>
+                    <span class="text-lg font-bold tracking-tight text-slate-800">Smart CSC Tools</span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">100% Private & Secure Local Processing</span>
+                </div>
+                <div class="flex gap-6 text-sm font-bold text-slate-400">
+                    <a href="index.html" class="hover:text-blue-600 transition-colors">Home</a>
+                    <a href="privacy.html" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-blue-600 transition-colors">Terms</a>
+                    <a href="contact.html" class="hover:text-blue-600 transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-400 text-sm">© 2026 <a href="index.html" class="text-blue-600 font-bold">smartcsctools.org</a>. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 transition-colors cursor-pointer">
+                        <i data-lucide="facebook" class="w-4 h-4"></i>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 transition-colors cursor-pointer">
+                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-blue-600 transition-colors cursor-pointer">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        if (window.lucide) {
+            lucide.createIcons();
+        } else {
+            console.error("Lucide library not found");
+        }
+
+        // Global State
+        const state = {
+            mode: 'idcard', // 'idcard' or 'document'
+            images: {
+                front: null,
+                back: null
+            },
+            scanned: {
+                front: null,
+                back: null
+            },
+            scanPoints: {
+                front: null,
+                back: null
+            },
+            currentStep: 1,
+            scanningSide: 'front', // 'front' or 'back'
+            points: [],
+            enhancement: 'original',
+            brightness: 0,
+            contrast: 0,
+            sharpness: 0,
+            rotation: 0,
+            layout: 'vertical',
+            zoom: 1.0,
+            highQuality: false,
+            isCvReady: false,
+            processedMat: null // Cache for the enhanced preview
+        };
+
+        // DOM Elements
+        const steps = {
+            1: document.getElementById('step-1'),
+            2: document.getElementById('step-2'),
+            3: document.getElementById('step-3')
+        };
+
+        const canvas = document.getElementById('scan-canvas');
+        const ctx = canvas.getContext('2d');
+        const canvasWrapper = document.getElementById('canvas-wrapper');
+        
+        // Offscreen canvas for processed preview
+        const offscreenCanvas = document.createElement('canvas');
+
+        // --- STEP 1: UPLOAD LOGIC ---
+
+        function setMode(mode) {
+            state.mode = mode;
+            
+            // Update buttons
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-100');
+                btn.classList.add('border-slate-200', 'bg-white', 'text-slate-600');
+            });
+            const activeBtn = document.getElementById(`mode-${mode}`);
+            activeBtn.classList.remove('border-slate-200', 'bg-white', 'text-slate-600');
+            activeBtn.classList.add('border-blue-600', 'bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-100');
+
+            // Update UI
+            const grid = document.getElementById('upload-grid');
+            const containerBack = document.getElementById('container-back');
+            const labelFront = document.getElementById('label-front');
+            const title = document.getElementById('step1-title');
+            const desc = document.getElementById('step1-desc');
+
+            if (mode === 'document') {
+                grid.classList.remove('md:grid-cols-2');
+                grid.classList.add('max-w-2xl');
+                containerBack.classList.add('hidden');
+                labelFront.innerHTML = '<i data-lucide="file-text" class="w-5 h-5"></i> Upload Document';
+                title.innerText = 'Upload Document';
+                desc.innerText = 'Please upload your single-side document to begin.';
+                state.images.back = null; // Clear back image if switching
+            } else {
+                grid.classList.add('md:grid-cols-2');
+                grid.classList.remove('max-w-2xl');
+                containerBack.classList.remove('hidden');
+                labelFront.innerHTML = '<i data-lucide="image" class="w-5 h-5"></i> Front Side';
+                title.innerText = 'Upload ID Card';
+                desc.innerText = 'Please upload the front and back images of your ID card to begin.';
+            }
+            
+            lucide.createIcons();
+            checkProceed();
+        }
+
+        function setupUpload(side) {
+            const dropZone = document.getElementById(`drop-${side}`);
+            const input = document.getElementById(`input-${side}`);
+            const preview = document.getElementById(`preview-${side}`);
+            const previewContainer = document.getElementById(`preview-${side}-container`);
+            const prompt = document.getElementById(`upload-prompt-${side}`);
+
+            dropZone.onclick = () => input.click();
+
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file, side);
+            };
+
+            dropZone.ondragover = (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-blue-500', 'bg-blue-50');
+            };
+
+            dropZone.ondragleave = () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+            };
+
+            dropZone.ondrop = (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+                const file = e.dataTransfer.files[0];
+                if (file) handleFile(file, side);
+            };
+        }
+
+        function handleFile(file, side) {
+            if (!file.type.startsWith('image/')) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    state.images[side] = img;
+                    document.getElementById(`preview-${side}`).src = e.target.result;
+                    document.getElementById(`preview-${side}-container`).classList.remove('hidden');
+                    document.getElementById(`upload-prompt-${side}`).classList.add('hidden');
+                    checkProceed();
+                    lucide.createIcons();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage(side) {
+            state.images[side] = null;
+            document.getElementById(`preview-${side}-container`).classList.add('hidden');
+            document.getElementById(`upload-prompt-${side}`).classList.remove('hidden');
+            document.getElementById(`input-${side}`).value = '';
+            checkProceed();
+            event.stopPropagation();
+        }
+
+        function checkProceed() {
+            const btn = document.getElementById('btn-proceed');
+            if (state.mode === 'document') {
+                btn.disabled = !state.images.front;
+            } else {
+                btn.disabled = !(state.images.front && state.images.back);
+            }
+        }
+
+        setupUpload('front');
+        setupUpload('back');
+
+        document.getElementById('btn-proceed').onclick = () => {
+            if (!state.isCvReady) {
+                alert("OpenCV engine is still loading. Please wait a moment.");
+                return;
+            }
+            goToStep(2);
+            startScanning('front');
+        };
+
+        // --- STEP 2: SCAN & ADJUST LOGIC ---
+
+        function startScanning(side) {
+            state.scanningSide = side;
+            state.rotation = 0;
+            state.enhancement = 'original';
+            state.brightness = 0;
+            state.contrast = 0;
+            state.zoom = 1.0;
+            
+            const sideLabel = document.getElementById('scan-side-label');
+            const confirmBtn = document.getElementById('btn-confirm-scan');
+
+            if (state.mode === 'document') {
+                sideLabel.innerText = 'Document';
+                confirmBtn.innerText = 'Confirm & Finish';
+            } else {
+                sideLabel.innerText = side === 'front' ? 'Front Side' : 'Back Side';
+                confirmBtn.innerText = side === 'front' ? 'Confirm & Scan Back' : 'Confirm & Finish';
+            }
+            
+            resetSliders();
+            initCanvas();
+            
+            // Auto-detect edges after a short delay to ensure canvas is ready
+            setTimeout(() => {
+                autoDetectEdges();
+            }, 300);
+        }
+
+        function initCanvas(keepPoints = false) {
+            const img = state.images[state.scanningSide];
+            
+            // Calculate scale to fit in view
+            const maxWidth = window.innerWidth * 0.6;
+            const maxHeight = 600;
+            
+            // Handle rotation in scale calculation
+            const isRotated = state.rotation % 180 !== 0;
+            const imgW = isRotated ? img.height : img.width;
+            const imgH = isRotated ? img.width : img.height;
+            
+            let baseScale = Math.min(maxWidth / imgW, maxHeight / imgH);
+            let scale = baseScale * state.zoom;
+            
+            canvas.width = imgW * scale;
+            canvas.height = imgH * scale;
+            
+            if (!keepPoints) {
+                // Initial points (rectangle in center)
+                const w = canvas.width;
+                const h = canvas.height;
+                const padding = 50;
+                state.points = [
+                    { x: padding, y: padding }, // TL
+                    { x: w - padding, y: padding }, // TR
+                    { x: w - padding, y: h - padding }, // BR
+                    { x: padding, y: h - padding } // BL
+                ];
+            }
+
+            updateProcessedPreview();
+            createHandles();
+        }
+
+        function changeZoom(delta) {
+            const oldZoom = state.zoom;
+            state.zoom = Math.max(0.5, Math.min(3.0, state.zoom + delta));
+            const factor = state.zoom / oldZoom;
+            
+            // Scale points relative to zoom
+            state.points.forEach(p => {
+                p.x *= factor;
+                p.y *= factor;
+            });
+            
+            initCanvas(true);
+        }
+
+        function resetZoom() {
+            const oldZoom = state.zoom;
+            state.zoom = 1.0;
+            const factor = state.zoom / oldZoom;
+            
+            state.points.forEach(p => {
+                p.x *= factor;
+                p.y *= factor;
+            });
+            
+            initCanvas(true);
+        }
+
+        function updateProcessedPreview() {
+            if (!state.isCvReady) return;
+            
+            const img = state.images[state.scanningSide];
+            offscreenCanvas.width = canvas.width;
+            offscreenCanvas.height = canvas.height;
+            
+            // Use processImage logic but for preview size
+            const previewPoints = [
+                {x: 0, y: 0}, 
+                {x: canvas.width, y: 0}, 
+                {x: canvas.width, y: canvas.height}, 
+                {x: 0, y: canvas.height}
+            ];
+            
+            // We don't want to crop for the preview, just apply rotation and filters
+            // So we pass the full canvas as destination
+            processImage(img, null, offscreenCanvas, true);
+            renderCanvas();
+        }
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw the processed preview from offscreen canvas
+            ctx.drawImage(offscreenCanvas, 0, 0);
+
+            // Draw overlay polygon
+            ctx.beginPath();
+            ctx.moveTo(state.points[0].x, state.points[0].y);
+            state.points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Draw semi-transparent outer area (dimmed)
+            // This creates a "crop" effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.beginPath();
+            ctx.rect(0, 0, canvas.width, canvas.height);
+            ctx.moveTo(state.points[0].x, state.points[0].y);
+            state.points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.fill('evenodd');
+            
+            // Draw inner highlight
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.05)';
+            ctx.beginPath();
+            ctx.moveTo(state.points[0].x, state.points[0].y);
+            state.points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function createHandles() {
+            // Remove existing handles
+            const existing = document.querySelectorAll('.corner-handle');
+            existing.forEach(h => h.remove());
+
+            const handleContainer = canvas.parentElement;
+
+            state.points.forEach((p, i) => {
+                const handle = document.createElement('div');
+                handle.className = 'corner-handle';
+                handle.style.left = `${p.x}px`;
+                handle.style.top = `${p.y}px`;
+                handle.dataset.index = i;
+                
+                let isDragging = false;
+
+                handle.onmousedown = (e) => {
+                    e.preventDefault();
+                    isDragging = true;
+                    document.onmousemove = (me) => {
+                        if (!isDragging) return;
+                        const rect = canvas.getBoundingClientRect();
+                        let x = me.clientX - rect.left;
+                        let y = me.clientY - rect.top;
+                        
+                        x = Math.max(0, Math.min(x, canvas.width));
+                        y = Math.max(0, Math.min(y, canvas.height));
+                        
+                        state.points[i] = { x, y };
+                        handle.style.left = `${x}px`;
+                        handle.style.top = `${y}px`;
+                        renderCanvas();
+                    };
+                    document.onmouseup = () => {
+                        isDragging = false;
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    };
+                };
+
+                // Touch support
+                handle.ontouchstart = (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                };
+                handle.ontouchmove = (e) => {
+                    if (!isDragging) return;
+                    const touch = e.touches[0];
+                    const rect = canvas.getBoundingClientRect();
+                    let x = touch.clientX - rect.left;
+                    let y = touch.clientY - rect.top;
+                    x = Math.max(0, Math.min(x, canvas.width));
+                    y = Math.max(0, Math.min(y, canvas.height));
+                    state.points[i] = { x, y };
+                    handle.style.left = `${x}px`;
+                    handle.style.top = `${y}px`;
+                    renderCanvas();
+                };
+                handle.ontouchend = () => {
+                    isDragging = false;
+                };
+
+                handleContainer.appendChild(handle);
+            });
+        }
+
+        function rotateImage(deg) {
+            state.rotation = (state.rotation + deg) % 360;
+            if (state.rotation < 0) state.rotation += 360;
+            
+            // Re-initialize canvas to handle new aspect ratio
+            // We reset points because rotating existing points correctly is complex
+            initCanvas(false);
+        }
+
+        function setEnhancement(mode, btn) {
+            state.enhancement = mode;
+            document.querySelectorAll('.enhance-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+                b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+
+            const activeBtn = btn || event.currentTarget;
+            activeBtn.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            
+            updateProcessedPreview();
+        }
+
+        // Sliders
+        document.getElementById('slider-brightness').oninput = (e) => {
+            state.brightness = parseInt(e.target.value);
+            document.getElementById('val-brightness').innerText = state.brightness;
+            updateProcessedPreview();
+        };
+        document.getElementById('slider-contrast').oninput = (e) => {
+            state.contrast = parseInt(e.target.value);
+            document.getElementById('val-contrast').innerText = state.contrast;
+            updateProcessedPreview();
+        };
+        document.getElementById('slider-sharpness').oninput = (e) => {
+            state.sharpness = parseInt(e.target.value);
+            document.getElementById('val-sharpness').innerText = state.sharpness;
+            updateProcessedPreview();
+        };
+
+        function resetSliders() {
+            state.brightness = 0;
+            state.contrast = 0;
+            state.sharpness = 0;
+            document.getElementById('slider-brightness').value = 0;
+            document.getElementById('slider-contrast').value = 0;
+            document.getElementById('slider-sharpness').value = 0;
+            document.getElementById('val-brightness').innerText = 0;
+            document.getElementById('val-contrast').innerText = 0;
+            document.getElementById('val-sharpness').innerText = 0;
+        }
+
+        function resetStep2() {
+            initCanvas();
+            resetSliders();
+            setEnhancement('original');
+        }
+
+        function autoDetectEdges() {
+            if (!state.isCvReady) return;
+            const img = state.images[state.scanningSide];
+            let src = cv.imread(img);
+            
+            // 1. Resize for faster and more consistent processing
+            let maxDim = 500;
+            let scale = maxDim / Math.max(src.cols, src.rows);
+            let dsize = new cv.Size(src.cols * scale, src.rows * scale);
+            let small = new cv.Mat();
+            cv.resize(src, small, dsize, 0, 0, cv.INTER_AREA);
+            
+            // 2. Pre-process
+            let gray = new cv.Mat();
+            cv.cvtColor(small, gray, cv.COLOR_RGBA2GRAY);
+            
+            // Local Contrast Enhancement (CLAHE) - better for varying lighting
+            let clahe = new cv.CLAHE(2.0, new cv.Size(8, 8));
+            let enhanced = new cv.Mat();
+            clahe.apply(gray, enhanced);
+            
+            let blurred = new cv.Mat();
+            cv.GaussianBlur(enhanced, blurred, new cv.Size(5, 5), 0);
+            
+            // 3. Edge Detection (Combined Canny and Thresholding)
+            let edged = new cv.Mat();
+            cv.Canny(blurred, edged, 30, 150);
+            
+            let thresh = new cv.Mat();
+            cv.threshold(blurred, thresh, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU);
+            
+            // Combine them
+            cv.bitwise_or(edged, thresh, edged);
+            
+            // 4. Morphological operations to close gaps
+            let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(7, 7));
+            cv.dilate(edged, edged, kernel);
+            cv.erode(edged, edged, kernel);
+            
+            // 5. Find Contours
+            let contours = new cv.MatVector();
+            let hierarchy = new cv.Mat();
+            cv.findContours(edged, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+            
+            let maxArea = 0;
+            let bestPoints = null;
+            
+            for (let i = 0; i < contours.size(); ++i) {
+                let cnt = contours.get(i);
+                let area = cv.contourArea(cnt);
+                
+                // Only consider large enough contours (at least 5% of image)
+                if (area > (small.cols * small.rows * 0.05)) { 
+                    // Simplify contour using convex hull
+                    let hull = new cv.Mat();
+                    cv.convexHull(cnt, hull);
+                    
+                    let peri = cv.arcLength(hull, true);
+                    let approx = new cv.Mat();
+                    cv.approxPolyDP(hull, approx, 0.02 * peri, true);
+                    
+                    // If it has 4 points, it's a strong candidate
+                    if (approx.rows === 4 && area > maxArea) {
+                        maxArea = area;
+                        bestPoints = [];
+                        for (let j = 0; j < 4; j++) {
+                            bestPoints.push({
+                                x: approx.data32S[j * 2] / scale,
+                                y: approx.data32S[j * 2 + 1] / scale
+                            });
+                        }
+                    }
+                    hull.delete();
+                    approx.delete();
+                }
+            }
+            
+            // Fallback: If no 4-point contour found, try the largest contour's rotated bounding box
+            if (!bestPoints) {
+                let largestArea = 0;
+                let largestIdx = -1;
+                for (let i = 0; i < contours.size(); ++i) {
+                    let area = cv.contourArea(contours.get(i));
+                    if (area > largestArea) {
+                        largestArea = area;
+                        largestIdx = i;
+                    }
+                }
+                
+                if (largestIdx !== -1) {
+                    let rotatedRect = cv.minAreaRect(contours.get(largestIdx));
+                    let vertices = cv.RotatedRect.points(rotatedRect);
+                    bestPoints = [];
+                    for (let i = 0; i < 4; i++) {
+                        bestPoints.push({
+                            x: vertices[i].x / scale,
+                            y: vertices[i].y / scale
+                        });
+                    }
+                }
+            }
+            
+            if (bestPoints) {
+                // Scale points to current canvas size
+                const canvasScaleX = canvas.width / src.cols;
+                const canvasScaleY = canvas.height / src.rows;
+                
+                state.points = sortPoints(bestPoints.map(p => ({
+                    x: p.x * canvasScaleX,
+                    y: p.y * canvasScaleY
+                })));
+                renderCanvas();
+                createHandles();
+            } else {
+                // Final fallback: default rectangle
+                const w = canvas.width;
+                const h = canvas.height;
+                const padding = 50;
+                state.points = [
+                    { x: padding, y: padding },
+                    { x: w - padding, y: padding },
+                    { x: w - padding, y: h - padding },
+                    { x: padding, y: h - padding }
+                ];
+                renderCanvas();
+                createHandles();
+            }
+            
+            // Cleanup
+            src.delete(); small.delete(); gray.delete(); clahe.delete(); enhanced.delete(); 
+            blurred.delete(); edged.delete(); thresh.delete();
+            contours.delete(); hierarchy.delete(); kernel.delete();
+        }
+
+        // --- OPENCV PERSPECTIVE TRANSFORM ---
+
+        function confirmScan() {
+            // 1. Get source points (scaled back to original image size)
+            const img = state.images[state.scanningSide];
+            const scaleX = img.width / canvas.width;
+            const scaleY = img.height / canvas.height;
+            
+            // Sort points: TL, TR, BR, BL
+            const sortedPoints = sortPoints(state.points.map(p => ({
+                x: p.x * scaleX,
+                y: p.y * scaleY
+            })));
+
+            // Save points for re-processing
+            state.scanPoints[state.scanningSide] = sortedPoints;
+
+            processAndSave(state.scanningSide);
+
+            if (state.mode === 'idcard' && state.scanningSide === 'front') {
+                startScanning('back');
+            } else {
+                goToStep(3);
+                updatePrintPreview();
+            }
+        }
+
+        function processAndSave(side) {
+            const img = state.images[side];
+            const sortedPoints = state.scanPoints[side];
+            if (!img || !sortedPoints) return;
+
+            const resultCanvas = document.createElement('canvas');
+            
+            // Set output dimensions based on mode and quality
+            let outWidth, outHeight;
+            const qFactor = state.highQuality ? 2 : 1;
+
+            if (state.mode === 'document') {
+                outWidth = 1240 * qFactor;
+                outHeight = 1754 * qFactor;
+            } else {
+                outWidth = 1012 * qFactor;
+                outHeight = 638 * qFactor;
+            }
+            
+            resultCanvas.width = outWidth;
+            resultCanvas.height = outHeight;
+
+            try {
+                processImage(img, sortedPoints, resultCanvas);
+                state.scanned[side] = resultCanvas.toDataURL('image/jpeg', state.highQuality ? 0.98 : 0.95);
+            } catch (err) {
+                console.error(err);
+                if (state.currentStep !== 3) alert("Error processing image. Please try again.");
+            }
+        }
+
+        async function toggleHighQuality() {
+            state.highQuality = document.getElementById('toggle-quality').checked;
+            
+            // Show loading state
+            const previewArea = document.getElementById('a4-page');
+            previewArea.style.opacity = '0.5';
+            previewArea.style.pointerEvents = 'none';
+
+            // Small delay to allow UI to update
+            await new Promise(r => setTimeout(r, 100));
+
+            // Re-process all scanned sides
+            if (state.scanned.front) processAndSave('front');
+            if (state.scanned.back) processAndSave('back');
+
+            updatePrintPreview();
+            
+            previewArea.style.opacity = '1';
+            previewArea.style.pointerEvents = 'auto';
+        }
+
+        function sortPoints(pts) {
+            // Sort by Y to find top and bottom
+            pts.sort((a, b) => a.y - b.y);
+            const top = pts.slice(0, 2).sort((a, b) => a.x - b.x);
+            const bottom = pts.slice(2, 4).sort((a, b) => a.x - b.x);
+            return [top[0], top[1], bottom[1], bottom[0]]; // TL, TR, BR, BL
+        }
+
+        function processImage(img, srcPts, dstCanvas, isPreview = false) {
+            let src = cv.imread(img);
+            
+            // 1. Handle Rotation
+            if (state.rotation !== 0) {
+                let rotated = new cv.Mat();
+                let center = new cv.Point(src.cols / 2, src.rows / 2);
+                let M = cv.getRotationMatrix2D(center, -state.rotation, 1);
+                
+                // Calculate new bounding box
+                let cos = Math.abs(Math.cos(state.rotation * Math.PI / 180));
+                let sin = Math.abs(Math.sin(state.rotation * Math.PI / 180));
+                let newW = src.cols * cos + src.rows * sin;
+                let newH = src.cols * sin + src.rows * cos;
+                
+                // Adjust rotation matrix to include translation
+                M.data64F[2] += (newW - src.cols) / 2;
+                M.data64F[5] += (newH - src.rows) / 2;
+                
+                cv.warpAffine(src, rotated, M, new cv.Size(newW, newH), cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                src.delete();
+                src = rotated;
+                M.delete();
+            }
+
+            let dst = new cv.Mat();
+            let dsize = new cv.Size(dstCanvas.width, dstCanvas.height);
+            
+            if (!isPreview && srcPts) {
+                // 2. Perspective Transform (Crop)
+                let srcCoords = cv.matFromArray(4, 1, cv.CV_32FC2, [
+                    srcPts[0].x, srcPts[0].y,
+                    srcPts[1].x, srcPts[1].y,
+                    srcPts[2].x, srcPts[2].y,
+                    srcPts[3].x, srcPts[3].y
+                ]);
+                
+                let dstCoords = cv.matFromArray(4, 1, cv.CV_32FC2, [
+                    0, 0,
+                    dstCanvas.width, 0,
+                    dstCanvas.width, dstCanvas.height,
+                    0, dstCanvas.height
+                ]);
+
+                let M = cv.getPerspectiveTransform(srcCoords, dstCoords);
+                cv.warpPerspective(src, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                M.delete();
+                srcCoords.delete();
+                dstCoords.delete();
+            } else {
+                // For preview, just resize to fit canvas
+                cv.resize(src, dst, dsize, 0, 0, cv.INTER_LINEAR);
+            }
+
+            // 3. Apply Brightness & Contrast
+            if (state.brightness !== 0 || state.contrast !== 0) {
+                // alpha = contrast [1.0-3.0], beta = brightness [-100, 100]
+                let alpha = (state.contrast + 100) / 100; 
+                let beta = state.brightness;
+                dst.convertTo(dst, -1, alpha, beta);
+            }
+            
+            // 3.5 Apply Manual Sharpness
+            let finalSharpness = state.sharpness;
+            if (state.highQuality) finalSharpness += 30; // Extra boost for high quality
+
+            if (finalSharpness > 0) {
+                let blurred = new cv.Mat();
+                let sigma = Math.min(5, finalSharpness / 20); // Scale 0-100 to 0-5
+                cv.GaussianBlur(dst, blurred, new cv.Size(0, 0), sigma);
+                let amount = finalSharpness / 50; // Scale 0-100 to 0-2
+                cv.addWeighted(dst, 1 + amount, blurred, -amount, 0, dst);
+                blurred.delete();
+            }
+
+            // 4. Apply Modes
+            if (state.enhancement === 'magic') {
+                // Convert to RGB first for CLAHE
+                let rgb = new cv.Mat();
+                cv.cvtColor(dst, rgb, cv.COLOR_RGBA2RGB);
+                
+                // CLAHE on L channel
+                let lab = new cv.Mat();
+                cv.cvtColor(rgb, lab, cv.COLOR_RGB2Lab);
+                let channels = new cv.MatVector();
+                cv.split(lab, channels);
+                let clahe = new cv.CLAHE(2.0, new cv.Size(8, 8));
+                clahe.apply(channels.get(0), channels.get(0));
+                cv.merge(channels, lab);
+                cv.cvtColor(lab, rgb, cv.COLOR_Lab2RGB);
+                
+                // Sharpening
+                let blurred = new cv.Mat();
+                cv.GaussianBlur(rgb, blurred, new cv.Size(0, 0), 3);
+                cv.addWeighted(rgb, 1.5, blurred, -0.5, 0, rgb);
+                
+                cv.cvtColor(rgb, dst, cv.COLOR_RGB2RGBA);
+                
+                rgb.delete(); lab.delete(); channels.delete(); clahe.delete(); blurred.delete();
+            } else if (state.enhancement === 'clear') {
+                // Aggressive sharpening and contrast for text clarity
+                let rgb = new cv.Mat();
+                cv.cvtColor(dst, rgb, cv.COLOR_RGBA2RGB);
+                
+                // 1. Denoise slightly to avoid amplifying noise
+                let denoised = new cv.Mat();
+                cv.bilateralFilter(rgb, denoised, 5, 75, 75);
+                
+                // 2. Aggressive Sharpening (Unsharp Mask)
+                let blurred = new cv.Mat();
+                cv.GaussianBlur(denoised, blurred, new cv.Size(0, 0), 2);
+                cv.addWeighted(denoised, 2.0, blurred, -1.0, 0, rgb);
+                
+                // 3. Contrast Enhancement (CLAHE)
+                let lab = new cv.Mat();
+                cv.cvtColor(rgb, lab, cv.COLOR_RGB2Lab);
+                let channels = new cv.MatVector();
+                cv.split(lab, channels);
+                let clahe = new cv.CLAHE(3.0, new cv.Size(8, 8));
+                clahe.apply(channels.get(0), channels.get(0));
+                cv.merge(channels, lab);
+                cv.cvtColor(lab, rgb, cv.COLOR_Lab2RGB);
+                
+                cv.cvtColor(rgb, dst, cv.COLOR_RGB2RGBA);
+                
+                rgb.delete(); denoised.delete(); blurred.delete(); lab.delete(); channels.delete(); clahe.delete();
+            } else if (state.enhancement === 'bw') {
+                // High-quality Grayscale with slight smoothing to remove noise
+                cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
+                let ksize = new cv.Size(3, 3);
+                cv.GaussianBlur(dst, dst, ksize, 0, 0, cv.BORDER_DEFAULT);
+                cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA);
+            }
+
+            cv.imshow(dstCanvas, dst);
+
+            // Cleanup
+            src.delete(); dst.delete();
+        }
+
+        // --- STEP 3: PRINT LAYOUT LOGIC ---
+
+        function setLayout(mode) {
+            state.layout = mode;
+            document.querySelectorAll('.layout-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+            const activeBtn = document.getElementById(`layout-${mode}`);
+            activeBtn.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-600', 'shadow-md');
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            updatePrintPreview();
+        }
+
+        function updatePrintPreview() {
+            const container = document.getElementById('print-content');
+            const showBorder = document.getElementById('toggle-border').checked;
+            container.innerHTML = '';
+            
+            // Adjust layout classes
+            const isVertical = state.layout === 'vertical';
+            const isDocument = state.mode === 'document';
+            
+            // Use flex-nowrap for horizontal to force side-by-side preview
+            container.className = `w-full h-full p-4 md:p-10 flex ${isVertical ? 'flex-col' : 'flex-row flex-nowrap'} items-center justify-center gap-4 md:gap-8`;
+
+            const sides = isDocument ? ['front'] : ['front', 'back'];
+
+            sides.forEach(side => {
+                if (state.scanned[side]) {
+                    const img = document.createElement('img');
+                    img.src = state.scanned[side];
+                    
+                    if (isDocument) {
+                        // Document fills more of the page
+                        img.style.width = '85%';
+                        img.style.maxWidth = '500px';
+                    } else {
+                        if (isVertical) {
+                            img.style.width = '70%';
+                            img.style.maxWidth = '320px';
+                        } else {
+                            img.style.width = '45%';
+                            img.style.maxWidth = '260px';
+                        }
+                    }
+                    
+                    img.className = `shadow-md transition-all ${showBorder ? 'border-2 border-slate-400' : 'border-0'}`;
+                    container.appendChild(img);
+                }
+            });
+        }
+
+        // --- OUTPUT FEATURES ---
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = (err) => reject(err);
+                img.src = src;
+            });
+        }
+
+        async function downloadJPG() {
+            if (!state.scanned.front || (state.mode === 'idcard' && !state.scanned.back)) {
+                alert("Please complete scanning first.");
+                return;
+            }
+
+            try {
+                const printCanvas = document.createElement('canvas');
+                const ctx = printCanvas.getContext('2d');
+                
+                // A4 at 300 DPI: 2480 x 3508
+                printCanvas.width = 2480;
+                printCanvas.height = 3508;
+                
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, printCanvas.width, printCanvas.height);
+
+                const showBorder = document.getElementById('toggle-border').checked;
+                const margin = 200;
+                const gap = 150;
+
+                const frontImg = await loadImage(state.scanned.front);
+                ctx.strokeStyle = '#94a3b8'; // slate-400
+                ctx.lineWidth = 4;
+
+                if (state.mode === 'document') {
+                    // Document Layout (Centered and Large)
+                    const docW = 1800; // Large enough for A4
+                    const docH = (docW * frontImg.height) / frontImg.width;
+                    const x = (printCanvas.width - docW) / 2;
+                    const y = (printCanvas.height - docH) / 2;
+                    
+                    ctx.drawImage(frontImg, x, y, docW, docH);
+                    if (showBorder) ctx.strokeRect(x, y, docW, docH);
+                } else {
+                    // ID Card Layout
+                    const cardW = 1012; // 85.6mm at 300 DPI
+                    const cardH = 638;  // 53.98mm at 300 DPI
+                    const backImg = await loadImage(state.scanned.back);
+
+                    if (state.layout === 'vertical') {
+                        let x = (printCanvas.width - cardW) / 2;
+                        let y = margin;
+
+                        ctx.drawImage(frontImg, x, y, cardW, cardH);
+                        if (showBorder) ctx.strokeRect(x, y, cardW, cardH);
+                        
+                        y += cardH + gap;
+                        ctx.drawImage(backImg, x, y, cardW, cardH);
+                        if (showBorder) ctx.strokeRect(x, y, cardW, cardH);
+                    } else {
+                        // Horizontal (Side by Side)
+                        let totalW = (cardW * 2) + gap;
+                        let x = (printCanvas.width - totalW) / 2;
+                        let y = margin;
+
+                        ctx.drawImage(frontImg, x, y, cardW, cardH);
+                        if (showBorder) ctx.strokeRect(x, y, cardW, cardH);
+                        
+                        x += cardW + gap;
+                        ctx.drawImage(backImg, x, y, cardW, cardH);
+                        if (showBorder) ctx.strokeRect(x, y, cardW, cardH);
+                    }
+                }
+
+                const link = document.createElement('a');
+                link.download = `Scanned_${state.mode}.jpg`;
+                link.href = printCanvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+            } catch (error) {
+                console.error("JPG Download Error:", error);
+                alert("Failed to generate JPG. Please try again.");
+            }
+        }
+
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const showBorder = document.getElementById('toggle-border').checked;
+
+            if (state.mode === 'document') {
+                const docW = 170; // mm
+                const img = await loadImage(state.scanned.front);
+                const docH = (docW * img.height) / img.width;
+                const x = (210 - docW) / 2;
+                const y = (297 - docH) / 2;
+                
+                doc.addImage(state.scanned.front, 'JPEG', x, y, docW, docH);
+                if (showBorder) doc.rect(x, y, docW, docH);
+            } else {
+                const cardW = 85.6;
+                const cardH = 53.98;
+                const margin = 20;
+
+                let x = (210 - cardW) / 2;
+                let y = margin;
+
+                if (state.layout === 'vertical') {
+                    doc.addImage(state.scanned.front, 'JPEG', x, y, cardW, cardH);
+                    if (showBorder) doc.rect(x, y, cardW, cardH);
+
+                    y += cardH + 10;
+                    doc.addImage(state.scanned.back, 'JPEG', x, y, cardW, cardH);
+                    if (showBorder) doc.rect(x, y, cardW, cardH);
+                } else {
+                    // Horizontal layout in PDF
+                    x = (210 - (cardW * 2 + 10)) / 2;
+                    y = margin;
+                    
+                    doc.addImage(state.scanned.front, 'JPEG', x, y, cardW, cardH);
+                    if (showBorder) doc.rect(x, y, cardW, cardH);
+
+                    x += cardW + 10;
+                    doc.addImage(state.scanned.back, 'JPEG', x, y, cardW, cardH);
+                    if (showBorder) doc.rect(x, y, cardW, cardH);
+                }
+            }
+
+            doc.save(`Scanned_${state.mode}.pdf`);
+        }
+
+        function triggerPrint() {
+            // Ensure the preview is updated before printing
+            updatePrintPreview();
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        // --- UTILS ---
+
+        function goToStep(step) {
+            Object.values(steps).forEach(s => {
+                s.classList.add('hidden-step');
+                s.classList.remove('active-step');
+            });
+            steps[step].classList.remove('hidden-step');
+            steps[step].classList.add('active-step');
+            state.currentStep = step;
+            
+            // Update Progress Bar
+            const progressLine = document.getElementById('progress-line');
+            const stepDots = [
+                document.getElementById('step-dot-1'),
+                document.getElementById('step-dot-2'),
+                document.getElementById('step-dot-3')
+            ];
+            
+            const progressWidth = ((step - 1) / 2) * 100;
+            progressLine.style.width = `${progressWidth}%`;
+            
+            stepDots.forEach((dot, i) => {
+                if (i + 1 < step) {
+                    dot.classList.remove('bg-white', 'border-slate-200', 'text-slate-400', 'bg-blue-600', 'text-white', 'border-blue-600');
+                    dot.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+                    dot.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+                } else if (i + 1 === step) {
+                    dot.classList.remove('bg-white', 'border-slate-200', 'text-slate-400', 'bg-emerald-500', 'text-white', 'border-emerald-500');
+                    dot.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-lg', 'shadow-blue-200');
+                    dot.innerHTML = i + 1;
+                } else {
+                    dot.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'bg-emerald-500', 'border-emerald-500', 'shadow-lg', 'shadow-blue-200');
+                    dot.classList.add('bg-white', 'border-2', 'border-slate-200', 'text-slate-400');
+                    dot.innerHTML = i + 1;
+                }
+            });
+            if (window.lucide) lucide.createIcons();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+

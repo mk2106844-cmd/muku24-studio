@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Professional Salary Slip Generator | Payslip Maker India - Smart CSC Tools</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free professional salary slip generator for India. Create payslip online with automatic calculations, PF, HRA, TDS. Download PDF, print, or save as image. Trusted by 5000+ HR professionals.">
+  <meta name="keywords" content="salary slip generator free, payslip format India, salary slip maker, online pay slip, monthly salary slip, salary certificate, HR payroll tool, automatic salary calculator, Smart CSC Tools, marital bio data, aadhar card, pan card">
+  <meta name="author" content="Smart CSC Tools">
+  <meta name="robots" content="index, follow">
+  <!-- Tailwind CSS + Font Awesome + html2pdf + html2canvas -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #salarySlipContainer, #salarySlipContainer * {
+        visibility: visible;
+      }
+      #salarySlipContainer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        background: white;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    .transition-all {
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- BACK TO HOME BUTTON (Fixed Position) -->
+  <a href="index.html" 
+     class="fixed top-5 right-5 z-50 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full px-5 py-3 shadow-xl hover:from-indigo-500 hover:to-violet-500 transition-all no-print flex items-center gap-2 font-semibold"
+     style="padding-top: calc(0.75rem + env(safe-area-inset-top));"
+     aria-label="Back to Home">
+    <i class="fas fa-home"></i>
+    <span>Back to Home</span>
+  </a>
+
+  <!-- MAIN CONTAINER -->
+  <div class="max-w-7xl mx-auto px-4 py-6 md:py-8">
+    <!-- Header SEO friendly -->
+    <div class="text-center mb-6 no-print">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">📄 Professional Salary Slip Generator <span class="text-blue-700">(India)</span></h1>
+      <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Create instant payslip with auto-calculations, download PDF or Print. Trusted format for Indian. <strong class="text-green-600">100% Free - No Signup</strong></p>
+      <div class="flex justify-center gap-3 mt-2 text-sm text-gray-500 flex-wrap">
+        <span><i class="fas fa-rupee-sign"></i> Auto Tax & PF</span>
+        <span><i class="fas fa-download ml-2"></i> PDF / Image</span>
+        <span><i class="fas fa-save ml-2"></i> Auto Save</span>
+        <span><i class="fas fa-file-invoice ml-2"></i> HR Payroll Ready</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- LEFT PANEL: FORM INPUT -->
+      <div class="lg:w-2/5 bg-white rounded-2xl shadow-lg p-5 no-print overflow-y-auto" style="max-height: 90vh;">
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+          <h2 class="text-xl font-bold text-gray-700"><i class="fas fa-edit text-blue-600"></i> Employee & Salary Details</h2>
+          <div class="flex gap-2">
+            <button id="resetFormBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-md"><i class="fas fa-undo-alt"></i> Reset</button>
+          </div>
+        </div>
+
+        <!-- Company Logo Upload (Fixed) -->
+        <div class="mb-5 flex items-center gap-4">
+          <div class="w-16 h-16 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50 overflow-hidden" id="logoPreviewBox">
+            <img id="companyLogoImg" class="max-w-full max-h-full hidden object-contain" alt="Company Logo">
+            <i class="fas fa-building text-gray-400 text-2xl" id="logoPlaceholderIcon"></i>
+          </div>
+          <div>
+            <label for="logoUpload" class="bg-gray-100 hover:bg-gray-200 cursor-pointer px-3 py-1.5 rounded-md text-sm font-medium inline-block">
+              <i class="fas fa-upload"></i> Upload Logo
+            </label>
+            <input type="file" id="logoUpload" accept="image/*" class="hidden">
+            <p class="text-xs text-gray-400 mt-1">Optional (PNG/JPG)</p>
+          </div>
+        </div>
+
+        <!-- Employee Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label class="block text-sm font-semibold text-gray-700">Employee Name *</label><input type="text" id="empName" class="w-full border rounded-lg p-2 mt-1 focus:ring-blue-400" placeholder="Rahul Sharma"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Employee ID</label><input type="text" id="empId" class="w-full border rounded-lg p-2 mt-1" placeholder="EMP001"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Company Name</label><input type="text" id="companyName" class="w-full border rounded-lg p-2 mt-1" placeholder="ABC Technologies Pvt. Ltd." value="ABC Technologies Pvt. Ltd."></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Company Address</label><input type="text" id="companyAddr" class="w-full border rounded-lg p-2 mt-1" placeholder="Mumbai, India" value="BKC, Mumbai - 400051"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Designation</label><input type="text" id="designation" class="w-full border rounded-lg p-2 mt-1" placeholder="Software Developer"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Department</label><input type="text" id="department" class="w-full border rounded-lg p-2 mt-1" placeholder="Engineering"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Pay Period (Month/Year)</label><input type="month" id="payPeriod" class="w-full border rounded-lg p-2 mt-1" value="2025-03"></div>
+          <div><label class="block text-sm font-semibold text-gray-700">Date of Joining</label><input type="date" id="doj" class="w-full border rounded-lg p-2 mt-1" value="2022-06-01"></div>
+        </div>
+
+        <h3 class="font-bold text-gray-800 mt-6 mb-2 flex items-center"><i class="fas fa-coins text-green-600 mr-2"></i> Earnings (₹)</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label>Basic Salary</label><input type="number" id="basic" class="w-full border rounded p-2" value="30000" step="500"></div>
+          <div><label>HRA</label><input type="number" id="hra" class="w-full border rounded p-2" value="12000" step="500"></div>
+          <div><label>DA</label><input type="number" id="da" class="w-full border rounded p-2" value="2000" step="500"></div>
+          <div><label>Conveyance</label><input type="number" id="conveyance" class="w-full border rounded p-2" value="1600" step="100"></div>
+          <div><label>Medical Allowance</label><input type="number" id="medical" class="w-full border rounded p-2" value="1250" step="100"></div>
+          <div><label>Bonus</label><input type="number" id="bonus" class="w-full border rounded p-2" value="1000" step="500"></div>
+          <div><label>Other Allowances</label><input type="number" id="otherAllow" class="w-full border rounded p-2" value="0" step="500"></div>
+        </div>
+
+        <h3 class="font-bold text-gray-800 mt-6 mb-2 flex items-center"><i class="fas fa-minus-circle text-red-500 mr-2"></i> Deductions (₹)</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label>PF (Employee)</label><input type="number" id="pf" class="w-full border rounded p-2" value="1800" step="100"></div>
+          <div><label>ESI</label><input type="number" id="esi" class="w-full border rounded p-2" value="0" step="100"></div>
+          <div><label>TDS (Income Tax)</label><input type="number" id="tds" class="w-full border rounded p-2" value="1500" step="500"></div>
+          <div><label>Professional Tax</label><input type="number" id="proTax" class="w-full border rounded p-2" value="200" step="50"></div>
+          <div><label>Other Deductions</label><input type="number" id="otherDed" class="w-full border rounded p-2" value="0" step="500"></div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+          <button id="downloadPDFBtn" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow transition"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          <button id="printBtn" class="bg-gray-700 hover:bg-gray-800 text-white px-5 py-2 rounded-lg shadow transition"><i class="fas fa-print"></i> Print Slip</button>
+          <button id="downloadImageBtn" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow transition"><i class="fas fa-image"></i> Save as Image</button>
+        </div>
+        <p class="text-xs text-gray-400 mt-4 text-center"><i class="fas fa-save"></i> Data auto-saved locally, loads on revisit.</p>
+      </div>
+
+      <!-- RIGHT PANEL: LIVE PREVIEW PAYSLIP -->
+      <div class="lg:w-3/5 bg-gray-50 rounded-2xl p-4 flex justify-center items-start">
+        <div id="salarySlipContainer" class="bg-white w-full max-w-2xl shadow-2xl rounded-xl overflow-hidden">
+          <div id="payslipPreview" class="p-6 md:p-8">
+            <div class="text-center py-10 text-gray-400">Loading preview...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW TO USE SECTION - STEP BY STEP -->
+    <div class="mt-10 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-md no-print">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-info-circle text-blue-600 mr-3"></i> How to Use Salary Slip Generator - Step by Step</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3"><span class="text-blue-600 font-bold text-xl">1</span></div>
+          <h3 class="font-bold text-lg">Fill Employee Details</h3>
+          <p class="text-gray-600 text-sm">Enter Employee Name, ID, Company details, Designation, Department, Pay Period, and Date of Joining. All fields are customizable.</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3"><span class="text-green-600 font-bold text-xl">2</span></div>
+          <h3 class="font-bold text-lg">Add Salary Components</h3>
+          <p class="text-gray-600 text-sm">Fill Earnings (Basic, HRA, DA, Conveyance, Medical, Bonus) and Deductions (PF, ESI, TDS, Professional Tax). Gross and Net auto-calculates instantly.</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3"><span class="text-purple-600 font-bold text-xl">3</span></div>
+          <h3 class="font-bold text-lg">Download or Print</h3>
+          <p class="text-gray-600 text-sm">Click <strong>Download PDF</strong> for A4 payslip, <strong>Print</strong> for physical copy, or <strong>Save as Image</strong> for digital records. Auto-save stores your data.</p>
+        </div>
+      </div>
+      <div class="mt-5 text-sm text-gray-700 bg-white p-3 rounded-lg">
+        <i class="fas fa-star text-yellow-500 mr-1"></i> <strong>Pro Tip:</strong> You can also upload your company logo to personalize the salary slip. The payslip follows Indian payroll format and is accepted for loans, visa, and official verification.
+      </div>
+    </div>
+
+    <!-- FAQ SECTION WITH SCHEMA (RICH SNIPPETS) -->
+    <div class="mt-8 bg-white rounded-2xl p-6 shadow-md no-print">
+      <h2 class="text-2xl font-bold text-gray-800 mb-5 flex items-center"><i class="fas fa-question-circle text-blue-600 mr-3"></i> Frequently Asked Questions (FAQs)</h2>
+      <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> Is this salary slip generator free to use?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">Yes! Our salary slip maker is completely free, no signup required. You can generate unlimited payslips, download PDF, and print without any charges.</p>
+          </div>
+        </div>
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> Does this payslip format work for Indian companies?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">Absolutely! The payslip includes all standard Indian components: Basic, HRA, DA, Conveyance, Medical Allowance, PF, ESI, TDS, Professional Tax. It's suitable for private firms, startups, and even government contract employees.</p>
+          </div>
+        </div>
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> Can I add my company logo and custom details?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">Yes! You can upload your company logo (JPG/PNG) using the upload button. All employee details, earnings, and deductions are fully editable. The live preview updates instantly.</p>
+          </div>
+        </div>
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> How to calculate net salary automatically?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">The tool automatically calculates Gross Salary (sum of all earnings) and Total Deductions (PF+ESI+TDS+Professional Tax+Others). Net Salary = Gross - Deductions. Also shows amount in words for bank/legal purposes.</p>
+          </div>
+        </div>
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> Can I save the salary slip as PDF or image?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">Yes! Use the "Download PDF" button to get an A4-sized payslip ready for printing. You can also use "Save as Image" to store as PNG or click "Print Slip" for direct printing.</p>
+          </div>
+        </div>
+        <div class="border-b pb-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+          <h3 class="font-semibold text-lg text-gray-800" itemprop="name"><i class="fas fa-check-circle text-green-500 mr-2"></i> What is the difference between salary slip and pay slip?</h3>
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p class="text-gray-600 mt-1 ml-6" itemprop="text">Both terms are interchangeable. A salary slip (or payslip) is a document issued by an employer detailing an employee's earnings, deductions, and net salary for a specific period. Our tool generates both.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO CONTENT SECTION (1000+ words) - Enhanced with keywords -->
+    <div class="mt-8 bg-white rounded-2xl p-6 shadow-md no-print">
+      <div class="prose max-w-none">
+        <h2 class="text-2xl font-bold text-gray-800">Salary Slip Format India – Complete Pay Slip Generator for HR & Employees</h2>
+        <p>In India, a professional <strong class="text-blue-700">salary slip generator free</strong> is essential for employees to track earnings, loan approvals, and income proof. Our <strong>payslip format India</strong> helps HR teams, small business owners, and individuals create a legally accepted payslip instantly. This tool follows standard Indian payroll components like Basic, HRA, DA, Conveyance, Medical Allowance, PF, ESI, TDS, and Professional Tax.</p>
+        <p>Whether you need a monthly payslip for a private firm, startup, or for personal records, our <strong>salary slip maker</strong> ensures accuracy with auto-calculated gross salary, total deductions, and net take-home salary. The payslip layout is corporate-grade with company name, address, employee details, and a detailed earnings/deductions table. Trusted by over 5000+ HR professionals and employees across India.</p>
+        
+        <h3>How to Generate Pay Slip Online?</h3>
+        <p>Simply fill employee information, add salary components, and see the live preview on the right. Adjust any allowance or deduction – net pay updates instantly. You can then download as PDF (A4 optimized) or print directly. The tool also saves data locally so you can return later without re-entering details. This <strong>online pay slip</strong> generator also supports company logo upload and amount in words conversion for banking needs.</p>
+        
+        <h3>Key Features for Indian Payroll Compliance</h3>
+        <ul class="list-disc pl-6">
+          <li>Automatic Gross Salary = Sum of all earnings (Basic + HRA + DA + Conveyance + Medical + Bonus + Other Allowances)</li>
+          <li>Total Deductions = PF + ESI + TDS + Professional Tax + Other Deductions</li>
+          <li>Net Salary in words (Indian Rupees conversion) for legal validity</li>
+          <li>Company logo upload to personalize slips</li>
+          <li>Printable format with signature section and authorized signatory</li>
+          <li>Responsive design, mobile friendly - works on smartphone, tablet, desktop</li>
+          <li>Auto-save using LocalStorage — never lose your data</li>
+        </ul>
+        
+        <h3>Why Choose Smart CSC Tools Salary Slip Generator?</h3>
+        <p>As part of <strong>Smart CSC Tools</strong>, we provide multiple utilities including <strong>marital bio data creator, Aadhar card tools, PAN card utilities, and now salary slip generator</strong>. Our platform is designed for Indian users with a focus on simplicity, security, and compliance. No installation, no registration — just open and generate professional payslips instantly.</p>
+        
+        <h3>Important Notes for HR Professionals</h3>
+        <p>This tool can be used to generate salary slips for employees on a monthly basis. The PF, ESI, TDS values can be customized as per company policy. For organizations with more than 20 employees, ESI contribution may apply, and our tool gives flexibility to include those figures. The final payslip PDF can be stored in employee files or shared via email.</p>
+        
+        <p><strong>Keywords integrated:</strong> salary slip generator free, payslip format India, salary slip maker, online pay slip, monthly salary slip, salary certificate, HR payroll tool, automatic salary calculator, salary slip download, salary slip PDF, Smart CSC Tools, marital bio data, aadhar card, pan card, Indian payroll system.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------------------ DOM References ------------------
+    const empName = document.getElementById('empName');
+    const empId = document.getElementById('empId');
+    const companyName = document.getElementById('companyName');
+    const companyAddr = document.getElementById('companyAddr');
+    const designation = document.getElementById('designation');
+    const department = document.getElementById('department');
+    const payPeriod = document.getElementById('payPeriod');
+    const doj = document.getElementById('doj');
+    const basic = document.getElementById('basic');
+    const hra = document.getElementById('hra');
+    const da = document.getElementById('da');
+    const conveyance = document.getElementById('conveyance');
+    const medical = document.getElementById('medical');
+    const bonus = document.getElementById('bonus');
+    const otherAllow = document.getElementById('otherAllow');
+    const pf = document.getElementById('pf');
+    const esi = document.getElementById('esi');
+    const tds = document.getElementById('tds');
+    const proTax = document.getElementById('proTax');
+    const otherDed = document.getElementById('otherDed');
+    const logoUpload = document.getElementById('logoUpload');
+    const companyLogoImg = document.getElementById('companyLogoImg');
+    const logoPlaceholderIcon = document.getElementById('logoPlaceholderIcon');
+    const previewDiv = document.getElementById('payslipPreview');
+
+    // Helper: Number to Indian Rupees Words
+    function numberToWords(num) {
+      if (num === 0) return 'Zero Rupees Only';
+      const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+      const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+      function convertLessThanThousand(n) {
+        if (n === 0) return '';
+        if (n < 20) return ones[n] + ' ';
+        if (n < 100) return tens[Math.floor(n/10)] + (n%10 !== 0 ? ' ' + ones[n%10] : '') + ' ';
+        return ones[Math.floor(n/100)] + ' Hundred ' + (n%100 !== 0 ? convertLessThanThousand(n%100) : '');
+      }
+      let rupees = Math.floor(num);
+      let paise = Math.round((num - rupees) * 100);
+      let word = '';
+      if (rupees >= 10000000) { word += convertLessThanThousand(Math.floor(rupees/10000000)) + 'Crore '; rupees %= 10000000; }
+      if (rupees >= 100000) { word += convertLessThanThousand(Math.floor(rupees/100000)) + 'Lakh '; rupees %= 100000; }
+      if (rupees >= 1000) { word += convertLessThanThousand(Math.floor(rupees/1000)) + 'Thousand '; rupees %= 1000; }
+      if (rupees >= 100) { word += convertLessThanThousand(Math.floor(rupees/100)) + 'Hundred '; rupees %= 100; }
+      if (rupees > 0) { word += convertLessThanThousand(rupees); }
+      word = word.trim();
+      if (paise > 0) {
+        word += ' and ' + (paise < 20 ? ones[paise] : tens[Math.floor(paise/10)] + (paise%10 ? ' ' + ones[paise%10] : '')) + ' Paise';
+      }
+      return word + ' Rupees Only';
+    }
+
+    function computeGrossSalary() {
+      return (parseFloat(basic.value)||0) + (parseFloat(hra.value)||0) + (parseFloat(da.value)||0) + (parseFloat(conveyance.value)||0) + (parseFloat(medical.value)||0) + (parseFloat(bonus.value)||0) + (parseFloat(otherAllow.value)||0);
+    }
+    function computeTotalDeductions() {
+      return (parseFloat(pf.value)||0) + (parseFloat(esi.value)||0) + (parseFloat(tds.value)||0) + (parseFloat(proTax.value)||0) + (parseFloat(otherDed.value)||0);
+    }
+    function computeNetSalary() { return computeGrossSalary() - computeTotalDeductions(); }
+    function formatINR(amount) {
+      return '₹ ' + amount.toLocaleString('en-IN');
+    }
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    function generateEarningsRows() {
+      const gross = computeGrossSalary();
+      return `<tr class="border-b"><td class="py-1">Basic Salary</td><td class="text-right">${formatINR(parseFloat(basic.value)||0)}</td></tr>
+      <tr class="border-b"><td>HRA</td><td class="text-right">${formatINR(parseFloat(hra.value)||0)}</td></tr>
+      <tr class="border-b"><td>DA</td><td class="text-right">${formatINR(parseFloat(da.value)||0)}</td></tr>
+      <tr class="border-b"><td>Conveyance</td><td class="text-right">${formatINR(parseFloat(conveyance.value)||0)}</td></tr>
+      <tr class="border-b"><td>Medical Allowance</td><td class="text-right">${formatINR(parseFloat(medical.value)||0)}</td></tr>
+      <tr class="border-b"><td>Bonus</td><td class="text-right">${formatINR(parseFloat(bonus.value)||0)}</td></tr>
+      <tr class="border-b"><td>Other Allowances</td><td class="text-right">${formatINR(parseFloat(otherAllow.value)||0)}</td></tr>
+      <tr class="bg-gray-100 font-bold"><td>Gross Salary</td><td class="text-right">${formatINR(gross)}</td></tr>`;
+    }
+    function generateDeductionsRows() {
+      const totalDed = computeTotalDeductions();
+      return `<tr class="border-b"><td>Provident Fund (PF)</td><td class="text-right">${formatINR(parseFloat(pf.value)||0)}</td></tr>
+      <tr class="border-b"><td>ESI</td><td class="text-right">${formatINR(parseFloat(esi.value)||0)}</td></tr>
+      <tr class="border-b"><td>TDS (Income Tax)</td><td class="text-right">${formatINR(parseFloat(tds.value)||0)}</td></tr>
+      <tr class="border-b"><td>Professional Tax</td><td class="text-right">${formatINR(parseFloat(proTax.value)||0)}</td></tr>
+      <tr class="border-b"><td>Other Deductions</td><td class="text-right">${formatINR(parseFloat(otherDed.value)||0)}</td></tr>
+      <tr class="bg-gray-100 font-bold"><td>Total Deductions</td><td class="text-right">${formatINR(totalDed)}</td></tr>`;
+    }
+
+    function renderPayslip() {
+      const gross = computeGrossSalary();
+      const totalDed = computeTotalDeductions();
+      const net = computeNetSalary();
+      const wordsNet = numberToWords(net);
+      let logoHTML = '';
+      if (companyLogoImg.src && companyLogoImg.style.display !== 'none' && companyLogoImg.src !== '') {
+        logoHTML = `<img src="https://smartcsctools.org/${companyLogoImg.src}" class="h-12 object-contain" alt="Company Logo">`;
+      } else {
+        logoHTML = `<div class="text-2xl font-bold text-gray-500"><i class="fas fa-building"></i></div>`;
+      }
+      const html = `
+        <div class="font-sans">
+          <div class="flex justify-between items-start border-b-2 border-gray-300 pb-4 mb-4">
+            <div>${logoHTML}<div class="mt-2"><h1 class="text-2xl font-extrabold text-gray-800">${escapeHtml(companyName.value) || 'COMPANY NAME'}</h1><p class="text-sm text-gray-500">${escapeHtml(companyAddr.value) || 'Registered Address'}</p></div></div>
+            <div class="text-right"><div class="text-2xl font-bold text-blue-800">SALARY SLIP</div><div class="text-sm text-gray-600">Period: ${escapeHtml(payPeriod.value)}</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg mb-5 text-sm">
+            <div><span class="font-semibold">Employee Name:</span> ${escapeHtml(empName.value) || '—'}</div>
+            <div><span class="font-semibold">Employee ID:</span> ${escapeHtml(empId.value) || '—'}</div>
+            <div><span class="font-semibold">Designation:</span> ${escapeHtml(designation.value) || '—'}</div>
+            <div><span class="font-semibold">Department:</span> ${escapeHtml(department.value) || '—'}</div>
+            <div><span class="font-semibold">Date of Joining:</span> ${escapeHtml(doj.value) || '—'}</div>
+            <div><span class="font-semibold">Pay Month:</span> ${escapeHtml(payPeriod.value)}</div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 mb-5">
+            <div><h3 class="font-bold text-gray-700 border-b-2 border-green-300 mb-2">EARNINGS (₹)</h3><table class="w-full text-sm">${generateEarningsRows()}</table></div>
+            <div><h3 class="font-bold text-gray-700 border-b-2 border-red-300 mb-2">DEDUCTIONS (₹)</h3><table class="w-full text-sm">${generateDeductionsRows()}</table></div>
+          </div>
+          <div class="bg-blue-50 p-4 rounded-lg flex flex-wrap justify-between items-center mt-2">
+            <div><span class="font-bold text-gray-700">NET SALARY (Take Home)</span><br><span class="text-xs text-gray-500">Amount in Words: ${wordsNet}</span></div>
+            <div class="text-3xl font-extrabold text-blue-800">${formatINR(net)}</div>
+          </div>
+          <div class="flex justify-between mt-8 pt-4 border-t border-gray-300 text-sm text-gray-600">
+            <div><span class="font-semibold">Employee Signature:</span> __________________</div>
+            <div><span class="font-semibold">Authorized Signatory:</span> __________________<br><span class="text-xs">(For ${escapeHtml(companyName.value)})</span></div>
+          </div>
+          <div class="text-center text-xs text-gray-400 mt-6">This is a computer-generated salary slip, valid for official use. Generated on ${new Date().toLocaleDateString()} | Smart CSC Tools</div>
+        </div>`;
+      previewDiv.innerHTML = html;
+    }
+
+    function saveToLocalStorage() {
+      const formData = { 
+        empName: empName.value, empId: empId.value, companyName: companyName.value, companyAddr: companyAddr.value, 
+        designation: designation.value, department: department.value, payPeriod: payPeriod.value, doj: doj.value, 
+        basic: basic.value, hra: hra.value, da: da.value, conveyance: conveyance.value, medical: medical.value, 
+        bonus: bonus.value, otherAllow: otherAllow.value, pf: pf.value, esi: esi.value, tds: tds.value, 
+        proTax: proTax.value, otherDed: otherDed.value, logoData: companyLogoImg.src || '' 
+      };
+      localStorage.setItem('salarySlipData', JSON.stringify(formData));
+    }
+    
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem('salarySlipData');
+      if (saved) {
+        try {
+          const d = JSON.parse(saved);
+          empName.value = d.empName || ''; empId.value = d.empId || ''; companyName.value = d.companyName || 'ABC Technologies Pvt. Ltd.'; 
+          companyAddr.value = d.companyAddr || 'BKC, Mumbai - 400051'; designation.value = d.designation || ''; department.value = d.department || ''; 
+          payPeriod.value = d.payPeriod || '2025-03'; doj.value = d.doj || '2022-06-01'; basic.value = d.basic || 30000; hra.value = d.hra || 12000; 
+          da.value = d.da || 2000; conveyance.value = d.conveyance || 1600; medical.value = d.medical || 1250; bonus.value = d.bonus || 1000; 
+          otherAllow.value = d.otherAllow || 0; pf.value = d.pf || 1800; esi.value = d.esi || 0; tds.value = d.tds || 1500; proTax.value = d.proTax || 200; 
+          otherDed.value = d.otherDed || 0;
+          if (d.logoData && d.logoData !== '') { 
+            companyLogoImg.src = d.logoData; 
+            companyLogoImg.style.display = 'block'; 
+            logoPlaceholderIcon.style.display = 'none'; 
+          } else { 
+            companyLogoImg.style.display = 'none'; 
+            logoPlaceholderIcon.style.display = 'flex'; 
+          }
+        } catch(e) { console.log(e); }
+      }
+      renderPayslip();
+    }
+    
+    function resetForm() {
+      empName.value = ''; empId.value = ''; companyName.value = 'ABC Technologies Pvt. Ltd.'; companyAddr.value = 'BKC, Mumbai - 400051';
+      designation.value = ''; department.value = ''; payPeriod.value = '2025-03'; doj.value = '2022-06-01';
+      basic.value = '30000'; hra.value = '12000'; da.value = '2000'; conveyance.value = '1600'; medical.value = '1250';
+      bonus.value = '1000'; otherAllow.value = '0'; pf.value = '1800'; esi.value = '0'; tds.value = '1500';
+      proTax.value = '200'; otherDed.value = '0';
+      companyLogoImg.src = ''; companyLogoImg.style.display = 'none'; logoPlaceholderIcon.style.display = 'flex';
+      renderPayslip(); saveToLocalStorage();
+    }
+    
+    function downloadPDF() { 
+      const element = document.getElementById('salarySlipContainer'); 
+      html2pdf().set({ margin: [0.5,0.5,0.5,0.5], filename: `SalarySlip_${empName.value || 'Employee'}_${payPeriod.value}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).from(element).save(); 
+    }
+    
+    function printSlip() { window.print(); }
+    
+    async function downloadImage() { 
+      const node = document.getElementById('salarySlipContainer'); 
+      const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' }); 
+      const link = document.createElement('a'); 
+      link.download = `payslip_${empName.value || 'slip'}.png`; 
+      link.href = canvas.toDataURL(); 
+      link.click(); 
+    }
+
+    // FIXED: Logo upload event listener
+    function setupLogoUpload() {
+      const logoInput = document.getElementById('logoUpload');
+      const logoImg = document.getElementById('companyLogoImg');
+      const placeholderIcon = document.getElementById('logoPlaceholderIcon');
+      
+      logoInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+          const file = e.target.files[0];
+          // Validate file type
+          if (!file.type.match('image.*')) {
+            alert('Please upload an image file (JPG, PNG, GIF)');
+            return;
+          }
+          // Validate file size (max 2MB)
+          if (file.size > 2 * 1024 * 1024) {
+            alert('File size should be less than 2MB');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            logoImg.src = ev.target.result;
+            logoImg.style.display = 'block';
+            placeholderIcon.style.display = 'none';
+            renderPayslip();
+            saveToLocalStorage();
+          };
+          reader.onerror = function() {
+            alert('Error reading file');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    function attachEvents() {
+      document.querySelectorAll('input, select').forEach(inp => inp.addEventListener('input', () => { renderPayslip(); saveToLocalStorage(); }));
+      document.getElementById('resetFormBtn').addEventListener('click', resetForm);
+      document.getElementById('downloadPDFBtn').addEventListener('click', downloadPDF);
+      document.getElementById('printBtn').addEventListener('click', printSlip);
+      document.getElementById('downloadImageBtn').addEventListener('click', downloadImage);
+      setupLogoUpload();
+    }
+    
+    loadFromLocalStorage();
+    attachEvents();
+  </script>
+</body>
+</html>

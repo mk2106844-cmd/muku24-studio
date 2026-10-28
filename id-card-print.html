@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
+    <!-- SEO Meta Tags -->
+    <title>Govt ID Card Print Tool - ID Card Front & Back Print on A4 & 4x6 Paper | Smart CSC Tools</title>
+    <meta name="description" content="Govt ID card preview tool for CSC VLE operators. Upload front & back images, auto-size detection, position control, print multiple cards on A4/Letter/4×6 paper with exact 85.6×54mm size.">
+    <meta name="keywords" content="Govt ID card preview, CSC VLE, front back viewer, print layout, A4 print, letter print, 4x6 print, photo paper, ID card tool">
+    <meta name="author" content="CSC VLE Portal">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Govt ID Card Print Tool">
+    <meta property="og:description" content="Govt ID card preview and printing tool with 4×6 photo paper support">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- html2canvas for image export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- jspdf for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- EXIF.js for image orientation detection -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+    
+    <style>
+        /*=========== CUSTOM STYLES ===========*/
+        
+        /* ID Card Container */
+        .id-card-container {
+            aspect-ratio: var(--aspect-ratio, 1 / 1.6);
+            width: 100%;
+            max-width: 320px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .id-card-container.landscape {
+            aspect-ratio: 1.6 / 1;
+            max-width: 400px;
+        }
+        
+        .id-card-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.05s ease;
+            position: relative;
+        }
+        
+        /* Sticky Preview Section */
+        .sticky-preview {
+            position: sticky;
+            top: 20px;
+            z-index: 10;
+        }
+        
+        /*=========== PRINT LAYOUT STYLES ===========*/
+        .print-layout-container {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #94a3b8;
+            position: relative;
+            min-height: 500px;
+        }
+        
+        .print-grid {
+            display: grid;
+            gap: 5mm;
+            padding: 10mm;
+            background: white;
+            border-radius: 8px;
+            min-height: auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* FIXED: Cards align to top */
+        .print-grid.align-top {
+            align-content: start;
+        }
+        
+        .print-card {
+            aspect-ratio: 85.6 / 54;
+            width: 100%;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .print-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .print-card-number {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: rgba(37, 99, 235, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 5;
+        }
+        
+        .print-placeholder {
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 12px;
+            border: 2px dashed #cbd5e1;
+        }
+        
+        .paper-size-indicator {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #2563eb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            z-index: 10;
+        }
+        
+        /*=========== 4x6 PHOTO PAPER LAYOUT ===========*/
+        .photo-paper-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 5mm;
+            padding: 5mm;
+            background: white;
+            border-radius: 8px;
+            min-height: 152mm;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .photo-paper-card {
+            aspect-ratio: 85.6 / 54;
+            width: 100%;
+            max-width: 130mm;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .photo-paper-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .photo-paper-label {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 5;
+        }
+        
+        /*=========== PRINT MEDIA QUERIES ===========*/
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0 !important;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .print-only {
+                display: block !important;
+            }
+            
+            .print-grid, .photo-paper-layout {
+                box-shadow: none;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .print-card, .photo-paper-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .print-card-number, .photo-paper-label {
+                display: none;
+            }
+        }
+        
+        /*=========== POSITION OVERLAY ===========*/
+        .position-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border: 2px dashed rgba(37, 99, 235, 0.5);
+            z-index: 5;
+            display: none;
+        }
+        
+        .id-card-container:hover .position-overlay {
+            display: block;
+        }
+        
+        .position-indicator {
+            position: absolute;
+            background: rgba(37, 99, 235, 0.2);
+            z-index: 4;
+            pointer-events: none;
+        }
+        
+        .indicator-horizontal {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2563eb, transparent);
+        }
+        
+        .indicator-vertical {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #2563eb, transparent);
+        }
+        
+        /*=========== UPLOAD PLACEHOLDER ===========*/
+        .upload-placeholder {
+            aspect-ratio: var(--aspect-ratio, 1 / 1.6);
+            width: 100%;
+            max-width: 320px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px dashed #9ca3af;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-placeholder.landscape {
+            aspect-ratio: 1.6 / 1;
+            max-width: 400px;
+        }
+        
+        .upload-placeholder:hover {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+        
+        .upload-placeholder i {
+            font-size: 3rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-placeholder:hover i {
+            color: #2563eb;
+        }
+        
+        /*=========== BUTTON STYLES ===========*/
+        .tool-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+        }
+        
+        .tool-btn:hover {
+            background: #f3f4f6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-btn:active {
+            transform: translateY(0);
+        }
+        
+        .tool-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        .tool-btn.active:hover {
+            background: #1d4ed8;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+        
+        .print-layout-btn {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            border: none;
+        }
+        
+        .print-layout-btn:hover {
+            background: linear-gradient(135deg, #047857, #065f46);
+        }
+        
+        .photo-paper-btn {
+            background: linear-gradient(135deg, #9333ea, #7e22ce);
+            color: white;
+            border: none;
+        }
+        
+        .photo-paper-btn:hover {
+            background: linear-gradient(135deg, #7e22ce, #6b21a8);
+        }
+        
+        /*=========== POSITION CONTROLS ===========*/
+        .pos-control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+            color: #4b5563;
+        }
+        
+        .pos-control-btn:hover {
+            background: #f3f4f6;
+            transform: scale(1.05);
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+        
+        .pos-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .pos-control-panel {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .pos-value {
+            background: white;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+        }
+        
+        .position-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        /*=========== RESPONSIVE ===========*/
+        @media (max-width: 768px) {
+            .id-card-container, .id-card-container.landscape {
+                max-width: 280px;
+            }
+            .upload-placeholder, .upload-placeholder.landscape {
+                max-width: 280px;
+            }
+        }
+        
+        /*=========== LOADING SPINNER ===========*/
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /*=========== TOAST NOTIFICATION ===========*/
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /*=========== DIMENSION OVERLAY ===========*/
+        .dimension-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            z-index: 10;
+        }
+        
+        /*=========== COLOR PICKER ===========*/
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .color-picker:hover {
+            transform: scale(1.1);
+        }
+        
+        /*=========== CUSTOM SLIDER ===========*/
+        .custom-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #2563eb, #9333ea);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        /*=========== PRINT CONTROL PANEL ===========*/
+        .print-control-panel {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+        }
+        
+        .paper-size-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid #cbd5e1;
+            background: white;
+        }
+        
+        .paper-size-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        /*=========== HOME BUTTON ===========*/
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+    
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn no-print">
+        <i class="fas fa-home"></i>
+        <span>Back to Home</span>
+    </a>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-6 md:py-8">
+        
+        <!-- Header with Website Name -->
+        <header class="text-center mb-8">
+            <div class="inline-block bg-white px-6 py-2 rounded-full shadow-md mb-4">
+                <span class="text-sm font-semibold text-blue-600">Smart CSC Tools</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3">
+                <i class="fas fa-id-card mr-3"></i>ID Card Print Tool
+            </h1>
+            <p class="text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
+                Upload front & back images | Auto-size detection | Position control | Print on A4/4×6 Photo Paper
+            </p>
+            
+            <!-- Breadcrumb -->
+            
+        </header>
+        
+        <!-- Mode Selection & Global Controls -->
+        <div class="bg-white rounded-xl shadow-lg p-5 mb-6 no-print">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <!-- Orientation Toggle -->
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-medium text-gray-600">Card Orientation:</span>
+                    <div class="flex rounded-lg overflow-hidden border border-gray-200">
+                        <button id="portrait-mode" onclick="setOrientation('portrait')" class="px-4 py-2 text-sm font-medium bg-blue-600 text-white">
+                            <i class="fas fa-arrows-alt-v mr-2"></i>Portrait
+                        </button>
+                        <button id="landscape-mode" onclick="setOrientation('landscape')" class="px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50">
+                            <i class="fas fa-arrows-alt-h mr-2"></i>Landscape
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Global Settings -->
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm font-medium text-gray-600">BG Color:</label>
+                        <input type="color" id="bg-color" value="#ffffff" class="color-picker" onchange="changeBackgroundColor(this.value)">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm font-medium text-gray-600">Border:</label>
+                        <input type="range" id="border-radius" min="0" max="32" value="16" class="custom-slider w-24" onchange="changeBorderRadius(this.value)">
+                        <span id="radius-value" class="text-xs text-gray-500">16px</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Auto Size Detection Info -->
+            <div id="size-info" class="mt-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-700 hidden">
+                <i class="fas fa-ruler mr-2"></i>
+                <span id="size-message">Auto-detecting card dimensions...</span>
+            </div>
+        </div>
+        
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left Side - Upload & Controls -->
+            <div class="lg:col-span-4 space-y-6">
+                
+                <!-- Upload Section -->
+                <div class="bg-white rounded-xl shadow-lg p-5 no-print">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center text-gray-700">
+                        <i class="fas fa-cloud-upload-alt text-blue-500 mr-2"></i>
+                        Upload ID Cards
+                    </h2>
+                    
+                    <!-- Front ID Upload -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">
+                            <i class="fas fa-id-card mr-1 text-blue-500"></i>Front Side
+                        </label>
+                        <div class="flex flex-col items-center relative">
+                            <div id="front-placeholder" class="upload-placeholder" onclick="document.getElementById('front-upload').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span class="text-sm text-gray-600">Click to upload front ID</span>
+                                <span class="text-xs text-gray-400 mt-1">JPG, PNG (Max 5MB)</span>
+                            </div>
+                            <input type="file" id="front-upload" accept="image/jpeg,image/png" class="hidden">
+                            
+                            <!-- Front Preview Container (hidden initially) -->
+                            <div id="front-preview-container" class="hidden w-full flex flex-col items-center relative">
+                                <div class="id-card-container border-2 border-blue-200">
+                                    <img id="front-preview" src="id-card-print.html" alt="Front ID Preview" class="w-full h-full object-contain">
+                                    <div id="front-dimensions" class="dimension-overlay hidden"></div>
+                                </div>
+                                <div class="flex gap-2 mt-3">
+                                    <button onclick="replaceImage('front')" class="tool-btn text-sm py-1.5">
+                                        <i class="fas fa-sync-alt"></i> Replace
+                                    </button>
+                                    <button onclick="removeImage('front')" class="tool-btn text-sm py-1.5 text-red-600 hover:bg-red-50">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Back ID Upload -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">
+                            <i class="fas fa-id-card mr-1 text-indigo-500"></i>Back Side
+                        </label>
+                        <div class="flex flex-col items-center relative">
+                            <div id="back-placeholder" class="upload-placeholder" onclick="document.getElementById('back-upload').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span class="text-sm text-gray-600">Click to upload back ID</span>
+                                <span class="text-xs text-gray-400 mt-1">JPG, PNG (Max 5MB)</span>
+                            </div>
+                            <input type="file" id="back-upload" accept="image/jpeg,image/png" class="hidden">
+                            
+                            <!-- Back Preview Container (hidden initially) -->
+                            <div id="back-preview-container" class="hidden w-full flex flex-col items-center relative">
+                                <div class="id-card-container border-2 border-indigo-200">
+                                    <img id="back-preview" src="id-card-print.html" alt="Back ID Preview" class="w-full h-full object-contain">
+                                    <div id="back-dimensions" class="dimension-overlay hidden"></div>
+                                </div>
+                                <div class="flex gap-2 mt-3">
+                                    <button onclick="replaceImage('back')" class="tool-btn text-sm py-1.5">
+                                        <i class="fas fa-sync-alt"></i> Replace
+                                    </button>
+                                    <button onclick="removeImage('back')" class="tool-btn text-sm py-1.5 text-red-600 hover:bg-red-50">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Tools Section -->
+                <div class="bg-white rounded-xl shadow-lg p-5 no-print">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center text-gray-700">
+                        <i class="fas fa-tools text-indigo-500 mr-2"></i>
+                        Image Tools
+                    </h2>
+                    
+                    <!-- Select which side to edit -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Edit Side</label>
+                        <div class="flex gap-2">
+                            <button id="select-front" onclick="selectSide('front')" class="flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-blue-200 bg-blue-50 text-blue-700">
+                                <i class="fas fa-id-card mr-1"></i>Front
+                            </button>
+                            <button id="select-back" onclick="selectSide('back')" class="flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-gray-200 hover:bg-indigo-50">
+                                <i class="fas fa-id-card mr-1"></i>Back
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Side Indicator with Position Display -->
+                    <div class="mb-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Currently editing:</span>
+                            <span id="active-side" class="font-semibold text-blue-600 ml-1">Front</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-sm text-gray-600">Position:</span>
+                            <span id="position-display" class="pos-value">X:0 Y:0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Position Control Panel -->
+                    <div class="pos-control-panel">
+                        <h3 class="text-sm font-semibold mb-3 flex items-center">
+                            <i class="fas fa-arrows-alt text-blue-500 mr-2"></i>
+                            Position Control (Move Image)
+                        </h3>
+                        
+                        <!-- Position Grid Controls -->
+                        <div class="position-grid">
+                            <div></div>
+                            <button onclick="moveImage('up')" class="pos-control-btn" title="Move Up">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                            <div></div>
+                            
+                            <button onclick="moveImage('left')" class="pos-control-btn" title="Move Left">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button onclick="moveImage('center')" class="pos-control-btn bg-blue-50 text-blue-600 border-blue-200" title="Center Image">
+                                <i class="fas fa-crosshairs"></i>
+                            </button>
+                            <button onclick="moveImage('right')" class="pos-control-btn" title="Move Right">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            
+                            <div></div>
+                            <button onclick="moveImage('down')" class="pos-control-btn" title="Move Down">
+                                <i class="fas fa-arrow-down"></i>
+                            </button>
+                            <div></div>
+                        </div>
+                        
+                        <!-- Fine adjustment sliders with 1px step -->
+                        <div class="mt-4 space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>Horizontal Position</span>
+                                    <span id="x-value" class="font-mono">0px</span>
+                                </div>
+                                <input type="range" id="x-slider" min="-100" max="100" value="0" step="1" class="custom-slider" oninput="updatePositionFromSlider('x', this.value)">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>Vertical Position</span>
+                                    <span id="y-value" class="font-mono">0px</span>
+                                </div>
+                                <input type="range" id="y-slider" min="-100" max="100" value="0" step="1" class="custom-slider" oninput="updatePositionFromSlider('y', this.value)">
+                            </div>
+                        </div>
+                        
+                        <!-- Step size control with 1px option -->
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-xs text-gray-500">Move step:</span>
+                            <div class="flex gap-1">
+                                <button onclick="setMoveStep(1)" class="px-2 py-1 text-xs rounded border step-btn bg-blue-50 border-blue-300" data-step="1">1px</button>
+                                <button onclick="setMoveStep(5)" class="px-2 py-1 text-xs rounded border step-btn" data-step="5">5px</button>
+                                <button onclick="setMoveStep(10)" class="px-2 py-1 text-xs rounded border step-btn" data-step="10">10px</button>
+                                <button onclick="setMoveStep(20)" class="px-2 py-1 text-xs rounded border step-btn" data-step="20">20px</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transformation Tools Grid -->
+                    <div class="grid grid-cols-3 gap-2 mt-4 mb-4">
+                        <button onclick="applyTransform('zoom-in')" class="tool-btn justify-center" title="Zoom In">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button onclick="applyTransform('zoom-out')" class="tool-btn justify-center" title="Zoom Out">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button onclick="applyTransform('rotate')" class="tool-btn justify-center" title="Rotate 90°">
+                            <i class="fas fa-redo-alt"></i>
+                        </button>
+                        <button onclick="applyTransform('flip-h')" class="tool-btn justify-center" title="Flip Horizontal">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </button>
+                        <button onclick="applyTransform('flip-v')" class="tool-btn justify-center" title="Flip Vertical">
+                            <i class="fas fa-arrows-alt-v"></i>
+                        </button>
+                        <button onclick="applyTransform('remove-bg')" class="tool-btn justify-center" title="Remove Background">
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Advanced Tools -->
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="applyTransform('brightness-up')" class="tool-btn justify-center text-xs">
+                            <i class="fas fa-sun mr-1"></i>Brightness +
+                        </button>
+                        <button onclick="applyTransform('brightness-down')" class="tool-btn justify-center text-xs">
+                            <i class="fas fa-moon mr-1"></i>Brightness -
+                        </button>
+                        <button onclick="applyTransform('contrast-up')" class="tool-btn justify-center text-xs">
+                            <i class="fas fa-adjust mr-1"></i>Contrast +
+                        </button>
+                        <button onclick="applyTransform('contrast-down')" class="tool-btn justify-center text-xs">
+                            <i class="fas fa-circle mr-1"></i>Contrast -
+                        </button>
+                    </div>
+                    
+                    <!-- Reset Buttons -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="resetTransform()" class="tool-btn justify-center bg-gray-100 hover:bg-gray-200">
+                            <i class="fas fa-undo-alt mr-2"></i>Reset All
+                        </button>
+                        <button onclick="resetPosition()" class="tool-btn justify-center bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100">
+                            <i class="fas fa-arrows-alt mr-2"></i>Reset Position
+                        </button>
+                    </div>
+                    
+                    <!-- Auto-fit to container -->
+                    <button onclick="autoFitImage()" class="w-full tool-btn justify-center bg-green-50 text-green-700 border-green-200 hover:bg-green-100 mt-2">
+                        <i class="fas fa-expand mr-2"></i>Auto-Fit to Container
+                    </button>
+                </div>
+                
+                <!-- Print Layout Section -->
+                <div class="bg-white rounded-xl shadow-lg p-5 print-control-panel no-print">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center text-gray-700">
+                        <i class="fas fa-print text-green-600 mr-2"></i>
+                        Print Layout Settings
+                    </h2>
+                    
+                    <!-- Paper Size Selection -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Paper Size</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button id="paper-a4" onclick="setPaperSize('a4')" class="paper-size-btn active flex-1 text-center">
+                                <i class="fas fa-file mr-1"></i>A4
+                            </button>
+                            <button id="paper-letter" onclick="setPaperSize('letter')" class="paper-size-btn flex-1 text-center">
+                                <i class="fas fa-file mr-1"></i>Letter
+                            </button>
+                            <button id="paper-4x6" onclick="setPaperSize('4x6')" class="paper-size-btn flex-1 text-center">
+                                <i class="fas fa-image mr-1"></i>4×6 Photo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Print Side Selection -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Cards to Print</label>
+                        <div class="flex gap-3">
+                            <label class="flex items-center">
+                                <input type="radio" name="print-side" value="front" class="mr-2" onchange="printSide='front'">
+                                <span>Front Only</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="print-side" value="back" class="mr-2" onchange="printSide='back'">
+                                <span>Back Only</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="print-side" value="both" class="mr-2" checked onchange="printSide='both'">
+                                <span>Both</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Number of Cards -->
+                    <div class="mb-4" id="card-count-container">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">
+                            <i class="fas fa-calculator mr-1"></i>Number of ID Cards
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <input type="number" id="card-count" min="1" max="20" value="1" class="w-20 p-2 border rounded-lg text-center" onchange="updateCardCount(this.value)">
+                            <span class="text-sm text-gray-500">cards</span>
+                        </div>
+                        <p class="text-xs text-blue-600 mt-1" id="card-count-hint">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Each card shows both sides side-by-side | Cards stack vertically from top
+                        </p>
+                    </div>
+                    
+                    <!-- Spacing Options -->
+                    <div id="spacing-options">
+                        <div class="mb-4 grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-gray-500">Horizontal Gap (mm)</label>
+                                <input type="number" id="h-gap" value="5" min="0" max="20" class="w-full p-2 border rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500">Vertical Gap (mm)</label>
+                                <input type="number" id="v-gap" value="5" min="0" max="20" class="w-full p-2 border rounded-lg text-sm">
+                            </div>
+                        </div>
+                        
+                        <!-- Margin Options -->
+                        <div class="mb-4 grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs text-gray-500">Top/Bottom Margin (mm)</label>
+                                <input type="number" id="margin-v" value="10" min="0" max="30" class="w-full p-2 border rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500">Left/Right Margin (mm)</label>
+                                <input type="number" id="margin-h" value="10" min="0" max="30" class="w-full p-2 border rounded-lg text-sm">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 4x6 specific info -->
+                    <div id="photo-paper-info" class="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg text-sm hidden">
+                        <div class="flex items-start gap-2">
+                            <i class="fas fa-image text-purple-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-purple-800">4×6 Photo Paper Mode:</p>
+                                <p class="text-xs text-purple-600">Front side on top, Back side on bottom - Perfect for ID cards</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <button onclick="showPrintPreview()" class="tool-btn justify-center bg-blue-50 text-blue-600 border-blue-200">
+                            <i class="fas fa-eye mr-2"></i>Preview Layout
+                        </button>
+                        <button onclick="printLayout()" class="print-layout-btn py-2 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-print mr-2"></i>Print Now
+                        </button>
+                    </div>
+                    
+                    <!-- Download Print PDF -->
+                    <button onclick="downloadPrintPDF()" class="w-full mt-3 download-btn py-2 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-pdf mr-2"></i>Download Print PDF
+                    </button>
+                </div>
+                
+                <!-- Custom Size Input (hidden by default) -->
+                <div id="custom-size-panel" class="bg-white rounded-xl shadow-lg p-5 hidden no-print">
+                    <h3 class="font-medium mb-3">Custom Size (mm)</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs text-gray-500">Width</label>
+                            <input type="number" id="custom-width" value="85.6" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Height</label>
+                            <input type="number" id="custom-height" value="54" class="w-full p-2 border rounded-lg">
+                        </div>
+                    </div>
+                    <button onclick="applyCustomSize()" class="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                        Apply to Preview
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right Side - Live Preview - STICKY -->
+            <div class="lg:col-span-8">
+                <div class="sticky-preview">
+                    <!-- Tabs for Normal Preview and Print Layout -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="flex border-b no-print">
+                            <button id="tab-normal" onclick="switchTab('normal')" class="flex-1 py-3 px-4 text-center font-medium bg-blue-600 text-white">
+                                <i class="fas fa-eye mr-2"></i>Normal Preview
+                            </button>
+                            <button id="tab-print" onclick="switchTab('print')" class="flex-1 py-3 px-4 text-center font-medium bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                <i class="fas fa-print mr-2"></i>Print Layout
+                            </button>
+                        </div>
+                        
+                        <!-- Normal Preview Tab -->
+                        <div id="normal-preview" class="p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-lg font-semibold flex items-center text-gray-700">
+                                    <i class="fas fa-eye text-purple-500 mr-2"></i>
+                                    Live Preview
+                                </h2>
+                                <div class="flex gap-2 no-print">
+                                    <span id="current-orientation" class="text-xs bg-gray-100 px-3 py-1 rounded-full">Portrait Mode</span>
+                                    <span id="card-size-display" class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">85.6 × 54 mm</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Side-by-side Preview -->
+                            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
+                                
+                                <!-- Front Preview -->
+                                <div class="flex flex-col items-center w-full md:w-1/2">
+                                    <div class="flex items-center mb-3">
+                                        <i class="fas fa-id-card text-blue-500 mr-2"></i>
+                                        <span class="font-medium text-gray-700">Front Side</span>
+                                    </div>
+                                    <div id="front-live-preview" class="id-card-container border-2 border-blue-200 relative">
+                                        <img id="front-live-img" src="id-card-print.html" alt="Front ID Live Preview" class="w-full h-full object-contain" style="transition: transform 0.05s ease;">
+                                        <div class="position-overlay"></div>
+                                        <div class="position-indicator indicator-horizontal"></div>
+                                        <div class="position-indicator indicator-vertical"></div>
+                                    </div>
+                                    <div id="front-no-image" class="upload-placeholder mt-0 cursor-default" style="display: flex;">
+                                        <i class="fas fa-id-card text-gray-300"></i>
+                                        <span class="text-sm text-gray-400">No image uploaded</span>
+                                    </div>
+                                    
+                                    <!-- Front Size Info -->
+                                    <div id="front-size-info" class="mt-2 text-xs text-gray-400 hidden">
+                                        Detected: <span id="front-dimensions-text"></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Back Preview -->
+                                <div class="flex flex-col items-center w-full md:w-1/2">
+                                    <div class="flex items-center mb-3">
+                                        <i class="fas fa-id-card text-indigo-500 mr-2"></i>
+                                        <span class="font-medium text-gray-700">Back Side</span>
+                                    </div>
+                                    <div id="back-live-preview" class="id-card-container border-2 border-indigo-200 relative">
+                                        <img id="back-live-img" src="id-card-print.html" alt="Back ID Live Preview" class="w-full h-full object-contain" style="transition: transform 0.05s ease;">
+                                        <div class="position-overlay"></div>
+                                        <div class="position-indicator indicator-horizontal"></div>
+                                        <div class="position-indicator indicator-vertical"></div>
+                                    </div>
+                                    <div id="back-no-image" class="upload-placeholder mt-0 cursor-default" style="display: flex;">
+                                        <i class="fas fa-id-card text-gray-300"></i>
+                                        <span class="text-sm text-gray-400">No image uploaded</span>
+                                    </div>
+                                    
+                                    <!-- Back Size Info -->
+                                    <div id="back-size-info" class="mt-2 text-xs text-gray-400 hidden">
+                                        Detected: <span id="back-dimensions-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Preview Controls -->
+                            <div class="flex flex-wrap justify-center gap-3 mt-8 no-print">
+                                <button onclick="togglePreviewSize()" class="tool-btn text-sm">
+                                    <i class="fas fa-expand-arrows-alt mr-2"></i>Toggle Size
+                                </button>
+                                <button onclick="syncPreviews()" class="tool-btn text-sm">
+                                    <i class="fas fa-sync-alt mr-2"></i>Sync Views
+                                </button>
+                                <button onclick="matchCardSizes()" class="tool-btn text-sm">
+                                    <i class="fas fa-arrows-alt mr-2"></i>Match Sizes
+                                </button>
+                                <button onclick="showPositionGrid()" class="tool-btn text-sm">
+                                    <i class="fas fa-th mr-2"></i>Show Grid
+                                </button>
+                            </div>
+                            
+                            <!-- Dimension Comparison -->
+                            <div id="dimension-compare" class="mt-4 p-3 bg-gray-50 rounded-lg text-xs hidden no-print">
+                                <div class="flex justify-between">
+                                    <span>Front: <span id="compare-front"></span></span>
+                                    <span>Back: <span id="compare-back"></span></span>
+                                    <span id="match-status" class="text-green-600"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Print Layout Tab -->
+                        <div id="print-preview" class="p-6 hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-lg font-semibold flex items-center text-gray-700">
+                                    <i class="fas fa-print text-green-600 mr-2"></i>
+                                    Print Layout Preview
+                                </h2>
+                                <div class="flex gap-2 no-print">
+                                    <span id="paper-size-display" class="text-xs bg-gray-100 px-3 py-1 rounded-full">A4 Paper</span>
+                                    <span id="cards-per-page" class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">1 Card (Both Sides)</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Print Layout Container -->
+                            <div id="print-layout-container" class="print-layout-container">
+                                <div class="paper-size-indicator no-print" id="paper-indicator">A4 (210×297mm)</div>
+                                <div id="print-grid" class="print-grid align-top" style="grid-template-columns: repeat(1, 1fr);">
+                                    <!-- Print cards will be generated here dynamically -->
+                                </div>
+                                
+                                <!-- 4x6 Photo Paper Container (hidden by default) -->
+                                <div id="photo-paper-container" class="photo-paper-layout hidden">
+                                    <!-- Photo paper cards will be generated here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Print Instructions -->
+                            <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm no-print">
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-info-circle text-yellow-600 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium text-yellow-800">Print Instructions:</p>
+                                        <ul class="list-disc list-inside text-xs text-yellow-700 mt-1">
+                                            <li>Cards are sized to exact ID card dimensions (85.6×54mm)</li>
+                                            <li><span class="font-semibold">Each card shows both sides side-by-side</span></li>
+                                            <li>Cards stack vertically from top of page</li>
+                                            <li><span class="font-semibold">Example:</span> 2 cards = First card (Front|Back) at top, Second card below</li>
+                                            <li>For best results, disable "Scale to Fit" in printer settings</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Standard ID Card Sizes Reference -->
+        <div class="mt-6 bg-white rounded-xl shadow-lg p-4 no-print">
+            <h3 class="text-sm font-semibold mb-3 flex items-center">
+                <i class="fas fa-ruler-combined text-blue-500 mr-2"></i>
+                Standard ID Card Sizes (Auto-Detected)
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+                <div class="p-2 bg-gray-50 rounded">PAN Card: 85.6 × 54 mm</div>
+                <div class="p-2 bg-gray-50 rounded">Aadhaar: 85.6 × 54 mm</div>
+                <div class="p-2 bg-gray-50 rounded">Voter ID: 85.6 × 54 mm</div>
+                <div class="p-2 bg-gray-50 rounded">Driving License: 85.6 × 54 mm</div>
+                <div class="p-2 bg-gray-50 rounded">Passport: 125 × 88 mm</div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-xs text-gray-400 no-print">
+            <p>© 2026 Smart CSC Tools - All rights reserved.</p>
+            <p class="mt-1">For CSC VLE Use Only | Each card shows both sides side-by-side | Stacked vertically</p>
+        </footer>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 text-center">
+            <div class="spinner"></div>
+            <p class="mt-4 text-gray-600">Processing...</p>
+        </div>
+    </div>
+
+    <script>
+        // ==================== STATE MANAGEMENT ====================
+        let currentSide = 'front';
+        let currentOrientation = 'portrait';
+        let customWidth = 85.6;
+        let customHeight = 54;
+        let backgroundColor = '#ffffff';
+        let borderRadius = 16;
+        let moveStep = 1; // Default to 1px for smooth movement
+        
+        // Print Layout Variables
+        let paperSize = 'a4'; // 'a4', 'letter', or '4x6'
+        let cardCount = 1;
+        let horizontalGap = 5; // mm
+        let verticalGap = 5; // mm
+        let marginVertical = 10; // mm
+        let marginHorizontal = 10; // mm
+        let printSide = 'both'; // 'front', 'back', or 'both'
+        
+        // Image data storage
+        const images = {
+            front: {
+                file: null,
+                src: null,
+                originalWidth: 0,
+                originalHeight: 0,
+                aspectRatio: 1.585,
+                transformations: {
+                    scale: 1,
+                    rotate: 0,
+                    flipH: 1,
+                    flipV: 1,
+                    filter: 'none',
+                    brightness: 100,
+                    contrast: 100,
+                    x: 0,
+                    y: 0
+                }
+            },
+            back: {
+                file: null,
+                src: null,
+                originalWidth: 0,
+                originalHeight: 0,
+                aspectRatio: 1.585,
+                transformations: {
+                    scale: 1,
+                    rotate: 0,
+                    flipH: 1,
+                    flipV: 1,
+                    filter: 'none',
+                    brightness: 100,
+                    contrast: 100,
+                    x: 0,
+                    y: 0
+                }
+            }
+        };
+        
+        // DOM Elements
+        const elements = {
+            frontUpload: document.getElementById('front-upload'),
+            backUpload: document.getElementById('back-upload'),
+            frontPlaceholder: document.getElementById('front-placeholder'),
+            backPlaceholder: document.getElementById('back-placeholder'),
+            frontPreviewContainer: document.getElementById('front-preview-container'),
+            backPreviewContainer: document.getElementById('back-preview-container'),
+            frontPreview: document.getElementById('front-preview'),
+            backPreview: document.getElementById('back-preview'),
+            frontLiveImg: document.getElementById('front-live-img'),
+            backLiveImg: document.getElementById('back-live-img'),
+            frontNoImage: document.getElementById('front-no-image'),
+            backNoImage: document.getElementById('back-no-image'),
+            frontLivePreview: document.getElementById('front-live-preview'),
+            backLivePreview: document.getElementById('back-live-preview'),
+            selectFront: document.getElementById('select-front'),
+            selectBack: document.getElementById('select-back'),
+            activeSide: document.getElementById('active-side'),
+            positionDisplay: document.getElementById('position-display'),
+            xSlider: document.getElementById('x-slider'),
+            ySlider: document.getElementById('y-slider'),
+            xValue: document.getElementById('x-value'),
+            yValue: document.getElementById('y-value'),
+            toast: document.getElementById('toast'),
+            loading: document.getElementById('loading'),
+            portraitMode: document.getElementById('portrait-mode'),
+            landscapeMode: document.getElementById('landscape-mode'),
+            sizeInfo: document.getElementById('size-info'),
+            sizeMessage: document.getElementById('size-message'),
+            frontDimensions: document.getElementById('front-dimensions'),
+            backDimensions: document.getElementById('back-dimensions'),
+            frontSizeInfo: document.getElementById('front-size-info'),
+            backSizeInfo: document.getElementById('back-size-info'),
+            frontDimensionsText: document.getElementById('front-dimensions-text'),
+            backDimensionsText: document.getElementById('back-dimensions-text'),
+            currentOrientation: document.getElementById('current-orientation'),
+            cardSizeDisplay: document.getElementById('card-size-display'),
+            dimensionCompare: document.getElementById('dimension-compare'),
+            compareFront: document.getElementById('compare-front'),
+            compareBack: document.getElementById('compare-back'),
+            matchStatus: document.getElementById('match-status'),
+            customSizePanel: document.getElementById('custom-size-panel'),
+            customWidth: document.getElementById('custom-width'),
+            customHeight: document.getElementById('custom-height'),
+            radiusValue: document.getElementById('radius-value'),
+            // Print layout elements
+            normalPreview: document.getElementById('normal-preview'),
+            printPreview: document.getElementById('print-preview'),
+            tabNormal: document.getElementById('tab-normal'),
+            tabPrint: document.getElementById('tab-print'),
+            printGrid: document.getElementById('print-grid'),
+            photoPaperContainer: document.getElementById('photo-paper-container'),
+            paperIndicator: document.getElementById('paper-indicator'),
+            paperSizeDisplay: document.getElementById('paper-size-display'),
+            cardsPerPage: document.getElementById('cards-per-page'),
+            cardCountInput: document.getElementById('card-count'),
+            paperA4: document.getElementById('paper-a4'),
+            paperLetter: document.getElementById('paper-letter'),
+            paper4x6: document.getElementById('paper-4x6'),
+            cardCountContainer: document.getElementById('card-count-container'),
+            spacingOptions: document.getElementById('spacing-options'),
+            photoPaperInfo: document.getElementById('photo-paper-info'),
+            cardCountHint: document.getElementById('card-count-hint')
+        };
+        
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup file upload listeners
+            elements.frontUpload.addEventListener('change', function(e) {
+                handleImageUpload(e, 'front');
+            });
+            
+            elements.backUpload.addEventListener('change', function(e) {
+                handleImageUpload(e, 'back');
+            });
+            
+            // Double-click to reset position
+            elements.frontLiveImg.addEventListener('dblclick', function() {
+                if(currentSide === 'front') centerImage();
+            });
+            elements.backLiveImg.addEventListener('dblclick', function() {
+                if(currentSide === 'back') centerImage();
+            });
+            
+            // Set default orientation
+            updateOrientation();
+            
+            // Initialize step buttons - set 1px as active by default
+            document.querySelectorAll('.step-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.step-btn').forEach(b => {
+                        b.classList.remove('bg-blue-50', 'border-blue-300');
+                    });
+                    this.classList.add('bg-blue-50', 'border-blue-300');
+                });
+            });
+            // Set 1px as active
+            document.querySelector('.step-btn[data-step="1"]').classList.add('bg-blue-50', 'border-blue-300');
+            
+            // Initialize print layout listeners
+            elements.cardCountInput.addEventListener('change', function() {
+                cardCount = parseInt(this.value) || 1;
+                if (cardCount < 1) cardCount = 1;
+                if (cardCount > 20) cardCount = 20;
+                this.value = cardCount;
+                updateCardCountDisplay();
+                if (!elements.printPreview.classList.contains('hidden')) {
+                    generatePrintLayout();
+                }
+            });
+        });
+        
+        // ==================== TAB SWITCHING ====================
+        function switchTab(tab) {
+            if (tab === 'normal') {
+                elements.normalPreview.classList.remove('hidden');
+                elements.printPreview.classList.add('hidden');
+                elements.tabNormal.className = 'flex-1 py-3 px-4 text-center font-medium bg-blue-600 text-white';
+                elements.tabPrint.className = 'flex-1 py-3 px-4 text-center font-medium bg-gray-100 text-gray-600 hover:bg-gray-200';
+            } else {
+                elements.normalPreview.classList.add('hidden');
+                elements.printPreview.classList.remove('hidden');
+                elements.tabPrint.className = 'flex-1 py-3 px-4 text-center font-medium bg-blue-600 text-white';
+                elements.tabNormal.className = 'flex-1 py-3 px-4 text-center font-medium bg-gray-100 text-gray-600 hover:bg-gray-200';
+                generatePrintLayout();
+            }
+        }
+        
+        // ==================== PRINT LAYOUT FUNCTIONS ====================
+        function setPaperSize(size) {
+            paperSize = size;
+            
+            // Update UI
+            if (size === 'a4') {
+                elements.paperA4.className = 'paper-size-btn active flex-1 text-center';
+                elements.paperLetter.className = 'paper-size-btn flex-1 text-center';
+                elements.paper4x6.className = 'paper-size-btn flex-1 text-center';
+                elements.paperIndicator.textContent = 'A4 (210×297mm)';
+                elements.paperSizeDisplay.textContent = 'A4 Paper';
+                
+                // Show/hide relevant controls
+                elements.cardCountContainer.classList.remove('hidden');
+                elements.spacingOptions.classList.remove('hidden');
+                elements.photoPaperInfo.classList.add('hidden');
+                elements.cardCountHint.innerHTML = '<i class="fas fa-info-circle mr-1"></i>Each card shows both sides side-by-side | Cards stack vertically from top';
+                
+            } else if (size === 'letter') {
+                elements.paperLetter.className = 'paper-size-btn active flex-1 text-center';
+                elements.paperA4.className = 'paper-size-btn flex-1 text-center';
+                elements.paper4x6.className = 'paper-size-btn flex-1 text-center';
+                elements.paperIndicator.textContent = 'Letter (216×279mm)';
+                elements.paperSizeDisplay.textContent = 'Letter Paper';
+                
+                // Show/hide relevant controls
+                elements.cardCountContainer.classList.remove('hidden');
+                elements.spacingOptions.classList.remove('hidden');
+                elements.photoPaperInfo.classList.add('hidden');
+                elements.cardCountHint.innerHTML = '<i class="fas fa-info-circle mr-1"></i>Each card shows both sides side-by-side | Cards stack vertically from top';
+                
+            } else if (size === '4x6') {
+                elements.paper4x6.className = 'paper-size-btn active flex-1 text-center';
+                elements.paperA4.className = 'paper-size-btn flex-1 text-center';
+                elements.paperLetter.className = 'paper-size-btn flex-1 text-center';
+                elements.paperIndicator.textContent = '4×6 (102×152mm)';
+                elements.paperSizeDisplay.textContent = '4×6 Photo Paper';
+                
+                // Show/hide relevant controls
+                elements.cardCountContainer.classList.add('hidden');
+                elements.spacingOptions.classList.add('hidden');
+                elements.photoPaperInfo.classList.remove('hidden');
+            }
+            
+            if (!elements.printPreview.classList.contains('hidden')) {
+                generatePrintLayout();
+            }
+        }
+        
+        function updateCardCount(value) {
+            cardCount = parseInt(value) || 1;
+            updateCardCountDisplay();
+        }
+        
+        function updateCardCountDisplay() {
+            if (cardCount === 1) {
+                elements.cardsPerPage.textContent = '1 Card (Both Sides)';
+            } else {
+                elements.cardsPerPage.textContent = cardCount + ' Cards (Each with both sides)';
+            }
+        }
+        
+        function generatePrintLayout() {
+            if (!images.front.src && !images.back.src) {
+                showToast('Please upload at least one image first', 'warning');
+                return;
+            }
+            
+            // Hide both containers initially
+            elements.printGrid.classList.add('hidden');
+            elements.photoPaperContainer.classList.add('hidden');
+            
+            if (paperSize === '4x6') {
+                // Generate 4x6 photo paper layout
+                generatePhotoPaperLayout();
+            } else {
+                // Generate A4/Letter layout - FIXED: Each card shows both sides side-by-side
+                generateStandardLayout();
+            }
+        }
+        
+        function generatePhotoPaperLayout() {
+            // Clear photo paper container
+            elements.photoPaperContainer.innerHTML = '';
+            elements.photoPaperContainer.classList.remove('hidden');
+            
+            // 4x6 paper dimensions in mm
+            const paperWidth = 102; // 4 inches = 101.6mm ≈ 102mm
+            const paperHeight = 152; // 6 inches = 152.4mm ≈ 152mm
+            
+            // Card dimensions
+            const cardWidth = 85.6;
+            const cardHeight = 54;
+            
+            // Calculate vertical spacing - align to top
+            const gapBetweenCards = 5; // 5mm gap between front and back
+            
+            // Create front card
+            const frontCard = document.createElement('div');
+            frontCard.className = 'photo-paper-card';
+            
+            const frontLabel = document.createElement('span');
+            frontLabel.className = 'photo-paper-label';
+            frontLabel.textContent = 'FRONT';
+            frontCard.appendChild(frontLabel);
+            
+            if (images.front && images.front.src) {
+                const img = document.createElement('img');
+                img.src = images.front.src;
+                img.alt = 'Front ID';
+                
+                // Apply transformations
+                const trans = images.front.transformations;
+                img.style.transform = `scale(${trans.scale}) rotate(${trans.rotate}deg) scaleX(${trans.flipH}) scaleY(${trans.flipV}) translate(${trans.x}px, ${trans.y}px)`;
+                img.style.filter = trans.filter;
+                
+                frontCard.appendChild(img);
+            } else {
+                frontCard.classList.add('print-placeholder');
+                frontCard.innerHTML = '<span>No front image</span>';
+            }
+            
+            // Create back card
+            const backCard = document.createElement('div');
+            backCard.className = 'photo-paper-card';
+            
+            const backLabel = document.createElement('span');
+            backLabel.className = 'photo-paper-label';
+            backLabel.textContent = 'BACK';
+            backCard.appendChild(backLabel);
+            
+            if (images.back && images.back.src) {
+                const img = document.createElement('img');
+                img.src = images.back.src;
+                img.alt = 'Back ID';
+                
+                // Apply transformations
+                const trans = images.back.transformations;
+                img.style.transform = `scale(${trans.scale}) rotate(${trans.rotate}deg) scaleX(${trans.flipH}) scaleY(${trans.flipV}) translate(${trans.x}px, ${trans.y}px)`;
+                img.style.filter = trans.filter;
+                
+                backCard.appendChild(img);
+            } else {
+                backCard.classList.add('print-placeholder');
+                backCard.innerHTML = '<span>No back image</span>';
+            }
+            
+            // Add cards to container (top alignment)
+            elements.photoPaperContainer.appendChild(frontCard);
+            elements.photoPaperContainer.appendChild(backCard);
+            
+            // Update display
+            elements.cardsPerPage.textContent = 'Front (top) + Back (bottom)';
+            elements.paperSizeDisplay.textContent = '4×6 Photo Paper';
+            
+            showToast('4×6 photo paper layout generated: Front on top, Back on bottom', 'success');
+        }
+        
+        function generateStandardLayout() {
+            elements.printGrid.classList.remove('hidden');
+            
+            // Get paper dimensions in mm
+            let paperWidth, paperHeight;
+            if (paperSize === 'a4') {
+                paperWidth = 210;
+                paperHeight = 297;
+            } else {
+                paperWidth = 216;
+                paperHeight = 279;
+            }
+            
+            // Get input values
+            cardCount = parseInt(elements.cardCountInput.value) || 1;
+            horizontalGap = parseFloat(document.getElementById('h-gap').value) || 5;
+            verticalGap = parseFloat(document.getElementById('v-gap').value) || 5;
+            marginHorizontal = parseFloat(document.getElementById('margin-h').value) || 10;
+            marginVertical = parseFloat(document.getElementById('margin-v').value) || 10;
+            
+            // Calculate available space
+            const availableWidth = paperWidth - (2 * marginHorizontal);
+            const availableHeight = paperHeight - (2 * marginVertical);
+            
+            // Card dimensions (fixed 85.6mm × 54mm)
+            const cardWidth = 85.6;
+            const cardHeight = 54;
+            const cardAspectRatio = cardWidth / cardHeight;
+            
+            // FIXED: For ANY number of cards, each card shows both sides side-by-side
+            // So each card is represented by 2 image slots (front + back)
+            const totalSlots = cardCount * 2; // Each card needs 2 slots (front & back)
+            
+            // Calculate grid: 2 columns (for front & back), rows based on card count
+            const cols = 2; // Always 2 columns (front on left, back on right)
+            const rows = cardCount; // One row per card
+            const totalCards = totalSlots;
+            
+            // Update display
+            elements.cardsPerPage.textContent = cardCount + ' Card' + (cardCount > 1 ? 's' : '') + ' (Each with both sides)';
+            
+            // Calculate column width for 2 columns
+            const gapTotal = (cols - 1) * horizontalGap;
+            const columnWidth = (availableWidth - gapTotal) / cols;
+            
+            // Check if cards fit vertically
+            const requiredHeight = (rows * cardHeight) + ((rows - 1) * verticalGap);
+            if (requiredHeight > availableHeight) {
+                showToast('Cards exceed page height. Reduce card count or margins.', 'warning');
+            }
+            
+            // Set grid template: 2 columns, rows = cardCount
+            elements.printGrid.style.gridTemplateColumns = `repeat(${cols}, ${columnWidth}mm)`;
+            elements.printGrid.style.gap = `${verticalGap}mm ${horizontalGap}mm`;
+            elements.printGrid.style.padding = `${marginVertical}mm ${marginHorizontal}mm`;
+            
+            // Ensure top alignment
+            elements.printGrid.style.alignContent = 'start';
+            
+            // Clear grid
+            elements.printGrid.innerHTML = '';
+            
+            // Generate cards - for each card, create front and back
+            for (let cardIndex = 0; cardIndex < cardCount; cardIndex++) {
+                
+                // Front card (left column)
+                const frontCardDiv = document.createElement('div');
+                frontCardDiv.className = 'print-card';
+                frontCardDiv.style.width = '100%';
+                frontCardDiv.style.aspectRatio = `${cardAspectRatio}`;
+                
+                // Add card number for preview
+                const frontNumberSpan = document.createElement('span');
+                frontNumberSpan.className = 'print-card-number';
+                frontNumberSpan.textContent = `Card ${cardIndex + 1} FRONT`;
+                frontCardDiv.appendChild(frontNumberSpan);
+                
+                // Add front image
+                if (images.front && images.front.src) {
+                    const img = document.createElement('img');
+                    img.src = images.front.src;
+                    img.alt = `Card ${cardIndex + 1} Front`;
+                    
+                    // Apply transformations
+                    const trans = images.front.transformations;
+                    img.style.transform = `scale(${trans.scale}) rotate(${trans.rotate}deg) scaleX(${trans.flipH}) scaleY(${trans.flipV}) translate(${trans.x}px, ${trans.y}px)`;
+                    img.style.filter = trans.filter;
+                    
+                    frontCardDiv.appendChild(img);
+                } else {
+                    frontCardDiv.classList.add('print-placeholder');
+                    frontCardDiv.innerHTML = '<span>No front image</span>';
+                }
+                
+                // Back card (right column)
+                const backCardDiv = document.createElement('div');
+                backCardDiv.className = 'print-card';
+                backCardDiv.style.width = '100%';
+                backCardDiv.style.aspectRatio = `${cardAspectRatio}`;
+                
+                // Add card number for preview
+                const backNumberSpan = document.createElement('span');
+                backNumberSpan.className = 'print-card-number';
+                backNumberSpan.textContent = `Card ${cardIndex + 1} BACK`;
+                backCardDiv.appendChild(backNumberSpan);
+                
+                // Add back image
+                if (images.back && images.back.src) {
+                    const img = document.createElement('img');
+                    img.src = images.back.src;
+                    img.alt = `Card ${cardIndex + 1} Back`;
+                    
+                    // Apply transformations
+                    const trans = images.back.transformations;
+                    img.style.transform = `scale(${trans.scale}) rotate(${trans.rotate}deg) scaleX(${trans.flipH}) scaleY(${trans.flipV}) translate(${trans.x}px, ${trans.y}px)`;
+                    img.style.filter = trans.filter;
+                    
+                    backCardDiv.appendChild(img);
+                } else {
+                    backCardDiv.classList.add('print-placeholder');
+                    backCardDiv.innerHTML = '<span>No back image</span>';
+                }
+                
+                // Add both cards to grid
+                elements.printGrid.appendChild(frontCardDiv);
+                elements.printGrid.appendChild(backCardDiv);
+            }
+            
+            // Update display
+            elements.paperSizeDisplay.textContent = paperSize.toUpperCase() + ' Paper';
+            elements.printGrid.style.backgroundColor = backgroundColor;
+            
+            showToast(`Print layout: ${cardCount} card(s) with both sides side-by-side, stacked vertically`, 'success');
+        }
+        
+        function showPrintPreview() {
+            switchTab('print');
+            generatePrintLayout();
+        }
+        
+        function printLayout() {
+            if (!images.front.src && !images.back.src) {
+                showToast('Please upload images first', 'error');
+                return;
+            }
+            
+            // Generate print layout if not already
+            generatePrintLayout();
+            
+            let printContent;
+            let paperSizeStr;
+            
+            if (paperSize === '4x6') {
+                // 4x6 photo paper print
+                paperSizeStr = '4x6';
+                printContent = `
+                    <div class="photo-paper-layout" style="justify-content: flex-start;">
+                        ${elements.photoPaperContainer.innerHTML}
+                    </div>
+                `;
+            } else {
+                // A4/Letter print with top alignment - 2 columns for front/back
+                paperSizeStr = paperSize;
+                printContent = `
+                    <div class="print-grid align-top" style="grid-template-columns: ${elements.printGrid.style.gridTemplateColumns}; gap: ${verticalGap}mm ${horizontalGap}mm; padding: ${marginVertical}mm ${marginHorizontal}mm; align-content: start;">
+                        ${generatePrintCardsHTML()}
+                    </div>
+                `;
+            }
+            
+            // Create print-optimized HTML
+            const printHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>ID Cards Print - ${paperSize === '4x6' ? '4×6 Photo' : paperSize.toUpperCase()}</title>
+                    <style>
+                        /* Reset all margins and padding */
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
+                        /* Page setup - CRITICAL for correct sizing */
+                        @page {
+                            size: ${paperSize === '4x6' ? '4in 6in' : paperSizeStr + ' portrait'};
+                            margin: 0;
+                        }
+                        
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: white;
+                            width: 100%;
+                            min-height: 100vh;
+                        }
+                        
+                        /* Print grid - exact dimensions with top alignment */
+                        .print-grid {
+                            display: grid;
+                            width: 100%;
+                            background: white;
+                            box-sizing: border-box;
+                            align-content: start;
+                        }
+                        
+                        /* Photo paper layout with top alignment */
+                        .photo-paper-layout {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: flex-start;
+                            gap: 5mm;
+                            padding: 5mm;
+                            width: 102mm;
+                            height: 152mm;
+                            background: white;
+                            box-sizing: border-box;
+                        }
+                        
+                        /* Print card - exact ID card size */
+                        .print-card, .photo-paper-card {
+                            aspect-ratio: 85.6 / 54;
+                            width: 100%;
+                            max-width: 90mm;
+                            background: white;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            overflow: hidden;
+                            position: relative;
+                            box-shadow: none;
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                        
+                        .print-card img, .photo-paper-card img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                            display: block;
+                        }
+                        
+                        /* Hide labels when printing */
+                        .print-card-number, .photo-paper-label {
+                            display: none;
+                        }
+                        
+                        /* Placeholder styling */
+                        .print-placeholder {
+                            background: #f5f5f5;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #666;
+                            font-size: 10pt;
+                        }
+                        
+                        /* Ensure no scaling */
+                        @media print {
+                            body {
+                                -webkit-print-color-adjust: exact;
+                                print-color-adjust: exact;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${printContent}
+                    <script>
+                        // Auto-trigger print when loaded
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                                setTimeout(function() {
+                                    window.close();
+                                }, 500);
+                            }, 300);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            // Open print window
+            const printWindow = window.open('', '_blank', 'width=800,height=600,menubar=yes,toolbar=yes,location=yes,status=yes');
+            printWindow.document.write(printHTML);
+            printWindow.document.close();
+        }
+        
+        // Helper function to generate cards HTML for print
+        function generatePrintCardsHTML() {
+            const cards = elements.printGrid.querySelectorAll('.print-card');
+            let html = '';
+            
+            cards.forEach(card => {
+                const img = card.querySelector('img');
+                if (img) {
+                    html += `
+                        <div class="print-card">
+                            <img src="https://smartcsctools.org/${img.src}" style="transform: ${img.style.transform}; filter: ${img.style.filter};">
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="print-card print-placeholder">
+                            <span>No image</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            return html;
+        }
+        
+        function downloadPrintPDF() {
+            if (!images.front.src && !images.back.src) {
+                showToast('Please upload images first', 'error');
+                return;
+            }
+            
+            toggleLoading(true);
+            
+            // Generate print layout
+            generatePrintLayout();
+            
+            let container;
+            let pdfFormat;
+            let pdfOrientation = 'portrait';
+            
+            if (paperSize === '4x6') {
+                // 4x6 PDF with top alignment
+                container = document.createElement('div');
+                container.style.width = '102mm';
+                container.style.height = '152mm';
+                container.style.backgroundColor = 'white';
+                container.style.position = 'relative';
+                container.style.margin = '0';
+                container.style.padding = '0';
+                container.style.boxSizing = 'border-box';
+                container.style.display = 'flex';
+                container.style.flexDirection = 'column';
+                container.style.alignItems = 'center';
+                container.style.justifyContent = 'flex-start';
+                container.style.gap = '5mm';
+                container.style.padding = '5mm';
+                
+                // Clone photo paper cards
+                const cards = elements.photoPaperContainer.querySelectorAll('.photo-paper-card');
+                cards.forEach(card => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.style.aspectRatio = '85.6 / 54';
+                    cardDiv.style.width = '100%';
+                    cardDiv.style.maxWidth = '90mm';
+                    cardDiv.style.backgroundColor = 'white';
+                    cardDiv.style.border = '1px solid #ccc';
+                    cardDiv.style.borderRadius = '4px';
+                    cardDiv.style.overflow = 'hidden';
+                    
+                    const img = card.querySelector('img');
+                    if (img) {
+                        const newImg = document.createElement('img');
+                        newImg.src = img.src;
+                        newImg.style.width = '100%';
+                        newImg.style.height = '100%';
+                        newImg.style.objectFit = 'contain';
+                        newImg.style.transform = img.style.transform;
+                        newImg.style.filter = img.style.filter;
+                        cardDiv.appendChild(newImg);
+                    }
+                    
+                    container.appendChild(cardDiv);
+                });
+                
+                pdfFormat = [102, 152]; // 4x6 in mm
+                
+            } else {
+                // A4/Letter PDF with top alignment - 2 columns for front/back
+                container = document.createElement('div');
+                container.style.width = paperSize === 'a4' ? '210mm' : '216mm';
+                container.style.height = paperSize === 'a4' ? '297mm' : '279mm';
+                container.style.backgroundColor = 'white';
+                container.style.position = 'relative';
+                container.style.margin = '0';
+                container.style.padding = '0';
+                container.style.boxSizing = 'border-box';
+                
+                // Create grid with exact dimensions and top alignment
+                const gridDiv = document.createElement('div');
+                gridDiv.style.display = 'grid';
+                gridDiv.style.gridTemplateColumns = elements.printGrid.style.gridTemplateColumns;
+                gridDiv.style.gap = `${verticalGap}mm ${horizontalGap}mm`;
+                gridDiv.style.padding = `${marginVertical}mm ${marginHorizontal}mm`;
+                gridDiv.style.width = '100%';
+                gridDiv.style.height = '100%';
+                gridDiv.style.boxSizing = 'border-box';
+                gridDiv.style.backgroundColor = 'white';
+                gridDiv.style.alignContent = 'start';
+                
+                // Add cards to grid
+                const cards = elements.printGrid.querySelectorAll('.print-card');
+                cards.forEach(card => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.style.aspectRatio = '85.6 / 54';
+                    cardDiv.style.width = '100%';
+                    cardDiv.style.backgroundColor = 'white';
+                    cardDiv.style.border = '1px solid #ccc';
+                    cardDiv.style.borderRadius = '4px';
+                    cardDiv.style.overflow = 'hidden';
+                    
+                    const img = card.querySelector('img');
+                    if (img) {
+                        const newImg = document.createElement('img');
+                        newImg.src = img.src;
+                        newImg.style.width = '100%';
+                        newImg.style.height = '100%';
+                        newImg.style.objectFit = 'contain';
+                        newImg.style.transform = img.style.transform;
+                        newImg.style.filter = img.style.filter;
+                        cardDiv.appendChild(newImg);
+                    }
+                    
+                    gridDiv.appendChild(cardDiv);
+                });
+                
+                container.appendChild(gridDiv);
+                pdfFormat = paperSize;
+            }
+            
+            document.body.appendChild(container);
+            
+            // Use html2canvas with high scale for quality
+            html2canvas(container, {
+                scale: 3,
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: true,
+                useCORS: true
+            }).then(canvas => {
+                const { jsPDF } = window.jspdf;
+                
+                // Create PDF with exact dimensions
+                const pdf = new jsPDF({
+                    orientation: pdfOrientation,
+                    unit: 'mm',
+                    format: pdfFormat
+                });
+                
+                // Calculate scaling to fit PDF page exactly
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+                
+                // Save PDF
+                const fileName = paperSize === '4x6' ? 'id-card-4x6-photo.pdf' : `id-cards-${paperSize}-${cardCount}-cards.pdf`;
+                pdf.save(fileName);
+                
+                // Clean up
+                document.body.removeChild(container);
+                toggleLoading(false);
+                showToast(`PDF downloaded successfully (${paperSize === '4x6' ? '4×6 Photo' : paperSize.toUpperCase()})`, 'success');
+            }).catch(error => {
+                console.error('PDF Error:', error);
+                document.body.removeChild(container);
+                toggleLoading(false);
+                showToast('Error generating PDF', 'error');
+            });
+        }
+        
+        // ==================== POSITION CONTROL FUNCTIONS ====================
+        function moveImage(direction) {
+            const side = currentSide;
+            if (!images[side].src) {
+                showToast('Please upload an image first', 'warning');
+                return;
+            }
+            
+            const trans = images[side].transformations;
+            
+            switch(direction) {
+                case 'up':
+                    trans.y -= moveStep;
+                    break;
+                case 'down':
+                    trans.y += moveStep;
+                    break;
+                case 'left':
+                    trans.x -= moveStep;
+                    break;
+                case 'right':
+                    trans.x += moveStep;
+                    break;
+                case 'center':
+                    trans.x = 0;
+                    trans.y = 0;
+                    break;
+            }
+            
+            updateImageTransform(side);
+            updatePositionDisplay(side);
+            updateSliders(side);
+            
+            if (direction !== 'center') {
+                showToast(`Moved ${direction} by ${moveStep}px`, 'info');
+            } else {
+                showToast('Image centered', 'success');
+            }
+        }
+        
+        function updatePositionFromSlider(axis, value) {
+            const side = currentSide;
+            if (!images[side].src) return;
+            
+            const trans = images[side].transformations;
+            
+            if (axis === 'x') {
+                trans.x = parseInt(value);
+            } else {
+                trans.y = parseInt(value);
+            }
+            
+            updateImageTransform(side);
+            updatePositionDisplay(side);
+        }
+        
+        function updatePositionDisplay(side) {
+            const trans = images[side].transformations;
+            elements.positionDisplay.textContent = `X:${trans.x} Y:${trans.y}`;
+            elements.xSlider.value = trans.x;
+            elements.ySlider.value = trans.y;
+            elements.xValue.textContent = trans.x + 'px';
+            elements.yValue.textContent = trans.y + 'px';
+        }
+        
+        function updateSliders(side) {
+            const trans = images[side].transformations;
+            elements.xSlider.value = trans.x;
+            elements.ySlider.value = trans.y;
+            elements.xValue.textContent = trans.x + 'px';
+            elements.yValue.textContent = trans.y + 'px';
+        }
+        
+        function resetPosition() {
+            const side = currentSide;
+            images[side].transformations.x = 0;
+            images[side].transformations.y = 0;
+            updateImageTransform(side);
+            updatePositionDisplay(side);
+            showToast('Position reset', 'success');
+        }
+        
+        function centerImage() {
+            moveImage('center');
+        }
+        
+        function setMoveStep(step) {
+            moveStep = step;
+            showToast(`Move step set to ${step}px`, 'info');
+        }
+        
+        function showPositionGrid() {
+            document.querySelectorAll('.position-overlay').forEach(el => {
+                if (el.style.display === 'block') {
+                    el.style.display = 'none';
+                } else {
+                    el.style.display = 'block';
+                    setTimeout(() => {
+                        el.style.display = 'none';
+                    }, 2000);
+                }
+            });
+        }
+        
+        // ==================== ORIENTATION MANAGEMENT ====================
+        function setOrientation(mode) {
+            currentOrientation = mode;
+            
+            if (mode === 'portrait') {
+                elements.portraitMode.className = 'px-4 py-2 text-sm font-medium bg-blue-600 text-white';
+                elements.landscapeMode.className = 'px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50';
+                elements.currentOrientation.textContent = 'Portrait Mode';
+                document.documentElement.style.setProperty('--aspect-ratio', '1 / 1.6');
+                document.querySelectorAll('.id-card-container').forEach(el => el.classList.remove('landscape'));
+                document.querySelectorAll('.upload-placeholder').forEach(el => el.classList.remove('landscape'));
+            } else {
+                elements.landscapeMode.className = 'px-4 py-2 text-sm font-medium bg-blue-600 text-white';
+                elements.portraitMode.className = 'px-4 py-2 text-sm font-medium bg-white text-gray-600 hover:bg-gray-50';
+                elements.currentOrientation.textContent = 'Landscape Mode';
+                document.documentElement.style.setProperty('--aspect-ratio', '1.6 / 1');
+                document.querySelectorAll('.id-card-container').forEach(el => el.classList.add('landscape'));
+                document.querySelectorAll('.upload-placeholder').forEach(el => el.classList.add('landscape'));
+            }
+            
+            showToast(`Switched to ${mode} mode`, 'success');
+        }
+        
+        // ==================== IMAGE UPLOAD ====================
+        function handleImageUpload(event, side) {
+            const file = event.target.files[0];
+            
+            if (!file) return;
+            
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+                showToast('Only JPG and PNG images are allowed', 'error');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Image size should be less than 5MB', 'error');
+                return;
+            }
+            
+            toggleLoading(true);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const width = img.width;
+                    const height = img.height;
+                    const aspectRatio = width / height;
+                    
+                    images[side].file = file;
+                    images[side].src = e.target.result;
+                    images[side].originalWidth = width;
+                    images[side].originalHeight = height;
+                    images[side].aspectRatio = aspectRatio;
+                    
+                    detectCardType(side, width, height, aspectRatio);
+                    
+                    if (side === 'front') {
+                        elements.frontPlaceholder.classList.add('hidden');
+                        elements.frontPreviewContainer.classList.remove('hidden');
+                        elements.frontPreview.src = e.target.result;
+                        elements.frontLiveImg.src = e.target.result;
+                        elements.frontNoImage.style.display = 'none';
+                        elements.frontLivePreview.style.display = 'block';
+                        
+                        elements.frontSizeInfo.classList.remove('hidden');
+                        elements.frontDimensionsText.textContent = `${width} × ${height} px (${(width/11.81).toFixed(1)} × ${(height/11.81).toFixed(1)} mm)`;
+                        elements.frontDimensions.classList.remove('hidden');
+                        elements.frontDimensions.innerHTML = `${width}×${height}`;
+                        
+                        resetSideTransform('front');
+                    } else {
+                        elements.backPlaceholder.classList.add('hidden');
+                        elements.backPreviewContainer.classList.remove('hidden');
+                        elements.backPreview.src = e.target.result;
+                        elements.backLiveImg.src = e.target.result;
+                        elements.backNoImage.style.display = 'none';
+                        elements.backLivePreview.style.display = 'block';
+                        
+                        elements.backSizeInfo.classList.remove('hidden');
+                        elements.backDimensionsText.textContent = `${width} × ${height} px (${(width/11.81).toFixed(1)} × ${(height/11.81).toFixed(1)} mm)`;
+                        elements.backDimensions.classList.remove('hidden');
+                        elements.backDimensions.innerHTML = `${width}×${height}`;
+                        
+                        resetSideTransform('back');
+                    }
+                    
+                    elements.sizeInfo.classList.remove('hidden');
+                    elements.sizeMessage.innerHTML = `Auto-detected: ${width} × ${height} pixels | Aspect Ratio: ${aspectRatio.toFixed(2)}:1 | ${getCardTypeFromRatio(aspectRatio)}`;
+                    
+                    if (images.front.src && images.back.src) {
+                        compareDimensions();
+                    }
+                    
+                    toggleLoading(false);
+                    showToast(`${side} image uploaded successfully (${width}×${height})`, 'success');
+                };
+                
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        function detectCardType(side, width, height, ratio) {
+            const mmWidth = width / 11.81;
+            const mmHeight = height / 11.81;
+            
+            let cardType = 'Unknown';
+            
+            if (Math.abs(mmWidth - 85.6) < 5 && Math.abs(mmHeight - 54) < 5) {
+                cardType = 'Standard ID Card (CR80)';
+            } else if (Math.abs(mmWidth - 125) < 7 && Math.abs(mmHeight - 88) < 7) {
+                cardType = 'Passport Size';
+            } else if (Math.abs(mmWidth - 74) < 5 && Math.abs(mmHeight - 105) < 5) {
+                cardType = 'Credit Card (ISO/IEC 7810 ID-1)';
+            } else if (Math.abs(ratio - 1.414) < 0.1) {
+                cardType = 'A5/A4 Ratio';
+            }
+            
+            showToast(`${side} card detected as: ${cardType}`, 'info');
+        }
+        
+        function getCardTypeFromRatio(ratio) {
+            if (Math.abs(ratio - 1.585) < 0.1) return 'Standard ID Card (85.6×54mm)';
+            if (Math.abs(ratio - 1.42) < 0.1) return 'Passport (125×88mm)';
+            if (Math.abs(ratio - 0.705) < 0.1) return 'Vertical ID Card';
+            if (Math.abs(ratio - 1.414) < 0.1) return 'A4/A5 Ratio';
+            return 'Custom Size Card';
+        }
+        
+        function compareDimensions() {
+            if (images.front.src && images.back.src) {
+                elements.dimensionCompare.classList.remove('hidden');
+                
+                const frontRatio = images.front.aspectRatio.toFixed(2);
+                const backRatio = images.back.aspectRatio.toFixed(2);
+                
+                elements.compareFront.textContent = `${images.front.originalWidth}×${images.front.originalHeight} (${frontRatio})`;
+                elements.compareBack.textContent = `${images.back.originalWidth}×${images.back.originalHeight} (${backRatio})`;
+                
+                if (Math.abs(images.front.aspectRatio - images.back.aspectRatio) < 0.05) {
+                    elements.matchStatus.innerHTML = '<i class="fas fa-check-circle text-green-500 mr-1"></i>Matched';
+                } else {
+                    elements.matchStatus.innerHTML = '<i class="fas fa-exclamation-triangle text-yellow-500 mr-1"></i>Different sizes';
+                }
+            }
+        }
+        
+        // ==================== IMAGE MANAGEMENT ====================
+        function replaceImage(side) {
+            if (side === 'front') {
+                elements.frontUpload.click();
+            } else {
+                elements.backUpload.click();
+            }
+        }
+        
+        function removeImage(side) {
+            if (side === 'front') {
+                images.front = {
+                    file: null,
+                    src: null,
+                    originalWidth: 0,
+                    originalHeight: 0,
+                    aspectRatio: 1.585,
+                    transformations: { scale: 1, rotate: 0, flipH: 1, flipV: 1, filter: 'none', brightness: 100, contrast: 100, x: 0, y: 0 }
+                };
+                
+                elements.frontPlaceholder.classList.remove('hidden');
+                elements.frontPreviewContainer.classList.add('hidden');
+                elements.frontPreview.src = '';
+                elements.frontLiveImg.src = '';
+                elements.frontNoImage.style.display = 'flex';
+                elements.frontLivePreview.style.display = 'none';
+                elements.frontUpload.value = '';
+                elements.frontSizeInfo.classList.add('hidden');
+                elements.frontDimensions.classList.add('hidden');
+            } else {
+                images.back = {
+                    file: null,
+                    src: null,
+                    originalWidth: 0,
+                    originalHeight: 0,
+                    aspectRatio: 1.585,
+                    transformations: { scale: 1, rotate: 0, flipH: 1, flipV: 1, filter: 'none', brightness: 100, contrast: 100, x: 0, y: 0 }
+                };
+                
+                elements.backPlaceholder.classList.remove('hidden');
+                elements.backPreviewContainer.classList.add('hidden');
+                elements.backPreview.src = '';
+                elements.backLiveImg.src = '';
+                elements.backNoImage.style.display = 'flex';
+                elements.backLivePreview.style.display = 'none';
+                elements.backUpload.value = '';
+                elements.backSizeInfo.classList.add('hidden');
+                elements.backDimensions.classList.add('hidden');
+            }
+            
+            showToast(`${side} image removed`, 'info');
+            
+            if (!images.front.src && !images.back.src) {
+                elements.sizeInfo.classList.add('hidden');
+                elements.dimensionCompare.classList.add('hidden');
+            }
+        }
+        
+        // ==================== SIDE SELECTION ====================
+        function selectSide(side) {
+            currentSide = side;
+            elements.activeSide.textContent = side.charAt(0).toUpperCase() + side.slice(1);
+            
+            if (side === 'front') {
+                elements.selectFront.className = 'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-blue-200 bg-blue-50 text-blue-700';
+                elements.selectBack.className = 'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-gray-200 hover:bg-indigo-50';
+            } else {
+                elements.selectBack.className = 'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-indigo-200 bg-indigo-50 text-indigo-700';
+                elements.selectFront.className = 'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all border-2 border-gray-200 hover:bg-blue-50';
+            }
+            
+            if (images[side].src) {
+                updatePositionDisplay(side);
+                updateSliders(side);
+            }
+        }
+        
+        // ==================== TRANSFORMATION FUNCTIONS ====================
+        function applyTransform(transform) {
+            const side = currentSide;
+            
+            if (!images[side].src) {
+                showToast('Please upload an image first', 'warning');
+                return;
+            }
+            
+            const trans = images[side].transformations;
+            
+            switch(transform) {
+                case 'zoom-in':
+                    trans.scale = Math.min(trans.scale + 0.05, 3);
+                    break;
+                case 'zoom-out':
+                    trans.scale = Math.max(trans.scale - 0.05, 0.3);
+                    break;
+                case 'rotate':
+                    trans.rotate = (trans.rotate + 90) % 360;
+                    break;
+                case 'flip-h':
+                    trans.flipH *= -1;
+                    break;
+                case 'flip-v':
+                    trans.flipV *= -1;
+                    break;
+                case 'remove-bg':
+                    trans.filter = trans.filter === 'none' ? 'brightness(1.1) contrast(1.2) drop-shadow(0 0 5px white)' : 'none';
+                    break;
+                case 'brightness-up':
+                    trans.brightness = Math.min(trans.brightness + 5, 200);
+                    updateFilter(side);
+                    break;
+                case 'brightness-down':
+                    trans.brightness = Math.max(trans.brightness - 5, 50);
+                    updateFilter(side);
+                    break;
+                case 'contrast-up':
+                    trans.contrast = Math.min(trans.contrast + 5, 200);
+                    updateFilter(side);
+                    break;
+                case 'contrast-down':
+                    trans.contrast = Math.max(trans.contrast - 5, 50);
+                    updateFilter(side);
+                    break;
+            }
+            
+            updateImageTransform(side);
+        }
+        
+        function updateFilter(side) {
+            const trans = images[side].transformations;
+            trans.filter = `brightness(${trans.brightness}%) contrast(${trans.contrast}%)`;
+        }
+        
+        function updateImageTransform(side) {
+            const img = side === 'front' ? elements.frontLiveImg : elements.backLiveImg;
+            const trans = images[side].transformations;
+            
+            img.style.transform = `translate(${trans.x}px, ${trans.y}px) scale(${trans.scale}) rotate(${trans.rotate}deg) scaleX(${trans.flipH}) scaleY(${trans.flipV})`;
+            img.style.filter = trans.filter;
+        }
+        
+        function resetTransform() {
+            const side = currentSide;
+            resetSideTransform(side);
+            updateImageTransform(side);
+            updatePositionDisplay(side);
+            updateSliders(side);
+            showToast(`All transformations reset for ${side} side`, 'success');
+        }
+        
+        function resetSideTransform(side) {
+            images[side].transformations = {
+                scale: 1,
+                rotate: 0,
+                flipH: 1,
+                flipV: 1,
+                filter: 'none',
+                brightness: 100,
+                contrast: 100,
+                x: 0,
+                y: 0
+            };
+            
+            const img = side === 'front' ? elements.frontLiveImg : elements.backLiveImg;
+            img.style.transform = 'translate(0px, 0px) scale(1) rotate(0deg) scaleX(1) scaleY(1)';
+            img.style.filter = 'none';
+        }
+        
+        function autoFitImage() {
+            const side = currentSide;
+            if (!images[side].src) return;
+            
+            const container = side === 'front' ? elements.frontLivePreview : elements.backLivePreview;
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            
+            const imgWidth = images[side].originalWidth;
+            const imgHeight = images[side].originalHeight;
+            
+            const scaleX = containerWidth / imgWidth;
+            const scaleY = containerHeight / imgHeight;
+            const scale = Math.min(scaleX, scaleY) * 0.9;
+            
+            images[side].transformations.scale = scale;
+            images[side].transformations.x = 0;
+            images[side].transformations.y = 0;
+            updateImageTransform(side);
+            updatePositionDisplay(side);
+            updateSliders(side);
+            showToast('Image auto-fitted to container', 'success');
+        }
+        
+        function matchCardSizes() {
+            if (!images.front.src || !images.back.src) {
+                showToast('Both images required', 'warning');
+                return;
+            }
+            
+            if (images.front.aspectRatio > images.back.aspectRatio) {
+                images.back.transformations.scale = images.front.transformations.scale;
+                updateImageTransform('back');
+            } else {
+                images.front.transformations.scale = images.back.transformations.scale;
+                updateImageTransform('front');
+            }
+            
+            showToast('Card sizes matched', 'success');
+        }
+        
+        // ==================== PREVIEW FUNCTIONS ====================
+        function togglePreviewSize() {
+            const containers = document.querySelectorAll('.id-card-container');
+            containers.forEach(container => {
+                if (container.style.maxWidth === '400px' || container.style.maxWidth === '380px') {
+                    container.style.maxWidth = currentOrientation === 'portrait' ? '320px' : '400px';
+                } else {
+                    container.style.maxWidth = currentOrientation === 'portrait' ? '380px' : '480px';
+                }
+            });
+        }
+        
+        function syncPreviews() {
+            const otherSide = currentSide === 'front' ? 'back' : 'front';
+            
+            if (!images[otherSide].src) {
+                showToast(`Please upload ${otherSide} image first`, 'warning');
+                return;
+            }
+            
+            images[otherSide].transformations = {...images[currentSide].transformations};
+            updateImageTransform(otherSide);
+            
+            if (otherSide === 'front') {
+                updatePositionDisplay('front');
+                updateSliders('front');
+            } else {
+                updatePositionDisplay('back');
+                updateSliders('back');
+            }
+            
+            showToast('Views synchronized', 'success');
+        }
+        
+        function changeBackgroundColor(color) {
+            backgroundColor = color;
+            document.querySelectorAll('.id-card-container').forEach(el => {
+                el.style.backgroundColor = color;
+            });
+        }
+        
+        function changeBorderRadius(value) {
+            borderRadius = value;
+            document.querySelectorAll('.id-card-container').forEach(el => {
+                el.style.borderRadius = value + 'px';
+            });
+            elements.radiusValue.textContent = value + 'px';
+        }
+        
+        // ==================== CUSTOM SIZE FUNCTIONS ====================
+        function showCustomSizePanel() {
+            elements.customSizePanel.classList.toggle('hidden');
+        }
+        
+        function applyCustomSize() {
+            const width = parseFloat(elements.customWidth.value);
+            const height = parseFloat(elements.customHeight.value);
+            
+            if (width > 0 && height > 0) {
+                customWidth = width;
+                customHeight = height;
+                
+                const ratio = width / height;
+                document.documentElement.style.setProperty('--aspect-ratio', ratio);
+                
+                elements.cardSizeDisplay.textContent = `${width} × ${height} mm`;
+                showToast(`Custom size applied: ${width}×${height} mm`, 'success');
+            }
+        }
+        
+        // ==================== UTILITY FUNCTIONS ====================
+        function showToast(message, type = 'info') {
+            const toast = elements.toast;
+            
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                warning: '#f59e0b',
+                info: '#3b82f6'
+            };
+            
+            toast.style.background = colors[type];
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        function toggleLoading(show) {
+            if (show) {
+                elements.loading.classList.remove('hidden');
+            } else {
+                elements.loading.classList.add('hidden');
+            }
+        }
+        
+        function updateOrientation() {
+            setOrientation(currentOrientation);
+        }
+        
+        // Make functions globally available
+        window.selectSide = selectSide;
+        window.applyTransform = applyTransform;
+        window.resetTransform = resetTransform;
+        window.replaceImage = replaceImage;
+        window.removeImage = removeImage;
+        window.togglePreviewSize = togglePreviewSize;
+        window.syncPreviews = syncPreviews;
+        window.setOrientation = setOrientation;
+        window.autoFitImage = autoFitImage;
+        window.matchCardSizes = matchCardSizes;
+        window.changeBackgroundColor = changeBackgroundColor;
+        window.changeBorderRadius = changeBorderRadius;
+        window.showCustomSizePanel = showCustomSizePanel;
+        window.applyCustomSize = applyCustomSize;
+        window.moveImage = moveImage;
+        window.resetPosition = resetPosition;
+        window.setMoveStep = setMoveStep;
+        window.showPositionGrid = showPositionGrid;
+        window.updatePositionFromSlider = updatePositionFromSlider;
+        window.centerImage = centerImage;
+        window.switchTab = switchTab;
+        window.setPaperSize = setPaperSize;
+        window.showPrintPreview = showPrintPreview;
+        window.printLayout = printLayout;
+        window.downloadPrintPDF = downloadPrintPDF;
+        window.updateCardCount = updateCardCount;
+    </script>
+</body>
+</html>

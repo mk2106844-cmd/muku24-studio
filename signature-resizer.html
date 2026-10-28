@@ -1,0 +1,1422 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6791318178265120"
+     crossorigin="anonymous"></script>
+    <!-- Resource Hints & Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Free Signature Image Resizer | Digital Signature Tool - Smart CSC Tools</title>
+    <meta name="title" content="Signature Image Resizer - Resize Digital & Handwritten Signatures">
+    <meta name="description" content="Resize signature images for documents, emails, and forms. Crop, enhance, transparent background, KB control. Download as PNG/JPG. Perfect for official use.">
+    <meta name="keywords" content="signature resizer, digital signature tool, signature image resize, handwritten signature, e-signature maker, sign stamp, signature for documents">
+    <meta name="author" content="Smart CSC Tools">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="signature-resizer.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Signature Image Resizer - Digital Signature Tool">
+    <meta property="og:description" content="Resize signature images for documents, emails, and forms.">
+    
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Cropper.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .upload-area {
+            border: 3px dashed #cbd5e1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: #f8fafc;
+        }
+        
+        .upload-area:hover {
+            border-color: #059669;
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        
+        .upload-area.dragover {
+            border-color: #047857;
+            background: #eef2ff;
+        }
+        
+        .preview-container {
+            position: relative;
+            max-width: 100%;
+            min-height: 300px;
+            background: repeating-conic-gradient(#f1f5f9 0% 25%, #e2e8f0 0% 50%) 50% / 20px 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        #cropper-image {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .mode-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .mode-btn.active {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #059669;
+        }
+        
+        .bg-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .bg-option.active {
+            border-color: #059669;
+            background: #ecfdf5;
+        }
+        
+        .bg-option i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .dimension-input, .kb-input, .preset-input {
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 12px;
+            width: 100%;
+        }
+        
+        .dimension-input:focus, .kb-input:focus, .preset-input:focus {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            transition: all 0.3s ease;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.5);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            border-color: #059669;
+            color: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .size-badge {
+            background: #e2e8f0;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .preset-chip {
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .preset-chip:hover {
+            background: #059669;
+            color: white;
+        }
+        
+        .toast-message {
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #059669;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #059669, #10b981);
+            transition: width 0.3s ease;
+        }
+        
+        /* Signature specific styles */
+        .signature-preview {
+            filter: brightness(1.05) contrast(1.1);
+        }
+        
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+        }
+    </style>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://smartcsctools.org/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://smartcsctools.org/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://smartcsctools.org/favicon.png">
+</head>
+<body class="p-4 md:p-6">
+    
+    <!-- Navigation -->
+    <nav class="glass-morphism rounded-2xl mb-6 p-4">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2 text-sm">
+                <a href="index.html" class="text-gray-600 hover:text-emerald-600 transition">
+                    <i class="fas fa-home mr-1"></i> Home
+                </a>
+                
+                <span class="text-gray-400">/</span>
+                <span class="text-emerald-600 font-semibold">Signature Resizer</span>
+            </div>
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <button onclick="shareOnWhatsApp()" class="text-green-600 hover:text-green-700 transition">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </button>
+                <button onclick="shareOnFacebook()" class="text-blue-600 hover:text-blue-700 transition">
+                    <i class="fab fa-facebook text-xl"></i>
+                </button>
+                <button onclick="copyLink()" class="text-gray-600 hover:text-emerald-600 transition">
+                    <i class="fas fa-link text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                Signature Image Resizer
+            </h1>
+            <p class="text-lg text-white/90 max-w-3xl mx-auto">
+                Resize handwritten & digital signatures. <span class="font-bold">Perfect for documents, emails and forms.</span>
+            </p>
+            
+            <!-- Stats -->
+            <div class="flex flex-wrap justify-center gap-4 mt-6">
+                <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+                    <i class="fas fa-pen-fancy mr-2"></i> Handwritten
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+                    <i class="fas fa-cut mr-2"></i> Precision Crop
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+                    <i class="fas fa-weight-hanging mr-2"></i> KB Control
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+                    <i class="fas fa-download mr-2"></i> PNG/JPG
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="glass-morphism rounded-3xl p-6 md:p-8 max-w-6xl mx-auto">
+            
+            <!-- Signature Size Presets -->
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+                    <i class="fas fa-file-signature text-emerald-600 mr-2"></i>
+                    Common Signature Sizes
+                </h3>
+                <div class="preset-grid">
+                    <div class="preset-chip text-center" onclick="applyPreset('email')">
+                        <i class="fas fa-envelope mr-1"></i> Email
+                    </div>
+                    <div class="preset-chip text-center" onclick="applyPreset('document')">
+                        <i class="fas fa-file-pdf mr-1"></i> Document
+                    </div>
+                    <div class="preset-chip text-center" onclick="applyPreset('contract')">
+                        <i class="fas fa-file-contract mr-1"></i> Contract
+                    </div>
+                    <div class="preset-chip text-center" onclick="applyPreset('website')">
+                        <i class="fas fa-globe mr-1"></i> Website
+                    </div>
+                    <div class="preset-chip text-center" onclick="applyPreset('form')">
+                        <i class="fas fa-wpforms mr-1"></i> Form
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Two Column Layout -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- Left Column - Upload & Crop -->
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-cloud-upload-alt text-emerald-600 mr-2"></i>
+                        1. Upload Signature
+                    </h2>
+                    
+                    <!-- Upload Area -->
+                    <div id="uploadArea" class="upload-area mb-4">
+                        <div class="text-center p-6" id="uploadPrompt">
+                            <i class="fas fa-pen-fancy text-5xl text-emerald-400 mb-4"></i>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Upload Signature</h3>
+                            <p class="text-gray-500 text-sm mb-2">Click to browse or drag and drop</p>
+                            <p class="text-xs text-gray-400">Supports: JPG, PNG, GIF (Max 10MB)</p>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" class="hidden">
+                    </div>
+                    
+                    <!-- Cropper Preview -->
+                    <div id="cropperContainer" class="preview-container hidden mb-4">
+                        <img id="cropper-image" src="signature-resizer.html" alt="Signature to crop" loading="lazy">
+                    </div>
+                    
+                    <!-- Crop Controls -->
+                    <div id="cropControls" class="hidden space-y-4">
+                        <div class="flex flex-wrap gap-2">
+                            <button id="cropButton" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition">
+                                <i class="fas fa-cut mr-2"></i>Apply Crop
+                            </button>
+                            <button id="resetCropButton" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+                                <i class="fas fa-undo mr-2"></i>Reset
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Selection Width</label>
+                                <input type="number" id="cropWidth" class="dimension-input text-sm" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Selection Height</label>
+                                <input type="number" id="cropHeight" class="dimension-input text-sm" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Preview & Background -->
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-eye text-emerald-600 mr-2"></i>
+                        2. Preview & Background
+                    </h2>
+                    
+                    <!-- Preview Image -->
+                    <div class="preview-container mb-4" id="previewContainer">
+                        <img id="preview" class="max-w-full max-h-[300px] mx-auto signature-preview" alt="Signature preview" style="display: none;" loading="lazy">
+                        <div id="noPreviewText" class="text-center text-gray-400 py-5">
+                            <i class="fas fa-pen-fancy text-4xl mb-3"></i>
+                            <p>Crop signature to see preview</p>
+                        </div>
+                    </div>
+                    
+                    <!-- File Info -->
+                    <div id="fileInfo" class="hidden bg-gray-50 rounded-xl p-4 mb-4">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-file-signature text-2xl text-emerald-600"></i>
+                            <div>
+                                <p id="fileName" class="font-semibold text-gray-800"></p>
+                                <p id="fileSize" class="text-sm text-gray-500"></p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <span id="imageDimensions" class="size-badge"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Options -->
+            <div class="mt-8">
+                <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-fill-drip text-emerald-600 mr-2"></i>
+                    3. Background Options
+                </h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                    <div class="bg-option active" onclick="setBackground('transparent')" id="bgTransparent">
+                        <i class="fas fa-square text-transparent bg-gradient-to-r from-emerald-200 to-teal-200 bg-clip-text"></i>
+                        <span class="block text-sm">Transparent</span>
+                    </div>
+                    <div class="bg-option" onclick="setBackground('white')" id="bgWhite">
+                        <i class="fas fa-square text-white drop-shadow"></i>
+                        <span class="block text-sm">White</span>
+                    </div>
+                    <div class="bg-option" onclick="setBackground('black')" id="bgBlack">
+                        <i class="fas fa-square text-black"></i>
+                        <span class="block text-sm">Black</span>
+                    </div>
+                    <div class="bg-option" onclick="setBackground('custom')" id="bgCustom">
+                        <i class="fas fa-palette text-purple-600"></i>
+                        <span class="block text-sm">Custom</span>
+                    </div>
+                    <div class="bg-option" onclick="setBackground('remove')" id="bgRemove">
+                        <i class="fas fa-eraser text-red-600"></i>
+                        <span class="block text-sm">Remove BG</span>
+                    </div>
+                </div>
+                
+                <!-- Custom Color Picker -->
+                <div id="customColorPicker" class="hidden mb-6">
+                    <label class="block text-sm text-gray-600 mb-2">Choose Background Color</label>
+                    <input type="color" id="bgColor" value="#059669" class="w-full h-12 rounded-lg border-2 border-gray-200 p-1">
+                </div>
+            </div>
+            
+            <!-- Resize Options -->
+            <div class="mt-6">
+                <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-arrows-alt text-emerald-600 mr-2"></i>
+                    4. Resize Options
+                </h3>
+                
+                <!-- Mode Toggle -->
+                <div class="mode-toggle max-w-md mx-auto">
+                    <div id="dimensionModeBtn" class="mode-btn active" onclick="setResizeMode('dimension')">
+                        <i class="fas fa-arrows-alt mr-2"></i>By Dimensions
+                    </div>
+                    <div id="kbModeBtn" class="mode-btn" onclick="setResizeMode('kb')">
+                        <i class="fas fa-weight-hanging mr-2"></i>By KB Size
+                    </div>
+                </div>
+                
+                <!-- Dimension Controls -->
+                <div id="dimensionControls" class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Width (px)</label>
+                        <input type="number" id="width" min="1" class="dimension-input" placeholder="Auto">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">Height (px)</label>
+                        <input type="number" id="height" min="1" class="dimension-input" placeholder="Auto">
+                    </div>
+                </div>
+                
+                <!-- KB Controls with Manual Target -->
+                <div id="kbControls" class="hidden space-y-4 mt-4">
+                    <!-- Manual KB Input -->
+                    <div class="bg-emerald-50 p-4 rounded-lg mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-bullseye text-emerald-600 mr-2"></i>
+                            Enter Target KB Size:
+                        </label>
+                        <div class="flex gap-3 items-center">
+                            <input type="number" id="manualTargetKB" min="1" max="500" value="15" class="kb-input flex-1" placeholder="e.g., 15">
+                            <span class="text-sm text-gray-500">KB</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Recommended: 5-20 KB for email, 20-50 KB for documents</p>
+                    </div>
+                    
+                    <!-- Quick Preset Buttons -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="setTargetKB(5)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">5 KB</button>
+                        <button onclick="setTargetKB(10)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">10 KB</button>
+                        <button onclick="setTargetKB(15)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">15 KB</button>
+                        <button onclick="setTargetKB(20)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">20 KB</button>
+                        <button onclick="setTargetKB(30)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">30 KB</button>
+                        <button onclick="setTargetKB(50)" class="bg-white border border-emerald-200 px-3 py-1 rounded-full text-sm hover:bg-emerald-50">50 KB</button>
+                    </div>
+                    
+                    <!-- Quality Control -->
+                    <div class="mt-4">
+                        <label class="block text-sm text-gray-600 mb-2">Quality Preference:</label>
+                        <select id="kbQualityPreset" class="kb-input">
+                            <option value="0.9">High Quality (Crisp, larger file)</option>
+                            <option value="0.7" selected>Balanced (Recommended)</option>
+                            <option value="0.5">Smaller file (Good for email)</option>
+                            <option value="0.3">Minimum size (For strict limits)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Apply Button -->
+                    <div class="flex justify-center mt-4">
+                        <button id="applyKBResize" class="bg-emerald-600 text-white px-8 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold">
+                            <i class="fas fa-weight-hanging mr-2"></i>Resize to Target KB
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Maintain Aspect Ratio -->
+                <div class="flex items-center justify-center gap-4 mt-4">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="aspectRatioLock" checked class="w-4 h-4 text-emerald-600">
+                        <span class="text-sm text-gray-700">Maintain Aspect Ratio</span>
+                    </label>
+                    <button id="resetDimensions" class="text-sm text-gray-500 hover:text-emerald-600 transition">
+                        <i class="fas fa-undo mr-1"></i> Reset
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Size Info -->
+            <div id="sizeInfo" class="hidden mt-6 bg-emerald-50 p-4 rounded-xl">
+                <h4 class="font-semibold text-gray-700 mb-3">📊 File Size Details</h4>
+                <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="bg-white p-2 rounded">
+                        <span class="text-xs text-gray-500">Current Size:</span>
+                        <span id="currentSize" class="font-bold text-emerald-600 block">-</span>
+                    </div>
+                    <div class="bg-white p-2 rounded">
+                        <span class="text-xs text-gray-500">Target Size:</span>
+                        <span id="targetSizeDisplay" class="font-bold text-purple-600 block">-</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div id="sizeProgress" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div id="sizeMessage" class="text-sm mt-2 font-medium"></div>
+                <div id="achievedSize" class="text-xs text-gray-500 mt-1"></div>
+            </div>
+            
+            <!-- Download Buttons -->
+            <div class="mt-8 flex flex-wrap gap-3 justify-center">
+                <button id="downloadPNGBtn" class="btn-primary" disabled>
+                    <i class="fas fa-download mr-2"></i>
+                    Download PNG
+                </button>
+                <button id="downloadJPGBtn" class="btn-secondary" disabled>
+                    <i class="fas fa-download mr-2"></i>
+                    Download JPG
+                </button>
+                <button id="newImageBtn" class="btn-secondary">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Signature
+                </button>
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="hidden text-center mt-4">
+                <div class="spinner mx-auto"></div>
+                <p id="loadingText" class="text-gray-600 mt-2">Processing...</p>
+            </div>
+        </div>
+        
+        <!-- Signature Size Guide -->
+        <div class="glass-morphism rounded-3xl p-6 mt-6">
+            <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-info-circle text-emerald-600 mr-2"></i>
+                Signature Size Guide
+            </h3>
+            <div class="grid md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-white p-3 rounded-lg">
+                    <span class="font-bold text-emerald-600">Email Signature</span>
+                    <p class="text-gray-600 mt-1">300-400 px width</p>
+                    <p class="text-xs text-gray-400">5-15 KB, Transparent</p>
+                </div>
+                <div class="bg-white p-3 rounded-lg">
+                    <span class="font-bold text-emerald-600">Document</span>
+                    <p class="text-gray-600 mt-1">400-600 px width</p>
+                    <p class="text-xs text-gray-400">20-30 KB, White/Transparent</p>
+                </div>
+                <div class="bg-white p-3 rounded-lg">
+                    <span class="font-bold text-emerald-600">Contract</span>
+                    <p class="text-gray-600 mt-1">500-800 px width</p>
+                    <p class="text-xs text-gray-400">30-50 KB, High Quality</p>
+                </div>
+                <div class="bg-white p-3 rounded-lg">
+                    <span class="font-bold text-emerald-600">Website</span>
+                    <p class="text-gray-600 mt-1">200-300 px width</p>
+                    <p class="text-xs text-gray-400">5-10 KB, Transparent</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use -->
+        <div class="glass-morphism rounded-3xl p-8 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">How to Resize Signature</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-xl font-bold text-emerald-600">1</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Upload</h3>
+                    <p class="text-sm text-gray-600">Upload your signature image</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-xl font-bold text-emerald-600">2</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Crop</h3>
+                    <p class="text-sm text-gray-600">Crop exactly to signature area</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-xl font-bold text-emerald-600">3</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Set Background</h3>
+                    <p class="text-sm text-gray-600">Transparent or colored background</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-xl font-bold text-emerald-600">4</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Download</h3>
+                    <p class="text-sm text-gray-600">Save as PNG or JPG</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
+    
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+        const cropperContainer = document.getElementById('cropperContainer');
+        const cropperImage = document.getElementById('cropper-image');
+        const cropControls = document.getElementById('cropControls');
+        const cropWidth = document.getElementById('cropWidth');
+        const cropHeight = document.getElementById('cropHeight');
+        const preview = document.getElementById('preview');
+        const noPreviewText = document.getElementById('noPreviewText');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const imageDimensions = document.getElementById('imageDimensions');
+        
+        // Background options
+        const bgTransparent = document.getElementById('bgTransparent');
+        const bgWhite = document.getElementById('bgWhite');
+        const bgBlack = document.getElementById('bgBlack');
+        const bgCustom = document.getElementById('bgCustom');
+        const bgRemove = document.getElementById('bgRemove');
+        const customColorPicker = document.getElementById('customColorPicker');
+        const bgColor = document.getElementById('bgColor');
+        
+        // Resize controls
+        const dimensionModeBtn = document.getElementById('dimensionModeBtn');
+        const kbModeBtn = document.getElementById('kbModeBtn');
+        const dimensionControls = document.getElementById('dimensionControls');
+        const kbControls = document.getElementById('kbControls');
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const manualTargetKB = document.getElementById('manualTargetKB');
+        const kbQualityPreset = document.getElementById('kbQualityPreset');
+        const applyKBResize = document.getElementById('applyKBResize');
+        const aspectRatioLock = document.getElementById('aspectRatioLock');
+        const resetDimensionsBtn = document.getElementById('resetDimensions');
+        
+        // Size info
+        const sizeInfo = document.getElementById('sizeInfo');
+        const currentSize = document.getElementById('currentSize');
+        const targetSizeDisplay = document.getElementById('targetSizeDisplay');
+        const sizeProgress = document.getElementById('sizeProgress');
+        const sizeMessage = document.getElementById('sizeMessage');
+        const achievedSize = document.getElementById('achievedSize');
+        
+        // Buttons
+        const downloadPNGBtn = document.getElementById('downloadPNGBtn');
+        const downloadJPGBtn = document.getElementById('downloadJPGBtn');
+        const newImageBtn = document.getElementById('newImageBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const loadingText = document.getElementById('loadingText');
+        
+        // State
+        let cropper = null;
+        let processedImageData = null;
+        let currentBackground = 'transparent';
+        let currentResizeMode = 'dimension';
+        let originalWidth = 0;
+        let originalHeight = 0;
+        let originalFileSize = 0;
+        let fileName_str = '';
+        let currentFileSize = 0;
+        
+        // Signature size presets
+        const presets = {
+            'email': { width: 350, height: 100, desc: 'Email signature' },
+            'document': { width: 500, height: 150, desc: 'Document signature' },
+            'contract': { width: 600, height: 180, desc: 'Contract signature' },
+            'website': { width: 250, height: 80, desc: 'Website signature' },
+            'form': { width: 400, height: 120, desc: 'Form signature' }
+        };
+        
+        // Set target KB from preset buttons
+        window.setTargetKB = (kb) => {
+            manualTargetKB.value = kb;
+            showToast(`Target set to ${kb} KB`, 'success');
+        };
+        
+        // Apply size preset
+        window.applyPreset = (type) => {
+            if (!processedImageData) {
+                showToast('Please crop a signature first', 'error');
+                return;
+            }
+            
+            const preset = presets[type];
+            if (preset) {
+                widthInput.value = preset.width;
+                heightInput.value = preset.height;
+                showToast(`${preset.desc} size applied`, 'success');
+            }
+        };
+        
+        // Upload handlers
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        // Handle file upload
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showToast('Please upload an image file', 'error');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('File size should be less than 10MB', 'error');
+                return;
+            }
+            
+            fileName_str = file.name;
+            originalFileSize = file.size;
+            
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                cropperImage.src = e.target.result;
+                uploadPrompt.classList.add('hidden');
+                cropperContainer.classList.remove('hidden');
+                cropControls.classList.remove('hidden');
+                
+                if (cropper) cropper.destroy();
+                
+                cropper = new Cropper(cropperImage, {
+                    aspectRatio: NaN,
+                    viewMode: 1,
+                    dragMode: 'crop',
+                    autoCropArea: 1,
+                    crop: function(event) {
+                        cropWidth.value = Math.round(event.detail.width);
+                        cropHeight.value = Math.round(event.detail.height);
+                    }
+                });
+                
+                showToast('Signature loaded. Crop to signature area.', 'success');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Crop button
+        document.getElementById('cropButton').addEventListener('click', () => {
+            if (!cropper) return;
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = 'Cropping signature...';
+            
+            setTimeout(() => {
+                const canvas = cropper.getCroppedCanvas({
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high'
+                });
+                
+                processedImageData = canvas.toDataURL('image/png');
+                preview.src = processedImageData;
+                preview.style.display = 'block';
+                noPreviewText.style.display = 'none';
+                
+                fileName.textContent = fileName_str;
+                fileSize.textContent = formatFileSize(originalFileSize);
+                imageDimensions.textContent = `${canvas.width} x ${canvas.height} px`;
+                fileInfo.classList.remove('hidden');
+                
+                originalWidth = canvas.width;
+                originalHeight = canvas.height;
+                
+                widthInput.value = originalWidth;
+                heightInput.value = originalHeight;
+                
+                updateCurrentFileSize();
+                downloadPNGBtn.disabled = false;
+                downloadJPGBtn.disabled = false;
+                
+                loadingIndicator.classList.add('hidden');
+                showToast('Signature cropped!', 'success');
+            }, 100);
+        });
+        
+        // Reset crop
+        document.getElementById('resetCropButton').addEventListener('click', () => {
+            if (cropper) cropper.reset();
+        });
+        
+        // Background functions
+        window.setBackground = (type) => {
+            currentBackground = type;
+            
+            document.querySelectorAll('.bg-option').forEach(opt => opt.classList.remove('active'));
+            
+            switch(type) {
+                case 'transparent':
+                    bgTransparent.classList.add('active');
+                    customColorPicker.classList.add('hidden');
+                    break;
+                case 'white':
+                    bgWhite.classList.add('active');
+                    customColorPicker.classList.add('hidden');
+                    break;
+                case 'black':
+                    bgBlack.classList.add('active');
+                    customColorPicker.classList.add('hidden');
+                    break;
+                case 'custom':
+                    bgCustom.classList.add('active');
+                    customColorPicker.classList.remove('hidden');
+                    break;
+                case 'remove':
+                    bgRemove.classList.add('active');
+                    customColorPicker.classList.add('hidden');
+                    removeBackground();
+                    return;
+            }
+            
+            if (processedImageData) {
+                applyBackground();
+            }
+        };
+        
+        // Remove white background
+        function removeBackground() {
+            if (!processedImageData) return;
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = 'Removing background...';
+            
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                // Remove white background
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+                    
+                    // If pixel is white or very light, make transparent
+                    if (r > 240 && g > 240 && b > 240) {
+                        data[i + 3] = 0;
+                    }
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+                processedImageData = canvas.toDataURL('image/png');
+                preview.src = processedImageData;
+                
+                updateCurrentFileSize();
+                loadingIndicator.classList.add('hidden');
+                showToast('Background removed!', 'success');
+            };
+            img.src = processedImageData;
+        }
+        
+        // Apply background color
+        function applyBackground() {
+            if (!processedImageData) return;
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = 'Applying background...';
+            
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                if (currentBackground === 'transparent') {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                } else {
+                    ctx.fillStyle = currentBackground === 'white' ? '#ffffff' : 
+                                   currentBackground === 'black' ? '#000000' : 
+                                   bgColor.value;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+                
+                ctx.drawImage(img, 0, 0);
+                
+                processedImageData = canvas.toDataURL('image/png');
+                preview.src = processedImageData;
+                
+                updateCurrentFileSize();
+                loadingIndicator.classList.add('hidden');
+                showToast('Background applied!', 'success');
+            };
+            img.src = processedImageData;
+        }
+        
+        // Custom color change
+        bgColor.addEventListener('input', () => {
+            if (currentBackground === 'custom') {
+                applyBackground();
+            }
+        });
+        
+        // Resize mode
+        window.setResizeMode = (mode) => {
+            currentResizeMode = mode;
+            
+            dimensionModeBtn.classList.toggle('active', mode === 'dimension');
+            kbModeBtn.classList.toggle('active', mode === 'kb');
+            
+            dimensionControls.classList.toggle('hidden', mode !== 'dimension');
+            kbControls.classList.toggle('hidden', mode !== 'kb');
+            sizeInfo.classList.add('hidden');
+        };
+        
+        // Aspect ratio handling
+        widthInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && originalHeight > 0) {
+                const newWidth = parseInt(widthInput.value) || 0;
+                if (newWidth > 0) {
+                    heightInput.value = Math.round(newWidth * (originalHeight / originalWidth));
+                }
+            }
+        });
+        
+        heightInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && originalWidth > 0) {
+                const newHeight = parseInt(heightInput.value) || 0;
+                if (newHeight > 0) {
+                    widthInput.value = Math.round(newHeight * (originalWidth / originalHeight));
+                }
+            }
+        });
+        
+        resetDimensionsBtn.addEventListener('click', () => {
+            widthInput.value = originalWidth;
+            heightInput.value = originalHeight;
+        });
+        
+        // Update current file size
+        function updateCurrentFileSize() {
+            if (!processedImageData) return;
+            
+            const base64Data = processedImageData.split(',')[1];
+            if (base64Data) {
+                currentFileSize = atob(base64Data).length;
+                currentSize.textContent = formatFileSize(currentFileSize);
+                
+                if (manualTargetKB.value) {
+                    const targetBytes = parseInt(manualTargetKB.value) * 1024;
+                    targetSizeDisplay.textContent = manualTargetKB.value + ' KB';
+                    const percentage = (currentFileSize / targetBytes) * 100;
+                    sizeProgress.style.width = Math.min(percentage, 100) + '%';
+                    
+                    if (currentFileSize <= targetBytes) {
+                        sizeMessage.innerHTML = '<span class="text-green-600">✓ Target size achieved!</span>';
+                    } else {
+                        const overSize = ((currentFileSize - targetBytes) / 1024).toFixed(1);
+                        sizeMessage.innerHTML = `<span class="text-orange-600">⚠ ${overSize} KB over target</span>`;
+                    }
+                    
+                    achievedSize.textContent = `Achieved: ${(currentFileSize/1024).toFixed(2)} KB`;
+                }
+                
+                sizeInfo.classList.remove('hidden');
+            }
+        }
+        
+        // KB Resize function
+        applyKBResize.addEventListener('click', () => {
+            if (!processedImageData) {
+                showToast('Please crop a signature first', 'error');
+                return;
+            }
+            
+            const targetKb = parseInt(manualTargetKB.value);
+            if (!targetKb || targetKb < 1 || targetKb > 500) {
+                showToast('Please enter valid target KB (1-500)', 'error');
+                return;
+            }
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = `Resizing to ${targetKb} KB...`;
+            
+            const targetBytes = targetKb * 1024;
+            const baseQuality = parseFloat(kbQualityPreset.value);
+            
+            const img = new Image();
+            img.onload = () => {
+                let bestData = null;
+                let bestSize = 0;
+                
+                // Try different qualities
+                const qualities = [baseQuality, baseQuality * 0.8, baseQuality * 0.6, 0.4, 0.3];
+                
+                // Try with original dimensions
+                for (let q of qualities) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const dataUrl = canvas.toDataURL('image/jpeg', q);
+                    const size = atob(dataUrl.split(',')[1]).length;
+                    
+                    if (size <= targetBytes && size > bestSize) {
+                        bestSize = size;
+                        bestData = dataUrl;
+                    }
+                }
+                
+                // If still too large, reduce dimensions
+                if (!bestData) {
+                    let scale = 0.8;
+                    for (let attempt = 0; attempt < 5; attempt++) {
+                        const newWidth = Math.max(100, Math.round(img.width * scale));
+                        const newHeight = Math.max(50, Math.round(img.height * scale));
+                        
+                        const canvas = document.createElement('canvas');
+                        canvas.width = newWidth;
+                        canvas.height = newHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                        
+                        for (let q of qualities) {
+                            const dataUrl = canvas.toDataURL('image/jpeg', q);
+                            const size = atob(dataUrl.split(',')[1]).length;
+                            
+                            if (size <= targetBytes && size > bestSize) {
+                                bestSize = size;
+                                bestData = dataUrl;
+                            }
+                        }
+                        
+                        if (bestData) break;
+                        scale *= 0.7;
+                    }
+                }
+                
+                if (bestData) {
+                    processedImageData = bestData;
+                    preview.src = bestData;
+                    
+                    const tempImg = new Image();
+                    tempImg.onload = () => {
+                        imageDimensions.textContent = `${tempImg.width} x ${tempImg.height} px`;
+                        widthInput.value = tempImg.width;
+                        heightInput.value = tempImg.height;
+                    };
+                    tempImg.src = bestData;
+                    
+                    updateCurrentFileSize();
+                    
+                    const achievedKb = (bestSize / 1024).toFixed(2);
+                    showToast(`✓ Resized to ${achievedKb} KB (Target: ${targetKb} KB)`, 'success');
+                } else {
+                    showToast('Could not achieve target size. Try higher KB target.', 'error');
+                }
+                
+                loadingIndicator.classList.add('hidden');
+            };
+            img.src = processedImageData;
+        });
+        
+        // Download functions
+        downloadPNGBtn.addEventListener('click', () => downloadImage('png'));
+        downloadJPGBtn.addEventListener('click', () => downloadImage('jpg'));
+        
+        function downloadImage(format) {
+            if (!processedImageData) return;
+            
+            loadingIndicator.classList.remove('hidden');
+            loadingText.textContent = `Preparing ${format.toUpperCase()}...`;
+            
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                let width, height;
+                if (currentResizeMode === 'dimension' && widthInput.value && heightInput.value) {
+                    width = parseInt(widthInput.value);
+                    height = parseInt(heightInput.value);
+                } else {
+                    width = img.width;
+                    height = img.height;
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                
+                if (format === 'jpg') {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                }
+                
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+                const quality = format === 'jpg' ? 0.92 : 1;
+                const dataUrl = canvas.toDataURL(mimeType, quality);
+                
+                const link = document.createElement('a');
+                const baseName = fileName_str.split('.')[0] || 'signature';
+                link.download = `${baseName}_signature.${format}`;
+                link.href = dataUrl;
+                link.click();
+                
+                loadingIndicator.classList.add('hidden');
+                showToast(`${format.toUpperCase()} downloaded!`, 'success');
+            };
+            img.src = processedImageData;
+        }
+        
+        // New signature
+        newImageBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            uploadPrompt.classList.remove('hidden');
+            cropperContainer.classList.add('hidden');
+            cropControls.classList.add('hidden');
+            preview.style.display = 'none';
+            noPreviewText.style.display = 'block';
+            fileInfo.classList.add('hidden');
+            sizeInfo.classList.add('hidden');
+            
+            downloadPNGBtn.disabled = true;
+            downloadJPGBtn.disabled = true;
+            
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+            
+            processedImageData = null;
+            showToast('Ready for new signature', 'info');
+        });
+        
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                info: 'bg-blue-500',
+                warning: 'bg-yellow-500'
+            };
+            
+            toast.className = `toast-message ${colors[type]} text-white px-6 py-4 rounded-lg shadow-lg flex items-center`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-3"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // Share functions
+        window.shareOnWhatsApp = () => {
+            const text = 'Free Signature Resizer - Resize signatures for documents and emails';
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        };
+        
+        window.shareOnFacebook = () => {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        };
+        
+        window.copyLink = () => {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('Link copied to clipboard!', 'success');
+        };
+    </script>
+    <!-- Footer -->
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-200 pt-16 pb-8 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          
+          <!-- Column 1: About & Social -->
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Smart CSC Tools</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              India's No.1 Free Platform for CSC VLEs. Quick and secure document crop, resizing, converters and online utility.
+            </p>
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="WhatsApp Chat">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.004 2c-5.518 0-9.996 4.477-9.996 9.996 0 1.83.493 3.543 1.348 5.03l-1.356 4.974 5.097-1.335c1.455.8 3.116 1.26 4.907 1.26 5.518 0 9.996-4.477 9.996-9.996 0-5.519-4.478-9.996-9.996-9.996zm4.618 13.064c-.207.584-1.008 1.077-1.583 1.158-.396.056-.913.088-2.529-.575-2.067-.847-3.4-2.956-3.504-3.094-.103-.138-.843-1.121-.843-2.148 0-1.026.536-1.53.727-1.737.19-.207.414-.259.552-.259.138 0 .276.002.396.007.126.006.293-.047.458.353.17.414.58 1.414.63 1.517.05.103.084.224.015.358-.068.138-.103.224-.207.345-.103.12-.22.271-.314.364-.103.103-.211.216-.09.423.12.207.534.878 1.146 1.423.788.702 1.452.92 1.658 1.023.207.103.327.086.448-.052.12-.138.517-.603.655-.81.138-.207.276-.172.466-.103.19.069 1.207.569 1.414.672.207.103.345.155.396.242.052.086.052.5-.155 1.084z" />
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="Facebook Page">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="YouTube Channel">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Quick Links</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Home</a></li>
+              <li><a href="index.html#tools" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Our Tools</a></li>
+              <li><a href="about.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> About Us</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Legal & Support (AdSense Required) -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Legal & Support</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="privacy.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Terms of Service</a></li>
+              <li><a href="disclaimer.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Disclaimer</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter & Contact Info -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-white mb-2 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Newsletter</h4>
+            <p class="text-xs text-slate-400 leading-normal">
+              Subscribe to get the latest updates on new CSC tools, updates, and templates directly in your inbox.
+            </p>
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col gap-2 mt-2">
+              <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide transition duration-300">
+                Subscribe
+              </button>
+            </form>
+           
+          </div>
+
+        </div>
+
+        <!-- Divider & Bottom Bar -->
+        <div class="border-t border-slate-800 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>&copy; 2026 Smart CSC Tools. All rights reserved.</p>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Subscribe Handler Script -->
+    <script>
+      function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert("Thank you for subscribing! We'll keep you updated.");
+          emailInput.value = "";
+        }
+      }
+    </script>
+
+<script src="https://smartcsctools.org/cookie-consent.js?v=2" defer></script>
+    <!-- Dynamic Load AdSense -->
+    <script>
+      (function() {
+        const adsenseEvents = ['scroll', 'mouseover', 'keydown', 'touchstart'];
+        let adsenseLoaded = false;
+        function loadAdSense() {
+          if (adsenseLoaded) return;
+          adsenseLoaded = true;
+          const script = document.createElement('script');
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5903040139930597';
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+          adsenseEvents.forEach(evt => window.removeEventListener(evt, loadAdSense));
+        }
+        adsenseEvents.forEach(evt => window.addEventListener(evt, loadAdSense, { passive: true, once: true }));
+      })();
+    </script>
+
+</body>
+</html>

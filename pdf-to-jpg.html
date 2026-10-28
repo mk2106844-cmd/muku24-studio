@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Resource Hints & Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
+    <!-- SEO Meta Tags -->
+    <title>PDF to JPG Converter Free- Smart CSC Tools</title>
+    <meta name="description" content="Convert PDF documents to high-quality JPG images online. Extract pages from PDFs as JPEG images for free. 100% secure client-side conversion.">
+    <meta name="keywords" content="PDF to JPG, convert PDF to image, PDF to JPEG converter, extract PDF pages, CSC tools, Smart CSC Tools">
+    <meta name="author" content="Smart CSC Tools">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF to JPG Converter - Smart CSC Tools">
+    <meta property="og:description" content="Convert PDF pages to JPEG images online for free. Secure client-side conversion.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    
+    <!-- JSZip & FileSaver for ZIP downloads -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .glass-header {
+            background: rgba(79, 70, 229, 0.95); /* Indigo themed header */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .toast {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://smartcsctools.org/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://smartcsctools.org/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://smartcsctools.org/favicon.png">
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Header -->
+    <header class="glass-header text-white py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-30 shadow-lg">
+        <div class="flex items-center space-x-3">
+            <a href="index.html" class="hover:opacity-80 transition flex items-center">
+                <i class="fas fa-arrow-left text-xl mr-3"></i>
+            </a>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-file-image text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold font-sans">PDF to JPG Converter</span>
+            </div>
+        </div>
+        <div class="text-sm bg-indigo-800/80 px-3 py-1.5 rounded-full border border-indigo-600/30">
+            <i class="fas fa-lock text-indigo-300 mr-1.5"></i>Secure Client-Side
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 mt-8">
+        
+        <!-- Breadcrumbs -->
+        <nav class="flex text-sm text-indigo-700 mb-6 font-medium" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2">
+                <li><a href="index.html" class="hover:text-indigo-900"><i class="fas fa-home mr-1"></i>Home</a></li>
+                <li><i class="fas fa-chevron-right text-xs mx-1"></i></li>
+                <li><span class="text-indigo-950">PDF to JPG</span></li>
+            </ol>
+        </nav>
+
+        <div class="space-y-8">
+            
+            <!-- Welcome Info banner -->
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-6 md:p-8 shadow-xl">
+                <h1 class="text-2xl md:text-3xl font-extrabold mb-2">Convert PDF to JPG Free</h1>
+                <p class="text-indigo-100 text-sm md:text-base max-w-2xl">
+                    Extract all pages from your PDF file into high-quality JPEG images in seconds. Your files are processed entirely in your browser and never uploaded to any server.
+                </p>
+            </div>
+
+            <!-- Upload Area -->
+            <div id="pdf-drag-zone" class="bg-white rounded-2xl shadow-xl border-2 border-dashed border-indigo-200 hover:border-indigo-500 p-8 text-center transition cursor-pointer relative group">
+                <input type="file" id="pdf-file-input" accept="application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                <div class="space-y-4 py-4 z-0">
+                    <div class="w-16 h-16 bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto transition">
+                        <i class="fas fa-file-upload text-3xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-800">Drag & Drop PDF file here</p>
+                        <p class="text-sm text-gray-500 mt-1">or click to browse from device</p>
+                    </div>
+                    <span class="inline-block text-xs font-semibold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">
+                        Supports PDF up to 50MB
+                    </span>
+                </div>
+            </div>
+
+            <!-- Processing / Progress Area -->
+            <div id="conversion-progress-box" class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-spinner fa-spin text-indigo-600 text-xl"></i>
+                        <span id="progress-status-text" class="text-sm font-bold text-gray-700">Converting pages...</span>
+                    </div>
+                    <span id="progress-percentage-text" class="text-sm font-bold text-indigo-600">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3.5 overflow-hidden">
+                    <div id="progress-bar-fill" class="bg-indigo-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Conversion Results Area -->
+            <div id="conversion-results-box" class="space-y-6 hidden">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 rounded-xl shadow border border-gray-100 gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+                            Conversion Completed!
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-0.5"><span id="converted-pages-count">0</span> pages extracted successfully</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <button onclick="downloadAllAsZip()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl text-sm transition flex items-center shadow-lg shadow-indigo-600/10">
+                            <i class="fas fa-file-archive mr-2"></i>Download All (ZIP)
+                        </button>
+                        <button onclick="resetConverter()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-xl text-sm transition flex items-center border border-gray-200">
+                            <i class="fas fa-trash-alt mr-2"></i>Convert New
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pages Thumbnails Grid -->
+                <div id="pages-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Script Logic -->
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+        // State variables
+        let convertedPages = []; // Holds objects: { pageNum, dataUrl }
+        let currentPdfName = "converted_pages";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('pdf-file-input');
+            const dragZone = document.getElementById('pdf-drag-zone');
+
+            // File selection event
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    processPdfFile(e.target.files[0]);
+                }
+            });
+
+            // Drag and drop events
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dragZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dragZone.classList.add('border-indigo-600', 'bg-indigo-50/50');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dragZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dragZone.classList.remove('border-indigo-600', 'bg-indigo-50/50');
+                }, false);
+            });
+
+            dragZone.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    if (files[0].type === "application/pdf") {
+                        fileInput.files = files;
+                        processPdfFile(files[0]);
+                    } else {
+                        showToast("Please drop a valid PDF document.", "error");
+                    }
+                }
+            });
+        });
+
+        // Main conversion processor
+        async function processPdfFile(file) {
+            if (!file) return;
+
+            // Reset current state
+            convertedPages = [];
+            currentPdfName = file.name.replace(/\.[^/.]+$/, ""); // strip extension
+
+            // Show progress box, hide dragzone and results
+            document.getElementById('pdf-drag-zone').classList.add('hidden');
+            document.getElementById('conversion-results-box').classList.add('hidden');
+            
+            const progressBox = document.getElementById('conversion-progress-box');
+            progressBox.classList.remove('hidden');
+
+            updateProgress(0, "Reading PDF file...");
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const numPages = pdfDoc.numPages;
+
+                updateProgress(5, `Loading ${numPages} pages...`);
+
+                const pagesGrid = document.getElementById('pages-grid');
+                pagesGrid.innerHTML = ''; // Clear previous
+
+                // Render pages sequentially to avoid browser UI freezes
+                for (let i = 1; i <= numPages; i++) {
+                    updateProgress(
+                        Math.round(5 + (i / numPages) * 90),
+                        `Rendering page ${i} of ${numPages}...`
+                    );
+
+                    const page = await pdfDoc.getPage(i);
+                    const viewport = page.getViewport({ scale: 2.0 }); // High-quality 2.0x resolution
+                    
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                    // Convert to JPG data URL
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+                    convertedPages.push({ pageNum: i, dataUrl: dataUrl });
+
+                    // Append thumbnail card to UI grid instantly
+                    appendThumbnailCard(i, dataUrl);
+                }
+
+                // Finish
+                updateProgress(100, "Done!");
+                setTimeout(() => {
+                    progressBox.classList.add('hidden');
+                    
+                    const resultsBox = document.getElementById('conversion-results-box');
+                    resultsBox.classList.remove('hidden');
+                    document.getElementById('converted-pages-count').innerText = numPages;
+                    
+                    showToast(`Successfully extracted ${numPages} pages!`, "success");
+                }, 500);
+
+            } catch (err) {
+                console.error("PDF to JPG conversion error:", err);
+                showToast("Failed to convert PDF. The file may be password protected or corrupted.", "error");
+                resetConverter();
+            }
+        }
+
+        // Helper to update progress UI
+        function updateProgress(percentage, text) {
+            document.getElementById('progress-status-text').innerText = text;
+            document.getElementById('progress-percentage-text').innerText = `${percentage}%`;
+            document.getElementById('progress-bar-fill').style.width = `${percentage}%`;
+        }
+
+        // Helper to append a card to the results grid
+        function appendThumbnailCard(pageNum, dataUrl) {
+            const pagesGrid = document.getElementById('pages-grid');
+            
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-xl shadow border border-gray-100 overflow-hidden flex flex-col justify-between';
+            card.innerHTML = `
+                <div class="p-3 bg-gray-50/50 flex justify-between items-center border-b border-gray-100">
+                    <span class="text-xs font-bold text-gray-700">Page ${pageNum}</span>
+                    <span class="text-[10px] text-gray-400 font-sans uppercase">JPG</span>
+                </div>
+                <div class="p-4 flex items-center justify-center bg-white aspect-[3/4] overflow-hidden max-h-[220px]">
+                    <img src="https://smartcsctools.org/${dataUrl}" class="max-w-full max-h-full object-contain shadow-sm border border-gray-100 rounded" loading="lazy">
+                </div>
+                <div class="p-3 bg-gray-50/50 border-t border-gray-100">
+                    <button onclick="downloadSinglePage(${pageNum})" class="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-1.5 rounded-lg text-xs transition flex items-center justify-center">
+                        <i class="fas fa-download mr-1.5"></i>Download Page
+                    </button>
+                </div>
+            `;
+            pagesGrid.appendChild(card);
+        }
+
+        // Action: Download single page
+        function downloadSinglePage(pageNum) {
+            const page = convertedPages.find(p => p.pageNum === pageNum);
+            if (!page) return;
+
+            const link = document.createElement('a');
+            link.download = `${currentPdfName}_page_${pageNum}.jpg`;
+            link.href = page.dataUrl;
+            link.click();
+        }
+
+        // Action: Download all pages packaged as a ZIP
+        async function downloadAllAsZip() {
+            if (convertedPages.length === 0) return;
+
+            showToast("Generating ZIP archive...", "info");
+            const zip = new JSZip();
+
+            convertedPages.forEach(page => {
+                // Strip metadata prefix from dataUrl to get base64 string
+                const base64Data = page.dataUrl.split(',')[1];
+                zip.file(`${currentPdfName}_page_${page.pageNum}.jpg`, base64Data, { base64: true });
+            });
+
+            try {
+                const blob = await zip.generateAsync({ type: 'blob' });
+                saveAs(blob, `${currentPdfName}_images.zip`);
+                showToast("ZIP downloaded successfully!", "success");
+            } catch (err) {
+                console.error("ZIP Generation Error:", err);
+                showToast("Failed to generate ZIP file.", "error");
+            }
+        }
+
+        // Reset state for new conversion
+        function resetConverter() {
+            convertedPages = [];
+            currentPdfName = "converted_pages";
+
+            document.getElementById('pdf-file-input').value = '';
+            document.getElementById('pages-grid').innerHTML = '';
+            
+            document.getElementById('conversion-progress-box').classList.add('hidden');
+            document.getElementById('conversion-results-box').classList.add('hidden');
+            document.getElementById('pdf-drag-zone').classList.remove('hidden');
+        }
+
+        // Toast notifications system
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = `toast max-w-sm w-full bg-white shadow-xl rounded-xl border-l-4 p-4 pointer-events-auto flex items-center justify-between border-gray-200`;
+            
+            let icon = 'fa-info-circle text-blue-500';
+            if (type === 'success') {
+                toast.classList.add('border-emerald-500');
+                icon = 'fa-check-circle text-emerald-500';
+            } else if (type === 'warning') {
+                toast.classList.add('border-amber-500');
+                icon = 'fa-exclamation-triangle text-amber-500';
+            } else if (type === 'error') {
+                toast.classList.add('border-red-500');
+                icon = 'fa-times-circle text-red-500';
+            } else {
+                toast.classList.add('border-blue-500');
+            }
+
+            toast.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas ${icon} text-lg shrink-0"></i>
+                    <p class="text-xs font-semibold text-gray-700 leading-snug">${message}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 transition ml-3">
+                    <i class="fas fa-times text-xs"></i>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease-in reverse forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-200 pt-16 pb-8 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          
+          <!-- Column 1: About & Social -->
+          <div class="space-y-4">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Smart CSC Tools</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              India's No.1 Free Platform for CSC VLEs. Quick and secure document crop, resizing, converters and online utility.
+            </p>
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="WhatsApp Chat">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.004 2c-5.518 0-9.996 4.477-9.996 9.996 0 1.83.493 3.543 1.348 5.03l-1.356 4.974 5.097-1.335c1.455.8 3.116 1.26 4.907 1.26 5.518 0 9.996-4.477 9.996-9.996 0-5.519-4.478-9.996-9.996-9.996zm4.618 13.064c-.207.584-1.008 1.077-1.583 1.158-.396.056-.913.088-2.529-.575-2.067-.847-3.4-2.956-3.504-3.094-.103-.138-.843-1.121-.843-2.148 0-1.026.536-1.53.727-1.737.19-.207.414-.259.552-.259.138 0 .276.002.396.007.126.006.293-.047.458.353.17.414.58 1.414.63 1.517.05.103.084.224.015.358-.068.138-.103.224-.207.345-.103.12-.22.271-.314.364-.103.103-.211.216-.09.423.12.207.534.878 1.146 1.423.788.702 1.452.92 1.658 1.023.207.103.327.086.448-.052.12-.138.517-.603.655-.81.138-.207.276-.172.466-.103.19.069 1.207.569 1.414.672.207.103.345.155.396.242.052.086.052.5-.155 1.084z" />
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-blue-600 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="Facebook Page">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                </svg>
+              </a>
+              <a href="index.html" target="_blank" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all transform hover:scale-110 shadow-lg" title="YouTube Channel">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Quick Links</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="index.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Home</a></li>
+              <li><a href="index.html#tools" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Our Tools</a></li>
+              <li><a href="about.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> About Us</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Legal & Support (AdSense Required) -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-4 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Legal & Support</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li><a href="privacy.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Privacy Policy</a></li>
+              <li><a href="terms.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Terms of Service</a></li>
+              <li><a href="disclaimer.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Disclaimer</a></li>
+              <li><a href="contact.html" class="text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-indigo-500 inline-block mr-1.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>
+                </svg> Contact Support</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter & Contact Info -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-bold text-white mb-2 relative after:content-[''] after:block after:w-10 after:h-0.5 after:bg-indigo-500 after:mt-1">Newsletter</h4>
+            <p class="text-xs text-slate-400 leading-normal">
+              Subscribe to get the latest updates on new CSC tools, updates, and templates directly in your inbox.
+            </p>
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col gap-2 mt-2">
+              <input type="email" required placeholder="Enter your email" class="w-full px-3 py-2 text-xs rounded bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide transition duration-300">
+                Subscribe
+              </button>
+            </form>
+            
+          </div>
+
+        </div>
+
+        <!-- Divider & Bottom Bar -->
+        <div class="border-t border-slate-800 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <p>&copy; 2026 Smart CSC Tools. All rights reserved.</p>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Subscribe Handler Script -->
+    <script>
+      function handleSubscribe(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert("Thank you for subscribing! We'll keep you updated.");
+          emailInput.value = "";
+        }
+      }
+    </script>
+
+<script src="https://smartcsctools.org/cookie-consent.js?v=2" defer></script></body>
+</html>
