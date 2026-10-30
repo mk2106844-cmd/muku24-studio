@@ -3,123 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muku24 Digital Store - DJ & Poster Packs</title>
+<title>DJ Packs & Poster Store - Muku24 Studio</title>
 <style>
   * { box-sizing: border-box; font-family: system-ui, sans-serif; margin: 0; padding: 0; }
-  body { background: #0f172a; color: #f8fafc; padding: 15px; }
-  .header { text-align: center; padding: 20px 10px; background: linear-gradient(135deg, #4f46e5, #ec4899); border-radius: 16px; margin-bottom: 20px; }
+  body { background: #f8fafc; color: #0f172a; padding: 15px; }
+  .top-bar { max-width: 1000px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: space-between; }
+  .back-btn { background: #1e293b; color: #fff; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .header { max-width: 1000px; margin: 0 auto 20px; text-align: center; padding: 25px 15px; background: linear-gradient(135deg, #2563eb, #db2777); color: #fff; border-radius: 18px; box-shadow: 0 10px 25px rgba(37,99,235,0.25); }
   .header h1 { font-size: 24px; margin-bottom: 6px; }
-  .header p { font-size: 14px; opacity: 0.9; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
-  .card { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
-  .badge { display: inline-block; background: #eab308; color: #000; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 6px; margin-bottom: 10px; width: fit-content; }
-  .card h3 { font-size: 18px; margin-bottom: 8px; color: #38bdf8; }
-  .card p { font-size: 13px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.5; }
-  .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; border-top: 1px solid #334155; }
-  .price { font-size: 22px; font-weight: 800; color: #4ade80; }
+  .header p { font-size: 14px; opacity: 0.95; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 1000px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+  .thumb { height: 130px; border-radius: 12px; background: linear-gradient(135deg, #eff6ff, #fce7f3); display: flex; align-items: center; justify-content: center; font-size: 48px; margin-bottom: 14px; }
+  .badge { display: inline-block; background: #e11d48; color: #fff; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 6px; margin-bottom: 8px; width: fit-content; }
+  .card h3 { font-size: 18px; margin-bottom: 8px; color: #0f172a; }
+  .card p { font-size: 13px; color: #475569; margin-bottom: 16px; line-height: 1.5; }
+  .price-row { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f1f5f9; }
+  .price { font-size: 22px; font-weight: 800; color: #16a34a; }
   .old-price { font-size: 13px; color: #94a3b8; text-decoration: line-through; margin-left: 6px; }
-  .btn { background: #22c55e; color: #000; font-weight: 700; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; padding: 15px; z-index: 999; }
-  .modal-box { background: #1e293b; border: 1px solid #475569; border-radius: 16px; padding: 20px; max-width: 380px; width: 100%; text-align: center; }
-  .modal-box h2 { font-size: 18px; color: #38bdf8; margin-bottom: 10px; }
-  .qr-box { background: #fff; padding: 12px; border-radius: 12px; width: 200px; height: 200px; margin: 12px auto; display: flex; align-items: center; justify-content: center; }
-  .qr-box img { max-width: 100%; max-height: 100%; }
-  .input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; margin: 10px 0; text-align: center; font-size: 15px; }
-  .wa-btn { display: block; width: 100%; background: #25D366; color: #000; font-weight: 700; padding: 12px; border-radius: 8px; text-decoration: none; margin-top: 8px; }
-  .close-btn { margin-top: 12px; background: transparent; border: 1px solid #64748b; color: #cbd5e1; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+  .btn { background: #2563eb; color: #fff; font-weight: 700; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.8); align-items: center; justify-content: center; padding: 15px; z-index: 9999; }
+  .modal-box { background: #fff; border-radius: 18px; padding: 22px; max-width: 370px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  .qr-box { background: #f8fafc; border: 2px dashed #cbd5e1; padding: 10px; border-radius: 12px; width: 190px; height: 190px; margin: 12px auto; }
+  .qr-box img { width: 100%; height: 100%; }
+  .input { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #cbd5e1; margin: 10px 0; text-align: center; font-size: 15px; font-weight: bold; }
+  .wa-btn { display: block; width: 100%; background: #22c55e; color: #fff; font-weight: 700; padding: 11px; border-radius: 8px; text-decoration: none; margin-bottom: 10px; font-size: 14px; }
 </style>
 </head>
 <body>
-
-<div style="max-width:1000px;margin:0 auto 12px;"><a href="index.html" style="display:inline-block;background:#334155;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:13px;">⬅️ Back to Tools</a></div><div class="header">
-  <h1>🔥 Muku24 Digital Store</h1>
-  <p>DJ Remix Packs, Green Screen Videos & Pixellab PLP Poster Templates</p>
+<div class="top-bar">
+  <a href="index.html" class="back-btn">⬅️ Back to Home</a>
+  <strong style="color:#e11d48;">Muku24 Studio</strong>
 </div>
-
+<div class="header">
+  <h1>🎧 DJ Packs & Poster PLP Store</h1>
+  <p>UPI se payment karein aur turant ZIP file apne phone me download karein!</p>
+</div>
 <div class="grid">
   <div class="card">
-    <span class="badge">BESTSELLER DJ PACK</span>
-    <h3>🔊 High-Bass DJ Competition Vocal & Drop Pack</h3>
-    <p>50+ HD DJ Vocal Drops, Heavy Sub-Bass Loops, Dholki Beats aur Competition Sound Effects (MP3/WAV).</p>
+    <div>
+      <div class="thumb">🔊🔥</div>
+      <span class="badge">BESTSELLER DJ PACK</span>
+      <h3>High-Bass DJ Competition Vocal & Drop Pack</h3>
+      <p>50+ HD DJ Vocal Drops, Heavy Sub-Bass Loops, Dholki Beats aur Competition Sound Effects (MP3/WAV).</p>
+    </div>
     <div class="price-row">
       <div><span class="price">₹29</span><span class="old-price">₹199</span></div>
-      <button class="btn" onclick="openBuy('High-Bass DJ Pack', 29, '1122', 'https://drive.google.com/')">Buy & Download</button>
+      <button class="btn" onclick="openBuy('High-Bass DJ Pack', 29, '1122', 'https://drive.google.com/')">Open & Buy</button>
     </div>
   </div>
-
   <div class="card">
-    <span class="badge">PIXELLAB PLP</span>
-    <h3>🎨 25+ Dukan, DJ & Chunav Poster PLP Templates</h3>
-    <p>Mobile ke Pixellab app me 1 click me edit hone wale HD Poster designs (.plp aur PNG fonts ke sath).</p>
+    <div>
+      <div class="thumb">🎨🖼️</div>
+      <span class="badge">PIXELLAB PLP</span>
+      <h3>25+ Dukan, DJ & Chunav Poster PLP Templates</h3>
+      <p>Mobile ke Pixellab app me 1 click me edit hone wale HD Poster designs (.plp aur PNG fonts ke sath).</p>
+    </div>
     <div class="price-row">
       <div><span class="price">₹39</span><span class="old-price">₹249</span></div>
-      <button class="btn" onclick="openBuy('25+ Poster PLP Pack', 39, '2233', 'https://drive.google.com/')">Buy & Download</button>
+      <button class="btn" onclick="openBuy('25+ Poster PLP Pack', 39, '2233', 'https://drive.google.com/')">Open & Buy</button>
     </div>
   </div>
-
   <div class="card">
-    <span class="badge">CREATOR PACK</span>
-    <h3>🐍 3D Comedy Green Screen & Cartoon Sound Pack</h3>
-    <p>Reels aur YouTube Shorts ke liye funny sound effects, cartoon background music aur green screen animations.</p>
+    <div>
+      <div class="thumb">🐍🎬</div>
+      <span class="badge">CREATOR PACK</span>
+      <h3>3D Comedy Green Screen & Cartoon Sound Pack</h3>
+      <p>Reels aur YouTube Shorts ke liye funny sound effects, cartoon background music aur green screen videos.</p>
+    </div>
     <div class="price-row">
       <div><span class="price">₹49</span><span class="old-price">₹299</span></div>
-      <button class="btn" onclick="openBuy('3D Comedy Creator Pack', 49, '3344', 'https://drive.google.com/')">Buy & Download</button>
+      <button class="btn" onclick="openBuy('3D Comedy Creator Pack', 49, '3344', 'https://drive.google.com/')">Open & Buy</button>
     </div>
   </div>
 </div>
 
 <div class="modal" id="payModal">
   <div class="modal-box">
-    <h2 id="itemTitle">Item Name</h2>
-    <p style="font-size:14px; color:#cbd5e1;">Scan QR ya UPI se <strong id="itemPrice" style="color:#4ade80;">₹29</strong> pay karein:</p>
-    <div class="qr-box">
-      <img id="qrImg" src="" alt="UPI QR">
-    </div>
-    <a id="waLink" class="wa-btn" href="#" target="_blank">📲 Payment Screenshot Bhej Kar PIN Lein</a>
-    <hr style="border:0; border-top:1px solid #334155; margin:14px 0;">
-    <p style="font-size:12px; color:#94a3b8;">PIN milne ke baad niche daal kar turant download karein:</p>
+    <h3 id="itemTitle" style="color:#1e293b;margin-bottom:6px;">Item</h3>
+    <p style="font-size:13px;color:#475569;">QR Scan karke <strong id="itemPrice" style="color:#16a34a;">₹29</strong> pay karein:</p>
+    <div class="qr-box"><img id="qrImg" src="" alt="QR"></div>
+    <a id="waLink" class="wa-btn" href="#" target="_blank">📲 WhatsApp par Screenshot Bhej kar PIN Lein</a>
     <input type="text" id="pinInput" class="input" placeholder="4-Digit Unlock PIN daalein">
     <button class="btn" style="width:100%;" onclick="verifyPin()">🔓 Unlock & Download File</button>
-    <button class="close-btn" onclick="closeModal()">Band Karein</button>
+    <button onclick="document.getElementById('payModal').style.display='none'" style="margin-top:10px;background:none;border:none;color:#64748b;cursor:pointer;font-weight:bold;">Band Karein ✖</button>
   </div>
 </div>
 
 <script>
-  // Yahan apna UPI ID aur WhatsApp Number daalein
-  const MY_UPI = "your-upi@ybl"; 
-  const MY_WHATSAPP = "919876543210"; 
-
-  let currentPin = "";
-  let currentLink = "";
-
+  const MY_UPI = "your-upi@ybl";
+  const MY_WA = "919876543210";
+  let curPin = "", curLink = "";
   function openBuy(title, price, pin, link) {
-    currentPin = pin;
-    currentLink = link;
+    curPin = pin; curLink = link;
     document.getElementById('itemTitle').innerText = title;
     document.getElementById('itemPrice').innerText = "₹" + price;
-    
-    const upiUrl = `upi://pay?pa=${MY_UPI}&pn=Muku24%20Studio&am=${price}&cu=INR`;
-    document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
-    
-    const waText = `Namaste Muku24 Studio! Maine *${title}* (₹${price}) ka payment kar diya hai. Mujhe Download PIN bhej dijiye.`;
-    document.getElementById('waLink').href = `https://wa.me/${MY_WHATSAPP}?text=${encodeURIComponent(waText)}`;
-    
+    const upi = "upi://pay?pa=" + MY_UPI + "&pn=Muku24%20Studio&am=" + price + "&cu=INR";
+    document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=" + encodeURIComponent(upi);
+    const msg = "Namaste Muku24 Studio! Maine *" + title + "* (₹" + price + ") ka payment kar diya hai. Mujhe Download PIN bhej dijiye.";
+    document.getElementById('waLink').href = "https://wa.me/" + MY_WA + "?text=" + encodeURIComponent(msg);
     document.getElementById('pinInput').value = "";
     document.getElementById('payModal').style.display = "flex";
   }
-
   function verifyPin() {
-    const entered = document.getElementById('pinInput').value.trim();
-    if (entered === currentPin) {
-      alert("✅ Payment Verified! Aapki file download ho rahi hai...");
-      window.location.href = currentLink;
+    if (document.getElementById('pinInput').value.trim() === curPin) {
+      alert("✅ Payment Verified! File download ho rahi hai...");
+      window.location.href = curLink;
     } else {
-      alert("❌ Galat PIN! Kripya payment karke WhatsApp par sahi PIN maangein.");
+      alert("❌ Galat PIN! Kripya WhatsApp par sahi PIN maangein.");
     }
-  }
-
-  function closeModal() {
-    document.getElementById('payModal').style.display = "none";
   }
 </script>
 </body>
