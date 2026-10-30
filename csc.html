@@ -4167,59 +4167,86 @@ setTimeout(addNetlifyCard, 200);
 </script>
 
 
+
+
+
 <!-- AUTO CLONE STORE CARD START -->
 <script>
-window.addEventListener('DOMContentLoaded', function() {
-  if (document.getElementById('dj-store-card-cloned')) return;
-  const headings = document.querySelectorAll('h2, h3, h4');
-  let waterCard = null;
-  for (let h of headings) {
-    if (h.innerText.includes('Mernal Water Order')) {
-      // Heading se upar card ke main box tak jana
-      let el = h;
-      while (el && el.parentElement) {
-        if (el.innerText.includes('Open Tool') && el.tagName === 'DIV') {
-          waterCard = el;
-          break;
-        }
-        el = el.parentElement;
-      }
+function injectMukuStoreCard() {
+  if (document.getElementById('muku-dj-store-card')) return;
+  
+  const allEls = document.querySelectorAll('h1, h2, h3, h4, h5, div, span, p');
+  let waterHeading = null;
+  for (let el of allEls) {
+    if (el.children.length === 0 && el.innerText && el.innerText.includes('Mernal Water Order')) {
+      waterHeading = el;
       break;
     }
   }
-  if (waterCard && waterCard.parentElement) {
-    const storeCard = waterCard.cloneNode(true);
-    storeCard.id = 'dj-store-card-cloned';
-    
-    // Title badalna
-    const titleEl = storeCard.querySelector('h2, h3, h4');
-    if (titleEl) titleEl.innerText = 'DJ & Poster Store (डिजिटल स्टोर)';
-    
-    // Description badalna
-    const pEl = storeCard.querySelector('p');
-    if (pEl) pEl.innerText = 'High-Bass DJ Vocal Drops, 3D Cartoon Green Screen aur Pixellab PLP Poster templates download karein.';
-    
-    // Image ki jagah Sundar DJ/Poster Banner lagana
-    const imgEl = storeCard.querySelector('img');
-    if (imgEl && imgEl.parentElement) {
-      imgEl.parentElement.innerHTML = '<div style="width:100%;height:100%;min-height:110px;background:linear-gradient(135deg,#4f46e5,#ec4899);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;color:#fff;box-shadow:inset 0 0 15px rgba(0,0,0,0.2);">🎧🎨</div>';
+  if (!waterHeading) return;
+
+  // Water card ka exact outer box dhoondhna (jiske parent me baaki saare tool cards hain)
+  let card = waterHeading;
+  while (card && card.parentElement) {
+    let parent = card.parentElement;
+    if (parent.children.length >= 3 && parent.innerText.includes('Resume/CV Maker')) {
+      break;
     }
-    
-    // Button ka link digital-store.html par set karna
-    const btnEl = storeCard.querySelector('a, button');
-    if (btnEl) {
-      if (btnEl.tagName === 'A') {
-        btnEl.href = 'digital-store.html';
-        btnEl.removeAttribute('onclick');
-      } else {
-        btnEl.onclick = function() { window.location.href = 'digital-store.html'; };
+    card = parent;
+  }
+
+  if (card && card.parentElement) {
+    const storeCard = card.cloneNode(true);
+    storeCard.id = 'muku-dj-store-card';
+
+    // 1. Heading badalna
+    const hEls = storeCard.querySelectorAll('h1, h2, h3, h4, h5, div, strong');
+    for (let h of hEls) {
+      if (h.children.length === 0 && h.innerText.includes('Mernal Water Order')) {
+        h.innerText = 'DJ & Poster Store (डिजिटल स्टोर)';
+      } else if (h.children.length === 0 && h.innerText.includes('NEW SERVICE')) {
+        h.innerText = 'EARNING STORE';
+        h.style.background = '#e11d48';
       }
     }
-    
-    // Theek Mernal Water Order ke bagal me (uske baad) lagana
-    waterCard.parentNode.insertBefore(storeCard, waterCard.nextSibling);
+
+    // 2. Description badalna
+    const pEls = storeCard.querySelectorAll('p, div, span');
+    for (let p of pEls) {
+      if (p.children.length === 0 && (p.innerText.includes('Ghar, dukan') || p.innerText.includes('20L RO'))) {
+        p.innerText = 'High-Bass DJ Vocal Drops, 3D Cartoon Green Screen aur Pixellab PLP Poster templates download karein.';
+      }
+    }
+
+    // 3. Image ki jagah DJ & Poster ka sundar banner lagana
+    const img = storeCard.querySelector('img');
+    if (img && img.parentElement) {
+      img.parentElement.innerHTML = '<div style="width:100%;height:120px;background:linear-gradient(135deg,#4f46e5,#ec4899);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:44px;color:#fff;font-weight:bold;">🎧🎨</div>';
+    }
+
+    // 4. Open Tool button ko digital-store.html se jodna
+    const btns = storeCard.querySelectorAll('a, button, div');
+    for (let b of btns) {
+      if (b.children.length === 0 && b.innerText.trim() === 'Open Tool') {
+        if (b.tagName === 'A') {
+          b.href = 'digital-store.html';
+          b.removeAttribute('onclick');
+        } else {
+          b.style.cursor = 'pointer';
+          b.onclick = function(e) { e.stopPropagation(); window.location.href = 'digital-store.html'; };
+        }
+      }
+    }
+    storeCard.onclick = function() { window.location.href = 'digital-store.html'; };
+
+    // Mernal Water Order ke theek bagal me lagana
+    card.parentElement.insertBefore(storeCard, card.nextSibling);
   }
-});
+}
+
+setInterval(injectMukuStoreCard, 400);
+window.addEventListener('DOMContentLoaded', injectMukuStoreCard);
+window.addEventListener('load', injectMukuStoreCard);
 </script>
 <!-- AUTO CLONE STORE CARD END -->
 
