@@ -361,9 +361,6 @@ setInterval(removeJunkPopups, 400);
 
 </head>
   <body class="bg-gray-50 scroll-smooth">
-
-
-
     <!-- Top Navigation Bar -->
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -652,8 +649,175 @@ setInterval(removeJunkPopups, 400);
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
-            
+            Our Tools Collection
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            CSC VLE के लिए 100% Free & Usefull Smart Tools.
+          </p>
+        </div>
 
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button
+            class="filter-btn active px-6 py-3 rounded-full bg-gray-200 text-gray-700 font-medium"
+            data-category="all"
+          >
+            All Tools
+          </button>
+          <button
+            class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-700 font-medium"
+            data-category="document"
+          >
+            Document Tools
+          </button>
+          <button
+            class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-700 font-medium"
+            data-category="converter"
+          >
+            Converters
+          </button>
+          <button
+            class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-700 font-medium"
+            data-category="calculator"
+          >
+            Calculators
+          </button>
+          <button
+            class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-700 font-medium"
+            data-category="utility"
+          >
+            Utilities
+          </button>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8">
+          <!-- Sidebar -->
+          <aside
+            id="sidebar"
+            class="md:w-64 bg-white rounded-xl shadow-lg p-6 h-fit md:sticky md:top-24"
+          >
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Categories</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link sidebar-active block px-4 py-3 rounded-lg font-medium transition"
+                  data-category="all"
+                >
+                  All Tools
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="document"
+                >
+                  📝 Document Tools
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="converter"
+                >
+                  🔄 Converters
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="calculator"
+                >
+                  🧮 Calculators
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="utility"
+                >
+                  🛠️ Utilities
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="csctools"
+                >
+                  🎗️ Csc Vle Tools
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="sidebar-link block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition"
+                  data-category="aitools"
+                >
+                  🤖️ Smart Ai Tools
+                </a>
+              </li>
+            </ul>
+
+            <div
+              class="mt-8 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg"
+            >
+              <h4 class="font-bold text-gray-800 mb-2">Need Help?</h4>
+              <p class="text-sm text-gray-600 mb-3">
+                Contact our support team for assistance.
+              </p>
+              <a
+                href="#contact"
+                class="block text-center bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+              >
+                Contact Us
+              </a>
+            </div>
+          </aside>
+
+          <!-- Tools Grid -->
+          <div class="flex-1">
+            <div
+              id="toolsGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <!-- Tool Card 1 -->
+              <div
+                 class="tool-card relative bg-white rounded-xl shadow-lg overflow-hidden"
+                 data-category="document" 
+                 >
+                  <!-- Badge -->
+                <div class="absolute top-4 -right-10 rotate-45 bg-blue-600 text-white text-xs font-bold w-32 text-center py-1 shadow-lg">
+                    POPULAR
+                </div>
+                <div
+                  class="h-48 bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center p-6"
+                >
+                  <img loading="lazy" 
+                    src="https://smartcsctools.org/images/resume-cv-maker.png"
+                    alt="Resume CV Maker"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">
+                    Resume/CV Maker
+                  </h3>
+                  <p class="text-gray-600 mb-4">
+                    Create professional Indian-style Resume/CV online free.
+                  </p>
+                  <a
+                    href="resume-cv-maker.html"
+                    class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition"
+                  >
+                    Open Tool
+                  </a>
+                </div>
+              </div>
 
               <!-- Tool Card 2 -->
               <div
@@ -3712,20 +3876,7 @@ setInterval(removeJunkPopups, 400);
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
-  
-            <div class="tool-card" style="background:#fff; border-radius:16px; padding:16px; box-shadow:0 4px 15px rgba(0,0,0,0.06); display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; border:1px solid #f1f5f9;">
-              <div style="position:absolute; top:12px; right:-30px; background:#e11d48; color:#fff; font-size:10px; font-weight:800; padding:4px 32px; transform:rotate(45deg);">STORE</div>
-              <div style="background:#fdf2f8; border-radius:12px; height:120px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:42px;">
-                🎧🎨
-              </div>
-              <div>
-                <h3 style="font-size:16px; font-weight:700; color:#0f172a; margin:0 0 6px;">DJ Packs & Poster Store (डिजिटल स्टोर)</h3>
-                <p style="font-size:12px; color:#64748b; line-height:1.5; margin:0 0 14px;">High-Bass DJ Vocal Drops, 3D Cartoon Green Screen aur Pixellab PLP Poster templates download karein.</p>
-              </div>
-              <a href="digital-store.html" style="display:block; text-align:center; background:#2563eb; color:#fff; font-weight:600; font-size:13px; padding:10px; border-radius:8px; text-decoration:none;">Open Tool</a>
-            </div>
-            
-<div class="h-1 bg-gray-100">
+  <div class="h-1 bg-gray-100">
     <div id="notifProgress" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-[4000ms] ease-linear" style="width:100%"></div>
   </div>
 </div>
