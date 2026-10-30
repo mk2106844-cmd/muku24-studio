@@ -660,6 +660,108 @@ setInterval(removeJunkPopups, 400);
     <p style="margin:0; font-size:14px; color:#f8fafc;">High-Bass DJ Vocal Drops, 3D Cartoon Green Screen aur Pixellab Poster Templates turant download karein!</p>
   </div>
   <a href="digital-store.html" style="background:#22c55e; color:#000; font-weight:800; padding:12px 24px; border-radius:10px; text-decoration:none; font-size:16px; box-shadow:0 4px 12px rgba(0,0,0,0.3); display:inline-block;">🛒 Open Store 👉</a>
+
+<!-- MUKU24 BUILT-IN STORE START -->
+<style>
+  .muku-store-wrap { max-width: 1150px; margin: 25px auto; padding: 20px; background: linear-gradient(135deg, #0f172a, #1e1b4b); border-radius: 18px; color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.25); font-family: system-ui, sans-serif; border: 2px solid #ec4899; }
+  .muku-store-head { text-align: center; margin-bottom: 20px; }
+  .muku-store-head span { background: #eab308; color: #000; font-weight: 800; font-size: 12px; padding: 4px 12px; border-radius: 20px; }
+  .muku-store-head h2 { font-size: 24px; margin: 10px 0 5px; color: #fff; }
+  .muku-store-head p { font-size: 14px; color: #cbd5e1; margin: 0; }
+  .muku-store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; }
+  .muku-item { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
+  .muku-item h3 { font-size: 17px; color: #38bdf8; margin: 8px 0; }
+  .muku-item p { font-size: 13px; color: #cbd5e1; margin-bottom: 14px; line-height: 1.4; }
+  .muku-buy-row { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #334155; padding-top: 12px; margin-top: auto; }
+  .muku-price { font-size: 22px; font-weight: 800; color: #4ade80; }
+  .muku-old { font-size: 13px; color: #94a3b8; text-decoration: line-through; margin-left: 6px; }
+  .muku-btn { background: #22c55e; color: #000; font-weight: 800; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  #mukuPayModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; padding: 15px; z-index: 99999; }
+  .muku-modal-box { background: #1e293b; border: 2px solid #38bdf8; border-radius: 16px; padding: 20px; max-width: 360px; width: 100%; text-align: center; color: #fff; font-family: system-ui, sans-serif; }
+</style>
+
+<div class="muku-store-wrap" id="digital-store">
+  <div class="muku-store-head">
+    <span>🔥 INSTANT DOWNLOAD STORE</span>
+    <h2>🎧 Muku24 DJ Packs & Poster PLP Store</h2>
+    <p>UPI से पेमेंट करें और तुरंत फाइल अपने फोन में डाउनलोड करें!</p>
+  </div>
+
+  <div class="muku-store-grid">
+    <div class="muku-item">
+      <span style="background:#ec4899;color:#fff;font-size:11px;font-weight:bold;padding:3px 8px;border-radius:5px;width:fit-content;">DJ COMPETITION</span>
+      <h3>🔊 High-Bass DJ Vocal & Drop Pack</h3>
+      <p>50+ HD DJ Vocal Drops, Heavy Sub-Bass Loops, Dholki Beats aur Competition Effects.</p>
+      <div class="muku-buy-row">
+        <div><span class="muku-price">₹29</span><span class="muku-old">₹199</span></div>
+        <button class="muku-btn" onclick="openMukuPay('High-Bass DJ Pack', 29, '1122', 'https://drive.google.com/')">Buy Now 🛒</button>
+      </div>
+    </div>
+
+    <div class="muku-item">
+      <span style="background:#8b5cf6;color:#fff;font-size:11px;font-weight:bold;padding:3px 8px;border-radius:5px;width:fit-content;">PIXELLAB PLP</span>
+      <h3>🎨 25+ Dukan, DJ & Chunav Poster PLP</h3>
+      <p>Mobile ke Pixellab app me 1 click me edit hone wale HD Poster templates (.plp files).</p>
+      <div class="muku-buy-row">
+        <div><span class="muku-price">₹39</span><span class="muku-old">₹249</span></div>
+        <button class="muku-btn" onclick="openMukuPay('25+ Poster PLP Pack', 39, '2233', 'https://drive.google.com/')">Buy Now 🛒</button>
+      </div>
+    </div>
+
+    <div class="muku-item">
+      <span style="background:#f59e0b;color:#000;font-size:11px;font-weight:bold;padding:3px 8px;border-radius:5px;width:fit-content;">CREATOR PACK</span>
+      <h3>🐍 3D Cartoon Green Screen & Funny Sounds</h3>
+      <p>Reels aur YouTube Shorts ke liye funny sound effects aur green screen cartoon videos.</p>
+      <div class="muku-buy-row">
+        <div><span class="muku-price">₹49</span><span class="muku-old">₹299</span></div>
+        <button class="muku-btn" onclick="openMukuPay('3D Creator Pack', 49, '3344', 'https://drive.google.com/')">Buy Now 🛒</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="mukuPayModal">
+  <div class="muku-modal-box">
+    <h3 id="mukuTitle" style="color:#38bdf8;margin-bottom:8px;">Pack Name</h3>
+    <p style="font-size:13px;color:#cbd5e1;">QR स्कैन करके <strong id="mukuAmt" style="color:#4ade80;">₹29</strong> पेमेंट करें:</p>
+    <div style="background:#fff;padding:10px;border-radius:12px;width:190px;height:190px;margin:12px auto;">
+      <img id="mukuQr" src="" style="width:100%;height:100%;" alt="QR">
+    </div>
+    <a id="mukuWa" href="#" target="_blank" style="display:block;background:#25D366;color:#000;font-weight:bold;padding:10px;border-radius:8px;text-decoration:none;margin-bottom:10px;font-size:14px;">📲 WhatsApp पर स्क्रीनशॉट भेजकर PIN लें</a>
+    <input type="text" id="mukuPin" placeholder="4-अंकों का Unlock PIN डालें" style="width:100%;padding:10px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#fff;text-align:center;margin-bottom:8px;">
+    <button class="muku-btn" style="width:100%;" onclick="checkMukuPin()">🔓 Unlock & Download</button>
+    <button onclick="document.getElementById('mukuPayModal').style.display='none'" style="margin-top:10px;background:transparent;border:1px solid #64748b;color:#cbd5e1;padding:6px 14px;border-radius:6px;cursor:pointer;">बंद करें</button>
+  </div>
+</div>
+
+<script>
+  const MUKU_UPI = "your-upi@ybl";
+  const MUKU_WA = "919876543210";
+  let activePin = "", activeUrl = "";
+
+  function openMukuPay(title, price, pin, url) {
+    activePin = pin; activeUrl = url;
+    document.getElementById('mukuTitle').innerText = title;
+    document.getElementById('mukuAmt').innerText = "₹" + price;
+    const upi = "upi://pay?pa=" + MUKU_UPI + "&pn=Muku24%20Studio&am=" + price + "&cu=INR";
+    document.getElementById('mukuQr').src = "https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=" + encodeURIComponent(upi);
+    const msg = "नमस्ते Muku24 Studio! मैंने *" + title + "* (₹" + price + ") का पेमेंट कर दिया है, मुझे Download PIN भेज दीजिए।";
+    document.getElementById('mukuWa').href = "https://wa.me/" + MUKU_WA + "?text=" + encodeURIComponent(msg);
+    document.getElementById('mukuPin').value = "";
+    document.getElementById('mukuPayModal').style.display = "flex";
+  }
+
+  function checkMukuPin() {
+    if (document.getElementById('mukuPin').value.trim() === activePin) {
+      alert("✅ PIN सही है! आपकी फाइल डाउनलोड हो रही है...");
+      window.location.href = activeUrl;
+    } else {
+      alert("❌ गलत PIN! पेमेंट के बाद WhatsApp पर सही PIN लें।");
+    }
+  }
+</script>
+<!-- MUKU24 BUILT-IN STORE END -->
+
 </div>
 
 Our Tools Collection
