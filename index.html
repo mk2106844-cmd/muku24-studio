@@ -4166,5 +4166,62 @@ window.addEventListener('load', addNetlifyCard);
 setTimeout(addNetlifyCard, 200);
 </script>
 
+
+<!-- AUTO CLONE STORE CARD START -->
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('dj-store-card-cloned')) return;
+  const headings = document.querySelectorAll('h2, h3, h4');
+  let waterCard = null;
+  for (let h of headings) {
+    if (h.innerText.includes('Mernal Water Order')) {
+      // Heading se upar card ke main box tak jana
+      let el = h;
+      while (el && el.parentElement) {
+        if (el.innerText.includes('Open Tool') && el.tagName === 'DIV') {
+          waterCard = el;
+          break;
+        }
+        el = el.parentElement;
+      }
+      break;
+    }
+  }
+  if (waterCard && waterCard.parentElement) {
+    const storeCard = waterCard.cloneNode(true);
+    storeCard.id = 'dj-store-card-cloned';
+    
+    // Title badalna
+    const titleEl = storeCard.querySelector('h2, h3, h4');
+    if (titleEl) titleEl.innerText = 'DJ & Poster Store (डिजिटल स्टोर)';
+    
+    // Description badalna
+    const pEl = storeCard.querySelector('p');
+    if (pEl) pEl.innerText = 'High-Bass DJ Vocal Drops, 3D Cartoon Green Screen aur Pixellab PLP Poster templates download karein.';
+    
+    // Image ki jagah Sundar DJ/Poster Banner lagana
+    const imgEl = storeCard.querySelector('img');
+    if (imgEl && imgEl.parentElement) {
+      imgEl.parentElement.innerHTML = '<div style="width:100%;height:100%;min-height:110px;background:linear-gradient(135deg,#4f46e5,#ec4899);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:42px;color:#fff;box-shadow:inset 0 0 15px rgba(0,0,0,0.2);">🎧🎨</div>';
+    }
+    
+    // Button ka link digital-store.html par set karna
+    const btnEl = storeCard.querySelector('a, button');
+    if (btnEl) {
+      if (btnEl.tagName === 'A') {
+        btnEl.href = 'digital-store.html';
+        btnEl.removeAttribute('onclick');
+      } else {
+        btnEl.onclick = function() { window.location.href = 'digital-store.html'; };
+      }
+    }
+    
+    // Theek Mernal Water Order ke bagal me (uske baad) lagana
+    waterCard.parentNode.insertBefore(storeCard, waterCard.nextSibling);
+  }
+});
+</script>
+<!-- AUTO CLONE STORE CARD END -->
+
 </body>
 </html>
